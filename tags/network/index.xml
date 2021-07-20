@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>network on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/network/</link>
+    <description>Recent content in network on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 05 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/network/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AWS networking security enhance</title>
+      <link>https://blog.wisekee.com/post/aws-network-secrutiy-enhance/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-network-secrutiy-enhance/</guid>
+      <description>
+        
+          &lt;h4 id=&#34;vpc-network-division&#34;&gt;Vpc network division&lt;/h4&gt;
+&lt;p&gt;According to the requirements of the product and the customer, the two services of the two types of subnets are isolated. For example, DBsubnet01 and DBsubnet02 are both internal private subnets and belong to different product segments.
+​	&lt;img src=&#34;https://blog.wisekee.com/images/vpc-network.png&#34; alt=&#34;Vpc Network&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The two major subnet types are the intranet and the extranet.&lt;/li&gt;
+&lt;li&gt;The internal network goes to the NAT Gateway, and the external network goes to the Internet Gateway.&lt;/li&gt;
+&lt;li&gt;Like: RDS, Redis, background services, etc. all put into the internal private subnet&lt;/li&gt;
+&lt;li&gt;Set up a Bastion in the external subnet for proxy access to related web services deployed on the internal subnet, such as: Jenkins, SonarQube, etc.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;security-settings&#34;&gt;Security Settings&lt;/h4&gt;
+&lt;p&gt;We can focus on AWS&amp;rsquo;s three security door settings
+&lt;img src=&#34;https://blog.wisekee.com/images/aws-security-thrid.png&#34; alt=&#34;Security Settings&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Turn on acl and associate to all subnets&lt;/li&gt;
+&lt;li&gt;All aws resources in use should have security groups set with minimal openness&lt;/li&gt;
+&lt;li&gt;All Service Services that are published to aws should have the least operational rights.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;local-access-vpc-debugging-development&#34;&gt;Local access VPC debugging development&lt;/h3&gt;
+&lt;p&gt;When debugging a program locally and connecting to an AWS VPC, we can connect in second ways.&lt;/p&gt;
+&lt;h4 id=&#34;use-bastion-machine&#34;&gt;Use Bastion machine&lt;/h4&gt;
+&lt;p&gt;The local needs to be linked with the service port on aws, it can be accessed through a Bastion machine.
+&lt;img src=&#34;https://blog.wisekee.com/images/bastion.png&#34; alt=&#34;Bastion Bridge&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The Bastion machine should be associated with an EIP, otherwise the public ip will be lost after the machine restarts.&lt;/li&gt;
+&lt;li&gt;Only limited ip (office) access is allowed, and security group rules are strictly set.&lt;/li&gt;
+&lt;li&gt;Bastion&amp;rsquo;s ssh keys should be separate and timed to rotate&lt;/li&gt;
+&lt;li&gt;Locally, you can establish a connection from the ssh tunnel to Bastion, and then the browser can use this tunnel to connect to related tools and services through the socket proxy.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;  ssh -D &lt;span class=&#34;m&#34;&gt;1234&lt;/span&gt; -i ~/.ssh/bastion.pem userName@bastion-internal.ip -N -f
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;em&gt;Local browsers can access resources to aws via port 1234&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;For application debugging, we can install Nginx as a forwarding rule on Bastion.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-nginx&#34; data-lang=&#34;nginx&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;  &lt;span class=&#34;k&#34;&gt;server&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;    &lt;span class=&#34;kn&#34;&gt;server_name&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;agent-office.exmaple.com&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;    &lt;span class=&#34;kn&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$uri&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;~&lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;^/internal-app.com/&amp;#34;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;      &lt;span class=&#34;kn&#34;&gt;set&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$schemex&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;https&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;      &lt;span class=&#34;kn&#34;&gt;set&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$domainx&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;internal-app.com&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;      &lt;span class=&#34;kn&#34;&gt;rewrite&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;^/[^/]+/(?&amp;lt;path&amp;gt;.*)&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$path&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;last&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;  	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;  &lt;span class=&#34;kn&#34;&gt;location&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;/&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;    &lt;span class=&#34;kn&#34;&gt;add_header&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;Access-Control-Allow-Origin&amp;#39;&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;*&amp;#39;&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;always&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;    &lt;span class=&#34;kn&#34;&gt;add_header&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;Access-Control-Allow-Methods&amp;#39;&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;HEAD,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;PUT,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;DELETE,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;PATCH,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;GET,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;POST,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;OPTIONS&amp;#39;&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;always&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;    &lt;span class=&#34;kn&#34;&gt;proxy_pass&lt;/span&gt;         &lt;span class=&#34;nv&#34;&gt;$schemex://$domainx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;    &lt;span class=&#34;kn&#34;&gt;proxy_set_header&lt;/span&gt;  &lt;span class=&#34;s&#34;&gt;Origin&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$domainx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;    &lt;span class=&#34;kn&#34;&gt;proxy_redirect&lt;/span&gt;     &lt;span class=&#34;no&#34;&gt;off&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;    &lt;span class=&#34;kn&#34;&gt;proxy_set_header&lt;/span&gt;   &lt;span class=&#34;s&#34;&gt;X-Real-IP&lt;/span&gt;   &lt;span class=&#34;nv&#34;&gt;$remote_addr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;    &lt;span class=&#34;kn&#34;&gt;proxy_set_header&lt;/span&gt;   &lt;span class=&#34;s&#34;&gt;X-Forwarded-For&lt;/span&gt;  &lt;span class=&#34;nv&#34;&gt;$proxy_add_x_forwarded_for&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Try not to open too many endpoints to Bastion to access resources in vpc, which will bring security risks&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;use-site-to-site-vpn&#34;&gt;Use Site-to-Site vpn&lt;/h4&gt;
+&lt;p&gt;Site-to-Site is to establish a vpn connection between the local network and AWS vpc through the ssh tunnel.
+&lt;img src=&#34;https://blog.wisekee.com/images/site_to_site_vpn.png&#34; alt=&#34;Site-To-Site VPN&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Create gateways and vpn connections in AWS, you need to prepare in advance, the office&amp;rsquo;s external network ip and intranet ip&lt;/li&gt;
+&lt;li&gt;In the subnet in the vpc, add the office intranet route to the relevant gateway&lt;/li&gt;
+&lt;li&gt;Select the local router type to download the vpn configuration parameters in aws&lt;/li&gt;
+&lt;li&gt;This way is to open aws and the office at the network level, which is most conducive to development and debugging but also brings greater security risks.&lt;/li&gt;
+&lt;/ul&gt;
+
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

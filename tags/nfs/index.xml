@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NFS on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/nfs/</link>
+    <description>Recent content in NFS on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Fri, 02 Mar 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/nfs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Configuration and Installing NFS on ubuntu</title>
+      <link>https://blog.wisekee.com/post/ubuntu-install-nfs/</link>
+      <pubDate>Fri, 02 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/ubuntu-install-nfs/</guid>
+      <description>
+        
+          &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#updating the system and install nfs daemon&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;sudo apt-get update
+&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;sudo apt install nfs-kernel-server
+&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#view the relative info about NFS&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;sudo cat /proc/fs/nfsd/versions
+&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;cat /etc/default/nfs-kernel-server
+&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;cat /etc/default/nfs-common
+&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#create and bind the NFS directory in host hard disk&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;sudo mkdir -p /srv/nfs4/data1
+&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;sudo mkdir -p /srv/nfs4/data2
+&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;sudo mount --bind /data2/nfs /srv/nfs4/data1
+&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;sudo mount --bind /data3/nfs /srv/nfs4/data2
+&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#let binds permanent effect&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;sudo vi /etc/fstab
+&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;/data1/nfs /srv/nfs4/data2 none &lt;span class=&#34;nb&#34;&gt;bind&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;/data2/nfs /srv/nfs4/data3 none &lt;span class=&#34;nb&#34;&gt;bind&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;20&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;21&lt;/span&gt;sudo vi /etc/exports
+&lt;span class=&#34;ln&#34;&gt;22&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# add following content to the file&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;23&lt;/span&gt;/srv/nfs4    192.168.1.0/24&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;rw,sync,no_subtree_check,crossmnt,fsid&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;24&lt;/span&gt;/srv/nfs4/data1 192.168.1.0/24&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;rw,sync,no_subtree_check,no_root_squash&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;25&lt;/span&gt;/srv/nfs4/data2 192.168.1.0/24&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;rw,sync,no_subtree_check,no_root_squash&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;26&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;27&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#exports the nfs tables&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;28&lt;/span&gt;sudo exportfs -ra
+&lt;span class=&#34;ln&#34;&gt;29&lt;/span&gt;sudo exportfs -v
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

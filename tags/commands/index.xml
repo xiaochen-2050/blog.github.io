@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Commands on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/commands/</link>
+    <description>Recent content in Commands on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Wed, 11 Sep 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/commands/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go language frequently used command notes</title>
+      <link>https://blog.wisekee.com/post/go-usually-commands/</link>
+      <pubDate>Wed, 11 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/go-usually-commands/</guid>
+      <description>
+        
+          &lt;h4 id=&#34;global-install-go-programgo-version-1160&#34;&gt;Global install go program(go version &amp;gt;=1.16.0)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;go install sigs.k8s.io/kind@v0.9.0&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;_when-go-version-is-higher-112-should-install-godoc-command_&#34;&gt;&lt;em&gt;when go version is higher 1.12 should install godoc command&lt;/em&gt;&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;go get golang.org/x/tools/cmd/godoc&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;_launch-go-docs-services-in-local_&#34;&gt;&lt;em&gt;launch go docs services in local&lt;/em&gt;&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;godoc -http=:6060&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;_view-go-environment-variablesinlude-go-root-path_&#34;&gt;&lt;em&gt;view go environment variables,inlude GO ROOT path&lt;/em&gt;&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;go env&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;_fmt-package-println-docs_&#34;&gt;&lt;em&gt;fmt package Println docs&lt;/em&gt;&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;go doc fmt Println&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;_initialization-go-modules-when-reference-sub-directory-straightway-examplecommodulesub1sub2_&#34;&gt;&lt;em&gt;initialization go modules, when reference sub directory straightway example.com/module/sub1/sub2&lt;/em&gt;&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;go mod init example.com/module&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;delete-packages&#34;&gt;delete packages&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;go clean -i -v -x github.com/somepkg/go/simpleGitHub&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;add-modules-to-current-packages&#34;&gt;Add modules to current packages&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;go mod edit -require github.com/prometheus/common@v0.1.0&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;go mod edit -require  k8s.io/client-go@0.18.2&lt;/code&gt;
+or &lt;code&gt;go get k8s.io/client-go@v0.18.2&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;_when-use-module-in-local-packages_&#34;&gt;&lt;em&gt;when use module in local packages.&lt;/em&gt;&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;go mod edit -replace github.com/acme/bar=/path/to/local/bar&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;go mod tidy&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;_reformat-codes-in-current-directory_&#34;&gt;&lt;em&gt;reformat codes in current directory&lt;/em&gt;&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;go fmt&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;_compile-specific-os-binary-program_&#34;&gt;&lt;em&gt;compile specific os binary program&lt;/em&gt;&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags &#39;-extldflags &amp;quot;-static&amp;quot;&#39; -o app .&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;_smallest-docker-images-for-go-program_&#34;&gt;&lt;em&gt;smallest docker images for go program&lt;/em&gt;&lt;/h5&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-Dockerfile&#34; data-lang=&#34;Dockerfile&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;    FROM scratch&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;    WORKDIR /app&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;    COPY ./app .&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;    ENTRYPOINT &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;./app&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>
