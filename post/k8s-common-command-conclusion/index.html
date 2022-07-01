@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>kubernetes operations command summary | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.101.0" />
+  <meta name="generator" content="Hugo 0.74.3" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -209,16 +209,16 @@ http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kube
 <p>deployments an echoserver to kubernetes</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># create deployment</span>
-</span></span><span class="line"><span class="ln">2</span><span class="cl">kubectl create deployment hello-minikube --image<span class="o">=</span>registry.cn-hangzhou.aliyuncs.com/google_containers/echoserver:1.10
-</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"># expose the service</span>
-</span></span><span class="line"><span class="ln">4</span><span class="cl">kubectl expose deployment hello-minikube --type<span class="o">=</span>NodePort --port<span class="o">=</span><span class="m">8080</span>
-</span></span></code></pre></div><ul>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span><span class="c1"># create deployment</span>
+<span class="ln">2</span>kubectl create deployment hello-minikube --image<span class="o">=</span>registry.cn-hangzhou.aliyuncs.com/google_containers/echoserver:1.10
+<span class="ln">3</span><span class="c1"># expose the service</span>
+<span class="ln">4</span>kubectl expose deployment hello-minikube --type<span class="o">=</span>NodePort --port<span class="o">=</span><span class="m">8080</span>
+</code></pre></div><ul>
 <li>tag the nodes</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">kubectl tag nodes kube-centos-ceph1 <span class="nv">role</span><span class="o">=</span>storage-node
-</span></span><span class="line"><span class="ln">2</span><span class="cl">kubectl get nodes --show-labels
-</span></span></code></pre></div><ul>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>kubectl tag nodes kube-centos-ceph1 <span class="nv">role</span><span class="o">=</span>storage-node
+<span class="ln">2</span>kubectl get nodes --show-labels
+</code></pre></div><ul>
 <li>
 <p>terminating pvc when delete pv stuck
 <code>kubectl patch pvc db-pv-claim -p '{&quot;metadata&quot;:{&quot;finalizers&quot;:null}}'</code></p>
@@ -255,6 +255,14 @@ helm pull &ndash;repo {repo-url} {chart-name} &ndash;version {chart-version}
     <ul>
     
       <li>
+        <a href="https://blog.wisekee.com/post/awesome-open-source/" class="nav-link">Awesome open resoure tools and project</a>
+      </li>
+    
+      <li>
+        <a href="https://blog.wisekee.com/post/awesome-blog-resources/" class="nav-link">Awesome blog&#39;s resoures</a>
+      </li>
+    
+      <li>
         <a href="https://blog.wisekee.com/post/k8s-metrics-server/" class="nav-link">Solve the problem of Metrics - Server</a>
       </li>
     
@@ -280,13 +288,13 @@ helm pull &ndash;repo {repo-url} {chart-name} &ndash;version {chart-version}
     <ul class="flex-column">
       
       <li>
+        <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/awesome-open-source/" class="nav-link">Awesome open resoure tools and project</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/awesome-blog-resources/" class="nav-link">Awesome blog&#39;s resoures</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/go-private-package-registry-athens/" class="nav-link">Go language private registry glance</a>
@@ -327,7 +335,7 @@ helm pull &ndash;repo {repo-url} {chart-name} &ndash;version {chart-version}
         
         <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent">
           FEATURED
-          <span class='button_tally'>6</span>
+          <span class='button_tally'>8</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/terraform/' class=" post_tag button button_translucent">
@@ -483,7 +491,7 @@ helm pull &ndash;repo {repo-url} {chart-name} &ndash;version {chart-version}
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent" data-position=6>FEATURED<span class='button_tally'>6</span>
+            <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent" data-position=8>FEATURED<span class='button_tally'>8</span>
             </a>
             
             

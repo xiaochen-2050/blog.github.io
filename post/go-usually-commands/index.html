@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>Go language frequently used command notes | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.101.0" />
+  <meta name="generator" content="Hugo 0.74.3" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -189,11 +189,11 @@ or <code>go get k8s.io/client-go@v0.18.2</code></li>
 <li><code>CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-extldflags &quot;-static&quot;' -o app .</code></li>
 </ul>
 <h5 id="_smallest-docker-images-for-go-program_"><em>smallest docker images for go program</em></h5>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="ln">1</span><span class="cl">    FROM scratch<span class="err">
-</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="err"></span>    WORKDIR /app<span class="err">
-</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="err"></span>    COPY ./app .<span class="err">
-</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="err"></span>    ENTRYPOINT <span class="o">[</span><span class="s2">&#34;./app&#34;</span><span class="o">]</span><span class="err">
-</span></span></span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="ln">1</span>    FROM scratch<span class="err">
+</span><span class="ln">2</span><span class="err"></span>    WORKDIR /app<span class="err">
+</span><span class="ln">3</span><span class="err"></span>    COPY ./app .<span class="err">
+</span><span class="ln">4</span><span class="err"></span>    ENTRYPOINT <span class="o">[</span><span class="s2">&#34;./app&#34;</span><span class="o">]</span><span class="err">
+</span></code></pre></div>
   </article>
 <aside class="sidebar">
   <section class="sidebar_inner">
@@ -206,6 +206,14 @@ or <code>go get k8s.io/client-go@v0.18.2</code></li>
     <h2 class="mt-4">Featured Posts</h2>
     
     <ul>
+    
+      <li>
+        <a href="https://blog.wisekee.com/post/awesome-open-source/" class="nav-link">Awesome open resoure tools and project</a>
+      </li>
+    
+      <li>
+        <a href="https://blog.wisekee.com/post/awesome-blog-resources/" class="nav-link">Awesome blog&#39;s resoures</a>
+      </li>
     
       <li>
         <a href="https://blog.wisekee.com/post/k8s-metrics-server/" class="nav-link">Solve the problem of Metrics - Server</a>
@@ -233,13 +241,13 @@ or <code>go get k8s.io/client-go@v0.18.2</code></li>
     <ul class="flex-column">
       
       <li>
+        <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/awesome-open-source/" class="nav-link">Awesome open resoure tools and project</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/awesome-blog-resources/" class="nav-link">Awesome blog&#39;s resoures</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/go-private-package-registry-athens/" class="nav-link">Go language private registry glance</a>
@@ -280,7 +288,7 @@ or <code>go get k8s.io/client-go@v0.18.2</code></li>
         
         <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent">
           FEATURED
-          <span class='button_tally'>6</span>
+          <span class='button_tally'>8</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/terraform/' class=" post_tag button button_translucent">
@@ -436,7 +444,7 @@ or <code>go get k8s.io/client-go@v0.18.2</code></li>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent" data-position=6>FEATURED<span class='button_tally'>6</span>
+            <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent" data-position=8>FEATURED<span class='button_tally'>8</span>
             </a>
             
             

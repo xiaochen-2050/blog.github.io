@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>Automatic generate kubernetes custom resources api go language code | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.101.0" />
+  <meta name="generator" content="Hugo 0.74.3" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -152,83 +152,83 @@
 <ul>
 <li>The <code>doc.go</code> include content:</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">// +k8s:deepcopy-gen=package,register
-</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1">// +k8s:defaulter-gen=TypeMeta
-</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1">// +groupName=devops.kubesphere.io
-</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="c1"></span><span class="kn">package</span> <span class="nx">v1alpha1</span>
-</span></span></code></pre></div><ul>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="ln">1</span><span class="c1">// +k8s:deepcopy-gen=package,register
+</span><span class="ln">2</span><span class="c1">// +k8s:defaulter-gen=TypeMeta
+</span><span class="ln">3</span><span class="c1">// +groupName=devops.kubesphere.io
+</span><span class="ln">4</span><span class="c1"></span><span class="kn">package</span> <span class="nx">v1alpha1</span>
+</code></pre></div><ul>
 <li>The <code>register.go</code> main defination custom resources GroupName and GroupVersion</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kn">package</span> <span class="nx">v1alpha1</span>
-</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
-</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="s">&#34;k8s.io/apimachinery/pkg/runtime/schema&#34;</span>
-</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  <span class="s">&#34;sigs.k8s.io/controller-runtime/pkg/scheme&#34;</span>
-</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="ln"> 7</span><span class="cl">
-</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="kd">type</span> <span class="nx">CodeFramework</span> <span class="kt">string</span>
-</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
-</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="kd">const</span> <span class="p">(</span>
-</span></span><span class="line"><span class="ln">11</span><span class="cl">  <span class="nx">Ruby</span>         <span class="nx">CodeFramework</span> <span class="p">=</span> <span class="s">&#34;ruby&#34;</span>
-</span></span><span class="line"><span class="ln">12</span><span class="cl">  <span class="nx">Go</span>           <span class="nx">CodeFramework</span> <span class="p">=</span> <span class="s">&#34;go&#34;</span>
-</span></span><span class="line"><span class="ln">13</span><span class="cl">  <span class="nx">Java</span>         <span class="nx">CodeFramework</span> <span class="p">=</span> <span class="s">&#34;Java&#34;</span>
-</span></span><span class="line"><span class="ln">14</span><span class="cl">  <span class="nx">JavaTomcat</span>   <span class="nx">CodeFramework</span> <span class="p">=</span> <span class="s">&#34;JavaTomcat&#34;</span>
-</span></span><span class="line"><span class="ln">15</span><span class="cl">  <span class="nx">Nodejs</span>       <span class="nx">CodeFramework</span> <span class="p">=</span> <span class="s">&#34;Nodejs&#34;</span>
-</span></span><span class="line"><span class="ln">16</span><span class="cl">  <span class="nx">Python</span>       <span class="nx">CodeFramework</span> <span class="p">=</span> <span class="s">&#34;python&#34;</span>
-</span></span><span class="line"><span class="ln">17</span><span class="cl">  <span class="nx">GroupName</span>    <span class="kt">string</span>        <span class="p">=</span> <span class="s">&#34;devops.kubesphere.io&#34;</span>
-</span></span><span class="line"><span class="ln">18</span><span class="cl">  <span class="nx">GroupVersion</span> <span class="kt">string</span>        <span class="p">=</span> <span class="s">&#34;v1alpha1&#34;</span>
-</span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="ln">20</span><span class="cl">
-</span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="kd">var</span> <span class="nx">SchemeGroupVersion</span> <span class="p">=</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">GroupVersion</span><span class="p">{</span><span class="nx">Group</span><span class="p">:</span> <span class="nx">GroupName</span><span class="p">,</span> <span class="nx">Version</span><span class="p">:</span> <span class="nx">GroupVersion</span><span class="p">}</span>
-</span></span><span class="line"><span class="ln">22</span><span class="cl">
-</span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="kd">var</span> <span class="p">(</span>
-</span></span><span class="line"><span class="ln">24</span><span class="cl">  <span class="nx">SchemeBuilder</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">scheme</span><span class="p">.</span><span class="nx">Builder</span><span class="p">{</span><span class="nx">GroupVersion</span><span class="p">:</span> <span class="nx">SchemeGroupVersion</span><span class="p">}</span>
-</span></span><span class="line"><span class="ln">25</span><span class="cl">  <span class="nx">AddToScheme</span>   <span class="p">=</span> <span class="nx">SchemeBuilder</span><span class="p">.</span><span class="nx">AddToScheme</span>
-</span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="ln">27</span><span class="cl">
-</span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="c1">// Resource is required by pkg/client/listers/...
-</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">Resource</span><span class="p">(</span><span class="nx">resource</span> <span class="kt">string</span><span class="p">)</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">GroupResource</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln">30</span><span class="cl">  <span class="k">return</span> <span class="nx">SchemeGroupVersion</span><span class="p">.</span><span class="nf">WithResource</span><span class="p">(</span><span class="nx">resource</span><span class="p">).</span><span class="nf">GroupResource</span><span class="p">()</span>
-</span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><ul>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="ln"> 1</span><span class="kn">package</span> <span class="nx">v1alpha1</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kn">import</span> <span class="p">(</span>
+<span class="ln"> 4</span>  <span class="s">&#34;k8s.io/apimachinery/pkg/runtime/schema&#34;</span>
+<span class="ln"> 5</span>  <span class="s">&#34;sigs.k8s.io/controller-runtime/pkg/scheme&#34;</span>
+<span class="ln"> 6</span><span class="p">)</span>
+<span class="ln"> 7</span>
+<span class="ln"> 8</span><span class="kd">type</span> <span class="nx">CodeFramework</span> <span class="kt">string</span>
+<span class="ln"> 9</span>
+<span class="ln">10</span><span class="kd">const</span> <span class="p">(</span>
+<span class="ln">11</span>  <span class="nx">Ruby</span>         <span class="nx">CodeFramework</span> <span class="p">=</span> <span class="s">&#34;ruby&#34;</span>
+<span class="ln">12</span>  <span class="nx">Go</span>           <span class="nx">CodeFramework</span> <span class="p">=</span> <span class="s">&#34;go&#34;</span>
+<span class="ln">13</span>  <span class="nx">Java</span>         <span class="nx">CodeFramework</span> <span class="p">=</span> <span class="s">&#34;Java&#34;</span>
+<span class="ln">14</span>  <span class="nx">JavaTomcat</span>   <span class="nx">CodeFramework</span> <span class="p">=</span> <span class="s">&#34;JavaTomcat&#34;</span>
+<span class="ln">15</span>  <span class="nx">Nodejs</span>       <span class="nx">CodeFramework</span> <span class="p">=</span> <span class="s">&#34;Nodejs&#34;</span>
+<span class="ln">16</span>  <span class="nx">Python</span>       <span class="nx">CodeFramework</span> <span class="p">=</span> <span class="s">&#34;python&#34;</span>
+<span class="ln">17</span>  <span class="nx">GroupName</span>    <span class="kt">string</span>        <span class="p">=</span> <span class="s">&#34;devops.kubesphere.io&#34;</span>
+<span class="ln">18</span>  <span class="nx">GroupVersion</span> <span class="kt">string</span>        <span class="p">=</span> <span class="s">&#34;v1alpha1&#34;</span>
+<span class="ln">19</span><span class="p">)</span>
+<span class="ln">20</span>
+<span class="ln">21</span><span class="kd">var</span> <span class="nx">SchemeGroupVersion</span> <span class="p">=</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">GroupVersion</span><span class="p">{</span><span class="nx">Group</span><span class="p">:</span> <span class="nx">GroupName</span><span class="p">,</span> <span class="nx">Version</span><span class="p">:</span> <span class="nx">GroupVersion</span><span class="p">}</span>
+<span class="ln">22</span>
+<span class="ln">23</span><span class="kd">var</span> <span class="p">(</span>
+<span class="ln">24</span>  <span class="nx">SchemeBuilder</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">scheme</span><span class="p">.</span><span class="nx">Builder</span><span class="p">{</span><span class="nx">GroupVersion</span><span class="p">:</span> <span class="nx">SchemeGroupVersion</span><span class="p">}</span>
+<span class="ln">25</span>  <span class="nx">AddToScheme</span>   <span class="p">=</span> <span class="nx">SchemeBuilder</span><span class="p">.</span><span class="nx">AddToScheme</span>
+<span class="ln">26</span><span class="p">)</span>
+<span class="ln">27</span>
+<span class="ln">28</span><span class="c1">// Resource is required by pkg/client/listers/...
+</span><span class="ln">29</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Resource</span><span class="p">(</span><span class="nx">resource</span> <span class="kt">string</span><span class="p">)</span> <span class="nx">schema</span><span class="p">.</span><span class="nx">GroupResource</span> <span class="p">{</span>
+<span class="ln">30</span>  <span class="k">return</span> <span class="nx">SchemeGroupVersion</span><span class="p">.</span><span class="nf">WithResource</span><span class="p">(</span><span class="nx">resource</span><span class="p">).</span><span class="nf">GroupResource</span><span class="p">()</span>
+<span class="ln">31</span><span class="p">}</span>
+</code></pre></div><ul>
 <li>The <code>types.go</code> mainly include CRD&rsquo;s Object using in library</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kn">package</span> <span class="nx">v1alpha1</span>
-</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
-</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="nx">metav1</span> <span class="s">&#34;k8s.io/apimachinery/pkg/apis/meta/v1&#34;</span>
-</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
-</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="c1">// +genclient
-</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="c1">// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="c1">// S2iBinary is the Schema for the s2ibinary API
-</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">S2iBinary</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln">11</span><span class="cl">  <span class="nx">metav1</span><span class="p">.</span><span class="nx">TypeMeta</span>   <span class="s">`json:&#34;,inline&#34;`</span>
-</span></span><span class="line"><span class="ln">12</span><span class="cl">  <span class="nx">metav1</span><span class="p">.</span><span class="nx">ObjectMeta</span> <span class="s">`json:&#34;metadata,omitempty&#34;`</span>
-</span></span><span class="line"><span class="ln">13</span><span class="cl">  <span class="nx">Spec</span>   <span class="nx">S2iBinarySpec</span>   <span class="s">`json:&#34;spec,omitempty&#34;`</span>
-</span></span><span class="line"><span class="ln">14</span><span class="cl">  <span class="nx">Status</span> <span class="nx">S2iBinaryStatus</span> <span class="s">`json:&#34;status,omitempty&#34;`</span>
-</span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="ln">16</span><span class="cl">
-</span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="kd">type</span> <span class="nx">S2iBinarySpec</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln">18</span><span class="cl">  <span class="nx">DownloadURL</span> <span class="kt">string</span> <span class="s">`json:&#34;downloadURL,omitempty&#34;`</span>
-</span></span><span class="line"><span class="ln">19</span><span class="cl">  <span class="nx">FileName</span> <span class="kt">string</span> <span class="s">`json:&#34;fileName, omitempty&#34;`</span>
-</span></span><span class="line"><span class="ln">20</span><span class="cl">  <span class="nx">Md5</span> <span class="kt">string</span> <span class="s">`json:&#34;md5, omitempty&#34;`</span>
-</span></span><span class="line"><span class="ln">21</span><span class="cl">  <span class="nx">Size</span> <span class="kt">int</span> <span class="s">`json:&#34;size, omitempty&#34;`</span>
-</span></span><span class="line"><span class="ln">22</span><span class="cl">  <span class="nx">UploadTimeStamp</span> <span class="kt">string</span> <span class="s">`json:&#34;uploadTimeStamp, omitempty&#34;`</span>
-</span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="ln">24</span><span class="cl">
-</span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="kd">type</span> <span class="nx">S2iBinaryStatus</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln">26</span><span class="cl">  <span class="nx">Phase</span> <span class="kt">string</span> <span class="s">`json:&#34;phase, omitempty&#34;`</span>
-</span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="ln">28</span><span class="cl">
-</span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="c1">// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="c1">// S2iBinaryList contains a list of S2iBinary
-</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">S2iBinaryList</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln">32</span><span class="cl">  <span class="nx">metav1</span><span class="p">.</span><span class="nx">TypeMeta</span> <span class="s">`json:&#34;,inline&#34;`</span>
-</span></span><span class="line"><span class="ln">33</span><span class="cl">  <span class="nx">metav1</span><span class="p">.</span><span class="nx">ListMeta</span> <span class="s">`json:&#34;metadata,omitempty&#34;`</span>
-</span></span><span class="line"><span class="ln">34</span><span class="cl">  <span class="nx">Items</span>           <span class="p">[]</span><span class="nx">S2iBinary</span> <span class="s">`json:&#34;items&#34;`</span>
-</span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="ln"> 1</span><span class="kn">package</span> <span class="nx">v1alpha1</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kn">import</span> <span class="p">(</span>
+<span class="ln"> 4</span>  <span class="nx">metav1</span> <span class="s">&#34;k8s.io/apimachinery/pkg/apis/meta/v1&#34;</span>
+<span class="ln"> 5</span><span class="p">)</span>
+<span class="ln"> 6</span>
+<span class="ln"> 7</span><span class="c1">// +genclient
+</span><span class="ln"> 8</span><span class="c1">// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+</span><span class="ln"> 9</span><span class="c1">// S2iBinary is the Schema for the s2ibinary API
+</span><span class="ln">10</span><span class="c1"></span><span class="kd">type</span> <span class="nx">S2iBinary</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="ln">11</span>  <span class="nx">metav1</span><span class="p">.</span><span class="nx">TypeMeta</span>   <span class="s">`json:&#34;,inline&#34;`</span>
+<span class="ln">12</span>  <span class="nx">metav1</span><span class="p">.</span><span class="nx">ObjectMeta</span> <span class="s">`json:&#34;metadata,omitempty&#34;`</span>
+<span class="ln">13</span>  <span class="nx">Spec</span>   <span class="nx">S2iBinarySpec</span>   <span class="s">`json:&#34;spec,omitempty&#34;`</span>
+<span class="ln">14</span>  <span class="nx">Status</span> <span class="nx">S2iBinaryStatus</span> <span class="s">`json:&#34;status,omitempty&#34;`</span>
+<span class="ln">15</span><span class="p">}</span>
+<span class="ln">16</span>
+<span class="ln">17</span><span class="kd">type</span> <span class="nx">S2iBinarySpec</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="ln">18</span>  <span class="nx">DownloadURL</span> <span class="kt">string</span> <span class="s">`json:&#34;downloadURL,omitempty&#34;`</span>
+<span class="ln">19</span>  <span class="nx">FileName</span> <span class="kt">string</span> <span class="s">`json:&#34;fileName, omitempty&#34;`</span>
+<span class="ln">20</span>  <span class="nx">Md5</span> <span class="kt">string</span> <span class="s">`json:&#34;md5, omitempty&#34;`</span>
+<span class="ln">21</span>  <span class="nx">Size</span> <span class="kt">int</span> <span class="s">`json:&#34;size, omitempty&#34;`</span>
+<span class="ln">22</span>  <span class="nx">UploadTimeStamp</span> <span class="kt">string</span> <span class="s">`json:&#34;uploadTimeStamp, omitempty&#34;`</span>
+<span class="ln">23</span><span class="p">}</span>
+<span class="ln">24</span>
+<span class="ln">25</span><span class="kd">type</span> <span class="nx">S2iBinaryStatus</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="ln">26</span>  <span class="nx">Phase</span> <span class="kt">string</span> <span class="s">`json:&#34;phase, omitempty&#34;`</span>
+<span class="ln">27</span><span class="p">}</span>
+<span class="ln">28</span>
+<span class="ln">29</span><span class="c1">// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+</span><span class="ln">30</span><span class="c1">// S2iBinaryList contains a list of S2iBinary
+</span><span class="ln">31</span><span class="c1"></span><span class="kd">type</span> <span class="nx">S2iBinaryList</span> <span class="kd">struct</span> <span class="p">{</span>
+<span class="ln">32</span>  <span class="nx">metav1</span><span class="p">.</span><span class="nx">TypeMeta</span> <span class="s">`json:&#34;,inline&#34;`</span>
+<span class="ln">33</span>  <span class="nx">metav1</span><span class="p">.</span><span class="nx">ListMeta</span> <span class="s">`json:&#34;metadata,omitempty&#34;`</span>
+<span class="ln">34</span>  <span class="nx">Items</span>           <span class="p">[]</span><span class="nx">S2iBinary</span> <span class="s">`json:&#34;items&#34;`</span>
+<span class="ln">35</span><span class="p">}</span>
+</code></pre></div><blockquote>
 <p>Note: The annotations is important and no blank lines.</p>
 </blockquote>
 <ol start="2">
@@ -236,53 +236,53 @@
 <h4 id="use-dockerfile-as-build-client-code-environment">Use Dockerfile as build client code environment</h4>
 </li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="ln"> 1</span><span class="cl">    FROM golang:1.11.2<span class="err">
-</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="err"></span>    ENV <span class="nv">GO111MODULE</span><span class="o">=</span>off<span class="err">
-</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="err"></span>    RUN go get k8s.io/code-generator<span class="p">;</span> <span class="nb">exit</span> <span class="m">0</span><span class="err">
-</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="err"></span>    RUN go get k8s.io/apimachinery<span class="p">;</span> <span class="nb">exit</span> <span class="m">0</span><span class="err">
-</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="err"></span>    RUN go get github.com/spf13/pflag<span class="p">;</span> <span class="nb">exit</span> <span class="m">0</span><span class="err">
-</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="err"></span>    RUN go get k8s.io/gengo<span class="p">;</span> <span class="nb">exit</span> <span class="m">0</span><span class="err">
-</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="err"></span>    RUN go get k8s.io/klog<span class="p">;</span> <span class="nb">exit</span> <span class="m">0</span><span class="err">
-</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="err"></span>    RUN go get golang.org/x/tools<span class="p">;</span> <span class="nb">exit</span> <span class="m">0</span><span class="err">
-</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="err"></span>    RUN go get golang.org/x/mod<span class="p">;</span> <span class="nb">exit</span> <span class="m">0</span><span class="err">
-</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="err"></span>    RUN go get golang.org/x/xerrors<span class="p">;</span> <span class="nb">exit</span> <span class="m">0</span><span class="err">
-</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="err"></span>    ARG <span class="nv">repo</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">GOPATH</span><span class="si">}</span><span class="s2">/src/github.com/xiao.chen/s2ibinary&#34;</span><span class="err">
-</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="err"></span>    RUN mkdir -p <span class="nv">$repo</span><span class="err">
-</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="err"></span>    WORKDIR <span class="nv">$GOPATH</span>/src/k8s.io/code-generator<span class="err">
-</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="err"></span>    VOLUME <span class="nv">$repo</span><span class="err">
-</span></span></span></code></pre></div><ol start="3">
+<div class="highlight"><pre class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="ln"> 1</span>    FROM golang:1.11.2<span class="err">
+</span><span class="ln"> 2</span><span class="err"></span>    ENV <span class="nv">GO111MODULE</span><span class="o">=</span>off<span class="err">
+</span><span class="ln"> 3</span><span class="err">
+</span><span class="ln"> 4</span><span class="err"></span>    RUN go get k8s.io/code-generator<span class="p">;</span> <span class="nb">exit</span> <span class="m">0</span><span class="err">
+</span><span class="ln"> 5</span><span class="err"></span>    RUN go get k8s.io/apimachinery<span class="p">;</span> <span class="nb">exit</span> <span class="m">0</span><span class="err">
+</span><span class="ln"> 6</span><span class="err"></span>    RUN go get github.com/spf13/pflag<span class="p">;</span> <span class="nb">exit</span> <span class="m">0</span><span class="err">
+</span><span class="ln"> 7</span><span class="err"></span>    RUN go get k8s.io/gengo<span class="p">;</span> <span class="nb">exit</span> <span class="m">0</span><span class="err">
+</span><span class="ln"> 8</span><span class="err"></span>    RUN go get k8s.io/klog<span class="p">;</span> <span class="nb">exit</span> <span class="m">0</span><span class="err">
+</span><span class="ln"> 9</span><span class="err"></span>    RUN go get golang.org/x/tools<span class="p">;</span> <span class="nb">exit</span> <span class="m">0</span><span class="err">
+</span><span class="ln">10</span><span class="err"></span>    RUN go get golang.org/x/mod<span class="p">;</span> <span class="nb">exit</span> <span class="m">0</span><span class="err">
+</span><span class="ln">11</span><span class="err"></span>    RUN go get golang.org/x/xerrors<span class="p">;</span> <span class="nb">exit</span> <span class="m">0</span><span class="err">
+</span><span class="ln">12</span><span class="err"></span>    ARG <span class="nv">repo</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">GOPATH</span><span class="si">}</span><span class="s2">/src/github.com/xiao.chen/s2ibinary&#34;</span><span class="err">
+</span><span class="ln">13</span><span class="err"></span>    RUN mkdir -p <span class="nv">$repo</span><span class="err">
+</span><span class="ln">14</span><span class="err"></span>    WORKDIR <span class="nv">$GOPATH</span>/src/k8s.io/code-generator<span class="err">
+</span><span class="ln">15</span><span class="err"></span>    VOLUME <span class="nv">$repo</span><span class="err">
+</span></code></pre></div><ol start="3">
 <li>
 <h4 id="use-bash-script-generate-clients-library">Use bash script generate clients library</h4>
 </li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="cp">#!/bin/bash -e
-</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="nv">CURRENT_DIR</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>
-</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="nv">GEN_DIR</span><span class="o">=</span><span class="k">$(</span>dirname <span class="nv">$0</span><span class="k">)</span>
-</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="nv">REPO_DIR</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$CURRENT_DIR</span><span class="s2">/</span><span class="nv">$GEN_DIR</span><span class="s2">/&#34;</span>
-</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
-</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="nv">PROJECT_MODULE</span><span class="o">=</span><span class="s2">&#34;devops/s2ibinary&#34;</span>
-</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="nv">IMAGE_NAME</span><span class="o">=</span><span class="s2">&#34;k8s-codegen:latest&#34;</span>
-</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
-</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="nv">CUSTOM_RESOURCE_NAME</span><span class="o">=</span><span class="s2">&#34;devops&#34;</span>
-</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="nv">CUSTOM_RESOURCE_VERSION</span><span class="o">=</span><span class="s2">&#34;v1alpha1&#34;</span>
-</span></span><span class="line"><span class="ln">12</span><span class="cl">
-</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Building codegen Docker image...&#34;</span>
-</span></span><span class="line"><span class="ln">14</span><span class="cl">docker build -f <span class="s2">&#34;</span><span class="si">${</span><span class="nv">GEN_DIR</span><span class="si">}</span><span class="s2">/Dockerfile&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="se"></span>             -t <span class="s2">&#34;</span><span class="si">${</span><span class="nv">IMAGE_NAME</span><span class="si">}</span><span class="s2">&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="se"></span>             <span class="s2">&#34;</span><span class="si">${</span><span class="nv">REPO_DIR</span><span class="si">}</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="ln">17</span><span class="cl">
-</span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="nv">cmd</span><span class="o">=</span><span class="s2">&#34;./generate-groups.sh all \
-</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="s2">    &#34;</span><span class="nv">$PROJECT_MODULE</span>/pkg/client<span class="s2">&#34; \
-</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="s2">    &#34;</span><span class="nv">$PROJECT_MODULE</span>/pkg/apis<span class="s2">&#34; \
-</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="s2">    </span><span class="nv">$CUSTOM_RESOURCE_NAME</span><span class="s2">:</span><span class="nv">$CUSTOM_RESOURCE_VERSION</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="ln">22</span><span class="cl">
-</span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Generating client codes...&#34;</span>
-</span></span><span class="line"><span class="ln">24</span><span class="cl">docker run --rm <span class="se">\
-</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="se"></span>           -v <span class="s2">&#34;</span><span class="si">${</span><span class="nv">REPO_DIR</span><span class="si">}</span><span class="s2">:/go/src/</span><span class="si">${</span><span class="nv">PROJECT_MODULE</span><span class="si">}</span><span class="s2">&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="se"></span>           <span class="s2">&#34;</span><span class="si">${</span><span class="nv">IMAGE_NAME</span><span class="si">}</span><span class="s2">&#34;</span> <span class="nv">$cmd</span>
-</span></span></code></pre></div><p>This bash script should take pkg/apis/devops/v1alpha1 generate to client code through doc.go types.go and register.go with
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span><span class="cp">#!/bin/bash -e
+</span><span class="ln"> 2</span><span class="cp"></span>
+<span class="ln"> 3</span><span class="nv">CURRENT_DIR</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>
+<span class="ln"> 4</span><span class="nv">GEN_DIR</span><span class="o">=</span><span class="k">$(</span>dirname <span class="nv">$0</span><span class="k">)</span>
+<span class="ln"> 5</span><span class="nv">REPO_DIR</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$CURRENT_DIR</span><span class="s2">/</span><span class="nv">$GEN_DIR</span><span class="s2">/&#34;</span>
+<span class="ln"> 6</span>
+<span class="ln"> 7</span><span class="nv">PROJECT_MODULE</span><span class="o">=</span><span class="s2">&#34;devops/s2ibinary&#34;</span>
+<span class="ln"> 8</span><span class="nv">IMAGE_NAME</span><span class="o">=</span><span class="s2">&#34;k8s-codegen:latest&#34;</span>
+<span class="ln"> 9</span>
+<span class="ln">10</span><span class="nv">CUSTOM_RESOURCE_NAME</span><span class="o">=</span><span class="s2">&#34;devops&#34;</span>
+<span class="ln">11</span><span class="nv">CUSTOM_RESOURCE_VERSION</span><span class="o">=</span><span class="s2">&#34;v1alpha1&#34;</span>
+<span class="ln">12</span>
+<span class="ln">13</span><span class="nb">echo</span> <span class="s2">&#34;Building codegen Docker image...&#34;</span>
+<span class="ln">14</span>docker build -f <span class="s2">&#34;</span><span class="si">${</span><span class="nv">GEN_DIR</span><span class="si">}</span><span class="s2">/Dockerfile&#34;</span> <span class="se">\
+</span><span class="ln">15</span><span class="se"></span>             -t <span class="s2">&#34;</span><span class="si">${</span><span class="nv">IMAGE_NAME</span><span class="si">}</span><span class="s2">&#34;</span> <span class="se">\
+</span><span class="ln">16</span><span class="se"></span>             <span class="s2">&#34;</span><span class="si">${</span><span class="nv">REPO_DIR</span><span class="si">}</span><span class="s2">&#34;</span>
+<span class="ln">17</span>
+<span class="ln">18</span><span class="nv">cmd</span><span class="o">=</span><span class="s2">&#34;./generate-groups.sh all \
+</span><span class="ln">19</span><span class="s2">    &#34;</span><span class="nv">$PROJECT_MODULE</span>/pkg/client<span class="s2">&#34; \
+</span><span class="ln">20</span><span class="s2">    &#34;</span><span class="nv">$PROJECT_MODULE</span>/pkg/apis<span class="s2">&#34; \
+</span><span class="ln">21</span><span class="s2">    </span><span class="nv">$CUSTOM_RESOURCE_NAME</span><span class="s2">:</span><span class="nv">$CUSTOM_RESOURCE_VERSION</span><span class="s2">&#34;</span>
+<span class="ln">22</span>
+<span class="ln">23</span><span class="nb">echo</span> <span class="s2">&#34;Generating client codes...&#34;</span>
+<span class="ln">24</span>docker run --rm <span class="se">\
+</span><span class="ln">25</span><span class="se"></span>           -v <span class="s2">&#34;</span><span class="si">${</span><span class="nv">REPO_DIR</span><span class="si">}</span><span class="s2">:/go/src/</span><span class="si">${</span><span class="nv">PROJECT_MODULE</span><span class="si">}</span><span class="s2">&#34;</span> <span class="se">\
+</span><span class="ln">26</span><span class="se"></span>           <span class="s2">&#34;</span><span class="si">${</span><span class="nv">IMAGE_NAME</span><span class="si">}</span><span class="s2">&#34;</span> <span class="nv">$cmd</span>
+</code></pre></div><p>This bash script should take pkg/apis/devops/v1alpha1 generate to client code through doc.go types.go and register.go with
 types.go file include&rsquo;s annotations</p>
 <ul>
 <li>exectue <code>./gen-client.sh</code> late, will generate client and deepcopy.go in pkg directory</li>
@@ -292,32 +292,32 @@ types.go file include&rsquo;s annotations</p>
 <h4 id="and-it-turns-out-theres-a-simpler-way-to-do-it">And it turns out there&rsquo;s a simpler way to do it</h4>
 </li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
-</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="ln"> 4</span><span class="cl">	<span class="nx">logs</span> <span class="s">&#34;github.com/prometheus/common/log&#34;</span>
-</span></span><span class="line"><span class="ln"> 5</span><span class="cl">	<span class="s">&#34;golang.org/x/net/context&#34;</span>
-</span></span><span class="line"><span class="ln"> 6</span><span class="cl">	<span class="nx">v1</span> <span class="s">&#34;k8s.io/apimachinery/pkg/apis/meta/v1&#34;</span>
-</span></span><span class="line"><span class="ln"> 7</span><span class="cl">	<span class="s">&#34;k8s.io/apimachinery/pkg/runtime/schema&#34;</span>
-</span></span><span class="line"><span class="ln"> 8</span><span class="cl">	<span class="s">&#34;k8s.io/client-go/dynamic&#34;</span>
-</span></span><span class="line"><span class="ln"> 9</span><span class="cl">	<span class="s">&#34;snc.com/cleanup/resources/config&#34;</span>
-</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="ln">11</span><span class="cl">
-</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln">13</span><span class="cl">	<span class="nx">k8sClient</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">config</span><span class="p">.</span><span class="nf">NewK8s</span><span class="p">()</span>
-</span></span><span class="line"><span class="ln">14</span><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln">15</span><span class="cl">		<span class="nx">logs</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="s">&#34;Init kubernetes error.&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-</span></span><span class="line"><span class="ln">16</span><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="ln">17</span><span class="cl">	
-</span></span><span class="line"><span class="ln">18</span><span class="cl">	<span class="nx">dyClient</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">dynamic</span><span class="p">.</span><span class="nf">NewForConfig</span><span class="p">(</span><span class="nx">k8sClient</span><span class="p">.</span><span class="nx">Config</span><span class="p">)</span>
-</span></span><span class="line"><span class="ln">19</span><span class="cl">	<span class="nx">dyResource</span> <span class="o">:=</span> <span class="nx">dyClient</span><span class="p">.</span><span class="nf">Resource</span><span class="p">(</span><span class="nx">schema</span><span class="p">.</span><span class="nx">GroupVersionResource</span><span class="p">{</span><span class="nx">Version</span><span class="p">:</span> <span class="s">&#34;v1alpha1&#34;</span><span class="p">,</span> <span class="nx">Group</span><span class="p">:</span> <span class="s">&#34;devops.kubesphere.io&#34;</span><span class="p">,</span> <span class="nx">Resource</span><span class="p">:</span> <span class="s">&#34;s2ibinaries&#34;</span><span class="p">})</span>
-</span></span><span class="line"><span class="ln">20</span><span class="cl">	<span class="nx">result</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">dyResource</span><span class="p">.</span><span class="nf">List</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">(),</span> <span class="nx">v1</span><span class="p">.</span><span class="nx">ListOptions</span><span class="p">{})</span>
-</span></span><span class="line"><span class="ln">21</span><span class="cl">	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">item</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">result</span><span class="p">.</span><span class="nx">Items</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln">22</span><span class="cl">		<span class="nx">logs</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;Name:&#34;</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nf">GetName</span><span class="p">(),</span> <span class="s">&#34;\t Namespace: &#34;</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nf">GetNamespace</span><span class="p">())</span>
-</span></span><span class="line"><span class="ln">23</span><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="ln">24</span><span class="cl">	
-</span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p><em><strong>Use Dynamic resource interface so easy!</strong></em></p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="ln"> 1</span><span class="kn">package</span> <span class="nx">main</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kn">import</span> <span class="p">(</span>
+<span class="ln"> 4</span>	<span class="nx">logs</span> <span class="s">&#34;github.com/prometheus/common/log&#34;</span>
+<span class="ln"> 5</span>	<span class="s">&#34;golang.org/x/net/context&#34;</span>
+<span class="ln"> 6</span>	<span class="nx">v1</span> <span class="s">&#34;k8s.io/apimachinery/pkg/apis/meta/v1&#34;</span>
+<span class="ln"> 7</span>	<span class="s">&#34;k8s.io/apimachinery/pkg/runtime/schema&#34;</span>
+<span class="ln"> 8</span>	<span class="s">&#34;k8s.io/client-go/dynamic&#34;</span>
+<span class="ln"> 9</span>	<span class="s">&#34;snc.com/cleanup/resources/config&#34;</span>
+<span class="ln">10</span><span class="p">)</span>
+<span class="ln">11</span>
+<span class="ln">12</span><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="ln">13</span>	<span class="nx">k8sClient</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">config</span><span class="p">.</span><span class="nf">NewK8s</span><span class="p">()</span>
+<span class="ln">14</span>	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+<span class="ln">15</span>		<span class="nx">logs</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="s">&#34;Init kubernetes error.&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+<span class="ln">16</span>	<span class="p">}</span>
+<span class="ln">17</span>	
+<span class="ln">18</span>	<span class="nx">dyClient</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">dynamic</span><span class="p">.</span><span class="nf">NewForConfig</span><span class="p">(</span><span class="nx">k8sClient</span><span class="p">.</span><span class="nx">Config</span><span class="p">)</span>
+<span class="ln">19</span>	<span class="nx">dyResource</span> <span class="o">:=</span> <span class="nx">dyClient</span><span class="p">.</span><span class="nf">Resource</span><span class="p">(</span><span class="nx">schema</span><span class="p">.</span><span class="nx">GroupVersionResource</span><span class="p">{</span><span class="nx">Version</span><span class="p">:</span> <span class="s">&#34;v1alpha1&#34;</span><span class="p">,</span> <span class="nx">Group</span><span class="p">:</span> <span class="s">&#34;devops.kubesphere.io&#34;</span><span class="p">,</span> <span class="nx">Resource</span><span class="p">:</span> <span class="s">&#34;s2ibinaries&#34;</span><span class="p">})</span>
+<span class="ln">20</span>	<span class="nx">result</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">dyResource</span><span class="p">.</span><span class="nf">List</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">(),</span> <span class="nx">v1</span><span class="p">.</span><span class="nx">ListOptions</span><span class="p">{})</span>
+<span class="ln">21</span>	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">item</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">result</span><span class="p">.</span><span class="nx">Items</span> <span class="p">{</span>
+<span class="ln">22</span>		<span class="nx">logs</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;Name:&#34;</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nf">GetName</span><span class="p">(),</span> <span class="s">&#34;\t Namespace: &#34;</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nf">GetNamespace</span><span class="p">())</span>
+<span class="ln">23</span>	<span class="p">}</span>
+<span class="ln">24</span>	
+<span class="ln">25</span><span class="p">}</span>
+</code></pre></div><p><em><strong>Use Dynamic resource interface so easy!</strong></em></p>
 
   </article>
 <aside class="sidebar">
@@ -331,6 +331,14 @@ types.go file include&rsquo;s annotations</p>
     <h2 class="mt-4">Featured Posts</h2>
     
     <ul>
+    
+      <li>
+        <a href="https://blog.wisekee.com/post/awesome-open-source/" class="nav-link">Awesome open resoure tools and project</a>
+      </li>
+    
+      <li>
+        <a href="https://blog.wisekee.com/post/awesome-blog-resources/" class="nav-link">Awesome blog&#39;s resoures</a>
+      </li>
     
       <li>
         <a href="https://blog.wisekee.com/post/k8s-metrics-server/" class="nav-link">Solve the problem of Metrics - Server</a>
@@ -361,13 +369,13 @@ types.go file include&rsquo;s annotations</p>
     <ul class="flex-column">
       
       <li>
+        <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/awesome-open-source/" class="nav-link">Awesome open resoure tools and project</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/awesome-blog-resources/" class="nav-link">Awesome blog&#39;s resoures</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/go-private-package-registry-athens/" class="nav-link">Go language private registry glance</a>
@@ -408,7 +416,7 @@ types.go file include&rsquo;s annotations</p>
         
         <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent">
           FEATURED
-          <span class='button_tally'>6</span>
+          <span class='button_tally'>8</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/terraform/' class=" post_tag button button_translucent">
@@ -564,7 +572,7 @@ types.go file include&rsquo;s annotations</p>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent" data-position=6>FEATURED<span class='button_tally'>6</span>
+            <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent" data-position=8>FEATURED<span class='button_tally'>8</span>
             </a>
             
             

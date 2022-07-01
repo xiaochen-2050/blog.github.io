@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>K8S app source code and runtime separate in pod | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.101.0" />
+  <meta name="generator" content="Hugo 0.74.3" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -101,7 +101,7 @@
     <use xlink:href="#calendar"></use>
   </svg>
   <span class="post_date">
-    Jan 10, 2022</span>
+    Mar 10, 2022</span>
   <a href = 'https://blog.wisekee.com/tags/k8s' class = 'post_tag button button_translucent'>k8s
   </a>
   <a href = 'https://blog.wisekee.com/tags/pod' class = 'post_tag button button_translucent'>pod
@@ -142,64 +142,64 @@
     <p>In a k8s environment, it is a good choice to have the application runtime and source code build packages separated in separate containers</p>
 <h4 id="smallest-source-code-build-image">Smallest source code build image</h4>
 <p>use a smallest base image to build docker image store source code build result package</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">FROM alpine:latest
-</span></span><span class="line"><span class="ln">2</span><span class="cl">WORKDIR /var/www
-</span></span><span class="line"><span class="ln">3</span><span class="cl">COPY app /var/www/app
-</span></span></code></pre></div><h4 id="use-different-images-of-the-runtime-environment-according-to-different-programming-languages">Use different images of the runtime environment according to different programming languages</h4>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">FROM python:3.6.15-slim
-</span></span><span class="line"><span class="ln">2</span><span class="cl">
-</span></span><span class="line"><span class="ln">3</span><span class="cl">RUN pip install boto3
-</span></span></code></pre></div><h4 id="build-app-image-and-runtime-image">Build app image and runtime image</h4>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># build the app image</span>
-</span></span><span class="line"><span class="ln">2</span><span class="cl">docker build . -t local.dev/py-app:v1
-</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"># build the runtime image</span>
-</span></span><span class="line"><span class="ln">4</span><span class="cl">docker build . -t local.dev/python-3.6:latest
-</span></span></code></pre></div><h4 id="use-kubernetes-pod-initcontainers-to-share-app-package-to-runtime-container">Use kubernetes pod initContainers to share app package to runtime container.</h4>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>FROM alpine:latest
+<span class="ln">2</span>WORKDIR /var/www
+<span class="ln">3</span>COPY app /var/www/app
+</code></pre></div><h4 id="use-different-images-of-the-runtime-environment-according-to-different-programming-languages">Use different images of the runtime environment according to different programming languages</h4>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>FROM python:3.6.15-slim
+<span class="ln">2</span>
+<span class="ln">3</span>RUN pip install boto3
+</code></pre></div><h4 id="build-app-image-and-runtime-image">Build app image and runtime image</h4>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span><span class="c1"># build the app image</span>
+<span class="ln">2</span>docker build . -t local.dev/py-app:v1
+<span class="ln">3</span><span class="c1"># build the runtime image</span>
+<span class="ln">4</span>docker build . -t local.dev/python-3.6:latest
+</code></pre></div><h4 id="use-kubernetes-pod-initcontainers-to-share-app-package-to-runtime-container">Use kubernetes pod initContainers to share app package to runtime container.</h4>
 <p>when pod launching the initContainer copy app all package content to shared data volume</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">apiVersion: apps/v1
-</span></span><span class="line"><span class="ln"> 2</span><span class="cl">kind: Deployment
-</span></span><span class="line"><span class="ln"> 3</span><span class="cl">metadata:
-</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="c1"># Unique key of the Deployment instance</span>
-</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  name: deployment-py-app
-</span></span><span class="line"><span class="ln"> 6</span><span class="cl">spec:
-</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  <span class="c1"># 3 Pods should exist at all times.</span>
-</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  replicas: <span class="m">3</span>
-</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  selector:
-</span></span><span class="line"><span class="ln">10</span><span class="cl">    matchLabels:
-</span></span><span class="line"><span class="ln">11</span><span class="cl">      app: py-app
-</span></span><span class="line"><span class="ln">12</span><span class="cl">  template:
-</span></span><span class="line"><span class="ln">13</span><span class="cl">    metadata:
-</span></span><span class="line"><span class="ln">14</span><span class="cl">      labels:
-</span></span><span class="line"><span class="ln">15</span><span class="cl">        <span class="c1"># Apply this label to pods and default</span>
-</span></span><span class="line"><span class="ln">16</span><span class="cl">        <span class="c1"># the Deployment label selector to this value</span>
-</span></span><span class="line"><span class="ln">17</span><span class="cl">        app: py-app
-</span></span><span class="line"><span class="ln">18</span><span class="cl">    spec:
-</span></span><span class="line"><span class="ln">19</span><span class="cl">      initContainers:
-</span></span><span class="line"><span class="ln">20</span><span class="cl">      - name: py-app-source-code
-</span></span><span class="line"><span class="ln">21</span><span class="cl">        image: local.dev/py-app:v1
-</span></span><span class="line"><span class="ln">22</span><span class="cl">        <span class="c1"># init container and app runtime use emtpyvolume shared data</span>
-</span></span><span class="line"><span class="ln">23</span><span class="cl">        command: <span class="o">[</span><span class="s2">&#34;sh&#34;</span>, <span class="s2">&#34;-c&#34;</span>, <span class="s2">&#34;cp -r /var/www/app/* /var/shared/data/&#34;</span><span class="o">]</span>
-</span></span><span class="line"><span class="ln">24</span><span class="cl">        imagePullPolicy: IfNotPresent        
-</span></span><span class="line"><span class="ln">25</span><span class="cl">        volumeMounts:
-</span></span><span class="line"><span class="ln">26</span><span class="cl">        - name: app-data
-</span></span><span class="line"><span class="ln">27</span><span class="cl">          mountPath: /var/shared/data
-</span></span><span class="line"><span class="ln">28</span><span class="cl">      containers:      
-</span></span><span class="line"><span class="ln">29</span><span class="cl">      - name: app-runtime
-</span></span><span class="line"><span class="ln">30</span><span class="cl">        <span class="c1"># Run this image</span>
-</span></span><span class="line"><span class="ln">31</span><span class="cl">        image: local.dev/python-3.6:latest
-</span></span><span class="line"><span class="ln">32</span><span class="cl">        command: <span class="o">[</span><span class="s2">&#34;python3&#34;</span>, <span class="s2">&#34;/var/app/hello.py&#34;</span><span class="o">]</span>
-</span></span><span class="line"><span class="ln">33</span><span class="cl">        imagePullPolicy: IfNotPresent
-</span></span><span class="line"><span class="ln">34</span><span class="cl">        ports:
-</span></span><span class="line"><span class="ln">35</span><span class="cl">        - name: http
-</span></span><span class="line"><span class="ln">36</span><span class="cl">          containerPort: <span class="m">8000</span>
-</span></span><span class="line"><span class="ln">37</span><span class="cl">          protocol: TCP
-</span></span><span class="line"><span class="ln">38</span><span class="cl">        volumeMounts:
-</span></span><span class="line"><span class="ln">39</span><span class="cl">        - name: app-data
-</span></span><span class="line"><span class="ln">40</span><span class="cl">          mountPath: /var/app
-</span></span><span class="line"><span class="ln">41</span><span class="cl">      volumes:
-</span></span><span class="line"><span class="ln">42</span><span class="cl">      - name: app-data
-</span></span><span class="line"><span class="ln">43</span><span class="cl">        emptyDir: <span class="o">{}</span>
-</span></span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span>apiVersion: apps/v1
+<span class="ln"> 2</span>kind: Deployment
+<span class="ln"> 3</span>metadata:
+<span class="ln"> 4</span>  <span class="c1"># Unique key of the Deployment instance</span>
+<span class="ln"> 5</span>  name: deployment-py-app
+<span class="ln"> 6</span>spec:
+<span class="ln"> 7</span>  <span class="c1"># 3 Pods should exist at all times.</span>
+<span class="ln"> 8</span>  replicas: <span class="m">3</span>
+<span class="ln"> 9</span>  selector:
+<span class="ln">10</span>    matchLabels:
+<span class="ln">11</span>      app: py-app
+<span class="ln">12</span>  template:
+<span class="ln">13</span>    metadata:
+<span class="ln">14</span>      labels:
+<span class="ln">15</span>        <span class="c1"># Apply this label to pods and default</span>
+<span class="ln">16</span>        <span class="c1"># the Deployment label selector to this value</span>
+<span class="ln">17</span>        app: py-app
+<span class="ln">18</span>    spec:
+<span class="ln">19</span>      initContainers:
+<span class="ln">20</span>      - name: py-app-source-code
+<span class="ln">21</span>        image: local.dev/py-app:v1
+<span class="ln">22</span>        <span class="c1"># init container and app runtime use emtpyvolume shared data</span>
+<span class="ln">23</span>        command: <span class="o">[</span><span class="s2">&#34;sh&#34;</span>, <span class="s2">&#34;-c&#34;</span>, <span class="s2">&#34;cp -r /var/www/app/* /var/shared/data/&#34;</span><span class="o">]</span>
+<span class="ln">24</span>        imagePullPolicy: IfNotPresent        
+<span class="ln">25</span>        volumeMounts:
+<span class="ln">26</span>        - name: app-data
+<span class="ln">27</span>          mountPath: /var/shared/data
+<span class="ln">28</span>      containers:      
+<span class="ln">29</span>      - name: app-runtime
+<span class="ln">30</span>        <span class="c1"># Run this image</span>
+<span class="ln">31</span>        image: local.dev/python-3.6:latest
+<span class="ln">32</span>        command: <span class="o">[</span><span class="s2">&#34;python3&#34;</span>, <span class="s2">&#34;/var/app/hello.py&#34;</span><span class="o">]</span>
+<span class="ln">33</span>        imagePullPolicy: IfNotPresent
+<span class="ln">34</span>        ports:
+<span class="ln">35</span>        - name: http
+<span class="ln">36</span>          containerPort: <span class="m">8000</span>
+<span class="ln">37</span>          protocol: TCP
+<span class="ln">38</span>        volumeMounts:
+<span class="ln">39</span>        - name: app-data
+<span class="ln">40</span>          mountPath: /var/app
+<span class="ln">41</span>      volumes:
+<span class="ln">42</span>      - name: app-data
+<span class="ln">43</span>        emptyDir: <span class="o">{}</span>
+</code></pre></div>
   </article>
 <aside class="sidebar">
   <section class="sidebar_inner">
@@ -212,6 +212,14 @@
     <h2 class="mt-4">Featured Posts</h2>
     
     <ul>
+    
+      <li>
+        <a href="https://blog.wisekee.com/post/awesome-open-source/" class="nav-link">Awesome open resoure tools and project</a>
+      </li>
+    
+      <li>
+        <a href="https://blog.wisekee.com/post/awesome-blog-resources/" class="nav-link">Awesome blog&#39;s resoures</a>
+      </li>
     
       <li>
         <a href="https://blog.wisekee.com/post/k8s-metrics-server/" class="nav-link">Solve the problem of Metrics - Server</a>
@@ -286,7 +294,7 @@
         
         <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent">
           FEATURED
-          <span class='button_tally'>6</span>
+          <span class='button_tally'>8</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/terraform/' class=" post_tag button button_translucent">
@@ -442,7 +450,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent" data-position=6>FEATURED<span class='button_tally'>6</span>
+            <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent" data-position=8>FEATURED<span class='button_tally'>8</span>
             </a>
             
             

@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>ElasticSearch monitoring and  alert base on ElastAlert | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.101.0" />
+  <meta name="generator" content="Hugo 0.74.3" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -145,284 +145,285 @@
     
     <p>Dynamically generate alarm rules and send email to relative people.based on a given parameter or configuration <a href="https://github.com/Yelp/elastalert">Elastalert</a></p>
 <h4 id="the-directory-construct-look-following">The directory construct look following</h4>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">├── elastalert
-</span></span><span class="line"><span class="ln">2</span><span class="cl">├── generate_rule.py
-</span></span><span class="line"><span class="ln">3</span><span class="cl">├── param.json
-</span></span><span class="line"><span class="ln">4</span><span class="cl">├── rules
-</span></span><span class="line"><span class="ln">5</span><span class="cl">└── template
-</span></span></code></pre></div><p>You can also through <code>pip install elastalert</code> installing elastalert package. I&rsquo;m going to use it directly here
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln">1</span>├── elastalert
+<span class="ln">2</span>├── generate_rule.py
+<span class="ln">3</span>├── param.json
+<span class="ln">4</span>├── rules
+<span class="ln">5</span>└── template
+</code></pre></div><p>You can also through <code>pip install elastalert</code> installing elastalert package. I&rsquo;m going to use it directly here
 The <code>template</code>directory store tpl file, use this template generate some rules file to rules directory. and used elastalert</p>
 <h4 id="configuration-file-paramjson">Configuration file param.json</h4>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="ln">  1</span><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="ln">  2</span><span class="cl">    <span class="nt">&#34;dev&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln">  3</span><span class="cl">        <span class="nt">&#34;public_config&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln">  4</span><span class="cl">            <span class="nt">&#34;run_every&#34;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln">  5</span><span class="cl">            <span class="nt">&#34;buffer_time&#34;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln">  6</span><span class="cl">            <span class="nt">&#34;es_host&#34;</span><span class="p">:</span> <span class="s2">&#34;dev.es.svc.cluster.local&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln">  7</span><span class="cl">            <span class="nt">&#34;es_port&#34;</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln">  8</span><span class="cl">            <span class="nt">&#34;smtp_host&#34;</span><span class="p">:</span> <span class="s2">&#34;email-smtp.us-west-2.amazonaws.com&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln">  9</span><span class="cl">            <span class="nt">&#34;from_addr&#34;</span><span class="p">:</span> <span class="s2">&#34;es-alert@local.com&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 10</span><span class="cl">            <span class="nt">&#34;notify_email&#34;</span><span class="p">:</span> <span class="s2">&#34;es-alert@local.com&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 11</span><span class="cl">            <span class="nt">&#34;smtp_port&#34;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 12</span><span class="cl">            <span class="nt">&#34;email_cc&#34;</span><span class="p">:</span> <span class="p">[],</span>
-</span></span><span class="line"><span class="ln"> 13</span><span class="cl">            <span class="nt">&#34;alert_subject&#34;</span><span class="p">:</span> <span class="s2">&#34;[DEV][{1}][{0}][ELK Error Log]There are {2} error(s) in last 2 hours&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 14</span><span class="cl">            <span class="nt">&#34;alert_subject_args&#34;</span><span class="p">:</span> <span class="s2">&#34;[&#39;app_id&#39;,&#39;ecs_cluster&#39;,&#39;num_hits&#39;]&#34;</span>
-</span></span><span class="line"><span class="ln"> 15</span><span class="cl">        <span class="p">},</span>
-</span></span><span class="line"><span class="ln"> 16</span><span class="cl">        <span class="nt">&#34;rules&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln"> 17</span><span class="cl">            <span class="nt">&#34;frontend&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln"> 18</span><span class="cl">                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;frontend&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 19</span><span class="cl">                <span class="nt">&#34;template&#34;</span><span class="p">:</span> <span class="s2">&#34;template/crontab.tpl&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 20</span><span class="cl">                <span class="nt">&#34;index_name&#34;</span><span class="p">:</span> <span class="s2">&#34;frontend-*&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 21</span><span class="cl">                <span class="nt">&#34;event_num&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 22</span><span class="cl">                <span class="nt">&#34;f_time&#34;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 23</span><span class="cl">                <span class="nt">&#34;cron&#34;</span><span class="p">:</span> <span class="s2">&#34;0 */2 * * *&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 24</span><span class="cl">                <span class="nt">&#34;query_string&#34;</span><span class="p">:</span> <span class="s2">&#34;app_id:frontend AND message:error&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 25</span><span class="cl">                <span class="nt">&#34;emails&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="ln"> 26</span><span class="cl">                    <span class="s2">&#34;dev.elk.errors@local.com&#34;</span>
-</span></span><span class="line"><span class="ln"> 27</span><span class="cl">                <span class="p">]</span>
-</span></span><span class="line"><span class="ln"> 28</span><span class="cl">            <span class="p">},</span>
-</span></span><span class="line"><span class="ln"> 29</span><span class="cl">            <span class="nt">&#34;nginx&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln"> 30</span><span class="cl">                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;nginx&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 31</span><span class="cl">                <span class="nt">&#34;template&#34;</span><span class="p">:</span> <span class="s2">&#34;template/crontab.tpl&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 32</span><span class="cl">                <span class="nt">&#34;index_name&#34;</span><span class="p">:</span> <span class="s2">&#34;nginx-*&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 33</span><span class="cl">                <span class="nt">&#34;event_num&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 34</span><span class="cl">                <span class="nt">&#34;f_time&#34;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 35</span><span class="cl">                <span class="nt">&#34;cron&#34;</span><span class="p">:</span> <span class="s2">&#34;0 */5 * * *&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 36</span><span class="cl">                <span class="nt">&#34;query_string&#34;</span><span class="p">:</span> <span class="s2">&#34;app_id:nginx AND status:500 AND message:error&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 37</span><span class="cl">                <span class="nt">&#34;emails&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="ln"> 38</span><span class="cl">                    <span class="s2">&#34;dev.elk.errors@local.com&#34;</span>
-</span></span><span class="line"><span class="ln"> 39</span><span class="cl">                <span class="p">]</span>
-</span></span><span class="line"><span class="ln"> 40</span><span class="cl">            <span class="p">},</span>
-</span></span><span class="line"><span class="ln"> 41</span><span class="cl">            <span class="nt">&#34;consumer&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln"> 42</span><span class="cl">                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;consumer&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 43</span><span class="cl">                <span class="nt">&#34;template&#34;</span><span class="p">:</span> <span class="s2">&#34;template/crontab.tpl&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 44</span><span class="cl">                <span class="nt">&#34;index_name&#34;</span><span class="p">:</span> <span class="s2">&#34;consumer-*&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 45</span><span class="cl">                <span class="nt">&#34;event_num&#34;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 46</span><span class="cl">                <span class="nt">&#34;f_time&#34;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 47</span><span class="cl">                <span class="nt">&#34;cron&#34;</span><span class="p">:</span> <span class="s2">&#34;0 */2 * * *&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 48</span><span class="cl">                <span class="nt">&#34;query_string&#34;</span><span class="p">:</span> <span class="s2">&#34;app_id:consumer AND log_level:error&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 49</span><span class="cl">                <span class="nt">&#34;emails&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="ln"> 50</span><span class="cl">                    <span class="s2">&#34;dev.elk.errors@local.com&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 51</span><span class="cl">                    <span class="s2">&#34;tom@gmail.com&#34;</span>
-</span></span><span class="line"><span class="ln"> 52</span><span class="cl">                <span class="p">]</span>
-</span></span><span class="line"><span class="ln"> 53</span><span class="cl">            <span class="p">},</span>
-</span></span><span class="line"><span class="ln"> 54</span><span class="cl">            <span class="nt">&#34;provider&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln"> 55</span><span class="cl">                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;provider&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 56</span><span class="cl">                <span class="nt">&#34;template&#34;</span><span class="p">:</span> <span class="s2">&#34;template/crontab.tpl&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 57</span><span class="cl">                <span class="nt">&#34;index_name&#34;</span><span class="p">:</span> <span class="s2">&#34;provider-*&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 58</span><span class="cl">                <span class="nt">&#34;event_num&#34;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 59</span><span class="cl">                <span class="nt">&#34;f_time&#34;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 60</span><span class="cl">                <span class="nt">&#34;cron&#34;</span><span class="p">:</span> <span class="s2">&#34;0 */2 * * *&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 61</span><span class="cl">                <span class="nt">&#34;query_string&#34;</span><span class="p">:</span> <span class="s2">&#34;app_id:provider AND log_level:error&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 62</span><span class="cl">                <span class="nt">&#34;emails&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="ln"> 63</span><span class="cl">                    <span class="s2">&#34;dev.elk.errors@local.com&#34;</span>
-</span></span><span class="line"><span class="ln"> 64</span><span class="cl">                <span class="p">]</span>
-</span></span><span class="line"><span class="ln"> 65</span><span class="cl">            <span class="p">},</span>
-</span></span><span class="line"><span class="ln"> 66</span><span class="cl">            <span class="nt">&#34;other-service&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln"> 67</span><span class="cl">                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;other-service&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 68</span><span class="cl">                <span class="nt">&#34;template&#34;</span><span class="p">:</span> <span class="s2">&#34;template/crontab.tpl&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 69</span><span class="cl">                <span class="nt">&#34;index_name&#34;</span><span class="p">:</span> <span class="s2">&#34;*&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 70</span><span class="cl">                <span class="nt">&#34;event_num&#34;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 71</span><span class="cl">                <span class="nt">&#34;f_time&#34;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 72</span><span class="cl">                <span class="nt">&#34;cron&#34;</span><span class="p">:</span> <span class="s2">&#34;0 */2 * * *&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 73</span><span class="cl">                <span class="nt">&#34;query_string&#34;</span><span class="p">:</span> <span class="s2">&#34;app_id:example-service AND log_level:error&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 74</span><span class="cl">                <span class="nt">&#34;emails&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="ln"> 75</span><span class="cl">                    <span class="s2">&#34;dev.elk.errors@local.com&#34;</span>
-</span></span><span class="line"><span class="ln"> 76</span><span class="cl">                <span class="p">]</span>
-</span></span><span class="line"><span class="ln"> 77</span><span class="cl">            <span class="p">}</span>
-</span></span><span class="line"><span class="ln"> 78</span><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="ln"> 79</span><span class="cl">    <span class="p">},</span>
-</span></span><span class="line"><span class="ln"> 80</span><span class="cl">    <span class="nt">&#34;qa&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln"> 81</span><span class="cl">        <span class="nt">&#34;public_config&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln"> 82</span><span class="cl">            <span class="nt">&#34;run_every&#34;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 83</span><span class="cl">            <span class="nt">&#34;buffer_time&#34;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 84</span><span class="cl">            <span class="nt">&#34;es_host&#34;</span><span class="p">:</span> <span class="s2">&#34;qa.es.svc.cluster.local&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 85</span><span class="cl">            <span class="nt">&#34;es_port&#34;</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 86</span><span class="cl">            <span class="nt">&#34;smtp_host&#34;</span><span class="p">:</span> <span class="s2">&#34;email-smtp.us-west-2.amazonaws.com&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 87</span><span class="cl">            <span class="nt">&#34;from_addr&#34;</span><span class="p">:</span> <span class="s2">&#34;es-alert@local.com&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 88</span><span class="cl">            <span class="nt">&#34;notify_email&#34;</span><span class="p">:</span> <span class="s2">&#34;es-alert@local.com&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 89</span><span class="cl">            <span class="nt">&#34;smtp_port&#34;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 90</span><span class="cl">            <span class="nt">&#34;email_cc&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;dev.devops@local.com&#34;</span><span class="p">],</span>
-</span></span><span class="line"><span class="ln"> 91</span><span class="cl">            <span class="nt">&#34;alert_subject&#34;</span><span class="p">:</span> <span class="s2">&#34;[DEV] ServiceError: {0}&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 92</span><span class="cl">            <span class="nt">&#34;alert_subject_args&#34;</span><span class="p">:</span> <span class="s2">&#34;[&#39;app_id&#39;]&#34;</span>
-</span></span><span class="line"><span class="ln"> 93</span><span class="cl">        <span class="p">},</span>
-</span></span><span class="line"><span class="ln"> 94</span><span class="cl">        <span class="nt">&#34;rules&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln"> 95</span><span class="cl">            <span class="nt">&#34;account-service&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln"> 96</span><span class="cl">                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;account-service&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 97</span><span class="cl">                <span class="nt">&#34;template&#34;</span><span class="p">:</span> <span class="s2">&#34;template/normal.tpl&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 98</span><span class="cl">                <span class="nt">&#34;index_name&#34;</span><span class="p">:</span> <span class="s2">&#34;account-service-*&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln"> 99</span><span class="cl">                <span class="nt">&#34;event_num&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln">100</span><span class="cl">                <span class="nt">&#34;f_time&#34;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln">101</span><span class="cl">                <span class="nt">&#34;cron&#34;</span><span class="p">:</span> <span class="s2">&#34;0 */2 * * *&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln">102</span><span class="cl">                <span class="nt">&#34;query_string&#34;</span><span class="p">:</span> <span class="s2">&#34;app_id:(account-service) AND log_level:error&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="ln">103</span><span class="cl">                <span class="nt">&#34;emails&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="ln">104</span><span class="cl">                    <span class="s2">&#34;java-grp@local.com&#34;</span>
-</span></span><span class="line"><span class="ln">105</span><span class="cl">                <span class="p">]</span>
-</span></span><span class="line"><span class="ln">106</span><span class="cl">            <span class="p">}</span>
-</span></span><span class="line"><span class="ln">107</span><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="ln">108</span><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="ln">109</span><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>This parameters file include different service rule Settings for different environments</p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="ln">  1</span><span class="p">{</span>
+<span class="ln">  2</span>    <span class="nt">&#34;dev&#34;</span><span class="p">:</span> <span class="p">{</span>
+<span class="ln">  3</span>        <span class="nt">&#34;public_config&#34;</span><span class="p">:</span> <span class="p">{</span>
+<span class="ln">  4</span>            <span class="nt">&#34;run_every&#34;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+<span class="ln">  5</span>            <span class="nt">&#34;buffer_time&#34;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+<span class="ln">  6</span>            <span class="nt">&#34;es_host&#34;</span><span class="p">:</span> <span class="s2">&#34;dev.es.svc.cluster.local&#34;</span><span class="p">,</span>
+<span class="ln">  7</span>            <span class="nt">&#34;es_port&#34;</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
+<span class="ln">  8</span>            <span class="nt">&#34;smtp_host&#34;</span><span class="p">:</span> <span class="s2">&#34;email-smtp.us-west-2.amazonaws.com&#34;</span><span class="p">,</span>
+<span class="ln">  9</span>            <span class="nt">&#34;from_addr&#34;</span><span class="p">:</span> <span class="s2">&#34;es-alert@local.com&#34;</span><span class="p">,</span>
+<span class="ln"> 10</span>            <span class="nt">&#34;notify_email&#34;</span><span class="p">:</span> <span class="s2">&#34;es-alert@local.com&#34;</span><span class="p">,</span>
+<span class="ln"> 11</span>            <span class="nt">&#34;smtp_port&#34;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
+<span class="ln"> 12</span>            <span class="nt">&#34;email_cc&#34;</span><span class="p">:</span> <span class="p">[],</span>
+<span class="ln"> 13</span>            <span class="nt">&#34;alert_subject&#34;</span><span class="p">:</span> <span class="s2">&#34;[DEV][{1}][{0}][ELK Error Log]There are {2} error(s) in last 2 hours&#34;</span><span class="p">,</span>
+<span class="ln"> 14</span>            <span class="nt">&#34;alert_subject_args&#34;</span><span class="p">:</span> <span class="s2">&#34;[&#39;app_id&#39;,&#39;ecs_cluster&#39;,&#39;num_hits&#39;]&#34;</span>
+<span class="ln"> 15</span>        <span class="p">},</span>
+<span class="ln"> 16</span>        <span class="nt">&#34;rules&#34;</span><span class="p">:</span> <span class="p">{</span>
+<span class="ln"> 17</span>            <span class="nt">&#34;frontend&#34;</span><span class="p">:</span> <span class="p">{</span>
+<span class="ln"> 18</span>                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;frontend&#34;</span><span class="p">,</span>
+<span class="ln"> 19</span>                <span class="nt">&#34;template&#34;</span><span class="p">:</span> <span class="s2">&#34;template/crontab.tpl&#34;</span><span class="p">,</span>
+<span class="ln"> 20</span>                <span class="nt">&#34;index_name&#34;</span><span class="p">:</span> <span class="s2">&#34;frontend-*&#34;</span><span class="p">,</span>
+<span class="ln"> 21</span>                <span class="nt">&#34;event_num&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="ln"> 22</span>                <span class="nt">&#34;f_time&#34;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+<span class="ln"> 23</span>                <span class="nt">&#34;cron&#34;</span><span class="p">:</span> <span class="s2">&#34;0 */2 * * *&#34;</span><span class="p">,</span>
+<span class="ln"> 24</span>                <span class="nt">&#34;query_string&#34;</span><span class="p">:</span> <span class="s2">&#34;app_id:frontend AND message:error&#34;</span><span class="p">,</span>
+<span class="ln"> 25</span>                <span class="nt">&#34;emails&#34;</span><span class="p">:</span> <span class="p">[</span>
+<span class="ln"> 26</span>                    <span class="s2">&#34;dev.elk.errors@local.com&#34;</span>
+<span class="ln"> 27</span>                <span class="p">]</span>
+<span class="ln"> 28</span>            <span class="p">},</span>
+<span class="ln"> 29</span>            <span class="nt">&#34;nginx&#34;</span><span class="p">:</span> <span class="p">{</span>
+<span class="ln"> 30</span>                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;nginx&#34;</span><span class="p">,</span>
+<span class="ln"> 31</span>                <span class="nt">&#34;template&#34;</span><span class="p">:</span> <span class="s2">&#34;template/crontab.tpl&#34;</span><span class="p">,</span>
+<span class="ln"> 32</span>                <span class="nt">&#34;index_name&#34;</span><span class="p">:</span> <span class="s2">&#34;nginx-*&#34;</span><span class="p">,</span>
+<span class="ln"> 33</span>                <span class="nt">&#34;event_num&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="ln"> 34</span>                <span class="nt">&#34;f_time&#34;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+<span class="ln"> 35</span>                <span class="nt">&#34;cron&#34;</span><span class="p">:</span> <span class="s2">&#34;0 */5 * * *&#34;</span><span class="p">,</span>
+<span class="ln"> 36</span>                <span class="nt">&#34;query_string&#34;</span><span class="p">:</span> <span class="s2">&#34;app_id:nginx AND status:500 AND message:error&#34;</span><span class="p">,</span>
+<span class="ln"> 37</span>                <span class="nt">&#34;emails&#34;</span><span class="p">:</span> <span class="p">[</span>
+<span class="ln"> 38</span>                    <span class="s2">&#34;dev.elk.errors@local.com&#34;</span>
+<span class="ln"> 39</span>                <span class="p">]</span>
+<span class="ln"> 40</span>            <span class="p">},</span>
+<span class="ln"> 41</span>            <span class="nt">&#34;consumer&#34;</span><span class="p">:</span> <span class="p">{</span>
+<span class="ln"> 42</span>                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;consumer&#34;</span><span class="p">,</span>
+<span class="ln"> 43</span>                <span class="nt">&#34;template&#34;</span><span class="p">:</span> <span class="s2">&#34;template/crontab.tpl&#34;</span><span class="p">,</span>
+<span class="ln"> 44</span>                <span class="nt">&#34;index_name&#34;</span><span class="p">:</span> <span class="s2">&#34;consumer-*&#34;</span><span class="p">,</span>
+<span class="ln"> 45</span>                <span class="nt">&#34;event_num&#34;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+<span class="ln"> 46</span>                <span class="nt">&#34;f_time&#34;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+<span class="ln"> 47</span>                <span class="nt">&#34;cron&#34;</span><span class="p">:</span> <span class="s2">&#34;0 */2 * * *&#34;</span><span class="p">,</span>
+<span class="ln"> 48</span>                <span class="nt">&#34;query_string&#34;</span><span class="p">:</span> <span class="s2">&#34;app_id:consumer AND log_level:error&#34;</span><span class="p">,</span>
+<span class="ln"> 49</span>                <span class="nt">&#34;emails&#34;</span><span class="p">:</span> <span class="p">[</span>
+<span class="ln"> 50</span>                    <span class="s2">&#34;dev.elk.errors@local.com&#34;</span><span class="p">,</span>
+<span class="ln"> 51</span>                    <span class="s2">&#34;tom@gmail.com&#34;</span>
+<span class="ln"> 52</span>                <span class="p">]</span>
+<span class="ln"> 53</span>            <span class="p">},</span>
+<span class="ln"> 54</span>            <span class="nt">&#34;provider&#34;</span><span class="p">:</span> <span class="p">{</span>
+<span class="ln"> 55</span>                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;provider&#34;</span><span class="p">,</span>
+<span class="ln"> 56</span>                <span class="nt">&#34;template&#34;</span><span class="p">:</span> <span class="s2">&#34;template/crontab.tpl&#34;</span><span class="p">,</span>
+<span class="ln"> 57</span>                <span class="nt">&#34;index_name&#34;</span><span class="p">:</span> <span class="s2">&#34;provider-*&#34;</span><span class="p">,</span>
+<span class="ln"> 58</span>                <span class="nt">&#34;event_num&#34;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+<span class="ln"> 59</span>                <span class="nt">&#34;f_time&#34;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+<span class="ln"> 60</span>                <span class="nt">&#34;cron&#34;</span><span class="p">:</span> <span class="s2">&#34;0 */2 * * *&#34;</span><span class="p">,</span>
+<span class="ln"> 61</span>                <span class="nt">&#34;query_string&#34;</span><span class="p">:</span> <span class="s2">&#34;app_id:provider AND log_level:error&#34;</span><span class="p">,</span>
+<span class="ln"> 62</span>                <span class="nt">&#34;emails&#34;</span><span class="p">:</span> <span class="p">[</span>
+<span class="ln"> 63</span>                    <span class="s2">&#34;dev.elk.errors@local.com&#34;</span>
+<span class="ln"> 64</span>                <span class="p">]</span>
+<span class="ln"> 65</span>            <span class="p">},</span>
+<span class="ln"> 66</span>            <span class="nt">&#34;other-service&#34;</span><span class="p">:</span> <span class="p">{</span>
+<span class="ln"> 67</span>                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;other-service&#34;</span><span class="p">,</span>
+<span class="ln"> 68</span>                <span class="nt">&#34;template&#34;</span><span class="p">:</span> <span class="s2">&#34;template/crontab.tpl&#34;</span><span class="p">,</span>
+<span class="ln"> 69</span>                <span class="nt">&#34;index_name&#34;</span><span class="p">:</span> <span class="s2">&#34;*&#34;</span><span class="p">,</span>
+<span class="ln"> 70</span>                <span class="nt">&#34;event_num&#34;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+<span class="ln"> 71</span>                <span class="nt">&#34;f_time&#34;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+<span class="ln"> 72</span>                <span class="nt">&#34;cron&#34;</span><span class="p">:</span> <span class="s2">&#34;0 */2 * * *&#34;</span><span class="p">,</span>
+<span class="ln"> 73</span>                <span class="nt">&#34;query_string&#34;</span><span class="p">:</span> <span class="s2">&#34;app_id:example-service AND log_level:error&#34;</span><span class="p">,</span>
+<span class="ln"> 74</span>                <span class="nt">&#34;emails&#34;</span><span class="p">:</span> <span class="p">[</span>
+<span class="ln"> 75</span>                    <span class="s2">&#34;dev.elk.errors@local.com&#34;</span>
+<span class="ln"> 76</span>                <span class="p">]</span>
+<span class="ln"> 77</span>            <span class="p">}</span>
+<span class="ln"> 78</span>        <span class="p">}</span>
+<span class="ln"> 79</span>    <span class="p">},</span>
+<span class="ln"> 80</span>    <span class="nt">&#34;qa&#34;</span><span class="p">:</span> <span class="p">{</span>
+<span class="ln"> 81</span>        <span class="nt">&#34;public_config&#34;</span><span class="p">:</span> <span class="p">{</span>
+<span class="ln"> 82</span>            <span class="nt">&#34;run_every&#34;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+<span class="ln"> 83</span>            <span class="nt">&#34;buffer_time&#34;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+<span class="ln"> 84</span>            <span class="nt">&#34;es_host&#34;</span><span class="p">:</span> <span class="s2">&#34;qa.es.svc.cluster.local&#34;</span><span class="p">,</span>
+<span class="ln"> 85</span>            <span class="nt">&#34;es_port&#34;</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
+<span class="ln"> 86</span>            <span class="nt">&#34;smtp_host&#34;</span><span class="p">:</span> <span class="s2">&#34;email-smtp.us-west-2.amazonaws.com&#34;</span><span class="p">,</span>
+<span class="ln"> 87</span>            <span class="nt">&#34;from_addr&#34;</span><span class="p">:</span> <span class="s2">&#34;es-alert@local.com&#34;</span><span class="p">,</span>
+<span class="ln"> 88</span>            <span class="nt">&#34;notify_email&#34;</span><span class="p">:</span> <span class="s2">&#34;es-alert@local.com&#34;</span><span class="p">,</span>
+<span class="ln"> 89</span>            <span class="nt">&#34;smtp_port&#34;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
+<span class="ln"> 90</span>            <span class="nt">&#34;email_cc&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;dev.devops@local.com&#34;</span><span class="p">],</span>
+<span class="ln"> 91</span>            <span class="nt">&#34;alert_subject&#34;</span><span class="p">:</span> <span class="s2">&#34;[DEV] ServiceError: {0}&#34;</span><span class="p">,</span>
+<span class="ln"> 92</span>            <span class="nt">&#34;alert_subject_args&#34;</span><span class="p">:</span> <span class="s2">&#34;[&#39;app_id&#39;]&#34;</span>
+<span class="ln"> 93</span>        <span class="p">},</span>
+<span class="ln"> 94</span>        <span class="nt">&#34;rules&#34;</span><span class="p">:</span> <span class="p">{</span>
+<span class="ln"> 95</span>            <span class="nt">&#34;account-service&#34;</span><span class="p">:</span> <span class="p">{</span>
+<span class="ln"> 96</span>                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;account-service&#34;</span><span class="p">,</span>
+<span class="ln"> 97</span>                <span class="nt">&#34;template&#34;</span><span class="p">:</span> <span class="s2">&#34;template/normal.tpl&#34;</span><span class="p">,</span>
+<span class="ln"> 98</span>                <span class="nt">&#34;index_name&#34;</span><span class="p">:</span> <span class="s2">&#34;account-service-*&#34;</span><span class="p">,</span>
+<span class="ln"> 99</span>                <span class="nt">&#34;event_num&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="ln">100</span>                <span class="nt">&#34;f_time&#34;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+<span class="ln">101</span>                <span class="nt">&#34;cron&#34;</span><span class="p">:</span> <span class="s2">&#34;0 */2 * * *&#34;</span><span class="p">,</span>
+<span class="ln">102</span>                <span class="nt">&#34;query_string&#34;</span><span class="p">:</span> <span class="s2">&#34;app_id:(account-service) AND log_level:error&#34;</span><span class="p">,</span>
+<span class="ln">103</span>                <span class="nt">&#34;emails&#34;</span><span class="p">:</span> <span class="p">[</span>
+<span class="ln">104</span>                    <span class="s2">&#34;java-grp@local.com&#34;</span>
+<span class="ln">105</span>                <span class="p">]</span>
+<span class="ln">106</span>            <span class="p">}</span>
+<span class="ln">107</span>        <span class="p">}</span>
+<span class="ln">108</span>    <span class="p">}</span>
+<span class="ln">109</span><span class="p">}</span>
+</code></pre></div><p>This parameters file include different service rule Settings for different environments</p>
 <h4 id="the-generate_rulepy-produce-rules-yaml-file-to-rules-directory-according-to-the-definition-of-the-template-file">The <code>generate_rule.py</code> produce rules yaml file to rules directory according to the definition of the template file</h4>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="ch">#!/usr/bin/env python</span>
-</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"># -- coding:utf-8 --</span>
-</span></span><span class="line"><span class="ln"> 3</span><span class="cl">
-</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">Template</span>
-</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="kn">import</span> <span class="nn">json</span>
-</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
-</span></span><span class="line"><span class="ln"> 7</span><span class="cl">
-</span></span><span class="line"><span class="ln"> 8</span><span class="cl">
-</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="k">class</span> <span class="nc">GeneratorTemp</span><span class="p">:</span>
-</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="s2">&#34;&#34;&#34;
-</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="s2">    handle json template
-</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
-</span></span><span class="line"><span class="ln">13</span><span class="cl">    <span class="n">__data</span> <span class="o">=</span> <span class="p">[]</span>
-</span></span><span class="line"><span class="ln">14</span><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="s1">&#39;dev&#39;</span><span class="p">):</span>
-</span></span><span class="line"><span class="ln">15</span><span class="cl">         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;param.json&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">data_file</span><span class="p">:</span>
-</span></span><span class="line"><span class="ln">16</span><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">__data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">data_file</span><span class="p">)[</span><span class="n">env</span><span class="p">]</span>
-</span></span><span class="line"><span class="ln">17</span><span class="cl">
-</span></span><span class="line"><span class="ln">18</span><span class="cl">    <span class="k">def</span> <span class="nf">__createFile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tpl_path</span><span class="o">=</span><span class="s1">&#39;template/config.tpl&#39;</span><span class="p">,</span> <span class="n">dest_path</span><span class="o">=</span><span class="s1">&#39;rules/new.yaml&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
-</span></span><span class="line"><span class="ln">19</span><span class="cl">        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tpl_path</span><span class="p">,</span> <span class="s1">&#39;r+&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">temp_file</span><span class="p">:</span>
-</span></span><span class="line"><span class="ln">20</span><span class="cl">            <span class="n">content</span> <span class="o">=</span> <span class="n">temp_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-</span></span><span class="line"><span class="ln">21</span><span class="cl">        <span class="n">template</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
-</span></span><span class="line"><span class="ln">22</span><span class="cl">        <span class="n">new_content</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-</span></span><span class="line"><span class="ln">23</span><span class="cl">        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">dest_path</span><span class="p">,</span> <span class="s2">&#34;wb+&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">new_file</span><span class="p">:</span>
-</span></span><span class="line"><span class="ln">24</span><span class="cl">            <span class="n">new_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">new_content</span><span class="p">)</span>
-</span></span><span class="line"><span class="ln">25</span><span class="cl">
-</span></span><span class="line"><span class="ln">26</span><span class="cl">    <span class="k">def</span> <span class="nf">generateRuleFile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span></span><span class="line"><span class="ln">27</span><span class="cl">        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__data</span><span class="p">[</span><span class="s1">&#39;rules&#39;</span><span class="p">]:</span>
-</span></span><span class="line"><span class="ln">28</span><span class="cl">            <span class="n">rule_param</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__data</span><span class="p">[</span><span class="s1">&#39;rules&#39;</span><span class="p">][</span><span class="n">item</span><span class="p">]</span>
-</span></span><span class="line"><span class="ln">29</span><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">__createFile</span><span class="p">(</span><span class="n">rule_param</span><span class="p">[</span><span class="s1">&#39;template&#39;</span><span class="p">],</span> <span class="s2">&#34;rules/&#34;</span> <span class="o">+</span> <span class="n">rule_param</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&#34;.yaml&#34;</span><span class="p">,</span> <span class="n">rule_param</span><span class="p">)</span>
-</span></span><span class="line"><span class="ln">30</span><span class="cl">
-</span></span><span class="line"><span class="ln">31</span><span class="cl">    <span class="k">def</span> <span class="nf">generateConfFile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span></span><span class="line"><span class="ln">32</span><span class="cl">        <span class="n">json</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__data</span><span class="p">[</span><span class="s1">&#39;public_config&#39;</span><span class="p">]</span>
-</span></span><span class="line"><span class="ln">33</span><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">__createFile</span><span class="p">(</span><span class="s1">&#39;template/config.tpl&#39;</span><span class="p">,</span> <span class="s1">&#39;./config.yaml&#39;</span><span class="p">,</span> <span class="n">json</span><span class="p">)</span>
-</span></span><span class="line"><span class="ln">34</span><span class="cl">                
-</span></span><span class="line"><span class="ln">35</span><span class="cl">
-</span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
-</span></span><span class="line"><span class="ln">37</span><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
-</span></span><span class="line"><span class="ln">38</span><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;argument less than one&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="ln">39</span><span class="cl">        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="ln">40</span><span class="cl">    <span class="n">env</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>    
-</span></span><span class="line"><span class="ln">41</span><span class="cl">    <span class="n">gt</span> <span class="o">=</span> <span class="n">GeneratorTemp</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>    
-</span></span><span class="line"><span class="ln">42</span><span class="cl">    <span class="n">gt</span><span class="o">.</span><span class="n">generateConfFile</span><span class="p">()</span>
-</span></span><span class="line"><span class="ln">43</span><span class="cl">    <span class="n">gt</span><span class="o">.</span><span class="n">generateRuleFile</span><span class="p">()</span>
-</span></span></code></pre></div><p>the rule files include second type, the first is: task rules, the other type is: total configuration for elastalert</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln"> 1</span><span class="ch">#!/usr/bin/env python</span>
+<span class="ln"> 2</span><span class="c1"># -- coding:utf-8 --</span>
+<span class="ln"> 3</span>
+<span class="ln"> 4</span><span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">Template</span>
+<span class="ln"> 5</span><span class="kn">import</span> <span class="nn">json</span>
+<span class="ln"> 6</span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="ln"> 7</span>
+<span class="ln"> 8</span>
+<span class="ln"> 9</span><span class="k">class</span> <span class="nc">GeneratorTemp</span><span class="p">:</span>
+<span class="ln">10</span>    <span class="s2">&#34;&#34;&#34;
+</span><span class="ln">11</span><span class="s2">    handle json template
+</span><span class="ln">12</span><span class="s2">    &#34;&#34;&#34;</span>
+<span class="ln">13</span>    <span class="n">__data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="ln">14</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="s1">&#39;dev&#39;</span><span class="p">):</span>
+<span class="ln">15</span>         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;param.json&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">data_file</span><span class="p">:</span>
+<span class="ln">16</span>            <span class="bp">self</span><span class="o">.</span><span class="n">__data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">data_file</span><span class="p">)[</span><span class="n">env</span><span class="p">]</span>
+<span class="ln">17</span>
+<span class="ln">18</span>    <span class="k">def</span> <span class="nf">__createFile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tpl_path</span><span class="o">=</span><span class="s1">&#39;template/config.tpl&#39;</span><span class="p">,</span> <span class="n">dest_path</span><span class="o">=</span><span class="s1">&#39;rules/new.yaml&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+<span class="ln">19</span>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tpl_path</span><span class="p">,</span> <span class="s1">&#39;r+&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">temp_file</span><span class="p">:</span>
+<span class="ln">20</span>            <span class="n">content</span> <span class="o">=</span> <span class="n">temp_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="ln">21</span>        <span class="n">template</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+<span class="ln">22</span>        <span class="n">new_content</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="ln">23</span>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">dest_path</span><span class="p">,</span> <span class="s2">&#34;wb+&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">new_file</span><span class="p">:</span>
+<span class="ln">24</span>            <span class="n">new_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">new_content</span><span class="p">)</span>
+<span class="ln">25</span>
+<span class="ln">26</span>    <span class="k">def</span> <span class="nf">generateRuleFile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ln">27</span>        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__data</span><span class="p">[</span><span class="s1">&#39;rules&#39;</span><span class="p">]:</span>
+<span class="ln">28</span>            <span class="n">rule_param</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__data</span><span class="p">[</span><span class="s1">&#39;rules&#39;</span><span class="p">][</span><span class="n">item</span><span class="p">]</span>
+<span class="ln">29</span>            <span class="bp">self</span><span class="o">.</span><span class="n">__createFile</span><span class="p">(</span><span class="n">rule_param</span><span class="p">[</span><span class="s1">&#39;template&#39;</span><span class="p">],</span> <span class="s2">&#34;rules/&#34;</span> <span class="o">+</span> <span class="n">rule_param</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&#34;.yaml&#34;</span><span class="p">,</span> <span class="n">rule_param</span><span class="p">)</span>
+<span class="ln">30</span>
+<span class="ln">31</span>    <span class="k">def</span> <span class="nf">generateConfFile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ln">32</span>        <span class="n">json</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__data</span><span class="p">[</span><span class="s1">&#39;public_config&#39;</span><span class="p">]</span>
+<span class="ln">33</span>        <span class="bp">self</span><span class="o">.</span><span class="n">__createFile</span><span class="p">(</span><span class="s1">&#39;template/config.tpl&#39;</span><span class="p">,</span> <span class="s1">&#39;./config.yaml&#39;</span><span class="p">,</span> <span class="n">json</span><span class="p">)</span>
+<span class="ln">34</span>                
+<span class="ln">35</span>
+<span class="ln">36</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+<span class="ln">37</span>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+<span class="ln">38</span>        <span class="k">print</span><span class="p">(</span><span class="s2">&#34;argument less than one&#34;</span><span class="p">)</span>
+<span class="ln">39</span>        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="ln">40</span>    <span class="n">env</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>    
+<span class="ln">41</span>    <span class="n">gt</span> <span class="o">=</span> <span class="n">GeneratorTemp</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>    
+<span class="ln">42</span>    <span class="n">gt</span><span class="o">.</span><span class="n">generateConfFile</span><span class="p">()</span>
+<span class="ln">43</span>    <span class="n">gt</span><span class="o">.</span><span class="n">generateRuleFile</span><span class="p">()</span>
+<span class="ln">44</span>
+</code></pre></div><p>the rule files include second type, the first is: task rules, the other type is: total configuration for elastalert</p>
 <h4 id="the-template-include-many-tpl-file">The template include many <code>.tpl</code> file</h4>
 <ul>
 <li>
 <p>the <code>config.tpl</code></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">rules_folder</span><span class="p">:</span><span class="w"> </span><span class="l">rules</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">run_every</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="nt">minutes</span><span class="p">:</span><span class="w"> </span>{{<span class="l">run_every}}</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="nt">buffer_time</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">  </span><span class="nt">minutes</span><span class="p">:</span><span class="w"> </span>{{<span class="l">buffer_time}}</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w"></span><span class="nt">es_host</span><span class="p">:</span><span class="w"> </span>{{<span class="l">es_host}}</span><span class="w">
-</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w"></span><span class="nt">es_port</span><span class="p">:</span><span class="w"> </span>{{<span class="l">es_port}}</span><span class="w">
-</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w"></span><span class="nt">writeback_index</span><span class="p">:</span><span class="w"> </span><span class="l">elastalert_status</span><span class="w">
-</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w"></span><span class="nt">max_aggregation</span><span class="p">:</span><span class="w"> </span><span class="m">500</span><span class="w">
-</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w"></span><span class="nt">max_query_size</span><span class="p">:</span><span class="w"> </span><span class="m">1000</span><span class="w">
-</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w"></span><span class="nt">alert_time_limit</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">  </span><span class="nt">days</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w"></span><span class="nt">smtp_host</span><span class="p">:</span><span class="w"> </span>{{<span class="l">smtp_host}}</span><span class="w">
-</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w"></span><span class="nt">from_addr</span><span class="p">:</span><span class="w"> </span>{{<span class="l">from_addr}}</span><span class="w">
-</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w"></span><span class="nt">notify_email</span><span class="p">:</span><span class="w"> </span>{{<span class="l">notify_email}}</span><span class="w">
-</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w"></span><span class="nt">smtp_port</span><span class="p">:</span><span class="w"> </span>{{<span class="l">smtp_port}}</span><span class="w">
-</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w"></span><span class="nt">smtp_auth_file</span><span class="p">:</span><span class="w"> </span><span class="l">email-credential.yaml</span><span class="w">
-</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w"></span><span class="nt">alert_subject</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{alert_subject}}&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w"></span><span class="nt">alert_subject_args</span><span class="p">:</span><span class="w"> </span>{{<span class="l">alert_subject_args}}</span><span class="w">
-</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w"></span><span class="nt">alert_text</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="sd">    [Error Happened At]:   {0}.
-</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="sd">
-</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="sd">    [ECS Cluster]: {4}
-</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="sd">
-</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="sd">    [Service Name]:   {1}
-</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="sd">
-</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="sd">    [Number of hits]:  {2}
-</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="sd">
-</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="sd">    [Error Info]:   {3}</span><span class="w">    
-</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w"></span><span class="nt">alert_text_args</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;@timestamp&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;app_id&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;num_hits&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;message&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;ecs_cluster&#34;</span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w"></span><span class="nt">alert_text_type</span><span class="p">:</span><span class="w"> </span><span class="l">alert_text_only</span><span class="w">
-</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w"></span><span class="nt">cc</span><span class="p">:</span><span class="w"> 
-</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w"></span>{<span class="l">%- for email in email_cc %}</span><span class="w">
-</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w"></span>- <span class="s2">&#34;{{ email }}&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="w"></span>{<span class="l">%- endfor %}</span><span class="w">
-</span></span></span></code></pre></div></li>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span><span class="k">rules_folder</span><span class="p">:</span><span class="w"> </span>rules<span class="w">
+</span><span class="ln"> 2</span><span class="w">  
+</span><span class="ln"> 3</span><span class="w"></span><span class="k">run_every</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 4</span><span class="w">  </span><span class="k">minutes</span><span class="p">:</span><span class="w"> </span>{{run_every}}<span class="w">
+</span><span class="ln"> 5</span><span class="w">  
+</span><span class="ln"> 6</span><span class="w"></span><span class="k">buffer_time</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 7</span><span class="w">  </span><span class="k">minutes</span><span class="p">:</span><span class="w"> </span>{{buffer_time}}<span class="w">
+</span><span class="ln"> 8</span><span class="w">  
+</span><span class="ln"> 9</span><span class="w"></span><span class="k">es_host</span><span class="p">:</span><span class="w"> </span>{{es_host}}<span class="w">
+</span><span class="ln">10</span><span class="w"></span><span class="k">es_port</span><span class="p">:</span><span class="w"> </span>{{es_port}}<span class="w">
+</span><span class="ln">11</span><span class="w"></span><span class="k">writeback_index</span><span class="p">:</span><span class="w"> </span>elastalert_status<span class="w">
+</span><span class="ln">12</span><span class="w">  
+</span><span class="ln">13</span><span class="w"></span><span class="k">max_aggregation</span><span class="p">:</span><span class="w"> </span><span class="m">500</span><span class="w">
+</span><span class="ln">14</span><span class="w"></span><span class="k">max_query_size</span><span class="p">:</span><span class="w"> </span><span class="m">1000</span><span class="w">
+</span><span class="ln">15</span><span class="w">  
+</span><span class="ln">16</span><span class="w"></span><span class="k">alert_time_limit</span><span class="p">:</span><span class="w">
+</span><span class="ln">17</span><span class="w">  </span><span class="k">days</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="ln">18</span><span class="w"></span><span class="k">smtp_host</span><span class="p">:</span><span class="w"> </span>{{smtp_host}}<span class="w">
+</span><span class="ln">19</span><span class="w"></span><span class="k">from_addr</span><span class="p">:</span><span class="w"> </span>{{from_addr}}<span class="w">
+</span><span class="ln">20</span><span class="w"></span><span class="k">notify_email</span><span class="p">:</span><span class="w"> </span>{{notify_email}}<span class="w">
+</span><span class="ln">21</span><span class="w"></span><span class="k">smtp_port</span><span class="p">:</span><span class="w"> </span>{{smtp_port}}<span class="w">
+</span><span class="ln">22</span><span class="w"></span><span class="k">smtp_auth_file</span><span class="p">:</span><span class="w"> </span>email-credential.yaml<span class="w">
+</span><span class="ln">23</span><span class="w"></span><span class="k">alert_subject</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{alert_subject}}&#34;</span><span class="w">
+</span><span class="ln">24</span><span class="w"></span><span class="k">alert_subject_args</span><span class="p">:</span><span class="w"> </span>{{alert_subject_args}}<span class="w">
+</span><span class="ln">25</span><span class="w"></span><span class="k">alert_text</span><span class="p">:</span><span class="w"> </span><span class="sd">|
+</span><span class="ln">26</span><span class="sd">    [Error Happened At]:   {0}.</span><span class="w">
+</span><span class="ln">27</span><span class="w">  
+</span><span class="ln">28</span><span class="w">    </span><span class="k">[ECS Cluster]</span><span class="p">:</span><span class="w"> </span>{<span class="m">4</span>}<span class="w">
+</span><span class="ln">29</span><span class="w">  
+</span><span class="ln">30</span><span class="w">    </span><span class="k">[Service Name]</span><span class="p">:</span><span class="w">   </span>{<span class="m">1</span>}<span class="w">
+</span><span class="ln">31</span><span class="w">  
+</span><span class="ln">32</span><span class="w">    </span><span class="k">[Number of hits]</span><span class="p">:</span><span class="w">  </span>{<span class="m">2</span>}<span class="w">
+</span><span class="ln">33</span><span class="w">  
+</span><span class="ln">34</span><span class="w">    </span><span class="k">[Error Info]</span><span class="p">:</span><span class="w">   </span>{<span class="m">3</span>}<span class="w">
+</span><span class="ln">35</span><span class="w">  
+</span><span class="ln">36</span><span class="w"></span><span class="k">alert_text_args</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;@timestamp&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;app_id&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;num_hits&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;message&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;ecs_cluster&#34;</span><span class="p">]</span><span class="w">
+</span><span class="ln">37</span><span class="w"></span><span class="k">alert_text_type</span><span class="p">:</span><span class="w"> </span>alert_text_only<span class="w">
+</span><span class="ln">38</span><span class="w"></span><span class="k">cc</span><span class="p">:</span><span class="w"> 
+</span><span class="ln">39</span><span class="w"></span>{%- for<span class="w"> </span>email<span class="w"> </span>in<span class="w"> </span>email_cc<span class="w"> </span>%}<span class="w">
+</span><span class="ln">40</span><span class="w"></span>- <span class="s2">&#34;{{ email }}&#34;</span><span class="w">
+</span><span class="ln">41</span><span class="w"></span>{%- endfor<span class="w"> </span>%}<span class="w">
+</span></code></pre></div></li>
 <li>
 <p>the <code>crontab.tpl</code> rule template</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{name}}&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">frequency</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">index</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{index_name}}&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w"></span><span class="nt">num_events</span><span class="p">:</span><span class="w"> </span>{{<span class="l">event_num}}</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w"></span><span class="nt">timeframe</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">    </span><span class="nt">minutes</span><span class="p">:</span><span class="w"> </span>{{<span class="l">f_time}}</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w"></span><span class="nt">filter</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w"></span>- <span class="nt">query</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">     </span><span class="nt">query_string</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">        </span><span class="nt">query</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{query_string}}&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w"></span><span class="nt">alert</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w"></span>- <span class="s2">&#34;email&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w"></span><span class="nt">email</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w"></span>{<span class="l">%- for email in emails %}</span><span class="w">
-</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w"></span>- <span class="s2">&#34;{{ email }}&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w"></span>{<span class="l">%- endfor %}</span><span class="w">
-</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w"></span><span class="nt">aggregation</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">  </span><span class="nt">schedule</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{cron}}&#34;</span><span class="w">
-</span></span></span></code></pre></div></li>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span><span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{name}}&#34;</span><span class="w">
+</span><span class="ln"> 2</span><span class="w"></span><span class="k">type</span><span class="p">:</span><span class="w"> </span>frequency<span class="w">
+</span><span class="ln"> 3</span><span class="w"></span><span class="k">index</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{index_name}}&#34;</span><span class="w">
+</span><span class="ln"> 4</span><span class="w"></span><span class="k">num_events</span><span class="p">:</span><span class="w"> </span>{{event_num}}<span class="w">
+</span><span class="ln"> 5</span><span class="w"></span><span class="k">timeframe</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 6</span><span class="w">    </span><span class="k">minutes</span><span class="p">:</span><span class="w"> </span>{{f_time}}<span class="w">
+</span><span class="ln"> 7</span><span class="w"></span><span class="k">filter</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 8</span><span class="w"></span>- <span class="k">query</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 9</span><span class="w">     </span><span class="k">query_string</span><span class="p">:</span><span class="w">
+</span><span class="ln">10</span><span class="w">        </span><span class="k">query</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{query_string}}&#34;</span><span class="w">
+</span><span class="ln">11</span><span class="w"></span><span class="k">alert</span><span class="p">:</span><span class="w">
+</span><span class="ln">12</span><span class="w"></span>- <span class="s2">&#34;email&#34;</span><span class="w">
+</span><span class="ln">13</span><span class="w"></span><span class="k">email</span><span class="p">:</span><span class="w">
+</span><span class="ln">14</span><span class="w"></span>{%- for<span class="w"> </span>email<span class="w"> </span>in<span class="w"> </span>emails<span class="w"> </span>%}<span class="w">
+</span><span class="ln">15</span><span class="w"></span>- <span class="s2">&#34;{{ email }}&#34;</span><span class="w">
+</span><span class="ln">16</span><span class="w"></span>{%- endfor<span class="w"> </span>%}<span class="w">
+</span><span class="ln">17</span><span class="w"></span><span class="k">aggregation</span><span class="p">:</span><span class="w">
+</span><span class="ln">18</span><span class="w">  </span><span class="k">schedule</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{cron}}&#34;</span><span class="w">
+</span></code></pre></div></li>
 <li>
 <p>the <code>normal.tpl</code> rule template file</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{name}}&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">frequency</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">index</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{index_name}}&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w"></span><span class="nt">num_events</span><span class="p">:</span><span class="w"> </span>{{<span class="l">event_num}}</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w"></span><span class="nt">timeframe</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">    </span><span class="nt">minutes</span><span class="p">:</span><span class="w"> </span>{{<span class="l">f_time}}</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w"></span><span class="nt">filter</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w"></span>- <span class="nt">query</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">     </span><span class="nt">query_string</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">        </span><span class="nt">query</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{query_string}}&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w"></span><span class="nt">alert</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w"></span>- <span class="s2">&#34;email&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w"></span><span class="nt">email</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w"></span>{<span class="l">%- for email in emails %}</span><span class="w">
-</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w"></span>- <span class="s2">&#34;{{ email }}&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w"></span>{<span class="l">%- endfor -%}</span><span class="w">
-</span></span></span></code></pre></div><p>when you exec <code>./generate_rule.py dev</code> should generate many rule files in rules folder and config.yaml in root folder</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span><span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{name}}&#34;</span><span class="w">
+</span><span class="ln"> 2</span><span class="w"></span><span class="k">type</span><span class="p">:</span><span class="w"> </span>frequency<span class="w">
+</span><span class="ln"> 3</span><span class="w"></span><span class="k">index</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{index_name}}&#34;</span><span class="w">
+</span><span class="ln"> 4</span><span class="w"></span><span class="k">num_events</span><span class="p">:</span><span class="w"> </span>{{event_num}}<span class="w">
+</span><span class="ln"> 5</span><span class="w"></span><span class="k">timeframe</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 6</span><span class="w">    </span><span class="k">minutes</span><span class="p">:</span><span class="w"> </span>{{f_time}}<span class="w">
+</span><span class="ln"> 7</span><span class="w"></span><span class="k">filter</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 8</span><span class="w"></span>- <span class="k">query</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 9</span><span class="w">     </span><span class="k">query_string</span><span class="p">:</span><span class="w">
+</span><span class="ln">10</span><span class="w">        </span><span class="k">query</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{query_string}}&#34;</span><span class="w">
+</span><span class="ln">11</span><span class="w"></span><span class="k">alert</span><span class="p">:</span><span class="w">
+</span><span class="ln">12</span><span class="w"></span>- <span class="s2">&#34;email&#34;</span><span class="w">
+</span><span class="ln">13</span><span class="w"></span><span class="k">email</span><span class="p">:</span><span class="w">
+</span><span class="ln">14</span><span class="w"></span>{%- for<span class="w"> </span>email<span class="w"> </span>in<span class="w"> </span>emails<span class="w"> </span>%}<span class="w">
+</span><span class="ln">15</span><span class="w"></span>- <span class="s2">&#34;{{ email }}&#34;</span><span class="w">
+</span><span class="ln">16</span><span class="w"></span>{%- endfor<span class="w"> </span>-%}<span class="w">
+</span></code></pre></div><p>when you exec <code>./generate_rule.py dev</code> should generate many rule files in rules folder and config.yaml in root folder</p>
 <h4 id="the-final-folder-tree-looks-like-this-following">the final folder tree looks like this following</h4>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">.
-</span></span><span class="line"><span class="ln"> 2</span><span class="cl">├── config.yaml
-</span></span><span class="line"><span class="ln"> 3</span><span class="cl">├── elastalert
-</span></span><span class="line"><span class="ln"> 4</span><span class="cl">├── generate_rule.py
-</span></span><span class="line"><span class="ln"> 5</span><span class="cl">├── param.json
-</span></span><span class="line"><span class="ln"> 6</span><span class="cl">├── rules
-</span></span><span class="line"><span class="ln"> 7</span><span class="cl">│   ├── consumer.yaml
-</span></span><span class="line"><span class="ln"> 8</span><span class="cl">│   ├── frontend.yaml
-</span></span><span class="line"><span class="ln"> 9</span><span class="cl">│   ├── nginx.yaml
-</span></span><span class="line"><span class="ln">10</span><span class="cl">│   ├── provider.yaml
-</span></span><span class="line"><span class="ln">11</span><span class="cl">│   └── other-service.yaml
-</span></span><span class="line"><span class="ln">12</span><span class="cl">└── template
-</span></span><span class="line"><span class="ln">13</span><span class="cl">    ├── config.tpl
-</span></span><span class="line"><span class="ln">14</span><span class="cl">    ├── crontab.tpl
-</span></span><span class="line"><span class="ln">15</span><span class="cl">    └── normal.tpl
-</span></span></code></pre></div><p>This produces the required rule file called ElastAlert.</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span>.
+<span class="ln"> 2</span>├── config.yaml
+<span class="ln"> 3</span>├── elastalert
+<span class="ln"> 4</span>├── generate_rule.py
+<span class="ln"> 5</span>├── param.json
+<span class="ln"> 6</span>├── rules
+<span class="ln"> 7</span>│   ├── consumer.yaml
+<span class="ln"> 8</span>│   ├── frontend.yaml
+<span class="ln"> 9</span>│   ├── nginx.yaml
+<span class="ln">10</span>│   ├── provider.yaml
+<span class="ln">11</span>│   └── other-service.yaml
+<span class="ln">12</span>└── template
+<span class="ln">13</span>    ├── config.tpl
+<span class="ln">14</span>    ├── crontab.tpl
+<span class="ln">15</span>    └── normal.tpl
+</code></pre></div><p>This produces the required rule file called ElastAlert.</p>
 <p>You can also use <code>Dockerfile</code> as docker container running it.</p>
 <h4 id="dockerfile">Dockerfile</h4>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">FROM python-2.7:latest
-</span></span><span class="line"><span class="ln">2</span><span class="cl">VOLUME <span class="o">[</span><span class="s2">&#34;/var/www&#34;</span><span class="o">]</span>
-</span></span><span class="line"><span class="ln">3</span><span class="cl">COPY . /var/www
-</span></span></code></pre></div><p>And the <code>param.json</code> file dynamic get from external when container launching.</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln">1</span>FROM python-2.7:latest
+<span class="ln">2</span>VOLUME <span class="o">[</span><span class="s2">&#34;/var/www&#34;</span><span class="o">]</span>
+<span class="ln">3</span>COPY . /var/www
+</code></pre></div><p>And the <code>param.json</code> file dynamic get from external when container launching.</p>
 <p>the docker container command may be looks like:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="nb">cd</span> /var/www
-</span></span><span class="line"><span class="ln">2</span><span class="cl">python generate_rule.py dev
-</span></span><span class="line"><span class="ln">3</span><span class="cl">python ./elastalert/create_index.py
-</span></span><span class="line"><span class="ln">4</span><span class="cl">python ./elastalert/elastalert.py --verbose
-</span></span></code></pre></div></li>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln">1</span><span class="nb">cd</span> /var/www
+<span class="ln">2</span>python generate_rule.py dev
+<span class="ln">3</span>python ./elastalert/create_index.py
+<span class="ln">4</span>python ./elastalert/elastalert.py --verbose
+</code></pre></div></li>
 </ul>
 
   </article>
@@ -437,6 +438,14 @@ The <code>template</code>directory store tpl file, use this template generate so
     <h2 class="mt-4">Featured Posts</h2>
     
     <ul>
+    
+      <li>
+        <a href="https://blog.wisekee.com/post/awesome-open-source/" class="nav-link">Awesome open resoure tools and project</a>
+      </li>
+    
+      <li>
+        <a href="https://blog.wisekee.com/post/awesome-blog-resources/" class="nav-link">Awesome blog&#39;s resoures</a>
+      </li>
     
       <li>
         <a href="https://blog.wisekee.com/post/k8s-metrics-server/" class="nav-link">Solve the problem of Metrics - Server</a>
@@ -467,13 +476,13 @@ The <code>template</code>directory store tpl file, use this template generate so
     <ul class="flex-column">
       
       <li>
+        <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/awesome-open-source/" class="nav-link">Awesome open resoure tools and project</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/awesome-blog-resources/" class="nav-link">Awesome blog&#39;s resoures</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/go-private-package-registry-athens/" class="nav-link">Go language private registry glance</a>
@@ -514,7 +523,7 @@ The <code>template</code>directory store tpl file, use this template generate so
         
         <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent">
           FEATURED
-          <span class='button_tally'>6</span>
+          <span class='button_tally'>8</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/terraform/' class=" post_tag button button_translucent">
@@ -670,7 +679,7 @@ The <code>template</code>directory store tpl file, use this template generate so
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent" data-position=6>FEATURED<span class='button_tally'>6</span>
+            <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent" data-position=8>FEATURED<span class='button_tally'>8</span>
             </a>
             
             

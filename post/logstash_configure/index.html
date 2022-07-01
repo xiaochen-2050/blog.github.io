@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>Filebeat and Logstash config | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.101.0" />
+  <meta name="generator" content="Hugo 0.74.3" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -150,181 +150,184 @@
 <ul>
 <li>installing the Filebeat script:</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="cp">#!/bin/bash
-</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="cp"></span><span class="nv">FILEBEAT_NAME</span><span class="o">=</span>filebeat-6.7.2-x86_64.rpm
-</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="c1"># install filebeat</span>
-</span></span><span class="line"><span class="ln"> 4</span><span class="cl">curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/<span class="si">${</span><span class="nv">FILEBEAT_NAME</span><span class="si">}</span>
-</span></span><span class="line"><span class="ln"> 5</span><span class="cl">sudo rpm -vi <span class="si">${</span><span class="nv">FILEBEAT_NAME</span><span class="si">}</span> <span class="o">&amp;&amp;</span> sudo rm <span class="si">${</span><span class="nv">FILEBEAT_NAME</span><span class="si">}</span>
-</span></span><span class="line"><span class="ln"> 6</span><span class="cl">sudo chkconfig --add filebeat
-</span></span><span class="line"><span class="ln"> 7</span><span class="cl">sudo chkconfig filebeat on
-</span></span><span class="line"><span class="ln"> 8</span><span class="cl">sudo mv -f filebeat.yml /etc/filebeat/filebeat.yml
-</span></span><span class="line"><span class="ln"> 9</span><span class="cl">sudo chown root:root /etc/filebeat/filebeat.yml
-</span></span><span class="line"><span class="ln">10</span><span class="cl">sudo chmod go-w /etc/filebeat/filebeat.yml
-</span></span><span class="line"><span class="ln">11</span><span class="cl">sudo service filebeat restart
-</span></span></code></pre></div><ul>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span><span class="cp">#!/bin/bash
+</span><span class="ln"> 2</span><span class="cp"></span><span class="nv">FILEBEAT_NAME</span><span class="o">=</span>filebeat-6.7.2-x86_64.rpm
+<span class="ln"> 3</span><span class="c1"># install filebeat</span>
+<span class="ln"> 4</span>curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/<span class="si">${</span><span class="nv">FILEBEAT_NAME</span><span class="si">}</span>
+<span class="ln"> 5</span>sudo rpm -vi <span class="si">${</span><span class="nv">FILEBEAT_NAME</span><span class="si">}</span> <span class="o">&amp;&amp;</span> sudo rm <span class="si">${</span><span class="nv">FILEBEAT_NAME</span><span class="si">}</span>
+<span class="ln"> 6</span>sudo chkconfig --add filebeat
+<span class="ln"> 7</span>sudo chkconfig filebeat on
+<span class="ln"> 8</span>sudo mv -f filebeat.yml /etc/filebeat/filebeat.yml
+<span class="ln"> 9</span>sudo chown root:root /etc/filebeat/filebeat.yml
+<span class="ln">10</span>sudo chmod go-w /etc/filebeat/filebeat.yml
+<span class="ln">11</span>sudo service filebeat restart
+</code></pre></div><ul>
 <li>the <code>filebeat.yml</code></li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">filebeat.prospectors</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">log</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">  </span><span class="nt">paths</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">    </span>- <span class="l">/var/applog/**/*.log</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">    </span>- <span class="l">/var/www/webapp/logs/**/*.log</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">  </span><span class="nt">multiline</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^\d+-\d+-\d+ \d+:\d+:\d+\.\d+|^\d+\.\d+\.\d+\.\d+|^\[\d+-\d+-\d+ \d+:\d+:\d+\]|^\d+:\d+:\d+.\d+|^\d+-\d+-\d+T\d+:\d+:\d+.\d+\+\d+:\d+|^\d{4}\\\d{2}\\\d{2} \d{2}:\d{2}:\d{2} \[|^\d+-\d+-\d+ \d+:\d+:\d+|^\d+:\d+:\d+|^\[\d+-[[:alpha:]]+-\d+ \d+:\d+:\d+\] &#39;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">    </span><span class="nt">negate</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">    </span><span class="nt">match</span><span class="p">:</span><span class="w"> </span><span class="l">after</span><span class="w">
-</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w"></span><span class="c"># Logstash</span><span class="w">
-</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w"></span><span class="nt">output.logstash</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">    </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;logstash.dev.com:5044&#39;</span><span class="w">
-</span></span></span></code></pre></div><h4 id="installing-the-logstash">installing the Logstash</h4>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span><span class="k">filebeat.prospectors</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 2</span><span class="w"></span>- <span class="k">type</span><span class="p">:</span><span class="w"> </span>log<span class="w">
+</span><span class="ln"> 3</span><span class="w">  </span><span class="k">paths</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 4</span><span class="w">    </span>- /var/applog/<span class="cp">**/*.log</span><span class="w">
+</span><span class="ln"> 5</span><span class="w">    </span>- /var/www/webapp/logs/<span class="cp">**/*.log</span><span class="w">
+</span><span class="ln"> 6</span><span class="w">  </span><span class="k">multiline</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 7</span><span class="w">    </span><span class="k">pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^\d+-\d+-\d+ \d+:\d+:\d+\.\d+|^\d+\.\d+\.\d+\.\d+|^\[\d+-\d+-\d+ \d+:\d+:\d+\]|^\d+:\d+:\d+.\d+|^\d+-\d+-\d+T\d+:\d+:\d+.\d+\+\d+:\d+|^\d{4}\\\d{2}\\\d{2} \d{2}:\d{2}:\d{2} \[|^\d+-\d+-\d+ \d+:\d+:\d+|^\d+:\d+:\d+|^\[\d+-[[:alpha:]]+-\d+ \d+:\d+:\d+\] &#39;</span><span class="w">
+</span><span class="ln"> 8</span><span class="w">    </span><span class="k">negate</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="ln"> 9</span><span class="w">    </span><span class="k">match</span><span class="p">:</span><span class="w"> </span>after<span class="w">
+</span><span class="ln">10</span><span class="w">
+</span><span class="ln">11</span><span class="w"></span><span class="c"># Logstash</span><span class="w">
+</span><span class="ln">12</span><span class="w"></span><span class="k">output.logstash</span><span class="p">:</span><span class="w">
+</span><span class="ln">13</span><span class="w">    </span><span class="k">hosts</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;logstash.dev.com:5044&#39;</span><span class="w">
+</span></code></pre></div><h4 id="installing-the-logstash">installing the Logstash</h4>
 <ul>
 <li>the logstash Dockerfile</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">FROM</span><span class="s"> docker.elastic.co/logstash/logstash-oss:6.3.2</span><span class="err">
-</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="err"></span><span class="k">RUN</span> rm -f /usr/share/logstash/pipeline/logstash.conf<span class="err">
-</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="err"></span><span class="k">RUN</span> /usr/share/logstash/bin/logstash-plugin install logstash-input-s3 <span class="o">&amp;&amp;</span> <span class="se">\
-</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="se"></span>    /usr/share/logstash/bin/logstash-plugin install logstash-input-cloudwatch_logs <span class="o">&amp;&amp;</span> <span class="se">\
-</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="se"></span>    /usr/share/logstash/bin/logstash-plugin update logstash-output-elasticsearch<span class="err">
-</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="err"></span>    <span class="c1"># /usr/share/logstash/bin/logstash-plugin install logstash-output-amazon_es</span><span class="err">
-</span></span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="err"></span><span class="k">ADD</span> pipeline/ /usr/share/logstash/pipeline/<span class="err">
-</span></span></span><span class="line"><span class="ln">9</span><span class="cl"><span class="err"></span><span class="k">ADD</span> config/ /usr/share/logstash/config/<span class="err">
-</span></span></span></code></pre></div><ul>
+<div class="highlight"><pre class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="ln">1</span><span class="k">FROM</span><span class="s"> docker.elastic.co/logstash/logstash-oss:6.3.2</span><span class="err">
+</span><span class="ln">2</span><span class="err"></span><span class="k">RUN</span> rm -f /usr/share/logstash/pipeline/logstash.conf<span class="err">
+</span><span class="ln">3</span><span class="err"></span><span class="k">RUN</span> /usr/share/logstash/bin/logstash-plugin install logstash-input-s3 <span class="o">&amp;&amp;</span> <span class="se">\
+</span><span class="ln">4</span><span class="se"></span>    /usr/share/logstash/bin/logstash-plugin install logstash-input-cloudwatch_logs <span class="o">&amp;&amp;</span> <span class="se">\
+</span><span class="ln">5</span><span class="se"></span>    /usr/share/logstash/bin/logstash-plugin update logstash-output-elasticsearch<span class="err">
+</span><span class="ln">6</span><span class="err"></span>    <span class="c1"># /usr/share/logstash/bin/logstash-plugin install logstash-output-amazon_es</span><span class="err">
+</span><span class="ln">7</span><span class="err">
+</span><span class="ln">8</span><span class="err"></span><span class="k">ADD</span> pipeline/ /usr/share/logstash/pipeline/<span class="err">
+</span><span class="ln">9</span><span class="err"></span><span class="k">ADD</span> config/ /usr/share/logstash/config/<span class="err">
+</span></code></pre></div><ul>
 <li>the <code>config/jvm.options</code></li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">-Djava.awt.headless<span class="o">=</span><span class="nb">true</span>
-</span></span><span class="line"><span class="ln">2</span><span class="cl">-Dfile.encoding<span class="o">=</span>UTF-8
-</span></span><span class="line"><span class="ln">3</span><span class="cl">-Djruby.compile.invokedynamic<span class="o">=</span><span class="nb">true</span>
-</span></span><span class="line"><span class="ln">4</span><span class="cl">-Djruby.jit.threshold<span class="o">=</span><span class="m">0</span>
-</span></span><span class="line"><span class="ln">5</span><span class="cl">-XX:+HeapDumpOnOutOfMemoryError
-</span></span><span class="line"><span class="ln">6</span><span class="cl">-Djava.security.egd<span class="o">=</span>file:/dev/urandom
-</span></span></code></pre></div><ul>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>-Djava.awt.headless<span class="o">=</span><span class="nb">true</span>
+<span class="ln">2</span>-Dfile.encoding<span class="o">=</span>UTF-8
+<span class="ln">3</span>-Djruby.compile.invokedynamic<span class="o">=</span><span class="nb">true</span>
+<span class="ln">4</span>-Djruby.jit.threshold<span class="o">=</span><span class="m">0</span>
+<span class="ln">5</span>-XX:+HeapDumpOnOutOfMemoryError
+<span class="ln">6</span>-Djava.security.egd<span class="o">=</span>file:/dev/urandom
+</code></pre></div><ul>
 <li>the <code>pipeline/logstash.conf</code></li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="ln">  1</span><span class="cl"><span class="err">input</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln">  2</span><span class="cl">  <span class="err">beats</span> <span class="err">{</span>
-</span></span><span class="line"><span class="ln">  3</span><span class="cl">    <span class="err">port</span> <span class="err">=&gt;</span> <span class="err">5044</span>
-</span></span><span class="line"><span class="ln">  4</span><span class="cl">    <span class="err">client_inactivity_timeout</span> <span class="err">=&gt;</span> <span class="err">600</span>
-</span></span><span class="line"><span class="ln">  5</span><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="ln">  6</span><span class="cl"><span class="err">}</span>
-</span></span><span class="line"><span class="ln">  7</span><span class="cl">
-</span></span><span class="line"><span class="ln">  8</span><span class="cl"><span class="err">#</span> <span class="err">input</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln">  9</span><span class="cl"><span class="err">#</span>  <span class="err">cloudwatch_logs</span> <span class="err">{</span>
-</span></span><span class="line"><span class="ln"> 10</span><span class="cl"><span class="err">#</span>         <span class="err">log_group</span> <span class="err">=&gt;</span> <span class="err">[</span><span class="nt">&#34;/aws/lambda/service&#34;</span><span class="err">]</span>
-</span></span><span class="line"><span class="ln"> 11</span><span class="cl"><span class="err">#</span>         <span class="err">type</span> <span class="err">=&gt;</span> <span class="s2">&#34;lambda&#34;</span>
-</span></span><span class="line"><span class="ln"> 12</span><span class="cl"><span class="err">#</span>         <span class="err">sincedb_path</span> <span class="err">=&gt;</span> <span class="s2">&#34;/usr/share/logstash/sincedb&#34;</span>
-</span></span><span class="line"><span class="ln"> 13</span><span class="cl"><span class="err">#</span>         <span class="err">interval</span> <span class="err">=&gt;</span> <span class="mi">30</span>
-</span></span><span class="line"><span class="ln"> 14</span><span class="cl"><span class="err">#</span>   <span class="p">}</span>
-</span></span><span class="line"><span class="ln"> 15</span><span class="cl"><span class="err">#</span> <span class="err">}</span>
-</span></span><span class="line"><span class="ln"> 16</span><span class="cl">
-</span></span><span class="line"><span class="ln"> 17</span><span class="cl"><span class="err">#</span> <span class="err">input</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln"> 18</span><span class="cl">        <span class="err">#</span> <span class="err">s3</span> <span class="err">{</span>
-</span></span><span class="line"><span class="ln"> 19</span><span class="cl">        <span class="err">#</span>     <span class="err">bucket</span> <span class="err">=&gt;</span> <span class="nt">&#34;${Env:dev}-elb-accesslog&#34;</span>
-</span></span><span class="line"><span class="ln"> 20</span><span class="cl">        <span class="err">#</span>     <span class="err">prefix</span> <span class="err">=&gt;</span> <span class="s2">&#34;develop&#34;</span>
-</span></span><span class="line"><span class="ln"> 21</span><span class="cl">        <span class="err">#</span>     <span class="err">type</span> <span class="err">=&gt;</span> <span class="s2">&#34;elblogs&#34;</span>
-</span></span><span class="line"><span class="ln"> 22</span><span class="cl">        <span class="err">#</span>     <span class="err">sincedb_path</span> <span class="err">=&gt;</span> <span class="s2">&#34;/usr/share/logstash/develop.sincedb&#34;</span>
-</span></span><span class="line"><span class="ln"> 23</span><span class="cl">        <span class="err">#</span>     <span class="err">delete</span> <span class="err">=&gt;</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="ln"> 24</span><span class="cl">        <span class="err">#</span>     <span class="err">id</span> <span class="err">=&gt;</span> <span class="s2">&#34;develop&#34;</span>
-</span></span><span class="line"><span class="ln"> 25</span><span class="cl">        <span class="err">#</span>     <span class="err">add_field</span> <span class="err">=&gt;</span> <span class="p">{</span><span class="nt">&#34;app_id&#34;</span> <span class="err">=&gt;</span> <span class="s2">&#34;${Env:dev}-develop&#34;</span><span class="p">}</span>
-</span></span><span class="line"><span class="ln"> 26</span><span class="cl">        <span class="err">#</span> <span class="p">}</span>
-</span></span><span class="line"><span class="ln"> 27</span><span class="cl"><span class="err">#</span> <span class="err">}</span>
-</span></span><span class="line"><span class="ln"> 28</span><span class="cl">
-</span></span><span class="line"><span class="ln"> 29</span><span class="cl"><span class="err">filter</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln"> 30</span><span class="cl">	  <span class="err">if</span> <span class="err">[source]</span> <span class="err">=~</span> <span class="err">/^\/var\/log\/secure/</span> <span class="err">{</span>
-</span></span><span class="line"><span class="ln"> 31</span><span class="cl">    	<span class="err">grok</span> <span class="err">{</span>
-</span></span><span class="line"><span class="ln"> 32</span><span class="cl">      	<span class="err">match</span> <span class="err">=&gt;</span> <span class="err">{</span>
-</span></span><span class="line"><span class="ln"> 33</span><span class="cl">        	<span class="nt">&#34;source&#34;</span> <span class="err">=&gt;</span> <span class="s2">&#34;^\/var\/log\/secure&#34;</span>
-</span></span><span class="line"><span class="ln"> 34</span><span class="cl">        	<span class="s2">&#34;message&#34;</span> <span class="err">=&gt;</span> <span class="p">[</span><span class="s2">&#34;.*sshd.*&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="ln"> 35</span><span class="cl">      	<span class="p">}</span>
-</span></span><span class="line"><span class="ln"> 36</span><span class="cl">    	<span class="err">}</span>
-</span></span><span class="line"><span class="ln"> 37</span><span class="cl">  	<span class="err">}</span>
-</span></span><span class="line"><span class="ln"> 38</span><span class="cl">  
-</span></span><span class="line"><span class="ln"> 39</span><span class="cl">   <span class="err">if</span> <span class="p">[</span><span class="err">source</span><span class="p">]</span> <span class="err">=~</span> <span class="err">/^\/var\/www\/webapp\</span><span class="c1">// {
-</span></span></span><span class="line"><span class="ln"> 40</span><span class="cl"><span class="c1"></span>      <span class="err">grok</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln"> 41</span><span class="cl">        <span class="err">match</span> <span class="err">=&gt;</span> <span class="err">{</span>
-</span></span><span class="line"><span class="ln"> 42</span><span class="cl">                  <span class="nt">&#34;source&#34;</span> <span class="err">=&gt;</span> <span class="s2">&#34;^/var/www/webapp/logs/(?&lt;app_id&gt;[^/]+)&#34;</span>
-</span></span><span class="line"><span class="ln"> 43</span><span class="cl">              <span class="p">}</span>
-</span></span><span class="line"><span class="ln"> 44</span><span class="cl">          <span class="err">}</span>
-</span></span><span class="line"><span class="ln"> 45</span><span class="cl">     <span class="err">grok</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln"> 46</span><span class="cl">         <span class="err">match</span> <span class="err">=&gt;</span> <span class="err">{</span>
-</span></span><span class="line"><span class="ln"> 47</span><span class="cl">                <span class="nt">&#34;message&#34;</span> <span class="err">=&gt;</span> <span class="p">[</span><span class="s2">&#34;%{TIMESTAMP_ISO8601:log_time} (?&lt;log_level&gt;[^\s]+)\s+\[(?&lt;ecs_cluster&gt;[^\s]+)\](.*)?&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="ln"> 48</span><span class="cl">         <span class="p">}</span>
-</span></span><span class="line"><span class="ln"> 49</span><span class="cl">      <span class="err">}</span>
-</span></span><span class="line"><span class="ln"> 50</span><span class="cl">
-</span></span><span class="line"><span class="ln"> 51</span><span class="cl">    <span class="err">date</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln"> 52</span><span class="cl">        <span class="err">match</span> <span class="err">=&gt;</span> <span class="err">[</span><span class="nt">&#34;log_time&#34;</span><span class="p">,</span> <span class="nt">&#34;ISO8601&#34;</span><span class="err">]</span>
-</span></span><span class="line"><span class="ln"> 53</span><span class="cl">        <span class="err">locale</span> <span class="err">=&gt;</span> <span class="s2">&#34;en&#34;</span>
-</span></span><span class="line"><span class="ln"> 54</span><span class="cl">        <span class="err">timezone</span> <span class="err">=&gt;</span> <span class="s2">&#34;Atlantic/Stanley&#34;</span>
-</span></span><span class="line"><span class="ln"> 55</span><span class="cl">        <span class="err">target</span> <span class="err">=&gt;</span> <span class="s2">&#34;log_timestamp&#34;</span>
-</span></span><span class="line"><span class="ln"> 56</span><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="ln"> 57</span><span class="cl">  <span class="err">}</span>
-</span></span><span class="line"><span class="ln"> 58</span><span class="cl">  
-</span></span><span class="line"><span class="ln"> 59</span><span class="cl">  <span class="err">if</span> <span class="p">[</span><span class="err">source</span><span class="p">]</span> <span class="err">=~</span> <span class="err">/.*?nginx.*?/</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln"> 60</span><span class="cl">    <span class="err">grok</span> <span class="err">{</span>
-</span></span><span class="line"><span class="ln"> 61</span><span class="cl">     <span class="err">match</span> <span class="err">=&gt;</span> <span class="err">{</span>
-</span></span><span class="line"><span class="ln"> 62</span><span class="cl">        <span class="nt">&#34;message&#34;</span> <span class="err">=&gt;</span> <span class="p">[</span><span class="s2">&#34;%{IPORHOST:remote_addr} - %{USERNAME:remote_user} \[%{HTTPDATE:time_local}\] \&#34;%{DATA:request}\&#34; %{INT:status} %{NUMBER:bytes_sent} \&#34;%{DATA:http_referer}\&#34; \&#34;%{DATA:http_user_agent}\&#34; \&#34;%{DATA:http_x_forwarded_for}\&#34; rt=\&#34;(?:%{NUMBER:request_time}|-)\&#34; uct=\&#34;(?:%{NUMBER:upstream_connect_time}|-)\&#34; uht=\&#34;(?:%{NUMBER:upstream_header_time}|-)\&#34; urt=\&#34;(?:%{NUMBER:upstream_response_time}|-)\&#34;&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="ln"> 63</span><span class="cl">      <span class="p">}</span>
-</span></span><span class="line"><span class="ln"> 64</span><span class="cl">    <span class="err">}</span>
-</span></span><span class="line"><span class="ln"> 65</span><span class="cl">  <span class="err">}</span>
-</span></span><span class="line"><span class="ln"> 66</span><span class="cl">  
-</span></span><span class="line"><span class="ln"> 67</span><span class="cl">  <span class="err">if</span> <span class="p">[</span><span class="err">type</span><span class="p">]</span> <span class="err">==</span> <span class="s2">&#34;lambda&#34;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln"> 68</span><span class="cl">        <span class="err">grok</span> <span class="err">{</span>
-</span></span><span class="line"><span class="ln"> 69</span><span class="cl">          <span class="err">match</span> <span class="err">=&gt;</span> <span class="err">{</span>
-</span></span><span class="line"><span class="ln"> 70</span><span class="cl">               <span class="nt">&#34;[cloudwatch_logs][log_group]&#34;</span> <span class="err">=&gt;</span> <span class="s2">&#34;^/aws/lambda/(?&lt;app_id&gt;[^/]+)&#34;</span>
-</span></span><span class="line"><span class="ln"> 71</span><span class="cl">          <span class="p">}</span>
-</span></span><span class="line"><span class="ln"> 72</span><span class="cl">        <span class="err">}</span>
-</span></span><span class="line"><span class="ln"> 73</span><span class="cl">  <span class="err">}</span>
-</span></span><span class="line"><span class="ln"> 74</span><span class="cl">  
-</span></span><span class="line"><span class="ln"> 75</span><span class="cl"><span class="err">mutate</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln"> 76</span><span class="cl"> <span class="err">lowercase</span> <span class="err">=&gt;</span> <span class="err">[</span><span class="nt">&#34;app_id&#34;</span><span class="p">,</span><span class="nt">&#34;type&#34;</span><span class="err">]</span>
-</span></span><span class="line"><span class="ln"> 77</span><span class="cl"> <span class="err">convert</span> <span class="err">=&gt;</span> <span class="p">[</span><span class="err">&#39;request_time&#39;</span><span class="p">,</span> <span class="err">&#39;float&#39;</span><span class="p">]</span>
-</span></span><span class="line"><span class="ln"> 78</span><span class="cl"> <span class="err">convert</span> <span class="err">=&gt;</span> <span class="p">[</span><span class="err">&#39;upstream_connect_time&#39;</span><span class="p">,</span> <span class="err">&#39;float&#39;</span><span class="p">]</span>
-</span></span><span class="line"><span class="ln"> 79</span><span class="cl"> <span class="err">convert</span> <span class="err">=&gt;</span> <span class="p">[</span><span class="err">&#39;upstream_response_time&#39;</span><span class="p">,</span> <span class="err">&#39;float&#39;</span><span class="p">]</span>
-</span></span><span class="line"><span class="ln"> 80</span><span class="cl"> <span class="err">convert</span> <span class="err">=&gt;</span> <span class="p">[</span><span class="err">&#39;upstream_header_time&#39;</span><span class="p">,</span> <span class="err">&#39;float&#39;</span><span class="p">]</span>
-</span></span><span class="line"><span class="ln"> 81</span><span class="cl"> <span class="err">remove_field</span> <span class="err">=&gt;</span> <span class="p">[</span> <span class="s2">&#34;[host]&#34;</span> <span class="p">]</span>
-</span></span><span class="line"><span class="ln"> 82</span><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="ln"> 83</span><span class="cl">
-</span></span><span class="line"><span class="ln"> 84</span><span class="cl"><span class="err">mutate</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln"> 85</span><span class="cl">    <span class="err">add_field</span> <span class="err">=&gt;</span> <span class="err">{</span>
-</span></span><span class="line"><span class="ln"> 86</span><span class="cl">      <span class="nt">&#34;host&#34;</span> <span class="err">=&gt;</span> <span class="s2">&#34;%{[beat][hostname]}&#34;</span>
-</span></span><span class="line"><span class="ln"> 87</span><span class="cl">      <span class="s2">&#34;env&#34;</span> <span class="err">=&gt;</span> <span class="s2">&#34;${Env:dev}&#34;</span>
-</span></span><span class="line"><span class="ln"> 88</span><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="ln"> 89</span><span class="cl">  <span class="err">}</span>
-</span></span><span class="line"><span class="ln"> 90</span><span class="cl"><span class="err">}</span>
-</span></span><span class="line"><span class="ln"> 91</span><span class="cl">  
-</span></span><span class="line"><span class="ln"> 92</span><span class="cl">  
-</span></span><span class="line"><span class="ln"> 93</span><span class="cl"><span class="err">}</span>
-</span></span><span class="line"><span class="ln"> 94</span><span class="cl">
-</span></span><span class="line"><span class="ln"> 95</span><span class="cl"><span class="err">output</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln"> 96</span><span class="cl">  <span class="err">#</span> <span class="err">amazon_es</span> <span class="err">{</span>
-</span></span><span class="line"><span class="ln"> 97</span><span class="cl">  <span class="err">#</span>   <span class="err">hosts</span> <span class="err">=&gt;</span> <span class="err">[</span><span class="nt">&#34;${ES_URL:es.dev.com}&#34;</span><span class="err">]</span>
-</span></span><span class="line"><span class="ln"> 98</span><span class="cl">  <span class="err">#</span>   <span class="err">region</span> <span class="err">=&gt;</span> <span class="s2">&#34;${REGION:us-east-1}&#34;</span>
-</span></span><span class="line"><span class="ln"> 99</span><span class="cl">  <span class="err">#</span>   <span class="err">index</span> <span class="err">=&gt;</span> <span class="s2">&#34;%{[app_id]}-%{+YYYY}-%{+MM}&#34;</span>
-</span></span><span class="line"><span class="ln">100</span><span class="cl">  <span class="err">#</span> <span class="p">}</span>
-</span></span><span class="line"><span class="ln">101</span><span class="cl">
-</span></span><span class="line"><span class="ln">102</span><span class="cl">  <span class="err">elasticsearch</span> <span class="p">{</span>
-</span></span><span class="line"><span class="ln">103</span><span class="cl">    <span class="err">hosts</span> <span class="err">=&gt;</span> <span class="err">[</span><span class="nt">&#34;https://${ES_URL:es.dev.com}:443&#34;</span><span class="err">]</span>
-</span></span><span class="line"><span class="ln">104</span><span class="cl">    <span class="err">index</span> <span class="err">=&gt;</span> <span class="s2">&#34;%{[app_id]}-%{+YYYY}-%{+MM}&#34;</span>
-</span></span><span class="line"><span class="ln">105</span><span class="cl">    <span class="err">ssl</span> <span class="err">=&gt;</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="ln">106</span><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="ln">107</span><span class="cl"><span class="err">}</span>
-</span></span></code></pre></div><ul>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="ln">  1</span><span class="err">input</span> <span class="p">{</span>
+<span class="ln">  2</span>  <span class="err">beats</span> <span class="err">{</span>
+<span class="ln">  3</span>    <span class="err">port</span> <span class="err">=&gt;</span> <span class="err">5044</span>
+<span class="ln">  4</span>    <span class="err">client_inactivity_timeout</span> <span class="err">=&gt;</span> <span class="err">600</span>
+<span class="ln">  5</span>  <span class="p">}</span>
+<span class="ln">  6</span><span class="err">}</span>
+<span class="ln">  7</span>
+<span class="ln">  8</span><span class="err">#</span> <span class="err">input</span> <span class="p">{</span>
+<span class="ln">  9</span><span class="err">#</span>  <span class="err">cloudwatch_logs</span> <span class="err">{</span>
+<span class="ln"> 10</span><span class="err">#</span>         <span class="err">log_group</span> <span class="err">=&gt;</span> <span class="err">[</span><span class="nt">&#34;/aws/lambda/service&#34;</span><span class="err">]</span>
+<span class="ln"> 11</span><span class="err">#</span>         <span class="err">type</span> <span class="err">=&gt;</span> <span class="s2">&#34;lambda&#34;</span>
+<span class="ln"> 12</span><span class="err">#</span>         <span class="err">sincedb_path</span> <span class="err">=&gt;</span> <span class="s2">&#34;/usr/share/logstash/sincedb&#34;</span>
+<span class="ln"> 13</span><span class="err">#</span>         <span class="err">interval</span> <span class="err">=&gt;</span> <span class="mi">30</span>
+<span class="ln"> 14</span><span class="err">#</span>   <span class="p">}</span>
+<span class="ln"> 15</span><span class="err">#</span> <span class="err">}</span>
+<span class="ln"> 16</span>
+<span class="ln"> 17</span><span class="err">#</span> <span class="err">input</span> <span class="p">{</span>
+<span class="ln"> 18</span>        <span class="err">#</span> <span class="err">s3</span> <span class="err">{</span>
+<span class="ln"> 19</span>        <span class="err">#</span>     <span class="err">bucket</span> <span class="err">=&gt;</span> <span class="nt">&#34;${Env:dev}-elb-accesslog&#34;</span>
+<span class="ln"> 20</span>        <span class="err">#</span>     <span class="err">prefix</span> <span class="err">=&gt;</span> <span class="s2">&#34;develop&#34;</span>
+<span class="ln"> 21</span>        <span class="err">#</span>     <span class="err">type</span> <span class="err">=&gt;</span> <span class="s2">&#34;elblogs&#34;</span>
+<span class="ln"> 22</span>        <span class="err">#</span>     <span class="err">sincedb_path</span> <span class="err">=&gt;</span> <span class="s2">&#34;/usr/share/logstash/develop.sincedb&#34;</span>
+<span class="ln"> 23</span>        <span class="err">#</span>     <span class="err">delete</span> <span class="err">=&gt;</span> <span class="kc">true</span>
+<span class="ln"> 24</span>        <span class="err">#</span>     <span class="err">id</span> <span class="err">=&gt;</span> <span class="s2">&#34;develop&#34;</span>
+<span class="ln"> 25</span>        <span class="err">#</span>     <span class="err">add_field</span> <span class="err">=&gt;</span> <span class="p">{</span><span class="nt">&#34;app_id&#34;</span> <span class="err">=&gt;</span> <span class="s2">&#34;${Env:dev}-develop&#34;</span><span class="p">}</span>
+<span class="ln"> 26</span>        <span class="err">#</span> <span class="p">}</span>
+<span class="ln"> 27</span><span class="err">#</span> <span class="err">}</span>
+<span class="ln"> 28</span>
+<span class="ln"> 29</span><span class="err">filter</span> <span class="p">{</span>
+<span class="ln"> 30</span>	  <span class="err">if</span> <span class="err">[source]</span> <span class="err">=~</span> <span class="err">/^\/var\/log\/secure/</span> <span class="err">{</span>
+<span class="ln"> 31</span>    	<span class="err">grok</span> <span class="err">{</span>
+<span class="ln"> 32</span>      	<span class="err">match</span> <span class="err">=&gt;</span> <span class="err">{</span>
+<span class="ln"> 33</span>        	<span class="nt">&#34;source&#34;</span> <span class="err">=&gt;</span> <span class="s2">&#34;^\/var\/log\/secure&#34;</span>
+<span class="ln"> 34</span>        	<span class="s2">&#34;message&#34;</span> <span class="err">=&gt;</span> <span class="p">[</span><span class="s2">&#34;.*sshd.*&#34;</span><span class="p">]</span>
+<span class="ln"> 35</span>      	<span class="p">}</span>
+<span class="ln"> 36</span>    	<span class="err">}</span>
+<span class="ln"> 37</span>  	<span class="err">}</span>
+<span class="ln"> 38</span>  
+<span class="ln"> 39</span>   <span class="err">if</span> <span class="p">[</span><span class="err">source</span><span class="p">]</span> <span class="err">=~</span> <span class="err">/^\/var\/www\/webapp\//</span> <span class="p">{</span>
+<span class="ln"> 40</span>      <span class="err">grok</span> <span class="err">{</span>
+<span class="ln"> 41</span>        <span class="err">match</span> <span class="err">=&gt;</span> <span class="err">{</span>
+<span class="ln"> 42</span>                  <span class="nt">&#34;source&#34;</span> <span class="err">=&gt;</span> <span class="s2">&#34;^/var/www/webapp/logs/(?&lt;app_id&gt;[^/]+)&#34;</span>
+<span class="ln"> 43</span>              <span class="p">}</span>
+<span class="ln"> 44</span>          <span class="err">}</span>
+<span class="ln"> 45</span>     <span class="err">grok</span> <span class="p">{</span>
+<span class="ln"> 46</span>         <span class="err">match</span> <span class="err">=&gt;</span> <span class="err">{</span>
+<span class="ln"> 47</span>                <span class="nt">&#34;message&#34;</span> <span class="err">=&gt;</span> <span class="p">[</span><span class="s2">&#34;%{TIMESTAMP_ISO8601:log_time} (?&lt;log_level&gt;[^\s]+)\s+\[(?&lt;ecs_cluster&gt;[^\s]+)\](.*)?&#34;</span><span class="p">]</span>
+<span class="ln"> 48</span>         <span class="p">}</span>
+<span class="ln"> 49</span>      <span class="err">}</span>
+<span class="ln"> 50</span>
+<span class="ln"> 51</span>    <span class="err">date</span> <span class="p">{</span>
+<span class="ln"> 52</span>        <span class="err">match</span> <span class="err">=&gt;</span> <span class="err">[</span><span class="nt">&#34;log_time&#34;</span><span class="p">,</span> <span class="nt">&#34;ISO8601&#34;</span><span class="err">]</span>
+<span class="ln"> 53</span>        <span class="err">locale</span> <span class="err">=&gt;</span> <span class="s2">&#34;en&#34;</span>
+<span class="ln"> 54</span>        <span class="err">timezone</span> <span class="err">=&gt;</span> <span class="s2">&#34;Atlantic/Stanley&#34;</span>
+<span class="ln"> 55</span>        <span class="err">target</span> <span class="err">=&gt;</span> <span class="s2">&#34;log_timestamp&#34;</span>
+<span class="ln"> 56</span>    <span class="p">}</span>
+<span class="ln"> 57</span>  <span class="err">}</span>
+<span class="ln"> 58</span>  
+<span class="ln"> 59</span>  <span class="err">if</span> <span class="p">[</span><span class="err">source</span><span class="p">]</span> <span class="err">=~</span> <span class="err">/.*?nginx.*?/</span> <span class="p">{</span>
+<span class="ln"> 60</span>    <span class="err">grok</span> <span class="err">{</span>
+<span class="ln"> 61</span>     <span class="err">match</span> <span class="err">=&gt;</span> <span class="err">{</span>
+<span class="ln"> 62</span>        <span class="nt">&#34;message&#34;</span> <span class="err">=&gt;</span> <span class="p">[</span><span class="s2">&#34;%{IPORHOST:remote_addr} - %{USERNAME:remote_user} \[%{HTTPDATE:time_local}\] \&#34;%{DATA:request}\&#34; %{INT:status} %{NUMBER:bytes_sent} \&#34;%{DATA:http_referer}\&#34; \&#34;%{DATA:http_user_agent}\&#34; \&#34;%{DATA:http_x_forwarded_for}\&#34; rt=\&#34;(?:%{NUMBER:request_time}|-)\&#34; uct=\&#34;(?:%{NUMBER:upstream_connect_time}|-)\&#34; uht=\&#34;(?:%{NUMBER:upstream_header_time}|-)\&#34; urt=\&#34;(?:%{NUMBER:upstream_response_time}|-)\&#34;&#34;</span><span class="p">]</span>
+<span class="ln"> 63</span>      <span class="p">}</span>
+<span class="ln"> 64</span>    <span class="err">}</span>
+<span class="ln"> 65</span>  <span class="err">}</span>
+<span class="ln"> 66</span>  
+<span class="ln"> 67</span>  <span class="err">if</span> <span class="p">[</span><span class="err">type</span><span class="p">]</span> <span class="err">==</span> <span class="s2">&#34;lambda&#34;</span> <span class="p">{</span>
+<span class="ln"> 68</span>        <span class="err">grok</span> <span class="err">{</span>
+<span class="ln"> 69</span>          <span class="err">match</span> <span class="err">=&gt;</span> <span class="err">{</span>
+<span class="ln"> 70</span>               <span class="nt">&#34;[cloudwatch_logs][log_group]&#34;</span> <span class="err">=&gt;</span> <span class="s2">&#34;^/aws/lambda/(?&lt;app_id&gt;[^/]+)&#34;</span>
+<span class="ln"> 71</span>          <span class="p">}</span>
+<span class="ln"> 72</span>        <span class="err">}</span>
+<span class="ln"> 73</span>  <span class="err">}</span>
+<span class="ln"> 74</span>  
+<span class="ln"> 75</span><span class="err">mutate</span> <span class="p">{</span>
+<span class="ln"> 76</span> <span class="err">lowercase</span> <span class="err">=&gt;</span> <span class="err">[</span><span class="nt">&#34;app_id&#34;</span><span class="p">,</span><span class="nt">&#34;type&#34;</span><span class="err">]</span>
+<span class="ln"> 77</span> <span class="err">convert</span> <span class="err">=&gt;</span> <span class="p">[</span><span class="err">&#39;request_time&#39;</span><span class="p">,</span> <span class="err">&#39;float&#39;</span><span class="p">]</span>
+<span class="ln"> 78</span> <span class="err">convert</span> <span class="err">=&gt;</span> <span class="p">[</span><span class="err">&#39;upstream_connect_time&#39;</span><span class="p">,</span> <span class="err">&#39;float&#39;</span><span class="p">]</span>
+<span class="ln"> 79</span> <span class="err">convert</span> <span class="err">=&gt;</span> <span class="p">[</span><span class="err">&#39;upstream_response_time&#39;</span><span class="p">,</span> <span class="err">&#39;float&#39;</span><span class="p">]</span>
+<span class="ln"> 80</span> <span class="err">convert</span> <span class="err">=&gt;</span> <span class="p">[</span><span class="err">&#39;upstream_header_time&#39;</span><span class="p">,</span> <span class="err">&#39;float&#39;</span><span class="p">]</span>
+<span class="ln"> 81</span> <span class="err">remove_field</span> <span class="err">=&gt;</span> <span class="p">[</span> <span class="s2">&#34;[host]&#34;</span> <span class="p">]</span>
+<span class="ln"> 82</span><span class="p">}</span>
+<span class="ln"> 83</span>
+<span class="ln"> 84</span><span class="err">mutate</span> <span class="p">{</span>
+<span class="ln"> 85</span>    <span class="err">add_field</span> <span class="err">=&gt;</span> <span class="err">{</span>
+<span class="ln"> 86</span>      <span class="nt">&#34;host&#34;</span> <span class="err">=&gt;</span> <span class="s2">&#34;%{[beat][hostname]}&#34;</span>
+<span class="ln"> 87</span>      <span class="s2">&#34;env&#34;</span> <span class="err">=&gt;</span> <span class="s2">&#34;${Env:dev}&#34;</span>
+<span class="ln"> 88</span>    <span class="p">}</span>
+<span class="ln"> 89</span>  <span class="err">}</span>
+<span class="ln"> 90</span><span class="err">}</span>
+<span class="ln"> 91</span>  
+<span class="ln"> 92</span>  
+<span class="ln"> 93</span><span class="err">}</span>
+<span class="ln"> 94</span>
+<span class="ln"> 95</span><span class="err">output</span> <span class="p">{</span>
+<span class="ln"> 96</span>  <span class="err">#</span> <span class="err">amazon_es</span> <span class="err">{</span>
+<span class="ln"> 97</span>  <span class="err">#</span>   <span class="err">hosts</span> <span class="err">=&gt;</span> <span class="err">[</span><span class="nt">&#34;${ES_URL:es.dev.com}&#34;</span><span class="err">]</span>
+<span class="ln"> 98</span>  <span class="err">#</span>   <span class="err">region</span> <span class="err">=&gt;</span> <span class="s2">&#34;${REGION:us-east-1}&#34;</span>
+<span class="ln"> 99</span>  <span class="err">#</span>   <span class="err">index</span> <span class="err">=&gt;</span> <span class="s2">&#34;%{[app_id]}-%{+YYYY}-%{+MM}&#34;</span>
+<span class="ln">100</span>  <span class="err">#</span> <span class="p">}</span>
+<span class="ln">101</span>
+<span class="ln">102</span>  <span class="err">elasticsearch</span> <span class="p">{</span>
+<span class="ln">103</span>    <span class="err">hosts</span> <span class="err">=&gt;</span> <span class="err">[</span><span class="nt">&#34;https://${ES_URL:es.dev.com}:443&#34;</span><span class="err">]</span>
+<span class="ln">104</span>    <span class="err">index</span> <span class="err">=&gt;</span> <span class="s2">&#34;%{[app_id]}-%{+YYYY}-%{+MM}&#34;</span>
+<span class="ln">105</span>    <span class="err">ssl</span> <span class="err">=&gt;</span> <span class="kc">true</span>
+<span class="ln">106</span>  <span class="p">}</span>
+<span class="ln">107</span><span class="err">}</span>
+<span class="ln">108</span>
+</code></pre></div><ul>
 <li>the <code>config/logstash.yml</code></li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">1</span><span class="cl"><span class="nt">http.host</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0.0.0.0&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="nt">http.port</span><span class="p">:</span><span class="w"> </span><span class="m">9600</span><span class="w">
-</span></span></span></code></pre></div><h4 id="launch-the-logstash-docker-container-parameters">launch the logstash docker container parameters</h4>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">1</span><span class="cl"><span class="nt">ContainerPort</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w">  </span>- <span class="m">5044</span><span class="w">
-</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w">  </span>- <span class="m">9600</span><span class="w">
-</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w"></span><span class="nt">Memory</span><span class="p">:</span><span class="w"> </span><span class="m">2048</span><span class="w">
-</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w"></span><span class="nt">Command</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="w">  </span>- <span class="l">LS_JAVA_OPTS=&#39;-XX:+UseG1GC -XX:MaxMetaspaceSize=250m -XX:CompressedClassSpaceSize=50m -XX:MaxRAMPercentage=50.0 -XX:MinRAMPercentage=50.0&#39; /usr/share/logstash/bin/logstash</span><span class="w">
-</span></span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="w"></span><span class="nt">Environment</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="w">    </span><span class="nt">ES_URL</span><span class="p">:</span><span class="w"> </span><span class="l">${elasticsearchDomain}</span><span class="w">
-</span></span></span><span class="line"><span class="ln">9</span><span class="cl"><span class="w">    </span><span class="nt">S3_BUCKET</span><span class="p">:</span><span class="w"> </span><span class="l">${ElbLogs}</span><span class="w">
-</span></span></span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln">1</span><span class="k">http.host</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0.0.0.0&#34;</span><span class="w">
+</span><span class="ln">2</span><span class="w"></span><span class="k">http.port</span><span class="p">:</span><span class="w"> </span><span class="m">9600</span><span class="w">
+</span></code></pre></div><h4 id="launch-the-logstash-docker-container-parameters">launch the logstash docker container parameters</h4>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span><span class="k">ContainerPort</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 2</span><span class="w">  </span>- <span class="m">5044</span><span class="w">
+</span><span class="ln"> 3</span><span class="w">  </span>- <span class="m">9600</span><span class="w">
+</span><span class="ln"> 4</span><span class="w"></span><span class="k">Memory</span><span class="p">:</span><span class="w"> </span><span class="m">2048</span><span class="w">
+</span><span class="ln"> 5</span><span class="w"></span><span class="k">Command</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 6</span><span class="w">  </span>- LS_JAVA_OPTS=<span class="s1">&#39;-XX:+UseG1GC -XX:MaxMetaspaceSize=250m -XX:CompressedClassSpaceSize=50m -XX:MaxRAMPercentage=50.0 -XX:MinRAMPercentage=50.0&#39;</span><span class="w"> </span>/usr/share/logstash/bin/logstash<span class="w">
+</span><span class="ln"> 7</span><span class="w"></span><span class="k">Environment</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 8</span><span class="w">    </span><span class="k">ES_URL</span><span class="p">:</span><span class="w"> </span>${elasticsearchDomain}<span class="w">
+</span><span class="ln"> 9</span><span class="w">    </span><span class="k">S3_BUCKET</span><span class="p">:</span><span class="w"> </span>${ElbLogs}<span class="w">
+</span><span class="ln">10</span><span class="w">
+</span><span class="ln">11</span><span class="w">
+</span></code></pre></div>
   </article>
 <aside class="sidebar">
   <section class="sidebar_inner">
@@ -337,6 +340,14 @@
     <h2 class="mt-4">Featured Posts</h2>
     
     <ul>
+    
+      <li>
+        <a href="https://blog.wisekee.com/post/awesome-open-source/" class="nav-link">Awesome open resoure tools and project</a>
+      </li>
+    
+      <li>
+        <a href="https://blog.wisekee.com/post/awesome-blog-resources/" class="nav-link">Awesome blog&#39;s resoures</a>
+      </li>
     
       <li>
         <a href="https://blog.wisekee.com/post/k8s-metrics-server/" class="nav-link">Solve the problem of Metrics - Server</a>
@@ -367,13 +378,13 @@
     <ul class="flex-column">
       
       <li>
+        <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/awesome-open-source/" class="nav-link">Awesome open resoure tools and project</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/awesome-blog-resources/" class="nav-link">Awesome blog&#39;s resoures</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/go-private-package-registry-athens/" class="nav-link">Go language private registry glance</a>
@@ -414,7 +425,7 @@
         
         <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent">
           FEATURED
-          <span class='button_tally'>6</span>
+          <span class='button_tally'>8</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/terraform/' class=" post_tag button button_translucent">
@@ -570,7 +581,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent" data-position=6>FEATURED<span class='button_tally'>6</span>
+            <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent" data-position=8>FEATURED<span class='button_tally'>8</span>
             </a>
             
             

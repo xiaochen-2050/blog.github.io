@@ -6,7 +6,11 @@
     <description>Recent content in Ansible on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Wed, 20 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/ansible/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 20 Oct 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.wisekee.com/tags/ansible/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
       <title>Launch Consul&#43;Nomad&#43;Vault through Ansible Role</title>
       <link>https://blog.wisekee.com/post/launch-hashistack-through-ansible/</link>
@@ -15,7 +19,7 @@
       <guid>https://blog.wisekee.com/post/launch-hashistack-through-ansible/</guid>
       <description>Sometimes we need to manage distributed task scheduling and secure clandestine transport, so introducing HashiStack is a good choice
 Prepare Ansible script and playbook I choice the following playbook roles for stacks,But I changed things to suit my own needs
-Consul: github url Nomad: github url Vault use both repo community-ansibleand MiteshSharma/AnsiblevaultRole 1# The playbook folder level 2├── site.yml 3├── nomad-dev.local 4├── ansible.cfg 5├── roles 6│ ├── consul 7│ └── nomad 8│ └── vault 9└── group_vars 10 ├── consul 11 └── nomad 12 └── vault the ansible.</description>
+ Consul: github url Nomad: github url Vault use both repo community-ansibleand MiteshSharma/AnsiblevaultRole  1# The playbook folder level 2├── site.yml 3├── nomad-dev.local 4├── ansible.cfg 5├── roles 6│ ├── consul 7│ └── nomad 8│ └── vault 9└── group_vars 10 ├── consul 11 └── nomad 12 └── vault  the ansible.</description>
     </item>
     
     <item>
@@ -25,7 +29,7 @@ Consul: github url Nomad: github url Vault use both repo community-ansibleand Mi
       
       <guid>https://blog.wisekee.com/post/make-ansible-docker-image/</guid>
       <description>Make Ansible docker image for CI/CD workfolws Sometimes need connect to the remote host use publickey and jump server,copy the ssh key to docker image is necessary
-The Dockerfile 1FROM centos:7 2 3ARG SSH_PRIVATE_KEY 4ARG SSH_HOST_CONFIG 5 6RUN curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo &amp;amp;&amp;amp; \ 7 yum clean all &amp;amp;&amp;amp; yum makecache fast &amp;amp;&amp;amp; \ 8 yum install -y epel-release gcc libffi-devel openssh-clients git wget &amp;amp;&amp;amp; \ 9 yum install -y python python2-pip ansible 10 11RUN python -m pip install &amp;#34;pysocks&amp;#34; &amp;#34;pyspnego==0.</description>
+ The Dockerfile  1FROMcentos:723ARGSSH_PRIVATE_KEY4ARGSSH_HOST_CONFIG56RUNcurl-o/etc/yum.repos.d/CentOS-Base.repohttps://mirrors.aliyun.com/repo/Centos-7.repo&amp;amp;&amp;amp;\7yumcleanall&amp;amp;&amp;amp;yummakecachefast&amp;amp;&amp;amp;\8yuminstall-yepel-releasegcclibffi-developenssh-clientsgitwget&amp;amp;&amp;amp;\9yuminstall-ypythonpython2-pipansible1011RUNpython-mpipinstall&amp;#34;pysocks&amp;#34;&amp;#34;pyspnego==0.1.6&amp;#34;&amp;#34;pywinrm==0.4.1&amp;#34;&amp;#39;pypsrp==0.5.0&amp;#39;&amp;amp;&amp;amp;\12yumcleanall1314WORKDIR/var/app15COPYentrypoint.sh/var/app/entrypoint.sh1617RUNansible-galaxycollectioninstallcommunity.general&amp;amp;&amp;amp;\18mkdir~/.ssh/&amp;amp;&amp;amp;\19echo&amp;#34;${SSH_PRIVATE_KEY}&amp;#34;&amp;gt;~/.ssh/id_rsa&amp;amp;&amp;amp;\20echo&amp;#34;${SSH_HOST_CONFIG}&amp;#34;&amp;gt;&amp;gt;~/.ssh/config&amp;amp;&amp;amp;\21chmod600~/.ssh/id_rsa&amp;amp;&amp;amp;\22sed-i&amp;#39;/\[defaults\]/ a host_key_checking = False&amp;#39;/etc/ansible/ansible.cfg&amp;amp;&amp;amp;\23echo-e&amp;#34;\tServerAliveCountMax 5\n\tServerAliveInterval 5\n\tTCPKeepAlive yes&amp;#34;&amp;gt;&amp;gt;/etc/ssh/ssh_config&amp;amp;&amp;amp;\24chmod+x/var/app/entrypoint.sh2526ENTRYPOINT[]27CMD/var/app/entrypoint.sh When make the docker image needs pass the build arguments to context  1# docker build --network=host --build-arg SSH_PRIVATE_KEY=&amp;#34;$(cat ~/.ssh/id_rsa)&amp;#34; --build-arg SSH_HOST_CONFIG=&amp;#34;$(cat ~/.ssh/config)&amp;#34; -t registry.me/public/ansible:test .  The entrypoint.sh  1#!/usr/bin/env bash 2 3 4while true; do 5 6 echo `date +&amp;#34;[%Y-%m-%d %H:%M:%S]&amp;#34;` I\&amp;#39;m healthily 7 sleep 30; 8 9done  The hosts mode config ~/.</description>
     </item>
     
     <item>
@@ -34,7 +38,7 @@ The Dockerfile 1FROM centos:7 2 3ARG SSH_PRIVATE_KEY 4ARG SSH_HOST_CONFIG 5 6RUN
       <pubDate>Sun, 18 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/ansible-encrypt-secure/</guid>
-      <description>Wrap the ansible vault scripts 1#!/usr/bin/env bash 2 3[ &amp;#34;$#&amp;#34; -gt 2 ] || { 4 echo &amp;#34;Usage $0 encrypt|decrypt option...&amp;#34; 5 echo &amp;#34;Must be least three argumeents required&amp;#34; 6 exit 1 7} 8 9#the decrypt key file path, also can put the aws ssm 10vault_id=&amp;#39;/opt/ansible_pass&amp;#39; 11 12 13function encrypt() { 14 ansible-vault encrypt_string --vault-password-file $1 $2 --name $3 15} 16 17function decrypt() { 18 ansible -i $1 $2 -m ansible.</description>
+      <description>Wrap the ansible vault scripts 1#!/usr/bin/env bash 2 3[ &amp;#34;$#&amp;#34; -gt 2 ] || { 4 echo &amp;#34;Usage $0encrypt|decrypt option...&amp;#34; 5 echo &amp;#34;Must be least three argumeents required&amp;#34; 6 exit 1 7} 8 9#the decrypt key file path, also can put the aws ssm 10vault_id=&amp;#39;/opt/ansible_pass&amp;#39; 11 12 13function encrypt() { 14 ansible-vault encrypt_string --vault-password-file $1 $2 --name $3 15} 16 17function decrypt() { 18 ansible -i $1 $2 -m ansible.builtin.debug -a var=&amp;#34;${3}&amp;#34; -e $4 --vault-id $5 19} 20 21case &amp;#34;$1&amp;#34; in 22 encrypt) 23 shift 1 24 [ &amp;#34;$#&amp;#34; -eq 2 ] || { 25 echo &amp;#34;Usage $0encrypt &amp;#39;plain string&amp;#39; &amp;#39;field name&amp;#39;&amp;#34; 26 exit 1 27 } 28 encrypt $vault_id $1 $2 29	;; 30 decrypt) 31 shift 1 32 [ &amp;#34;$#&amp;#34; -eq 4 ] || { 33 echo &amp;#34;Usage $0decrypt &amp;#39;inventory&amp;#39; &amp;#39;host&amp;#39; &amp;#39;field name&amp;#39; &amp;#39;var file name&amp;#39; to decrypt content&amp;#34; 34 exit 1 35 } 36 inventory_path=$1 37 host=$2 38 field_name=$3 39 var_file=$4 40 decrypt $inventory_path $host $field_name var_file $vault_id 41	;; 42 *) 43 echo &amp;#34;Arguments is error.</description>
     </item>
     
   </channel>

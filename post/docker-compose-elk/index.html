@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>Launch and setup the ELK stack use docker compose service | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.101.0" />
+  <meta name="generator" content="Hugo 0.74.3" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -146,321 +146,323 @@
 <ul>
 <li>settings the centos system</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">sudo yum install -y yum-utils
-</span></span><span class="line"><span class="ln"> 2</span><span class="cl">sudo yum-config-manager <span class="se">\
-</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="se"></span>    --add-repo <span class="se">\
-</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="se"></span>    https://download.docker.com/linux/centos/docker-ce.repo
-</span></span><span class="line"><span class="ln"> 5</span><span class="cl">sudo yum install docker-ce docker-ce-cli containerd.io
-</span></span><span class="line"><span class="ln"> 6</span><span class="cl">systemctl <span class="nb">enable</span> docker
-</span></span><span class="line"><span class="ln"> 7</span><span class="cl">systemctl start docker
-</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="c1"># install the docker-compose</span>
-</span></span><span class="line"><span class="ln"> 9</span><span class="cl">sudo curl -L <span class="s2">&#34;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-</span><span class="k">$(</span>uname -s<span class="k">)</span><span class="s2">-</span><span class="k">$(</span>uname -m<span class="k">)</span><span class="s2">&#34;</span> -o /usr/local/bin/docker-compose
-</span></span><span class="line"><span class="ln">10</span><span class="cl">chmod +x /usr/local/bin/docker-compose
-</span></span><span class="line"><span class="ln">11</span><span class="cl">
-</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="c1"># adjust the system parmeters</span>
-</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;vm.max_map_count=262144&#34;</span> &gt;&gt; /etc/sysctl.conf
-</span></span><span class="line"><span class="ln">14</span><span class="cl">sysctl -p
-</span></span><span class="line"><span class="ln">15</span><span class="cl">systemctl restart docker
-</span></span><span class="line"><span class="ln">16</span><span class="cl">
-</span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="nb">echo</span>  <span class="s2">&#34;
-</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="s2"> root soft nofile 65535
-</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="s2"> root hard nofile 65535
-</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="s2"> * soft nofile 65535
-</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="s2"> * hard nofile 65535
-</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="s2">&#34;</span> &gt;&gt; /etc/security/limits.conf
-</span></span></code></pre></div><ul>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span>sudo yum install -y yum-utils
+<span class="ln"> 2</span>sudo yum-config-manager <span class="se">\
+</span><span class="ln"> 3</span><span class="se"></span>    --add-repo <span class="se">\
+</span><span class="ln"> 4</span><span class="se"></span>    https://download.docker.com/linux/centos/docker-ce.repo
+<span class="ln"> 5</span>sudo yum install docker-ce docker-ce-cli containerd.io
+<span class="ln"> 6</span>systemctl <span class="nb">enable</span> docker
+<span class="ln"> 7</span>systemctl start docker
+<span class="ln"> 8</span><span class="c1"># install the docker-compose</span>
+<span class="ln"> 9</span>sudo curl -L <span class="s2">&#34;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-</span><span class="k">$(</span>uname -s<span class="k">)</span><span class="s2">-</span><span class="k">$(</span>uname -m<span class="k">)</span><span class="s2">&#34;</span> -o /usr/local/bin/docker-compose
+<span class="ln">10</span>chmod +x /usr/local/bin/docker-compose
+<span class="ln">11</span>
+<span class="ln">12</span><span class="c1"># adjust the system parmeters</span>
+<span class="ln">13</span><span class="nb">echo</span> <span class="s2">&#34;vm.max_map_count=262144&#34;</span> &gt;&gt; /etc/sysctl.conf
+<span class="ln">14</span>sysctl -p
+<span class="ln">15</span>systemctl restart docker
+<span class="ln">16</span>
+<span class="ln">17</span><span class="nb">echo</span>  <span class="s2">&#34;
+</span><span class="ln">18</span><span class="s2"> root soft nofile 65535
+</span><span class="ln">19</span><span class="s2"> root hard nofile 65535
+</span><span class="ln">20</span><span class="s2"> * soft nofile 65535
+</span><span class="ln">21</span><span class="s2"> * hard nofile 65535
+</span><span class="ln">22</span><span class="s2">&#34;</span> &gt;&gt; /etc/security/limits.conf
+<span class="ln">23</span>
+</code></pre></div><ul>
 <li>Download the ELK stack docker images</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">docker pull docker.elastic.co/elasticsearch/elasticsearch:6.3.1
-</span></span><span class="line"><span class="ln"> 2</span><span class="cl">docker pull docker.elastic.co/kibana/kibana:6.3.1
-</span></span><span class="line"><span class="ln"> 3</span><span class="cl">docker pull docker.elastic.co/logstash/logstash:6.3.1
-</span></span><span class="line"><span class="ln"> 4</span><span class="cl">
-</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="c1"># install elastic-curator</span>
-</span></span><span class="line"><span class="ln"> 6</span><span class="cl">rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch
-</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;
-</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="s2">[curator-5]
-</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="s2">name=CentOS/RHEL 7 repository for Elasticsearch Curator 5.x packages
-</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="s2">baseurl=https://packages.elastic.co/curator/5/centos/7
-</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="s2">gpgcheck=1
-</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="s2">gpgkey=https://packages.elastic.co/GPG-KEY-elasticsearch
-</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="s2">enabled=1
-</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="s2">&#34;</span> &gt; /etc/yum.repos.d/curator.repo
-</span></span><span class="line"><span class="ln">15</span><span class="cl">yum install elasticsearch-curator -y
-</span></span></code></pre></div><ul>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span>docker pull docker.elastic.co/elasticsearch/elasticsearch:6.3.1
+<span class="ln"> 2</span>docker pull docker.elastic.co/kibana/kibana:6.3.1
+<span class="ln"> 3</span>docker pull docker.elastic.co/logstash/logstash:6.3.1
+<span class="ln"> 4</span>
+<span class="ln"> 5</span><span class="c1"># install elastic-curator</span>
+<span class="ln"> 6</span>rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch
+<span class="ln"> 7</span><span class="nb">echo</span> <span class="s2">&#34;
+</span><span class="ln"> 8</span><span class="s2">[curator-5]
+</span><span class="ln"> 9</span><span class="s2">name=CentOS/RHEL 7 repository for Elasticsearch Curator 5.x packages
+</span><span class="ln">10</span><span class="s2">baseurl=https://packages.elastic.co/curator/5/centos/7
+</span><span class="ln">11</span><span class="s2">gpgcheck=1
+</span><span class="ln">12</span><span class="s2">gpgkey=https://packages.elastic.co/GPG-KEY-elasticsearch
+</span><span class="ln">13</span><span class="s2">enabled=1
+</span><span class="ln">14</span><span class="s2">&#34;</span> &gt; /etc/yum.repos.d/curator.repo
+<span class="ln">15</span>yum install elasticsearch-curator -y
+</code></pre></div><ul>
 <li>Create directory construct</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">mkdir -p /data/elkstack/<span class="o">{</span>elasticsearch/<span class="o">{</span>data,package<span class="o">}</span>,curator,kibana/data,logstash/<span class="o">{</span>conf,plugins<span class="o">}}</span>
-</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
-</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="c1"># the folder level illustrate</span>
-</span></span><span class="line"><span class="ln"> 4</span><span class="cl">.
-</span></span><span class="line"><span class="ln"> 5</span><span class="cl">└── elkstack
-</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    ├── curator
-</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    ├── elasticsearch
-</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    │   ├── data
-</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    │   └── package
-</span></span><span class="line"><span class="ln">10</span><span class="cl">    ├── kibana
-</span></span><span class="line"><span class="ln">11</span><span class="cl">    │   └── data
-</span></span><span class="line"><span class="ln">12</span><span class="cl">    └── logstash
-</span></span><span class="line"><span class="ln">13</span><span class="cl">        ├── conf
-</span></span><span class="line"><span class="ln">14</span><span class="cl">        └── plugins
-</span></span><span class="line"><span class="ln">15</span><span class="cl">
-</span></span><span class="line"><span class="ln">16</span><span class="cl">chown 1000:1000 -R /data/elkstack
-</span></span><span class="line"><span class="ln">17</span><span class="cl">  
-</span></span></code></pre></div><ul>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span>mkdir -p /data/elkstack/<span class="o">{</span>elasticsearch/<span class="o">{</span>data,package<span class="o">}</span>,curator,kibana/data,logstash/<span class="o">{</span>conf,plugins<span class="o">}}</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="c1"># the folder level illustrate</span>
+<span class="ln"> 4</span>.
+<span class="ln"> 5</span>└── elkstack
+<span class="ln"> 6</span>    ├── curator
+<span class="ln"> 7</span>    ├── elasticsearch
+<span class="ln"> 8</span>    │   ├── data
+<span class="ln"> 9</span>    │   └── package
+<span class="ln">10</span>    ├── kibana
+<span class="ln">11</span>    │   └── data
+<span class="ln">12</span>    └── logstash
+<span class="ln">13</span>        ├── conf
+<span class="ln">14</span>        └── plugins
+<span class="ln">15</span>
+<span class="ln">16</span>chown 1000:1000 -R /data/elkstack
+<span class="ln">17</span>  
+</code></pre></div><ul>
 <li>Preapre the docker-compose.yml file</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;2&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">networks</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="nt">elk-net</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l">bridge</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">  </span><span class="nt">elasticsearch</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">docker.elastic.co/elasticsearch/elasticsearch:6.3.1</span><span class="w">
-</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch</span><span class="w">
-</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">      </span>- <span class="l">cluster.name=docker-cluster</span><span class="w">
-</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">      </span>- <span class="l">bootstrap.memory_lock=true</span><span class="w">
-</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">      </span>- <span class="s2">&#34;ES_JAVA_OPTS=-Xms1024m -Xmx1024m&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">    </span><span class="nt">ulimits</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">      </span><span class="nt">memlock</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">        </span><span class="nt">soft</span><span class="p">:</span><span class="w"> </span>-<span class="m">1</span><span class="w">
-</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">        </span><span class="nt">hard</span><span class="p">:</span><span class="w"> </span>-<span class="m">1</span><span class="w">
-</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">      </span><span class="nt">nofile</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">        </span><span class="nt">soft</span><span class="p">:</span><span class="w"> </span><span class="m">65536</span><span class="w">
-</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">        </span><span class="nt">hard</span><span class="p">:</span><span class="w"> </span><span class="m">65536</span><span class="w">
-</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">    </span><span class="nt">mem_limit</span><span class="p">:</span><span class="w"> </span><span class="l">16000m</span><span class="w">
-</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">    </span><span class="nt">cap_add</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">      </span>- <span class="l">IPC_LOCK</span><span class="w">
-</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
-</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">      </span>- <span class="l">elk-net</span><span class="w">
-</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">      </span>- <span class="s2">&#34;9200:9200&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">      </span>- <span class="s2">&#34;9300:9300&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">       </span>- <span class="l">/data/elkstack/elasticsearch/data:/usr/share/elasticsearch/data</span><span class="w">
-</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w">       </span>- <span class="l">/data/elkstack/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml</span><span class="w">
-</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w">       </span>- <span class="l">/data/elkstack/elasticsearch/package:/tmp/package</span><span class="w">
-</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w">    </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch</span><span class="w">
-</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w">    </span><span class="c"># support the sql query</span><span class="w">
-</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w">    </span><span class="c">#  bash -c &#34;elasticsearch-plugin install file:///tmp/package/elasticsearch-sql-6.3.1.1.zip;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;elasticsearch&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="w">  </span><span class="nt">logstash</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">docker.elastic.co/logstash/logstash:6.3.1</span><span class="w">
-</span></span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">logstash</span><span class="w">
-</span></span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
-</span></span></span><span class="line"><span class="ln">46</span><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">47</span><span class="cl"><span class="w">     </span>- <span class="l">elk-net</span><span class="w">
-</span></span></span><span class="line"><span class="ln">48</span><span class="cl"><span class="w">    </span><span class="nt">mem_limit</span><span class="p">:</span><span class="w"> </span><span class="l">1300m</span><span class="w">
-</span></span></span><span class="line"><span class="ln">49</span><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">50</span><span class="cl"><span class="w">      </span>- <span class="m">5044</span><span class="p">:</span><span class="m">5044</span><span class="w">
-</span></span></span><span class="line"><span class="ln">51</span><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">52</span><span class="cl"><span class="w">      </span>- <span class="l">/data/elkstack/logstash/conf:/config-dir</span><span class="w">
-</span></span></span><span class="line"><span class="ln">53</span><span class="cl"><span class="w">      </span>- <span class="l">/data/elkstack/logstash/plugins:/tmp/plugins</span><span class="w">
-</span></span></span><span class="line"><span class="ln">54</span><span class="cl"><span class="w">      </span>- <span class="l">/data/elkstack/logstash/logstash.yml:/usr/share/logstash/config/logstash.yml</span><span class="w">
-</span></span></span><span class="line"><span class="ln">55</span><span class="cl"><span class="w">      </span>- <span class="l">/etc/localtime:/etc/localtime</span><span class="w">
-</span></span></span><span class="line"><span class="ln">56</span><span class="cl"><span class="w">    </span><span class="nt">links</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">57</span><span class="cl"><span class="w">      </span>- <span class="s1">&#39;elasticsearch:elasticsearch&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">58</span><span class="cl"><span class="w">    </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l">logstash</span><span class="w">
-</span></span></span><span class="line"><span class="ln">59</span><span class="cl"><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l">bash -c &#34;logstash -f /config-dir --config.reload.automatic&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">60</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">61</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">62</span><span class="cl"><span class="w">  </span><span class="nt">kibana</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">63</span><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">docker.elastic.co/kibana/kibana:6.3.1</span><span class="w">
-</span></span></span><span class="line"><span class="ln">64</span><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">kibana</span><span class="w">
-</span></span></span><span class="line"><span class="ln">65</span><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
-</span></span></span><span class="line"><span class="ln">66</span><span class="cl"><span class="w">    </span><span class="nt">mem_limit</span><span class="p">:</span><span class="w"> </span><span class="l">2000m</span><span class="w">
-</span></span></span><span class="line"><span class="ln">67</span><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">68</span><span class="cl"><span class="w">      </span><span class="nt">SERVER_NAME</span><span class="p">:</span><span class="w"> </span><span class="l">test.kibana.com </span><span class="w">
-</span></span></span><span class="line"><span class="ln">69</span><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">70</span><span class="cl"><span class="w">      </span>- <span class="l">elk-net</span><span class="w">
-</span></span></span><span class="line"><span class="ln">71</span><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">72</span><span class="cl"><span class="w">      </span>- <span class="s2">&#34;5601:5601&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">73</span><span class="cl"><span class="w">    </span><span class="nt">links</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">74</span><span class="cl"><span class="w">      </span>- <span class="l">elasticsearch:elasticsearch</span><span class="w">
-</span></span></span><span class="line"><span class="ln">75</span><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">76</span><span class="cl"><span class="w">       </span>- <span class="l">/data/elkstack/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml</span><span class="w">
-</span></span></span><span class="line"><span class="ln">77</span><span class="cl"><span class="w">       </span>- <span class="l">/data/elkstack/kibana/data:/usr/share/kibana/data</span><span class="w">
-</span></span></span></code></pre></div><ul>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span><span class="k">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;2&#39;</span><span class="w">
+</span><span class="ln"> 2</span><span class="w">
+</span><span class="ln"> 3</span><span class="w"></span><span class="k">networks</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 4</span><span class="w">  </span><span class="k">elk-net</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 5</span><span class="w">    </span><span class="k">driver</span><span class="p">:</span><span class="w"> </span>bridge<span class="w">
+</span><span class="ln"> 6</span><span class="w">
+</span><span class="ln"> 7</span><span class="w"></span><span class="k">services</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 8</span><span class="w">
+</span><span class="ln"> 9</span><span class="w">  </span><span class="k">elasticsearch</span><span class="p">:</span><span class="w">
+</span><span class="ln">10</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>docker.elastic.co/elasticsearch/elasticsearch<span class="p">:</span><span class="m">6.3.1</span><span class="w">
+</span><span class="ln">11</span><span class="w">    </span><span class="k">container_name</span><span class="p">:</span><span class="w"> </span>elasticsearch<span class="w">
+</span><span class="ln">12</span><span class="w">    </span><span class="k">environment</span><span class="p">:</span><span class="w">
+</span><span class="ln">13</span><span class="w">      </span>- cluster.name=docker-cluster<span class="w">
+</span><span class="ln">14</span><span class="w">      </span>- bootstrap.memory_lock=<span class="kc">true</span><span class="w">
+</span><span class="ln">15</span><span class="w">      </span>- <span class="s2">&#34;ES_JAVA_OPTS=-Xms1024m -Xmx1024m&#34;</span><span class="w">
+</span><span class="ln">16</span><span class="w">    </span><span class="k">ulimits</span><span class="p">:</span><span class="w">
+</span><span class="ln">17</span><span class="w">      </span><span class="k">memlock</span><span class="p">:</span><span class="w">
+</span><span class="ln">18</span><span class="w">        </span><span class="k">soft</span><span class="p">:</span><span class="w"> </span>-<span class="m">1</span><span class="w">
+</span><span class="ln">19</span><span class="w">        </span><span class="k">hard</span><span class="p">:</span><span class="w"> </span>-<span class="m">1</span><span class="w">
+</span><span class="ln">20</span><span class="w">      </span><span class="k">nofile</span><span class="p">:</span><span class="w">
+</span><span class="ln">21</span><span class="w">        </span><span class="k">soft</span><span class="p">:</span><span class="w"> </span><span class="m">65536</span><span class="w">
+</span><span class="ln">22</span><span class="w">        </span><span class="k">hard</span><span class="p">:</span><span class="w"> </span><span class="m">65536</span><span class="w">
+</span><span class="ln">23</span><span class="w">    </span><span class="k">mem_limit</span><span class="p">:</span><span class="w"> </span>16000m<span class="w">
+</span><span class="ln">24</span><span class="w">    </span><span class="k">cap_add</span><span class="p">:</span><span class="w">
+</span><span class="ln">25</span><span class="w">      </span>- IPC_LOCK<span class="w">
+</span><span class="ln">26</span><span class="w">    </span><span class="k">restart</span><span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="ln">27</span><span class="w">    </span><span class="k">networks</span><span class="p">:</span><span class="w">
+</span><span class="ln">28</span><span class="w">      </span>- elk-net<span class="w">
+</span><span class="ln">29</span><span class="w">    </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="ln">30</span><span class="w">      </span>- <span class="s2">&#34;9200:9200&#34;</span><span class="w">
+</span><span class="ln">31</span><span class="w">      </span>- <span class="s2">&#34;9300:9300&#34;</span><span class="w">
+</span><span class="ln">32</span><span class="w">    </span><span class="k">volumes</span><span class="p">:</span><span class="w">
+</span><span class="ln">33</span><span class="w">       </span>- /data/elkstack/elasticsearch/data<span class="p">:</span>/usr/share/elasticsearch/data<span class="w">
+</span><span class="ln">34</span><span class="w">       </span>- /data/elkstack/elasticsearch/elasticsearch.yml<span class="p">:</span>/usr/share/elasticsearch/config/elasticsearch.yml<span class="w">
+</span><span class="ln">35</span><span class="w">       </span>- /data/elkstack/elasticsearch/package<span class="p">:</span>/tmp/package<span class="w">
+</span><span class="ln">36</span><span class="w">    </span><span class="k">user</span><span class="p">:</span><span class="w"> </span>elasticsearch<span class="w">
+</span><span class="ln">37</span><span class="w">    </span><span class="c"># support the sql query</span><span class="w">
+</span><span class="ln">38</span><span class="w">    </span><span class="c">#  bash -c &#34;elasticsearch-plugin install file:///tmp/package/elasticsearch-sql-6.3.1.1.zip;</span><span class="w">
+</span><span class="ln">39</span><span class="w">    </span><span class="k">command</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;elasticsearch&#34;</span><span class="w">
+</span><span class="ln">40</span><span class="w">
+</span><span class="ln">41</span><span class="w">
+</span><span class="ln">42</span><span class="w">  </span><span class="k">logstash</span><span class="p">:</span><span class="w">
+</span><span class="ln">43</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>docker.elastic.co/logstash/logstash<span class="p">:</span><span class="m">6.3.1</span><span class="w">
+</span><span class="ln">44</span><span class="w">    </span><span class="k">container_name</span><span class="p">:</span><span class="w"> </span>logstash<span class="w">
+</span><span class="ln">45</span><span class="w">    </span><span class="k">restart</span><span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="ln">46</span><span class="w">    </span><span class="k">networks</span><span class="p">:</span><span class="w">
+</span><span class="ln">47</span><span class="w">     </span>- elk-net<span class="w">
+</span><span class="ln">48</span><span class="w">    </span><span class="k">mem_limit</span><span class="p">:</span><span class="w"> </span>1300m<span class="w">
+</span><span class="ln">49</span><span class="w">    </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="ln">50</span><span class="w">      </span>- <span class="m">5044</span><span class="p">:</span><span class="m">5044</span><span class="w">
+</span><span class="ln">51</span><span class="w">    </span><span class="k">volumes</span><span class="p">:</span><span class="w">
+</span><span class="ln">52</span><span class="w">      </span>- /data/elkstack/logstash/conf<span class="p">:</span>/config-dir<span class="w">
+</span><span class="ln">53</span><span class="w">      </span>- /data/elkstack/logstash/plugins<span class="p">:</span>/tmp/plugins<span class="w">
+</span><span class="ln">54</span><span class="w">      </span>- /data/elkstack/logstash/logstash.yml<span class="p">:</span>/usr/share/logstash/config/logstash.yml<span class="w">
+</span><span class="ln">55</span><span class="w">      </span>- /etc/localtime<span class="p">:</span>/etc/localtime<span class="w">
+</span><span class="ln">56</span><span class="w">    </span><span class="k">links</span><span class="p">:</span><span class="w">
+</span><span class="ln">57</span><span class="w">      </span>- <span class="s1">&#39;elasticsearch:elasticsearch&#39;</span><span class="w">
+</span><span class="ln">58</span><span class="w">    </span><span class="k">user</span><span class="p">:</span><span class="w"> </span>logstash<span class="w">
+</span><span class="ln">59</span><span class="w">    </span><span class="k">command</span><span class="p">:</span><span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&#34;logstash -f /config-dir --config.reload.automatic&#34;</span><span class="w">
+</span><span class="ln">60</span><span class="w">
+</span><span class="ln">61</span><span class="w">
+</span><span class="ln">62</span><span class="w">  </span><span class="k">kibana</span><span class="p">:</span><span class="w">
+</span><span class="ln">63</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>docker.elastic.co/kibana/kibana<span class="p">:</span><span class="m">6.3.1</span><span class="w">
+</span><span class="ln">64</span><span class="w">    </span><span class="k">container_name</span><span class="p">:</span><span class="w"> </span>kibana<span class="w">
+</span><span class="ln">65</span><span class="w">    </span><span class="k">restart</span><span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="ln">66</span><span class="w">    </span><span class="k">mem_limit</span><span class="p">:</span><span class="w"> </span>2000m<span class="w">
+</span><span class="ln">67</span><span class="w">    </span><span class="k">environment</span><span class="p">:</span><span class="w">
+</span><span class="ln">68</span><span class="w">      </span><span class="k">SERVER_NAME</span><span class="p">:</span><span class="w"> </span>test.kibana.com<span class="w"> 
+</span><span class="ln">69</span><span class="w">    </span><span class="k">networks</span><span class="p">:</span><span class="w">
+</span><span class="ln">70</span><span class="w">      </span>- elk-net<span class="w">
+</span><span class="ln">71</span><span class="w">    </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="ln">72</span><span class="w">      </span>- <span class="s2">&#34;5601:5601&#34;</span><span class="w">
+</span><span class="ln">73</span><span class="w">    </span><span class="k">links</span><span class="p">:</span><span class="w">
+</span><span class="ln">74</span><span class="w">      </span>- elasticsearch<span class="p">:</span>elasticsearch<span class="w">
+</span><span class="ln">75</span><span class="w">    </span><span class="k">volumes</span><span class="p">:</span><span class="w">
+</span><span class="ln">76</span><span class="w">       </span>- /data/elkstack/kibana/kibana.yml<span class="p">:</span>/usr/share/kibana/config/kibana.yml<span class="w">
+</span><span class="ln">77</span><span class="w">       </span>- /data/elkstack/kibana/data<span class="p">:</span>/usr/share/kibana/data<span class="w">
+</span></code></pre></div><ul>
 <li>The ELK stack relative config files look like  followings
 the <code>/data/elkstack/elasticsearch/elasticsearch.yml</code></li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">cluster.name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;docker-cluster&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">network.host</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w"></span><span class="nt">discovery.zen.minimum_master_nodes</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w"></span><span class="nt">http.port</span><span class="p">:</span><span class="w"> </span><span class="m">9200</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="nt">transport.tcp.port</span><span class="p">:</span><span class="w"> </span><span class="m">9300</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w"></span><span class="c"># ping the healthcheck if has multiple nodes </span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w"></span><span class="c"># discovery.zen.ping.unicast.hosts: [&#34;172.16.1.3:9300&#34;, &#34;172.16.1.4:9300&#34;]</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w"></span><span class="nt">discovery.zen.fd.ping_timeout</span><span class="p">:</span><span class="w"> </span><span class="l">120s</span><span class="w">
-</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w"></span><span class="nt">discovery.zen.fd.ping_retries</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w"></span><span class="nt">discovery.zen.fd.ping_interval</span><span class="p">:</span><span class="w"> </span><span class="l">30s</span><span class="w">
-</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w"></span><span class="nt">cluster.info.update.interval</span><span class="p">:</span><span class="w"> </span><span class="l">1m</span><span class="w">
-</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w"></span><span class="nt">xpack.security.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w"></span><span class="nt">indices.fielddata.cache.size</span><span class="p">:</span><span class="w">  </span><span class="m">20</span><span class="l">%</span><span class="w">
-</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w"></span><span class="nt">indices.breaker.total.limit</span><span class="p">:</span><span class="w"> </span><span class="m">60</span><span class="l">%</span><span class="w">
-</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w"></span><span class="nt">indices.recovery.max_bytes_per_sec</span><span class="p">:</span><span class="w"> </span><span class="l">100mb</span><span class="w">
-</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w"></span><span class="nt">indices.memory.index_buffer_size</span><span class="p">:</span><span class="w"> </span><span class="m">20</span><span class="l">%</span><span class="w">
-</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w"></span><span class="nt">script.painless.regex.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></span></span></code></pre></div><p>the <code>/data/elkstack/logstash/conf</code>f older contents</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1"># cat 01_input.conf</span>
-</span></span><span class="line"><span class="ln"> 2</span><span class="cl">input <span class="o">{</span>
-</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  beats <span class="o">{</span>
-</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="nv">port</span> <span class="o">=</span>&gt; <span class="m">5044</span>
-</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  <span class="o">}</span>
-</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
-</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="c1"># cat 02_filter.conf</span>
-</span></span><span class="line"><span class="ln"> 9</span><span class="cl">filter <span class="o">{</span>
-</span></span><span class="line"><span class="ln">10</span><span class="cl">
-</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="k">if</span> <span class="o">[</span>fields<span class="o">][</span>log_format<span class="o">]</span> <span class="o">=</span>~ /test_logs/ <span class="o">{</span>
-</span></span><span class="line"><span class="ln">12</span><span class="cl">
-</span></span><span class="line"><span class="ln">13</span><span class="cl">      grok <span class="o">{</span>
-</span></span><span class="line"><span class="ln">14</span><span class="cl">        <span class="nv">match</span> <span class="o">=</span>&gt; <span class="o">{</span> <span class="s2">&#34;source&#34;</span> <span class="o">=</span>&gt; <span class="s2">&#34;/data/var/log/apps/(?&lt;app_id&gt;[^/]+)&#34;</span><span class="o">}</span>
-</span></span><span class="line"><span class="ln">15</span><span class="cl">
-</span></span><span class="line"><span class="ln">16</span><span class="cl">      <span class="o">}</span>
-</span></span><span class="line"><span class="ln">17</span><span class="cl">      
-</span></span><span class="line"><span class="ln">18</span><span class="cl">      mutate <span class="o">{</span>
-</span></span><span class="line"><span class="ln">19</span><span class="cl">         <span class="nv">gsub</span> <span class="o">=</span>&gt; <span class="o">[</span><span class="s2">&#34;message&#34;</span>, <span class="s2">&#34;\t&#34;</span>, <span class="s2">&#34; &#34;</span>, <span class="s2">&#34;message&#34;</span>, <span class="s2">&#34;\n&#34;</span>, <span class="s2">&#34;&#34;</span><span class="o">]</span>
-</span></span><span class="line"><span class="ln">20</span><span class="cl">      <span class="o">}</span>
-</span></span><span class="line"><span class="ln">21</span><span class="cl">
-</span></span><span class="line"><span class="ln">22</span><span class="cl">      json <span class="o">{</span>
-</span></span><span class="line"><span class="ln">23</span><span class="cl">         <span class="nb">source</span> <span class="o">=</span>&gt; <span class="s2">&#34;message&#34;</span>
-</span></span><span class="line"><span class="ln">24</span><span class="cl">
-</span></span><span class="line"><span class="ln">25</span><span class="cl">      <span class="o">}</span>
-</span></span><span class="line"><span class="ln">26</span><span class="cl">   
-</span></span><span class="line"><span class="ln">27</span><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="c1">#cat 03_output.conf</span>
-</span></span><span class="line"><span class="ln">30</span><span class="cl">output <span class="o">{</span>
-</span></span><span class="line"><span class="ln">31</span><span class="cl">  <span class="k">if</span> <span class="o">[</span>log_format<span class="o">]</span> <span class="o">=</span>~ <span class="s2">&#34;test&#34;</span> <span class="o">{</span>
-</span></span><span class="line"><span class="ln">32</span><span class="cl">        stdout <span class="o">{</span> <span class="nv">codec</span> <span class="o">=</span>&gt; rubydebug <span class="o">}</span>
-</span></span><span class="line"><span class="ln">33</span><span class="cl">  <span class="o">}</span>
-</span></span><span class="line"><span class="ln">34</span><span class="cl">  <span class="k">else</span> <span class="o">{</span>
-</span></span><span class="line"><span class="ln">35</span><span class="cl">    elasticsearch <span class="o">{</span>
-</span></span><span class="line"><span class="ln">36</span><span class="cl">      <span class="nv">hosts</span> <span class="o">=</span>&gt; <span class="o">[</span><span class="s2">&#34;elasticsearch:9200&#34;</span><span class="o">]</span>
-</span></span><span class="line"><span class="ln">37</span><span class="cl">      <span class="nv">index</span> <span class="o">=</span>&gt; <span class="s2">&#34;test-%{+YYYY.MM}&#34;</span>
-</span></span><span class="line"><span class="ln">38</span><span class="cl">      <span class="c1">#user =&gt; user</span>
-</span></span><span class="line"><span class="ln">39</span><span class="cl">      <span class="c1">#password =&gt; password</span>
-</span></span><span class="line"><span class="ln">40</span><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="ln">41</span><span class="cl">  <span class="o">}</span>
-</span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="c1"># /data/elkstack/logstash/logstash.yml</span>
-</span></span><span class="line"><span class="ln">44</span><span class="cl">http.host: <span class="s2">&#34;0.0.0.0&#34;</span>
-</span></span></code></pre></div><p>the <code>/data/elkstack/kibana/kibana.yml</code>contents</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">1</span><span class="cl"><span class="nt">server.name</span><span class="p">:</span><span class="w"> </span><span class="l">kibana</span><span class="w">
-</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="nt">server.host</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w"></span><span class="nt">elasticsearch.url</span><span class="p">:</span><span class="w"> </span><span class="l">http://elasticsearch:9200</span><span class="w">
-</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w"></span><span class="nt">xpack.security.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span></span></span></code></pre></div><ul>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span><span class="k">cluster.name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;docker-cluster&#34;</span><span class="w">
+</span><span class="ln"> 2</span><span class="w"></span><span class="k">network.host</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="w">
+</span><span class="ln"> 3</span><span class="w">
+</span><span class="ln"> 4</span><span class="w"></span><span class="k">discovery.zen.minimum_master_nodes</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="ln"> 5</span><span class="w"></span><span class="k">http.port</span><span class="p">:</span><span class="w"> </span><span class="m">9200</span><span class="w">
+</span><span class="ln"> 6</span><span class="w"></span><span class="k">transport.tcp.port</span><span class="p">:</span><span class="w"> </span><span class="m">9300</span><span class="w">
+</span><span class="ln"> 7</span><span class="w"></span><span class="c"># ping the healthcheck if has multiple nodes </span><span class="w">
+</span><span class="ln"> 8</span><span class="w"></span><span class="c"># discovery.zen.ping.unicast.hosts: [&#34;172.16.1.3:9300&#34;, &#34;172.16.1.4:9300&#34;]</span><span class="w">
+</span><span class="ln"> 9</span><span class="w"></span><span class="k">discovery.zen.fd.ping_timeout</span><span class="p">:</span><span class="w"> </span>120s<span class="w">
+</span><span class="ln">10</span><span class="w"></span><span class="k">discovery.zen.fd.ping_retries</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="ln">11</span><span class="w"></span><span class="k">discovery.zen.fd.ping_interval</span><span class="p">:</span><span class="w"> </span>30s<span class="w">
+</span><span class="ln">12</span><span class="w"></span><span class="k">cluster.info.update.interval</span><span class="p">:</span><span class="w"> </span>1m<span class="w">
+</span><span class="ln">13</span><span class="w"></span><span class="k">xpack.security.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="ln">14</span><span class="w"></span><span class="k">indices.fielddata.cache.size</span><span class="p">:</span><span class="w">  </span><span class="m">20</span>%<span class="w">
+</span><span class="ln">15</span><span class="w"></span><span class="k">indices.breaker.total.limit</span><span class="p">:</span><span class="w"> </span><span class="m">60</span>%<span class="w">
+</span><span class="ln">16</span><span class="w"></span><span class="k">indices.recovery.max_bytes_per_sec</span><span class="p">:</span><span class="w"> </span>100mb<span class="w">
+</span><span class="ln">17</span><span class="w"></span><span class="k">indices.memory.index_buffer_size</span><span class="p">:</span><span class="w"> </span><span class="m">20</span>%<span class="w">
+</span><span class="ln">18</span><span class="w"></span><span class="k">script.painless.regex.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></code></pre></div><p>the <code>/data/elkstack/logstash/conf</code>f older contents</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span><span class="c1"># cat 01_input.conf</span>
+<span class="ln"> 2</span>input <span class="o">{</span>
+<span class="ln"> 3</span>  beats <span class="o">{</span>
+<span class="ln"> 4</span>    <span class="nv">port</span> <span class="o">=</span>&gt; <span class="m">5044</span>
+<span class="ln"> 5</span>  <span class="o">}</span>
+<span class="ln"> 6</span>
+<span class="ln"> 7</span><span class="o">}</span>
+<span class="ln"> 8</span><span class="c1"># cat 02_filter.conf</span>
+<span class="ln"> 9</span>filter <span class="o">{</span>
+<span class="ln">10</span>
+<span class="ln">11</span>    <span class="k">if</span> <span class="o">[</span>fields<span class="o">][</span>log_format<span class="o">]</span> <span class="o">=</span>~ /test_logs/ <span class="o">{</span>
+<span class="ln">12</span>
+<span class="ln">13</span>      grok <span class="o">{</span>
+<span class="ln">14</span>        <span class="nv">match</span> <span class="o">=</span>&gt; <span class="o">{</span> <span class="s2">&#34;source&#34;</span> <span class="o">=</span>&gt; <span class="s2">&#34;/data/var/log/apps/(?&lt;app_id&gt;[^/]+)&#34;</span><span class="o">}</span>
+<span class="ln">15</span>
+<span class="ln">16</span>      <span class="o">}</span>
+<span class="ln">17</span>      
+<span class="ln">18</span>      mutate <span class="o">{</span>
+<span class="ln">19</span>         <span class="nv">gsub</span> <span class="o">=</span>&gt; <span class="o">[</span><span class="s2">&#34;message&#34;</span>, <span class="s2">&#34;\t&#34;</span>, <span class="s2">&#34; &#34;</span>, <span class="s2">&#34;message&#34;</span>, <span class="s2">&#34;\n&#34;</span>, <span class="s2">&#34;&#34;</span><span class="o">]</span>
+<span class="ln">20</span>      <span class="o">}</span>
+<span class="ln">21</span>
+<span class="ln">22</span>      json <span class="o">{</span>
+<span class="ln">23</span>         <span class="nb">source</span> <span class="o">=</span>&gt; <span class="s2">&#34;message&#34;</span>
+<span class="ln">24</span>
+<span class="ln">25</span>      <span class="o">}</span>
+<span class="ln">26</span>   
+<span class="ln">27</span>    <span class="o">}</span>
+<span class="ln">28</span><span class="o">}</span>
+<span class="ln">29</span><span class="c1">#cat 03_output.conf</span>
+<span class="ln">30</span>output <span class="o">{</span>
+<span class="ln">31</span>  <span class="k">if</span> <span class="o">[</span>log_format<span class="o">]</span> <span class="o">=</span>~ <span class="s2">&#34;test&#34;</span> <span class="o">{</span>
+<span class="ln">32</span>        stdout <span class="o">{</span> <span class="nv">codec</span> <span class="o">=</span>&gt; rubydebug <span class="o">}</span>
+<span class="ln">33</span>  <span class="o">}</span>
+<span class="ln">34</span>  <span class="k">else</span> <span class="o">{</span>
+<span class="ln">35</span>    elasticsearch <span class="o">{</span>
+<span class="ln">36</span>      <span class="nv">hosts</span> <span class="o">=</span>&gt; <span class="o">[</span><span class="s2">&#34;elasticsearch:9200&#34;</span><span class="o">]</span>
+<span class="ln">37</span>      <span class="nv">index</span> <span class="o">=</span>&gt; <span class="s2">&#34;test-%{+YYYY.MM}&#34;</span>
+<span class="ln">38</span>      <span class="c1">#user =&gt; user</span>
+<span class="ln">39</span>      <span class="c1">#password =&gt; password</span>
+<span class="ln">40</span>    <span class="o">}</span>
+<span class="ln">41</span>  <span class="o">}</span>
+<span class="ln">42</span><span class="o">}</span>
+<span class="ln">43</span><span class="c1"># /data/elkstack/logstash/logstash.yml</span>
+<span class="ln">44</span>http.host: <span class="s2">&#34;0.0.0.0&#34;</span>
+</code></pre></div><p>the <code>/data/elkstack/kibana/kibana.yml</code>contents</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln">1</span><span class="k">server.name</span><span class="p">:</span><span class="w"> </span>kibana<span class="w">
+</span><span class="ln">2</span><span class="w"></span><span class="k">server.host</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0&#34;</span><span class="w">
+</span><span class="ln">3</span><span class="w"></span><span class="k">elasticsearch.url</span><span class="p">:</span><span class="w"> </span>http<span class="p">:</span>//elasticsearch<span class="p">:</span><span class="m">9200</span><span class="w">
+</span><span class="ln">4</span><span class="w"></span><span class="k">xpack.security.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></code></pre></div><ul>
 <li>Configuration the curator</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">mkdir -p /data/elkstack/curator
-</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;
-</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="s2">client:
-</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="s2">       hosts:
-</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="s2">        - 172.16.1.3
-</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="s2">        port: 9200
-</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="s2">        url_prefix:
-</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="s2">        use_ssl: False
-</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="s2">        certificate:
-</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="s2">        client_cert:
-</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="s2">        client_key:
-</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="s2">        ssl_no_validate: False
-</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="s2">        http_auth:
-</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="s2">        timeout: 150
-</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="s2">        master_only: False
-</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="s2">
-</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="s2">    logging:
-</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="s2">        loglevel: INFO
-</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="s2">        logfile:
-</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="s2">        logformat: default
-</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="s2">        blacklist: [&#39;elasticsearch&#39;, &#39;urllib3&#39;]
-</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="s2">&#34;</span> &gt; /data/elkstack/curator/config.yml
-</span></span><span class="line"><span class="ln">23</span><span class="cl">
-</span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="c1"># add the cleanup rules</span>
-</span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;
-</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="s2">actions:
-</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="s2">      1:
-</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="s2">        action: delete_indices
-</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="s2">        description: &gt;-
-</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="s2">          Delete indices older than 60 days. Ignore the error if the    filter does not result in an actionable list of indices    (ignore_empty_list) and exit cleanly.
-</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="s2">        options:
-</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="s2">          ignore_empty_list: True
-</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="s2">          disable_action: False
-</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="s2">        filters:
-</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="s2">        - filtertype: pattern
-</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="s2">          kind: regex
-</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="s2">          # retain kibana|json|monitoring|metadata don&#39;t clean
-</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="s2">          value: &#39;^((?!(kibana|json|monitoring|metadata)).)*</span>$<span class="s2">&#39;
-</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="s2">        - filtertype: age
-</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="s2">          source: creation_date
-</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="s2">          direction: older
-</span></span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="s2">          #timestring: &#39;%Yi-%m-%d&#39;
-</span></span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="s2">          unit: days
-</span></span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="s2">          unit_count: 60
-</span></span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="s2">&#34;</span> &gt; /data/elkstack/curator/action.yml
-</span></span><span class="line"><span class="ln">46</span><span class="cl"><span class="c1">#set the cron expression</span>
-</span></span><span class="line"><span class="ln">47</span><span class="cl">crontab -e  <span class="m">0</span> <span class="m">0</span> * * * /usr/bin/curator --config /data/elkstack/curator/config.yml /data/elkstack/curator/action.yml &gt; /tmp/curator.log 2&gt;<span class="p">&amp;</span><span class="m">1</span>
-</span></span></code></pre></div><ul>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span>mkdir -p /data/elkstack/curator
+<span class="ln"> 2</span><span class="nb">echo</span> <span class="s2">&#34;
+</span><span class="ln"> 3</span><span class="s2">client:
+</span><span class="ln"> 4</span><span class="s2">       hosts:
+</span><span class="ln"> 5</span><span class="s2">        - 172.16.1.3
+</span><span class="ln"> 6</span><span class="s2">        port: 9200
+</span><span class="ln"> 7</span><span class="s2">        url_prefix:
+</span><span class="ln"> 8</span><span class="s2">        use_ssl: False
+</span><span class="ln"> 9</span><span class="s2">        certificate:
+</span><span class="ln">10</span><span class="s2">        client_cert:
+</span><span class="ln">11</span><span class="s2">        client_key:
+</span><span class="ln">12</span><span class="s2">        ssl_no_validate: False
+</span><span class="ln">13</span><span class="s2">        http_auth:
+</span><span class="ln">14</span><span class="s2">        timeout: 150
+</span><span class="ln">15</span><span class="s2">        master_only: False
+</span><span class="ln">16</span><span class="s2">
+</span><span class="ln">17</span><span class="s2">    logging:
+</span><span class="ln">18</span><span class="s2">        loglevel: INFO
+</span><span class="ln">19</span><span class="s2">        logfile:
+</span><span class="ln">20</span><span class="s2">        logformat: default
+</span><span class="ln">21</span><span class="s2">        blacklist: [&#39;elasticsearch&#39;, &#39;urllib3&#39;]
+</span><span class="ln">22</span><span class="s2">&#34;</span> &gt; /data/elkstack/curator/config.yml
+<span class="ln">23</span>
+<span class="ln">24</span><span class="c1"># add the cleanup rules</span>
+<span class="ln">25</span><span class="nb">echo</span> <span class="s2">&#34;
+</span><span class="ln">26</span><span class="s2">actions:
+</span><span class="ln">27</span><span class="s2">      1:
+</span><span class="ln">28</span><span class="s2">        action: delete_indices
+</span><span class="ln">29</span><span class="s2">        description: &gt;-
+</span><span class="ln">30</span><span class="s2">          Delete indices older than 60 days. Ignore the error if the    filter does not result in an actionable list of indices    (ignore_empty_list) and exit cleanly.
+</span><span class="ln">31</span><span class="s2">        options:
+</span><span class="ln">32</span><span class="s2">          ignore_empty_list: True
+</span><span class="ln">33</span><span class="s2">          disable_action: False
+</span><span class="ln">34</span><span class="s2">        filters:
+</span><span class="ln">35</span><span class="s2">        - filtertype: pattern
+</span><span class="ln">36</span><span class="s2">          kind: regex
+</span><span class="ln">37</span><span class="s2">          # retain kibana|json|monitoring|metadata don&#39;t clean
+</span><span class="ln">38</span><span class="s2">          value: &#39;^((?!(kibana|json|monitoring|metadata)).)*</span>$<span class="s2">&#39;
+</span><span class="ln">39</span><span class="s2">        - filtertype: age
+</span><span class="ln">40</span><span class="s2">          source: creation_date
+</span><span class="ln">41</span><span class="s2">          direction: older
+</span><span class="ln">42</span><span class="s2">          #timestring: &#39;%Yi-%m-%d&#39;
+</span><span class="ln">43</span><span class="s2">          unit: days
+</span><span class="ln">44</span><span class="s2">          unit_count: 60
+</span><span class="ln">45</span><span class="s2">&#34;</span> &gt; /data/elkstack/curator/action.yml
+<span class="ln">46</span><span class="c1">#set the cron expression</span>
+<span class="ln">47</span>crontab -e  <span class="m">0</span> <span class="m">0</span> * * * /usr/bin/curator --config /data/elkstack/curator/config.yml /data/elkstack/curator/action.yml &gt; /tmp/curator.log 2&gt;<span class="p">&amp;</span><span class="m">1</span>
+</code></pre></div><ul>
 <li>Setup the <code>filebeat</code> in server collect the logs</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">tar -xzvf filebeat-6.3.1-linux-x86_64.tar.gz
-</span></span><span class="line"><span class="ln">2</span><span class="cl">vi /lib/systemd/system/filebeat.service
-</span></span><span class="line"><span class="ln">3</span><span class="cl">systemctl daemon-reload
-</span></span><span class="line"><span class="ln">4</span><span class="cl">systemctl enalbe filebeat
-</span></span><span class="line"><span class="ln">5</span><span class="cl">systemctl start filebeat
-</span></span></code></pre></div><p>the <code>filebeat.service</code> service unit file look like this following</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="p">[</span><span class="l">Unit]</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="l">Description=filebeat</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="l">Documentation=https://elasitc.io/</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w"></span><span class="l">After=network.target</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="p">[</span><span class="l">Service]</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w"></span><span class="l">Type=simple</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w"></span><span class="l">ExecStart=/usr/local/filebeat-6.3.1/filebeat -c /usr/local/filebeat-6.3.1/test-filebeat.yml</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w"></span><span class="l">Restart=on-failure</span><span class="w">
-</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w"></span><span class="p">[</span><span class="l">Install]</span><span class="w">
-</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w"></span><span class="l">WantedBy=mulser.target</span><span class="w">
-</span></span></span></code></pre></div><p>the <code>test-filebeat.yml</code> configuration file content:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">filebeat.inputs</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">log</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span><span class="nt">paths</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="c">#    - /data/var/log/apps/*.log</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">    </span>- <span class="l">/data/var/log/apps/**/logs/*.log</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w"></span><span class="c">#    - /data/var/log/apps/**/*.log</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">  </span><span class="nt">fields</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">     </span><span class="nt">log_format</span><span class="p">:</span><span class="w"> </span><span class="l">ues_mgr</span><span class="w">
-</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">  </span><span class="nt">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^{|^\[|^\d+-\d+-\d+&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">  </span><span class="nt">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">  </span><span class="nt">multiline.match</span><span class="p">:</span><span class="w"> </span><span class="l">after</span><span class="w">
-</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w"></span><span class="nt">filebeat.config.modules</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">${path.config}/modules.d/*.yml</span><span class="w">
-</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">  </span><span class="nt">reload.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w"></span><span class="nt">output.logstash</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;localhost:5044&#34;</span><span class="p">]</span><span class="w">
-</span></span></span></code></pre></div><h4 id="dont-forget-enable-the--port-provider-the-services">Don&rsquo;t forget enable the  port provider the services</h4>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">firewall-cmd --zone<span class="o">=</span>public --add-port<span class="o">=</span>5044/tcp --permanent
-</span></span><span class="line"><span class="ln">2</span><span class="cl">firewall-cmd --zone<span class="o">=</span>public --add-port<span class="o">=</span>9200/tcp --permanent
-</span></span><span class="line"><span class="ln">3</span><span class="cl">firewall-cmd --reload
-</span></span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>tar -xzvf filebeat-6.3.1-linux-x86_64.tar.gz
+<span class="ln">2</span>vi /lib/systemd/system/filebeat.service
+<span class="ln">3</span>systemctl daemon-reload
+<span class="ln">4</span>systemctl enalbe filebeat
+<span class="ln">5</span>systemctl start filebeat
+<span class="ln">6</span>
+</code></pre></div><p>the <code>filebeat.service</code> service unit file look like this following</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span><span class="p">[</span>Unit<span class="p">]</span><span class="w">
+</span><span class="ln"> 2</span><span class="w"></span>Description=filebeat<span class="w">
+</span><span class="ln"> 3</span><span class="w"></span>Documentation=https<span class="p">:</span>//elasitc.io/<span class="w">
+</span><span class="ln"> 4</span><span class="w"></span>After=network.target<span class="w">
+</span><span class="ln"> 5</span><span class="w">
+</span><span class="ln"> 6</span><span class="w"></span><span class="p">[</span>Service<span class="p">]</span><span class="w">
+</span><span class="ln"> 7</span><span class="w"></span>Type=simple<span class="w">
+</span><span class="ln"> 8</span><span class="w"></span>ExecStart=/usr/local/filebeat<span class="m">-6.3.1</span>/filebeat<span class="w"> </span>-c<span class="w"> </span>/usr/local/filebeat<span class="m">-6.3.1</span>/test-filebeat.yml<span class="w">
+</span><span class="ln"> 9</span><span class="w"></span>Restart=on-failure<span class="w">
+</span><span class="ln">10</span><span class="w">
+</span><span class="ln">11</span><span class="w"></span><span class="p">[</span>Install<span class="p">]</span><span class="w">
+</span><span class="ln">12</span><span class="w"></span>WantedBy=mulser.target<span class="w">
+</span></code></pre></div><p>the <code>test-filebeat.yml</code> configuration file content:</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span><span class="k">filebeat.inputs</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 2</span><span class="w">
+</span><span class="ln"> 3</span><span class="w"></span>- <span class="k">type</span><span class="p">:</span><span class="w"> </span>log<span class="w">
+</span><span class="ln"> 4</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="ln"> 5</span><span class="w">  </span><span class="k">paths</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 6</span><span class="w"></span><span class="c">#    - /data/var/log/apps/*.log</span><span class="w">
+</span><span class="ln"> 7</span><span class="w">    </span>- /data/var/log/apps/<span class="cp">**/logs/*.log</span><span class="w">
+</span><span class="ln"> 8</span><span class="w"></span><span class="c">#    - /data/var/log/apps/**/*.log</span><span class="w">
+</span><span class="ln"> 9</span><span class="w">
+</span><span class="ln">10</span><span class="w">  </span><span class="k">fields</span><span class="p">:</span><span class="w">
+</span><span class="ln">11</span><span class="w">     </span><span class="k">log_format</span><span class="p">:</span><span class="w"> </span>ues_mgr<span class="w">
+</span><span class="ln">12</span><span class="w">
+</span><span class="ln">13</span><span class="w">  </span><span class="k">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^{|^\[|^\d+-\d+-\d+&#39;</span><span class="w">
+</span><span class="ln">14</span><span class="w">  </span><span class="k">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="ln">15</span><span class="w">  </span><span class="k">multiline.match</span><span class="p">:</span><span class="w"> </span>after<span class="w">
+</span><span class="ln">16</span><span class="w">
+</span><span class="ln">17</span><span class="w">
+</span><span class="ln">18</span><span class="w"></span><span class="k">filebeat.config.modules</span><span class="p">:</span><span class="w">
+</span><span class="ln">19</span><span class="w">
+</span><span class="ln">20</span><span class="w">  </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>${path.config}/modules.d/<span class="cp">*.yml</span><span class="w">
+</span><span class="ln">21</span><span class="w">  </span><span class="k">reload.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="ln">22</span><span class="w">
+</span><span class="ln">23</span><span class="w">
+</span><span class="ln">24</span><span class="w"></span><span class="k">output.logstash</span><span class="p">:</span><span class="w">
+</span><span class="ln">25</span><span class="w">
+</span><span class="ln">26</span><span class="w">  </span><span class="k">hosts</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;localhost:5044&#34;</span><span class="p">]</span><span class="w">
+</span></code></pre></div><h4 id="dont-forget-enable-the--port-provider-the-services">Don&rsquo;t forget enable the  port provider the services</h4>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>firewall-cmd --zone<span class="o">=</span>public --add-port<span class="o">=</span>5044/tcp --permanent
+<span class="ln">2</span>firewall-cmd --zone<span class="o">=</span>public --add-port<span class="o">=</span>9200/tcp --permanent
+<span class="ln">3</span>firewall-cmd --reload
+</code></pre></div>
   </article>
 <aside class="sidebar">
   <section class="sidebar_inner">
@@ -473,6 +475,14 @@ the <code>/data/elkstack/elasticsearch/elasticsearch.yml</code></li>
     <h2 class="mt-4">Featured Posts</h2>
     
     <ul>
+    
+      <li>
+        <a href="https://blog.wisekee.com/post/awesome-open-source/" class="nav-link">Awesome open resoure tools and project</a>
+      </li>
+    
+      <li>
+        <a href="https://blog.wisekee.com/post/awesome-blog-resources/" class="nav-link">Awesome blog&#39;s resoures</a>
+      </li>
     
       <li>
         <a href="https://blog.wisekee.com/post/k8s-metrics-server/" class="nav-link">Solve the problem of Metrics - Server</a>
@@ -503,13 +513,13 @@ the <code>/data/elkstack/elasticsearch/elasticsearch.yml</code></li>
     <ul class="flex-column">
       
       <li>
+        <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/awesome-open-source/" class="nav-link">Awesome open resoure tools and project</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/awesome-blog-resources/" class="nav-link">Awesome blog&#39;s resoures</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/go-private-package-registry-athens/" class="nav-link">Go language private registry glance</a>
@@ -550,7 +560,7 @@ the <code>/data/elkstack/elasticsearch/elasticsearch.yml</code></li>
         
         <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent">
           FEATURED
-          <span class='button_tally'>6</span>
+          <span class='button_tally'>8</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/terraform/' class=" post_tag button button_translucent">
@@ -706,7 +716,7 @@ the <code>/data/elkstack/elasticsearch/elasticsearch.yml</code></li>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent" data-position=6>FEATURED<span class='button_tally'>6</span>
+            <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent" data-position=8>FEATURED<span class='button_tally'>8</span>
             </a>
             
             

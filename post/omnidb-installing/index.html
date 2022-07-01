@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>Installing OmniDB in kubernetes as deployment resource | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.101.0" />
+  <meta name="generator" content="Hugo 0.74.3" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -146,80 +146,81 @@ fetch the Dockerfile …" />
 <p>Build the docker image <code>docker build . -t dev.com/library/omnidb:latest</code>
 then push the image to registry:<code>docker push dev.com/library/omnidb:latest</code></p>
 <h4 id="create-the-kubernetes-deployment-manifest-file">create the kubernetes deployment manifest file</h4>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PersistentVolumeClaim</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">omnidb-pvc</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">    </span>- <span class="l">ReadWriteOnce</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">  </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l">nfs-client</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">    </span><span class="nt">requests</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">      </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l">5Gi</span><span class="w">
-</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
-</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
-</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Deployment</span><span class="w">
-</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">omnidb-deployment</span><span class="w">
-</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">omnidb</span><span class="w">
-</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">omnidb</span><span class="w">
-</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">omnidb</span><span class="w">
-</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">omnidb</span><span class="w">
-</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">dev.com/library/omnidb:latest</span><span class="w">
-</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">        </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">        </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">8000</span><span class="w">
-</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w">        </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w">        </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/home/omnidb/.omnidb</span><span class="w">
-</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">omnidb-data</span><span class="w">
-</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w">      </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">omnidb-data</span><span class="w">
-</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w">          </span><span class="nt">persistentVolumeClaim</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w">            </span><span class="nt">claimName</span><span class="p">:</span><span class="w"> </span><span class="l">omnidb-pvc </span><span class="w">
-</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
-</span></span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
-</span></span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Service</span><span class="w">
-</span></span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">omnidb</span><span class="w">
-</span></span></span><span class="line"><span class="ln">46</span><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">47</span><span class="cl"><span class="w">  </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">48</span><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">server</span><span class="w">
-</span></span></span><span class="line"><span class="ln">49</span><span class="cl"><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
-</span></span></span><span class="line"><span class="ln">50</span><span class="cl"><span class="w">    </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="m">8000</span><span class="w">
-</span></span></span><span class="line"><span class="ln">51</span><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">52</span><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">omnidb</span><span class="w">
-</span></span></span></code></pre></div><h4 id="add-the-ingress-in-order-to-access-to-omnidb">Add the ingress in order to access to OmniDB</h4>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Ingress</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">extensions/v1beta1</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">omnidb-ingress</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">omnidb</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">  </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">  	</span><span class="nt">ingress.kubernetes.io/proxy-body-size</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">  	</span><span class="nt">nginx.ingress.kubernetes.io/proxy-body-size</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">  	</span><span class="nt">nginx.ingress.kubernetes.io/ssl-redirect</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;true&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">  </span><span class="nt">rules</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">    </span>- <span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">omnidb.dev.com</span><span class="w">
-</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">      </span><span class="nt">http</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">        </span><span class="nt">paths</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">          </span>- <span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/</span><span class="w">
-</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">            </span><span class="nt">backend</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">              </span><span class="nt">serviceName</span><span class="p">:</span><span class="w"> </span><span class="l">omnidb</span><span class="w">
-</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">              </span><span class="nt">servicePort</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
-</span></span></span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="ln"> 2</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>PersistentVolumeClaim<span class="w">
+</span><span class="ln"> 3</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 4</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>omnidb-pvc<span class="w">
+</span><span class="ln"> 5</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 6</span><span class="w">  </span><span class="k">accessModes</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 7</span><span class="w">    </span>- ReadWriteOnce<span class="w">
+</span><span class="ln"> 8</span><span class="w">  </span><span class="k">storageClassName</span><span class="p">:</span><span class="w"> </span>nfs-client<span class="w">
+</span><span class="ln"> 9</span><span class="w">  </span><span class="k">resources</span><span class="p">:</span><span class="w">
+</span><span class="ln">10</span><span class="w">    </span><span class="k">requests</span><span class="p">:</span><span class="w">
+</span><span class="ln">11</span><span class="w">      </span><span class="k">storage</span><span class="p">:</span><span class="w"> </span>5Gi<span class="w">
+</span><span class="ln">12</span><span class="w"></span>---<span class="w">
+</span><span class="ln">13</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
+</span><span class="ln">14</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Deployment<span class="w">
+</span><span class="ln">15</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="ln">16</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>omnidb-deployment<span class="w">
+</span><span class="ln">17</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="ln">18</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>omnidb<span class="w">
+</span><span class="ln">19</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="ln">20</span><span class="w">  </span><span class="k">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="ln">21</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
+</span><span class="ln">22</span><span class="w">    </span><span class="k">matchLabels</span><span class="p">:</span><span class="w">
+</span><span class="ln">23</span><span class="w">      </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>omnidb<span class="w">
+</span><span class="ln">24</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w">
+</span><span class="ln">25</span><span class="w">    </span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="ln">26</span><span class="w">      </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="ln">27</span><span class="w">        </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>omnidb<span class="w">
+</span><span class="ln">28</span><span class="w">    </span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="ln">29</span><span class="w">      </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="ln">30</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>omnidb<span class="w">
+</span><span class="ln">31</span><span class="w">        </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>dev.com/library/omnidb<span class="p">:</span>latest<span class="w">
+</span><span class="ln">32</span><span class="w">        </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="ln">33</span><span class="w">        </span>- <span class="k">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">8000</span><span class="w">
+</span><span class="ln">34</span><span class="w">        </span><span class="k">volumeMounts</span><span class="p">:</span><span class="w">
+</span><span class="ln">35</span><span class="w">        </span>- <span class="k">mountPath</span><span class="p">:</span><span class="w"> </span>/home/omnidb/.omnidb<span class="w">
+</span><span class="ln">36</span><span class="w">          </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>omnidb-data<span class="w">
+</span><span class="ln">37</span><span class="w">      </span><span class="k">volumes</span><span class="p">:</span><span class="w">
+</span><span class="ln">38</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>omnidb-data<span class="w">
+</span><span class="ln">39</span><span class="w">          </span><span class="k">persistentVolumeClaim</span><span class="p">:</span><span class="w">
+</span><span class="ln">40</span><span class="w">            </span><span class="k">claimName</span><span class="p">:</span><span class="w"> </span>omnidb-pvc<span class="w"> 
+</span><span class="ln">41</span><span class="w"></span>---<span class="w">
+</span><span class="ln">42</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="ln">43</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Service<span class="w">
+</span><span class="ln">44</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="ln">45</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>omnidb<span class="w">
+</span><span class="ln">46</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="ln">47</span><span class="w">  </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="ln">48</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>server<span class="w">
+</span><span class="ln">49</span><span class="w">    </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
+</span><span class="ln">50</span><span class="w">    </span><span class="k">targetPort</span><span class="p">:</span><span class="w"> </span><span class="m">8000</span><span class="w">
+</span><span class="ln">51</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
+</span><span class="ln">52</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>omnidb<span class="w">
+</span><span class="ln">53</span><span class="w">
+</span></code></pre></div><h4 id="add-the-ingress-in-order-to-access-to-omnidb">Add the ingress in order to access to OmniDB</h4>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Ingress<span class="w">
+</span><span class="ln"> 2</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>extensions/v1beta1<span class="w">
+</span><span class="ln"> 3</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 4</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>omnidb-ingress<span class="w">
+</span><span class="ln"> 5</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>default<span class="w">
+</span><span class="ln"> 6</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 7</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>omnidb<span class="w">
+</span><span class="ln"> 8</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 9</span><span class="w">  	</span><span class="k">ingress.kubernetes.io/proxy-body-size</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="w">
+</span><span class="ln">10</span><span class="w">  	</span><span class="k">nginx.ingress.kubernetes.io/proxy-body-size</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="w">
+</span><span class="ln">11</span><span class="w">  	</span><span class="k">nginx.ingress.kubernetes.io/ssl-redirect</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;true&#39;</span><span class="w">
+</span><span class="ln">12</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="ln">13</span><span class="w">  </span><span class="k">rules</span><span class="p">:</span><span class="w">
+</span><span class="ln">14</span><span class="w">    </span>- <span class="k">host</span><span class="p">:</span><span class="w"> </span>omnidb.dev.com<span class="w">
+</span><span class="ln">15</span><span class="w">      </span><span class="k">http</span><span class="p">:</span><span class="w">
+</span><span class="ln">16</span><span class="w">        </span><span class="k">paths</span><span class="p">:</span><span class="w">
+</span><span class="ln">17</span><span class="w">          </span>- <span class="k">path</span><span class="p">:</span><span class="w"> </span>/<span class="w">
+</span><span class="ln">18</span><span class="w">            </span><span class="k">backend</span><span class="p">:</span><span class="w">
+</span><span class="ln">19</span><span class="w">              </span><span class="k">serviceName</span><span class="p">:</span><span class="w"> </span>omnidb<span class="w">
+</span><span class="ln">20</span><span class="w">              </span><span class="k">servicePort</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
+</span></code></pre></div>
   </article>
 <aside class="sidebar">
   <section class="sidebar_inner">
@@ -232,6 +233,14 @@ then push the image to registry:<code>docker push dev.com/library/omnidb:latest<
     <h2 class="mt-4">Featured Posts</h2>
     
     <ul>
+    
+      <li>
+        <a href="https://blog.wisekee.com/post/awesome-open-source/" class="nav-link">Awesome open resoure tools and project</a>
+      </li>
+    
+      <li>
+        <a href="https://blog.wisekee.com/post/awesome-blog-resources/" class="nav-link">Awesome blog&#39;s resoures</a>
+      </li>
     
       <li>
         <a href="https://blog.wisekee.com/post/k8s-metrics-server/" class="nav-link">Solve the problem of Metrics - Server</a>
@@ -262,13 +271,13 @@ then push the image to registry:<code>docker push dev.com/library/omnidb:latest<
     <ul class="flex-column">
       
       <li>
+        <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/awesome-open-source/" class="nav-link">Awesome open resoure tools and project</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/awesome-blog-resources/" class="nav-link">Awesome blog&#39;s resoures</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/go-private-package-registry-athens/" class="nav-link">Go language private registry glance</a>
@@ -309,7 +318,7 @@ then push the image to registry:<code>docker push dev.com/library/omnidb:latest<
         
         <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent">
           FEATURED
-          <span class='button_tally'>6</span>
+          <span class='button_tally'>8</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/terraform/' class=" post_tag button button_translucent">
@@ -465,7 +474,7 @@ then push the image to registry:<code>docker push dev.com/library/omnidb:latest<
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent" data-position=6>FEATURED<span class='button_tally'>6</span>
+            <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent" data-position=8>FEATURED<span class='button_tally'>8</span>
             </a>
             
             

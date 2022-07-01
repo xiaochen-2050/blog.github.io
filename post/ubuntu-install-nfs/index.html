@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>Configuration and Installing NFS on ubuntu | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.101.0" />
+  <meta name="generator" content="Hugo 0.74.3" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -139,36 +139,36 @@
 </div>
 
     
-    <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">#updating the system and install nfs daemon</span>
-</span></span><span class="line"><span class="ln"> 2</span><span class="cl">sudo apt-get update
-</span></span><span class="line"><span class="ln"> 3</span><span class="cl">sudo apt install nfs-kernel-server
-</span></span><span class="line"><span class="ln"> 4</span><span class="cl">
-</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="c1">#view the relative info about NFS</span>
-</span></span><span class="line"><span class="ln"> 6</span><span class="cl">sudo cat /proc/fs/nfsd/versions
-</span></span><span class="line"><span class="ln"> 7</span><span class="cl">cat /etc/default/nfs-kernel-server
-</span></span><span class="line"><span class="ln"> 8</span><span class="cl">cat /etc/default/nfs-common
-</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
-</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="c1">#create and bind the NFS directory in host hard disk</span>
-</span></span><span class="line"><span class="ln">11</span><span class="cl">sudo mkdir -p /srv/nfs4/data1
-</span></span><span class="line"><span class="ln">12</span><span class="cl">sudo mkdir -p /srv/nfs4/data2
-</span></span><span class="line"><span class="ln">13</span><span class="cl">sudo mount --bind /data2/nfs /srv/nfs4/data1
-</span></span><span class="line"><span class="ln">14</span><span class="cl">sudo mount --bind /data3/nfs /srv/nfs4/data2
-</span></span><span class="line"><span class="ln">15</span><span class="cl">
-</span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="c1">#let binds permanent effect</span>
-</span></span><span class="line"><span class="ln">17</span><span class="cl">sudo vi /etc/fstab
-</span></span><span class="line"><span class="ln">18</span><span class="cl">/data1/nfs /srv/nfs4/data2 none <span class="nb">bind</span> <span class="m">0</span> <span class="m">0</span>
-</span></span><span class="line"><span class="ln">19</span><span class="cl">/data2/nfs /srv/nfs4/data3 none <span class="nb">bind</span> <span class="m">0</span> <span class="m">0</span>
-</span></span><span class="line"><span class="ln">20</span><span class="cl">
-</span></span><span class="line"><span class="ln">21</span><span class="cl">sudo vi /etc/exports
-</span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="c1"># add following content to the file</span>
-</span></span><span class="line"><span class="ln">23</span><span class="cl">/srv/nfs4    192.168.1.0/24<span class="o">(</span>rw,sync,no_subtree_check,crossmnt,fsid<span class="o">=</span>0<span class="o">)</span>
-</span></span><span class="line"><span class="ln">24</span><span class="cl">/srv/nfs4/data1 192.168.1.0/24<span class="o">(</span>rw,sync,no_subtree_check,no_root_squash<span class="o">)</span>
-</span></span><span class="line"><span class="ln">25</span><span class="cl">/srv/nfs4/data2 192.168.1.0/24<span class="o">(</span>rw,sync,no_subtree_check,no_root_squash<span class="o">)</span>
-</span></span><span class="line"><span class="ln">26</span><span class="cl">
-</span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="c1">#exports the nfs tables</span>
-</span></span><span class="line"><span class="ln">28</span><span class="cl">sudo exportfs -ra
-</span></span><span class="line"><span class="ln">29</span><span class="cl">sudo exportfs -v
-</span></span></code></pre></div>
+    <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span><span class="c1">#updating the system and install nfs daemon</span>
+<span class="ln"> 2</span>sudo apt-get update
+<span class="ln"> 3</span>sudo apt install nfs-kernel-server
+<span class="ln"> 4</span>
+<span class="ln"> 5</span><span class="c1">#view the relative info about NFS</span>
+<span class="ln"> 6</span>sudo cat /proc/fs/nfsd/versions
+<span class="ln"> 7</span>cat /etc/default/nfs-kernel-server
+<span class="ln"> 8</span>cat /etc/default/nfs-common
+<span class="ln"> 9</span>
+<span class="ln">10</span><span class="c1">#create and bind the NFS directory in host hard disk</span>
+<span class="ln">11</span>sudo mkdir -p /srv/nfs4/data1
+<span class="ln">12</span>sudo mkdir -p /srv/nfs4/data2
+<span class="ln">13</span>sudo mount --bind /data2/nfs /srv/nfs4/data1
+<span class="ln">14</span>sudo mount --bind /data3/nfs /srv/nfs4/data2
+<span class="ln">15</span>
+<span class="ln">16</span><span class="c1">#let binds permanent effect</span>
+<span class="ln">17</span>sudo vi /etc/fstab
+<span class="ln">18</span>/data1/nfs /srv/nfs4/data2 none <span class="nb">bind</span> <span class="m">0</span> <span class="m">0</span>
+<span class="ln">19</span>/data2/nfs /srv/nfs4/data3 none <span class="nb">bind</span> <span class="m">0</span> <span class="m">0</span>
+<span class="ln">20</span>
+<span class="ln">21</span>sudo vi /etc/exports
+<span class="ln">22</span><span class="c1"># add following content to the file</span>
+<span class="ln">23</span>/srv/nfs4    192.168.1.0/24<span class="o">(</span>rw,sync,no_subtree_check,crossmnt,fsid<span class="o">=</span>0<span class="o">)</span>
+<span class="ln">24</span>/srv/nfs4/data1 192.168.1.0/24<span class="o">(</span>rw,sync,no_subtree_check,no_root_squash<span class="o">)</span>
+<span class="ln">25</span>/srv/nfs4/data2 192.168.1.0/24<span class="o">(</span>rw,sync,no_subtree_check,no_root_squash<span class="o">)</span>
+<span class="ln">26</span>
+<span class="ln">27</span><span class="c1">#exports the nfs tables</span>
+<span class="ln">28</span>sudo exportfs -ra
+<span class="ln">29</span>sudo exportfs -v
+</code></pre></div>
   </article>
 <aside class="sidebar">
   <section class="sidebar_inner">
@@ -181,6 +181,14 @@
     <h2 class="mt-4">Featured Posts</h2>
     
     <ul>
+    
+      <li>
+        <a href="https://blog.wisekee.com/post/awesome-open-source/" class="nav-link">Awesome open resoure tools and project</a>
+      </li>
+    
+      <li>
+        <a href="https://blog.wisekee.com/post/awesome-blog-resources/" class="nav-link">Awesome blog&#39;s resoures</a>
+      </li>
     
       <li>
         <a href="https://blog.wisekee.com/post/k8s-metrics-server/" class="nav-link">Solve the problem of Metrics - Server</a>
@@ -211,13 +219,13 @@
     <ul class="flex-column">
       
       <li>
+        <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/awesome-open-source/" class="nav-link">Awesome open resoure tools and project</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/awesome-blog-resources/" class="nav-link">Awesome blog&#39;s resoures</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/go-private-package-registry-athens/" class="nav-link">Go language private registry glance</a>
@@ -258,7 +266,7 @@
         
         <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent">
           FEATURED
-          <span class='button_tally'>6</span>
+          <span class='button_tally'>8</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/terraform/' class=" post_tag button button_translucent">
@@ -414,7 +422,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent" data-position=6>FEATURED<span class='button_tally'>6</span>
+            <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent" data-position=8>FEATURED<span class='button_tally'>8</span>
             </a>
             
             

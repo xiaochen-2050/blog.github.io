@@ -2,7 +2,7 @@
 <html lang="en" data-figures="">
   <head>  <title>Posts | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.101.0" />
+  <meta name="generator" content="Hugo 0.74.3" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -101,6 +101,37 @@
   <div class = 'excerpt'>
     <div class = 'excerpt_header'>
       <h3 class = 'post_link'>
+        <a href='https://blog.wisekee.com/post/k8s-app-runtime-sparate/'>K8S app source code and runtime separate in pod</a>
+      </h3>
+      <div class = 'post_meta'>
+  <svg class="icon">
+    <use xlink:href="#calendar"></use>
+  </svg>
+  <span class="post_date">
+    Mar 10, 2022</span>
+  <a href = 'https://blog.wisekee.com/tags/k8s' class = 'post_tag button button_translucent'>k8s
+  </a>
+  <a href = 'https://blog.wisekee.com/tags/pod' class = 'post_tag button button_translucent'>pod
+  </a>
+</div>
+
+    </div>
+      <div class = 'excerpt_footer'>
+        <div>
+          <p class = 'pale'>In a k8s environment, it is a good choice to have the application runtime and source code build packages separated in separate containers
+Smallest source code build image use a smallest base image to build docker image store source code build result package
+1FROM alpine:latest 2WORKDIR /var/www 3COPY app /var/www/app …</p>
+          <a href='https://blog.wisekee.com/post/k8s-app-runtime-sparate/' class='excerpt_more button'>Read More</a>
+        </div>
+      </div>
+    </div>
+  </li>
+  
+      
+<li class = 'post_item'>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_header'>
+      <h3 class = 'post_link'>
         <a href='https://blog.wisekee.com/post/awesome-open-source/'>Awesome open resoure tools and project</a>
       </h3>
       <div class = 'post_meta'>
@@ -113,13 +144,15 @@
   </a>
   <a href = 'https://blog.wisekee.com/tags/cncf' class = 'post_tag button button_translucent'>cncf
   </a>
+  <a href = 'https://blog.wisekee.com/tags/featured' class = 'post_tag button button_translucent'>featured
+  </a>
 </div>
 
     </div>
       <div class = 'excerpt_footer'>
         <div>
           <p class = 'pale'>There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
-Cloud native and kubernetes https://github.com/labring/sealos(kubernetes-kernel-based cloud os! Let&rsquo;s sealos run kubernetes and …</p>
+Cloud native and kubernetes  https://github.com/labring/sealos(kubernetes-kernel-based cloud os! Let&rsquo;s sealos run kubernetes and …</p>
           <a href='https://blog.wisekee.com/post/awesome-open-source/' class='excerpt_more button'>Read More</a>
         </div>
       </div>
@@ -143,45 +176,16 @@ Cloud native and kubernetes https://github.com/labring/sealos(kubernetes-kernel-
   </a>
   <a href = 'https://blog.wisekee.com/tags/resources' class = 'post_tag button button_translucent'>resources
   </a>
+  <a href = 'https://blog.wisekee.com/tags/featured' class = 'post_tag button button_translucent'>featured
+  </a>
 </div>
 
     </div>
       <div class = 'excerpt_footer'>
         <div>
           <p class = 'pale'>There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
-The develop skill knowledge https://www.baeldung.com/linux/ (linux,java,spring) https://www.howtogeek.com/(it news, product) …</p>
+The develop skill knowledge  https://www.baeldung.com/linux/ (linux,java,spring) https://www.howtogeek.com/(it news, product) …</p>
           <a href='https://blog.wisekee.com/post/awesome-blog-resources/' class='excerpt_more button'>Read More</a>
-        </div>
-      </div>
-    </div>
-  </li>
-  
-      
-<li class = 'post_item'>
-  <div class = 'excerpt'>
-    <div class = 'excerpt_header'>
-      <h3 class = 'post_link'>
-        <a href='https://blog.wisekee.com/post/k8s-app-runtime-sparate/'>K8S app source code and runtime separate in pod</a>
-      </h3>
-      <div class = 'post_meta'>
-  <svg class="icon">
-    <use xlink:href="#calendar"></use>
-  </svg>
-  <span class="post_date">
-    Jan 10, 2022</span>
-  <a href = 'https://blog.wisekee.com/tags/k8s' class = 'post_tag button button_translucent'>k8s
-  </a>
-  <a href = 'https://blog.wisekee.com/tags/pod' class = 'post_tag button button_translucent'>pod
-  </a>
-</div>
-
-    </div>
-      <div class = 'excerpt_footer'>
-        <div>
-          <p class = 'pale'>In a k8s environment, it is a good choice to have the application runtime and source code build packages separated in separate containers
-Smallest source code build image use a smallest base image to build docker image store source code build result package
-1FROM alpine:latest 2WORKDIR /var/www 3COPY app /var/www/app …</p>
-          <a href='https://blog.wisekee.com/post/k8s-app-runtime-sparate/' class='excerpt_more button'>Read More</a>
         </div>
       </div>
     </div>
@@ -212,7 +216,7 @@ Smallest source code build image use a smallest base image to build docker image
       <div class = 'excerpt_footer'>
         <div>
           <p class = 'pale'>Setup GO private package repositry ATHENS for project development Use Nexus proxy access public go package and private repository repo
-1#The access workflow 2 3 |------&gt; proxy-public internal 4internal.pack.com/goproxy---&gt;nexus 5 |------&gt;athens---&gt;nginx---&gt; private gitlab The pull package workflow - set …</p>
+1#The access workflow 2 3 |------&gt; proxy-public internal 4internal.pack.com/goproxy---&gt;nexus 5 |------&gt;athens---&gt;nginx---&gt; private gitlab 6 7 The pull package workflow - …</p>
           <a href='https://blog.wisekee.com/post/go-private-package-registry-athens/' class='excerpt_more button'>Read More</a>
         </div>
       </div>
@@ -243,7 +247,7 @@ Smallest source code build image use a smallest base image to build docker image
     </div>
       <div class = 'excerpt_footer'>
         <div>
-          <p class = 'pale'>Sometimes enterprise is ineternal network not has internet network in production The offline installing and setup k8s environment and resources is necessery Prepare the terraform environment Download the Terraform binary terraform You can also download the HELM binary to operate the k8s cluster. 1wget …</p>
+          <p class = 'pale'>Sometimes enterprise is ineternal network not has internet network in production The offline installing and setup k8s environment and resources is necessery  Prepare the terraform environment  Download the Terraform binary terraform You can also download the HELM binary to operate the k8s cluster.  1wget …</p>
           <a href='https://blog.wisekee.com/post/k8s-cluster-offline-setup/' class='excerpt_more button'>Read More</a>
         </div>
       </div>
@@ -251,35 +255,37 @@ Smallest source code build image use a smallest base image to build docker image
   </li>
   
     <li>
-    <ul class="pagination pagination-default">
-      <li class="page-item disabled">
-        <a aria-disabled="true" aria-label="First" class="page-link" role="button" tabindex="-1"><span aria-hidden="true">&laquo;&laquo;</span></a>
-      </li>
-      <li class="page-item disabled">
-        <a aria-disabled="true" aria-label="Previous" class="page-link" role="button" tabindex="-1"><span aria-hidden="true">&laquo;</span></a>
-      </li>
-      <li class="page-item active">
-        <a aria-current="page" aria-label="Page 1" class="page-link" role="button">1</a>
-      </li>
-      <li class="page-item">
-        <a href="/post/page/2/" aria-label="Page 2" class="page-link" role="button">2</a>
-      </li>
-      <li class="page-item">
-        <a href="/post/page/3/" aria-label="Page 3" class="page-link" role="button">3</a>
-      </li>
-      <li class="page-item">
-        <a href="/post/page/4/" aria-label="Page 4" class="page-link" role="button">4</a>
-      </li>
-      <li class="page-item">
-        <a href="/post/page/5/" aria-label="Page 5" class="page-link" role="button">5</a>
-      </li>
-      <li class="page-item">
-        <a href="/post/page/2/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a href="/post/page/8/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
-      </li>
-    </ul>
+<ul class="pagination">
+  <li class="page-item">
+    <a href="/post/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+  </li>
+  <li class="page-item disabled">
+    <a  class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+  </li>
+  <li class="page-item active">
+    <a class="page-link" href="/post/">1</a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/post/page/2/">2</a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/post/page/3/">3</a>
+  </li>
+  <li class="page-item disabled">
+    <span aria-hidden="true">&nbsp;&hellip;&nbsp;</span>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/post/page/8/">8</a>
+  </li>
+  <li class="page-item">
+    <a href="/post/page/2/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+  </li>
+  <li class="page-item">
+    <a href="/post/page/8/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+  </li>
+</ul>
+
+
     </li>
   </ul>
 <aside class="sidebar">
@@ -293,6 +299,14 @@ Smallest source code build image use a smallest base image to build docker image
     <h2 class="mt-4">Featured Posts</h2>
     
     <ul>
+    
+      <li>
+        <a href="https://blog.wisekee.com/post/awesome-open-source/" class="nav-link">Awesome open resoure tools and project</a>
+      </li>
+    
+      <li>
+        <a href="https://blog.wisekee.com/post/awesome-blog-resources/" class="nav-link">Awesome blog&#39;s resoures</a>
+      </li>
     
       <li>
         <a href="https://blog.wisekee.com/post/k8s-metrics-server/" class="nav-link">Solve the problem of Metrics - Server</a>
@@ -323,13 +337,13 @@ Smallest source code build image use a smallest base image to build docker image
     <ul class="flex-column">
       
       <li>
+        <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/awesome-open-source/" class="nav-link">Awesome open resoure tools and project</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/awesome-blog-resources/" class="nav-link">Awesome blog&#39;s resoures</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/go-private-package-registry-athens/" class="nav-link">Go language private registry glance</a>
@@ -370,7 +384,7 @@ Smallest source code build image use a smallest base image to build docker image
         
         <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent">
           FEATURED
-          <span class='button_tally'>6</span>
+          <span class='button_tally'>8</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/terraform/' class=" post_tag button button_translucent">
@@ -526,7 +540,7 @@ Smallest source code build image use a smallest base image to build docker image
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent" data-position=6>FEATURED<span class='button_tally'>6</span>
+            <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent" data-position=8>FEATURED<span class='button_tally'>8</span>
             </a>
             
             

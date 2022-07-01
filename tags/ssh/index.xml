@@ -6,7 +6,11 @@
     <description>Recent content in ssh on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Mon, 20 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/ssh/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Sep 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.wisekee.com/tags/ssh/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
       <title>Use Ansible docker container in daily development</title>
       <link>https://blog.wisekee.com/post/make-ansible-docker-image/</link>
@@ -14,7 +18,7 @@
       
       <guid>https://blog.wisekee.com/post/make-ansible-docker-image/</guid>
       <description>Make Ansible docker image for CI/CD workfolws Sometimes need connect to the remote host use publickey and jump server,copy the ssh key to docker image is necessary
-The Dockerfile 1FROM centos:7 2 3ARG SSH_PRIVATE_KEY 4ARG SSH_HOST_CONFIG 5 6RUN curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo &amp;amp;&amp;amp; \ 7 yum clean all &amp;amp;&amp;amp; yum makecache fast &amp;amp;&amp;amp; \ 8 yum install -y epel-release gcc libffi-devel openssh-clients git wget &amp;amp;&amp;amp; \ 9 yum install -y python python2-pip ansible 10 11RUN python -m pip install &amp;#34;pysocks&amp;#34; &amp;#34;pyspnego==0.</description>
+ The Dockerfile  1FROMcentos:723ARGSSH_PRIVATE_KEY4ARGSSH_HOST_CONFIG56RUNcurl-o/etc/yum.repos.d/CentOS-Base.repohttps://mirrors.aliyun.com/repo/Centos-7.repo&amp;amp;&amp;amp;\7yumcleanall&amp;amp;&amp;amp;yummakecachefast&amp;amp;&amp;amp;\8yuminstall-yepel-releasegcclibffi-developenssh-clientsgitwget&amp;amp;&amp;amp;\9yuminstall-ypythonpython2-pipansible1011RUNpython-mpipinstall&amp;#34;pysocks&amp;#34;&amp;#34;pyspnego==0.1.6&amp;#34;&amp;#34;pywinrm==0.4.1&amp;#34;&amp;#39;pypsrp==0.5.0&amp;#39;&amp;amp;&amp;amp;\12yumcleanall1314WORKDIR/var/app15COPYentrypoint.sh/var/app/entrypoint.sh1617RUNansible-galaxycollectioninstallcommunity.general&amp;amp;&amp;amp;\18mkdir~/.ssh/&amp;amp;&amp;amp;\19echo&amp;#34;${SSH_PRIVATE_KEY}&amp;#34;&amp;gt;~/.ssh/id_rsa&amp;amp;&amp;amp;\20echo&amp;#34;${SSH_HOST_CONFIG}&amp;#34;&amp;gt;&amp;gt;~/.ssh/config&amp;amp;&amp;amp;\21chmod600~/.ssh/id_rsa&amp;amp;&amp;amp;\22sed-i&amp;#39;/\[defaults\]/ a host_key_checking = False&amp;#39;/etc/ansible/ansible.cfg&amp;amp;&amp;amp;\23echo-e&amp;#34;\tServerAliveCountMax 5\n\tServerAliveInterval 5\n\tTCPKeepAlive yes&amp;#34;&amp;gt;&amp;gt;/etc/ssh/ssh_config&amp;amp;&amp;amp;\24chmod+x/var/app/entrypoint.sh2526ENTRYPOINT[]27CMD/var/app/entrypoint.sh When make the docker image needs pass the build arguments to context  1# docker build --network=host --build-arg SSH_PRIVATE_KEY=&amp;#34;$(cat ~/.ssh/id_rsa)&amp;#34; --build-arg SSH_HOST_CONFIG=&amp;#34;$(cat ~/.ssh/config)&amp;#34; -t registry.me/public/ansible:test .  The entrypoint.sh  1#!/usr/bin/env bash 2 3 4while true; do 5 6 echo `date +&amp;#34;[%Y-%m-%d %H:%M:%S]&amp;#34;` I\&amp;#39;m healthily 7 sleep 30; 8 9done  The hosts mode config ~/.</description>
     </item>
     
   </channel>

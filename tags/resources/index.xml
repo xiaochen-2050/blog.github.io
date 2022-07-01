@@ -6,7 +6,11 @@
     <description>Recent content in resources on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Mon, 10 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/resources/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Jan 2022 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.wisekee.com/tags/resources/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
       <title>Awesome blog&#39;s resoures</title>
       <link>https://blog.wisekee.com/post/awesome-blog-resources/</link>
@@ -14,7 +18,7 @@
       
       <guid>https://blog.wisekee.com/post/awesome-blog-resources/</guid>
       <description>There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
-The develop skill knowledge https://www.baeldung.com/linux/ (linux,java,spring) https://www.howtogeek.com/(it news, product) https://brendanthompson.com/posts(terraform, Articles about Cloud Engineering, and Golang) () Excellent https://dev.bitolog.com/(Cloud dev blog: Kubernetes, golang, containers and more) () The security related aspects https://trailofbits.github.io/ctf/(CTF,toolkit,exploit) -https://github.com/carlospolop/hacktricks(learnt in CTFs, real life apps, and reading researches and news.</description>
+The develop skill knowledge  https://www.baeldung.com/linux/ (linux,java,spring) https://www.howtogeek.com/(it news, product) https://brendanthompson.com/posts(terraform, Articles about Cloud Engineering, and Golang) ()  Excellent  https://dev.bitolog.com/(Cloud dev blog: Kubernetes, golang, containers and more) ()  The security related aspects  https://trailofbits.github.io/ctf/(CTF,toolkit,exploit) -https://github.com/carlospolop/hacktricks(learnt in CTFs, real life apps, and reading researches and news.</description>
     </item>
     
   </channel>

@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>Notes for using Kubernetes Ingress Controller | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.101.0" />
+  <meta name="generator" content="Hugo 0.74.3" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -15,13 +15,13 @@
   
 <meta property = "og:locale" content = "en_US" />
 <meta property="og:type" content="article">
-<meta name="description" content="Using Nginx-Ingress Controller in AWS Eks environment Need manually enable the Proxy protocol V2 in NLB target group just only TCP https 443 listener Rather …">
+<meta name="description" content="Using Nginx-Ingress Controller in AWS Eks environment  Need manually enable the Proxy protocol V2 in NLB target group just only TCP https 443 listener Rather …">
 <meta name = "twitter:card" content = "summary" />
 <meta name = "twitter:creator" content = "">
 <meta name = "twitter:title" content = "Notes for using Kubernetes Ingress Controller" />
 <meta property = "og:url" content = "https://blog.wisekee.com/post/kubernetes-ingress-guides/" />
 <meta property = "og:title" content = "Notes for using Kubernetes Ingress Controller" />
-<meta property = "og:description" content = "Using Nginx-Ingress Controller in AWS Eks environment Need manually enable the Proxy protocol V2 in NLB target group just only TCP https 443 listener Rather …" />
+<meta property = "og:description" content = "Using Nginx-Ingress Controller in AWS Eks environment  Need manually enable the Proxy protocol V2 in NLB target group just only TCP https 443 listener Rather …" />
 <meta property = "og:image" content = "https://blog.wisekee.com/images/thumbnail.png" />
 <link rel='apple-touch-icon' sizes='180x180' href='https://blog.wisekee.com/icons/apple-touch-icon.png'>
 <link rel='icon' type='image/png' sizes='32x32' href='https://blog.wisekee.com/icons/favicon-32x32.png'>
@@ -147,144 +147,144 @@
 <li>Multiple SSL certificate need manually add to NLB</li>
 <li>The http redirect to https, need to change some paramets</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="w">	</span><span class="c"># use http-snippet and open proxy protocol</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">  </span><span class="nt">use-proxy-protocol</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;true&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">  </span><span class="nt">use-forwarded-headers</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;true&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="nt">server-tokens</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;false&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span><span class="nt">http-snippet</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="sd">  server {
-</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="sd">  listen 8000;
-</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="sd">  return 308 https://$host$request_uri;
-</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="sd">  }        
-</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="sd">  proxy-real-ip-cidr: ${join(&#34;,&#34;, var.internal_cidr)}</span><span class="w">  
-</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w"> </span><span class="c"># Add special port in controller container</span><span class="w">
-</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w"> </span><span class="l">set {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w"> </span><span class="l">type = &#34;string&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w"> </span><span class="l">name = &#34;controller.containerPort.special&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w"> </span><span class="l">value = &#34;8000&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w"> </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w"> </span><span class="c"># Let https redirect to http port and http port redirect to special port , the special port listener in `http-snippet` section</span><span class="w">
-</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w"> </span><span class="l">set {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w"> </span><span class="l">type = &#34;string&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w"> </span><span class="l">name = &#34;controller.service.targetPorts.https&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w"> </span><span class="l">value = &#34;http&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w"> </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w"></span><span class="l">set {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w"></span><span class="l">type = &#34;string&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w"></span><span class="l">name = &#34;controller.service.targetPorts.http&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w"></span><span class="l">value = &#34;special&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w"></span>}<span class="w">
-</span></span></span></code></pre></div><ul>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span><span class="w">	</span><span class="c"># use http-snippet and open proxy protocol</span><span class="w">
+</span><span class="ln"> 2</span><span class="w">  </span><span class="k">use-proxy-protocol</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;true&#39;</span><span class="w">
+</span><span class="ln"> 3</span><span class="w">  </span><span class="k">use-forwarded-headers</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;true&#39;</span><span class="w">
+</span><span class="ln"> 4</span><span class="w">  </span><span class="k">server-tokens</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;false&#39;</span><span class="w">
+</span><span class="ln"> 5</span><span class="w">  </span><span class="k">http-snippet</span><span class="p">:</span><span class="w"> </span><span class="sd">|
+</span><span class="ln"> 6</span><span class="sd">  server {</span><span class="w">
+</span><span class="ln"> 7</span><span class="w">  </span>listen<span class="w"> </span><span class="m">8000</span>;<span class="w">
+</span><span class="ln"> 8</span><span class="w">  </span>return<span class="w"> </span><span class="m">308</span><span class="w"> </span>https<span class="p">:</span>//$host$request_uri;<span class="w">
+</span><span class="ln"> 9</span><span class="w">  </span>}<span class="w">        
+</span><span class="ln">10</span><span class="w">  </span><span class="k">proxy-real-ip-cidr</span><span class="p">:</span><span class="w"> </span>${join(<span class="s2">&#34;,&#34;</span><span class="p">,</span><span class="w"> </span>var.internal_cidr)}<span class="w">
+</span><span class="ln">11</span><span class="w"> </span><span class="c"># Add special port in controller container</span><span class="w">
+</span><span class="ln">12</span><span class="w"> </span>set<span class="w"> </span>{<span class="w">
+</span><span class="ln">13</span><span class="w"> </span>type<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;string&#34;</span><span class="w">
+</span><span class="ln">14</span><span class="w"> </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;controller.containerPort.special&#34;</span><span class="w">
+</span><span class="ln">15</span><span class="w"> </span>value<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;8000&#34;</span><span class="w">
+</span><span class="ln">16</span><span class="w"> </span>}<span class="w">
+</span><span class="ln">17</span><span class="w"> </span><span class="c"># Let https redirect to http port and http port redirect to special port , the special port listener in `http-snippet` section</span><span class="w">
+</span><span class="ln">18</span><span class="w"> </span>set<span class="w"> </span>{<span class="w">
+</span><span class="ln">19</span><span class="w"> </span>type<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;string&#34;</span><span class="w">
+</span><span class="ln">20</span><span class="w"> </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;controller.service.targetPorts.https&#34;</span><span class="w">
+</span><span class="ln">21</span><span class="w"> </span>value<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;http&#34;</span><span class="w">
+</span><span class="ln">22</span><span class="w"> </span>}<span class="w">
+</span><span class="ln">23</span><span class="w">
+</span><span class="ln">24</span><span class="w"></span>set<span class="w"> </span>{<span class="w">
+</span><span class="ln">25</span><span class="w"></span>type<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;string&#34;</span><span class="w">
+</span><span class="ln">26</span><span class="w"></span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;controller.service.targetPorts.http&#34;</span><span class="w">
+</span><span class="ln">27</span><span class="w"></span>value<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;special&#34;</span><span class="w">
+</span><span class="ln">28</span><span class="w"></span>}<span class="w">
+</span></code></pre></div><ul>
 <li>The complete Terraform configuration is shown below
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">  1</span><span class="cl"><span class="w">	</span><span class="l">resource &#34;helm_release&#34; &#34;ingress_nginx_controller&#34; {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">  2</span><span class="cl"><span class="w">  </span><span class="l">name = &#34;nginx-ingress-controller&#34;  </span><span class="w">
-</span></span></span><span class="line"><span class="ln">  3</span><span class="cl"><span class="w">  </span><span class="l">repository = &#34;https://kubernetes.github.io/ingress-nginx&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">  4</span><span class="cl"><span class="w">  </span><span class="l">chart = &#34;ingress-nginx&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">  5</span><span class="cl"><span class="w">  </span><span class="l">version = &#34;3.8.0&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">  6</span><span class="cl"><span class="w">  </span><span class="l">namespace = &#34;kube-system&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">  7</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">  8</span><span class="cl"><span class="w">  </span><span class="l">values = [</span><span class="w">
-</span></span></span><span class="line"><span class="ln">  9</span><span class="cl"><span class="w">    </span><span class="l">&lt;&lt;-EOF</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 10</span><span class="cl"><span class="w">    </span><span class="nt">controller</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 11</span><span class="cl"><span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 12</span><span class="cl"><span class="w">        </span><span class="nt">use-proxy-protocol</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;true&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 13</span><span class="cl"><span class="w">        </span><span class="nt">use-forwarded-headers</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;true&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 14</span><span class="cl"><span class="w">        </span><span class="nt">server-tokens</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;false&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 15</span><span class="cl"><span class="w">        </span><span class="nt">http-snippet</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span></span></span><span class="line"><span class="ln"> 16</span><span class="cl"><span class="sd">          server {
-</span></span></span><span class="line"><span class="ln"> 17</span><span class="cl"><span class="sd">            listen 8000;
-</span></span></span><span class="line"><span class="ln"> 18</span><span class="cl"><span class="sd">            return 308 https://$host$request_uri;
-</span></span></span><span class="line"><span class="ln"> 19</span><span class="cl"><span class="sd">          }        </span><span class="w">          
-</span></span></span><span class="line"><span class="ln"> 20</span><span class="cl"><span class="w">        </span><span class="nt">proxy-real-ip-cidr</span><span class="p">:</span><span class="w"> </span><span class="l">${join(&#34;,&#34;, var.internal_cidr)}</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 21</span><span class="cl"><span class="w">    </span><span class="l">EOF</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 22</span><span class="cl"><span class="w">  </span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 23</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 24</span><span class="cl"><span class="w">  </span><span class="l">set {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 25</span><span class="cl"><span class="w">    </span><span class="l">type = &#34;string&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 26</span><span class="cl"><span class="w">    </span><span class="l">name = &#34;controller.resources.requests.memory&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 27</span><span class="cl"><span class="w">    </span><span class="l">value = &#34;256Mi&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 28</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 29</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 30</span><span class="cl"><span class="w">  </span><span class="l">set {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 31</span><span class="cl"><span class="w">    </span><span class="l">type = &#34;string&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 32</span><span class="cl"><span class="w">    </span><span class="l">name = &#34;controller.resources.limits.memory&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 33</span><span class="cl"><span class="w">    </span><span class="l">value = &#34;500Mi&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 34</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 35</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 36</span><span class="cl"><span class="w">  </span><span class="l">set {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 37</span><span class="cl"><span class="w">    </span><span class="l">name = &#34;fullnameOverride&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 38</span><span class="cl"><span class="w">    </span><span class="l">value = &#34;nginx-ingress&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 39</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 40</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 41</span><span class="cl"><span class="w">  </span><span class="l">set {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 42</span><span class="cl"><span class="w">    </span><span class="l">type = &#34;string&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 43</span><span class="cl"><span class="w">    </span><span class="l">name = &#34;controller.service.targetPorts.https&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 44</span><span class="cl"><span class="w">    </span><span class="l">value = &#34;http&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 45</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 46</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 47</span><span class="cl"><span class="w">  </span><span class="l">set {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 48</span><span class="cl"><span class="w">    </span><span class="l">type = &#34;string&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 49</span><span class="cl"><span class="w">    </span><span class="l">name = &#34;controller.service.targetPorts.http&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 50</span><span class="cl"><span class="w">    </span><span class="l">value = &#34;special&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 51</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 52</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 53</span><span class="cl"><span class="w">  </span><span class="l">dynamic &#34;set&#34; {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 54</span><span class="cl"><span class="w">    </span><span class="l">for_each = concat(var.office_cidr, var.internal_cidr)</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 55</span><span class="cl"><span class="w">    </span><span class="l">content {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 56</span><span class="cl"><span class="w">      </span><span class="l">name = join(&#34;&#34;, [&#34;controller.service.loadBalancerSourceRanges[&#34;, set.key, &#34;]&#34;])</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 57</span><span class="cl"><span class="w">      </span><span class="l">value = set.value</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 58</span><span class="cl"><span class="w">    </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 59</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 60</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 61</span><span class="cl"><span class="w">  </span><span class="l">set {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 62</span><span class="cl"><span class="w">    </span><span class="l">type = &#34;string&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 63</span><span class="cl"><span class="w">    </span><span class="l">name = &#34;controller.containerPort.special&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 64</span><span class="cl"><span class="w">    </span><span class="l">value = &#34;8000&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 65</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 66</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 67</span><span class="cl"><span class="w">  </span><span class="l">set {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 68</span><span class="cl"><span class="w">    </span><span class="l">type = &#34;string&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 69</span><span class="cl"><span class="w">    </span><span class="l">name = &#34;controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-ssl-cert&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 70</span><span class="cl"><span class="w">    </span><span class="l">value = var.alb_certificate</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 71</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 72</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 73</span><span class="cl"><span class="w">  </span><span class="l">set {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 74</span><span class="cl"><span class="w">    </span><span class="l">type = &#34;string&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 75</span><span class="cl"><span class="w">    </span><span class="l">name = &#34;controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-proxy-protocol&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 76</span><span class="cl"><span class="w">    </span><span class="l">value = &#34;*&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 77</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 78</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 79</span><span class="cl"><span class="w">  </span><span class="l">set {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 80</span><span class="cl"><span class="w">    </span><span class="l">type = &#34;string&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 81</span><span class="cl"><span class="w">    </span><span class="l">name = &#34;controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-backend-protocol&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 82</span><span class="cl"><span class="w">    </span><span class="l">value = &#34;tcp&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 83</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 84</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 85</span><span class="cl"><span class="w">  </span><span class="l">set{</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 86</span><span class="cl"><span class="w">    </span><span class="l">type = &#34;string&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 87</span><span class="cl"><span class="w">    </span><span class="l">name = &#34;controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-ssl-ports&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 88</span><span class="cl"><span class="w">    </span><span class="l">value = &#34;https&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 89</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 90</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 91</span><span class="cl"><span class="w">  </span><span class="l">set {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 92</span><span class="cl"><span class="w">    </span><span class="l">type = &#34;string&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 93</span><span class="cl"><span class="w">    </span><span class="l">name = &#34;controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-connection-idle-timeout&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 94</span><span class="cl"><span class="w">    </span><span class="l">value = &#34;120&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 95</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 96</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 97</span><span class="cl"><span class="w">  </span><span class="l">set {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 98</span><span class="cl"><span class="w">    </span><span class="l">type = &#34;string&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 99</span><span class="cl"><span class="w">    </span><span class="l">name = &#34;controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-type&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">100</span><span class="cl"><span class="w">    </span><span class="l">value = &#34;nlb&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">101</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">102</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">103</span><span class="cl"><span class="w">  </span><span class="l">set {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">104</span><span class="cl"><span class="w">    </span><span class="l">type = &#34;string&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">105</span><span class="cl"><span class="w">    </span><span class="l">name = &#34;controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-cross-zone-load-balancing-enabled&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">106</span><span class="cl"><span class="w">    </span><span class="l">value = &#34;true&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">107</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">108</span><span class="cl"><span class="w"></span>}</span></span></code></pre></div></li>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln">  1</span><span class="w">	</span>resource<span class="w"> </span><span class="s2">&#34;helm_release&#34;</span><span class="w"> </span><span class="s2">&#34;ingress_nginx_controller&#34;</span><span class="w"> </span>{<span class="w">
+</span><span class="ln">  2</span><span class="w">  </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;nginx-ingress-controller&#34;</span><span class="w">  
+</span><span class="ln">  3</span><span class="w">  </span>repository<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;https://kubernetes.github.io/ingress-nginx&#34;</span><span class="w">
+</span><span class="ln">  4</span><span class="w">  </span>chart<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;ingress-nginx&#34;</span><span class="w">
+</span><span class="ln">  5</span><span class="w">  </span>version<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;3.8.0&#34;</span><span class="w">
+</span><span class="ln">  6</span><span class="w">  </span>namespace<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;kube-system&#34;</span><span class="w">
+</span><span class="ln">  7</span><span class="w">
+</span><span class="ln">  8</span><span class="w">  </span>values<span class="w"> </span>=<span class="w"> </span><span class="p">[</span><span class="w">
+</span><span class="ln">  9</span><span class="w">    </span>&lt;&lt;-EOF<span class="w">
+</span><span class="ln"> 10</span><span class="w">    </span><span class="k">controller</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 11</span><span class="w">      </span><span class="k">config</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 12</span><span class="w">        </span><span class="k">use-proxy-protocol</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;true&#39;</span><span class="w">
+</span><span class="ln"> 13</span><span class="w">        </span><span class="k">use-forwarded-headers</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;true&#39;</span><span class="w">
+</span><span class="ln"> 14</span><span class="w">        </span><span class="k">server-tokens</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;false&#39;</span><span class="w">
+</span><span class="ln"> 15</span><span class="w">        </span><span class="k">http-snippet</span><span class="p">:</span><span class="w"> </span><span class="sd">|
+</span><span class="ln"> 16</span><span class="sd">          server {</span><span class="w">
+</span><span class="ln"> 17</span><span class="w">            </span>listen<span class="w"> </span><span class="m">8000</span>;<span class="w">
+</span><span class="ln"> 18</span><span class="w">            </span>return<span class="w"> </span><span class="m">308</span><span class="w"> </span>https<span class="p">:</span>//$host$request_uri;<span class="w">
+</span><span class="ln"> 19</span><span class="w">          </span>}<span class="w">        
+</span><span class="ln"> 20</span><span class="w">        </span><span class="k">proxy-real-ip-cidr</span><span class="p">:</span><span class="w"> </span>${join(<span class="s2">&#34;,&#34;</span><span class="p">,</span><span class="w"> </span>var.internal_cidr)}<span class="w">
+</span><span class="ln"> 21</span><span class="w">    </span>EOF<span class="w">
+</span><span class="ln"> 22</span><span class="w">  </span><span class="p">]</span><span class="w">
+</span><span class="ln"> 23</span><span class="w">
+</span><span class="ln"> 24</span><span class="w">  </span>set<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 25</span><span class="w">    </span>type<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;string&#34;</span><span class="w">
+</span><span class="ln"> 26</span><span class="w">    </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;controller.resources.requests.memory&#34;</span><span class="w">
+</span><span class="ln"> 27</span><span class="w">    </span>value<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;256Mi&#34;</span><span class="w">
+</span><span class="ln"> 28</span><span class="w">  </span>}<span class="w">
+</span><span class="ln"> 29</span><span class="w">
+</span><span class="ln"> 30</span><span class="w">  </span>set<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 31</span><span class="w">    </span>type<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;string&#34;</span><span class="w">
+</span><span class="ln"> 32</span><span class="w">    </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;controller.resources.limits.memory&#34;</span><span class="w">
+</span><span class="ln"> 33</span><span class="w">    </span>value<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;500Mi&#34;</span><span class="w">
+</span><span class="ln"> 34</span><span class="w">  </span>}<span class="w">
+</span><span class="ln"> 35</span><span class="w">
+</span><span class="ln"> 36</span><span class="w">  </span>set<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 37</span><span class="w">    </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;fullnameOverride&#34;</span><span class="w">
+</span><span class="ln"> 38</span><span class="w">    </span>value<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;nginx-ingress&#34;</span><span class="w">
+</span><span class="ln"> 39</span><span class="w">  </span>}<span class="w">
+</span><span class="ln"> 40</span><span class="w">
+</span><span class="ln"> 41</span><span class="w">  </span>set<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 42</span><span class="w">    </span>type<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;string&#34;</span><span class="w">
+</span><span class="ln"> 43</span><span class="w">    </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;controller.service.targetPorts.https&#34;</span><span class="w">
+</span><span class="ln"> 44</span><span class="w">    </span>value<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;http&#34;</span><span class="w">
+</span><span class="ln"> 45</span><span class="w">  </span>}<span class="w">
+</span><span class="ln"> 46</span><span class="w">
+</span><span class="ln"> 47</span><span class="w">  </span>set<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 48</span><span class="w">    </span>type<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;string&#34;</span><span class="w">
+</span><span class="ln"> 49</span><span class="w">    </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;controller.service.targetPorts.http&#34;</span><span class="w">
+</span><span class="ln"> 50</span><span class="w">    </span>value<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;special&#34;</span><span class="w">
+</span><span class="ln"> 51</span><span class="w">  </span>}<span class="w">
+</span><span class="ln"> 52</span><span class="w">
+</span><span class="ln"> 53</span><span class="w">  </span>dynamic<span class="w"> </span><span class="s2">&#34;set&#34;</span><span class="w"> </span>{<span class="w">
+</span><span class="ln"> 54</span><span class="w">    </span>for_each<span class="w"> </span>=<span class="w"> </span>concat(var.office_cidr<span class="p">,</span><span class="w"> </span>var.internal_cidr)<span class="w">
+</span><span class="ln"> 55</span><span class="w">    </span>content<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 56</span><span class="w">      </span>name<span class="w"> </span>=<span class="w"> </span>join(<span class="s2">&#34;&#34;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;controller.service.loadBalancerSourceRanges[&#34;</span><span class="p">,</span><span class="w"> </span>set.key<span class="p">,</span><span class="w"> </span><span class="s2">&#34;]&#34;</span><span class="p">]</span>)<span class="w">
+</span><span class="ln"> 57</span><span class="w">      </span>value<span class="w"> </span>=<span class="w"> </span>set.value<span class="w">
+</span><span class="ln"> 58</span><span class="w">    </span>}<span class="w">
+</span><span class="ln"> 59</span><span class="w">  </span>}<span class="w">
+</span><span class="ln"> 60</span><span class="w">
+</span><span class="ln"> 61</span><span class="w">  </span>set<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 62</span><span class="w">    </span>type<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;string&#34;</span><span class="w">
+</span><span class="ln"> 63</span><span class="w">    </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;controller.containerPort.special&#34;</span><span class="w">
+</span><span class="ln"> 64</span><span class="w">    </span>value<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;8000&#34;</span><span class="w">
+</span><span class="ln"> 65</span><span class="w">  </span>}<span class="w">
+</span><span class="ln"> 66</span><span class="w">
+</span><span class="ln"> 67</span><span class="w">  </span>set<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 68</span><span class="w">    </span>type<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;string&#34;</span><span class="w">
+</span><span class="ln"> 69</span><span class="w">    </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-ssl-cert&#34;</span><span class="w">
+</span><span class="ln"> 70</span><span class="w">    </span>value<span class="w"> </span>=<span class="w"> </span>var.alb_certificate<span class="w">
+</span><span class="ln"> 71</span><span class="w">  </span>}<span class="w">
+</span><span class="ln"> 72</span><span class="w">
+</span><span class="ln"> 73</span><span class="w">  </span>set<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 74</span><span class="w">    </span>type<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;string&#34;</span><span class="w">
+</span><span class="ln"> 75</span><span class="w">    </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-proxy-protocol&#34;</span><span class="w">
+</span><span class="ln"> 76</span><span class="w">    </span>value<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;*&#34;</span><span class="w">
+</span><span class="ln"> 77</span><span class="w">  </span>}<span class="w">
+</span><span class="ln"> 78</span><span class="w">
+</span><span class="ln"> 79</span><span class="w">  </span>set<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 80</span><span class="w">    </span>type<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;string&#34;</span><span class="w">
+</span><span class="ln"> 81</span><span class="w">    </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-backend-protocol&#34;</span><span class="w">
+</span><span class="ln"> 82</span><span class="w">    </span>value<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;tcp&#34;</span><span class="w">
+</span><span class="ln"> 83</span><span class="w">  </span>}<span class="w">
+</span><span class="ln"> 84</span><span class="w">
+</span><span class="ln"> 85</span><span class="w">  </span>set{<span class="w">
+</span><span class="ln"> 86</span><span class="w">    </span>type<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;string&#34;</span><span class="w">
+</span><span class="ln"> 87</span><span class="w">    </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-ssl-ports&#34;</span><span class="w">
+</span><span class="ln"> 88</span><span class="w">    </span>value<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;https&#34;</span><span class="w">
+</span><span class="ln"> 89</span><span class="w">  </span>}<span class="w">
+</span><span class="ln"> 90</span><span class="w">
+</span><span class="ln"> 91</span><span class="w">  </span>set<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 92</span><span class="w">    </span>type<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;string&#34;</span><span class="w">
+</span><span class="ln"> 93</span><span class="w">    </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-connection-idle-timeout&#34;</span><span class="w">
+</span><span class="ln"> 94</span><span class="w">    </span>value<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;120&#34;</span><span class="w">
+</span><span class="ln"> 95</span><span class="w">  </span>}<span class="w">
+</span><span class="ln"> 96</span><span class="w">
+</span><span class="ln"> 97</span><span class="w">  </span>set<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 98</span><span class="w">    </span>type<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;string&#34;</span><span class="w">
+</span><span class="ln"> 99</span><span class="w">    </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-type&#34;</span><span class="w">
+</span><span class="ln">100</span><span class="w">    </span>value<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;nlb&#34;</span><span class="w">
+</span><span class="ln">101</span><span class="w">  </span>}<span class="w">
+</span><span class="ln">102</span><span class="w">
+</span><span class="ln">103</span><span class="w">  </span>set<span class="w"> </span>{<span class="w">
+</span><span class="ln">104</span><span class="w">    </span>type<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;string&#34;</span><span class="w">
+</span><span class="ln">105</span><span class="w">    </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-cross-zone-load-balancing-enabled&#34;</span><span class="w">
+</span><span class="ln">106</span><span class="w">    </span>value<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">
+</span><span class="ln">107</span><span class="w">  </span>}<span class="w">
+</span><span class="ln">108</span><span class="w"></span>}</code></pre></div></li>
 </ul>
 <h3 id="using-alb-ingress-controller-in-aws-eks">Using Alb-ingress-controller in AWS Eks</h3>
 <ul>
@@ -292,251 +292,251 @@
 <li>Alb-ingress controller need aws IAM policy to create ALB</li>
 <li>The ALB-ingress controller Terraform configurate</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">  1</span><span class="cl"><span class="w">	</span><span class="l">resource &#34;kubernetes_cluster_role&#34; &#34;ingress&#34; {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">  2</span><span class="cl"><span class="w">  </span><span class="l">metadata {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">  3</span><span class="cl"><span class="w">    </span><span class="l">name = &#34;alb-ingress-controller&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">  4</span><span class="cl"><span class="w">    </span><span class="l">labels = {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">  5</span><span class="cl"><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/name&#34;</span><span class="w">       </span><span class="l">= &#34;alb-ingress-controller&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">  6</span><span class="cl"><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/managed-by&#34;</span><span class="w"> </span><span class="l">= &#34;terraform&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">  7</span><span class="cl"><span class="w">    </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">  8</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">  9</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 10</span><span class="cl"><span class="w">  </span><span class="l">rule {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 11</span><span class="cl"><span class="w">    </span><span class="l">api_groups = [&#34;&#34;, &#34;extensions&#34;]</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 12</span><span class="cl"><span class="w">    </span><span class="l">resources  = [&#34;configmaps&#34;, &#34;endpoints&#34;, &#34;events&#34;, &#34;ingresses&#34;, &#34;ingresses/status&#34;, &#34;services&#34;]</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 13</span><span class="cl"><span class="w">    </span><span class="l">verbs      = [&#34;create&#34;, &#34;get&#34;, &#34;list&#34;, &#34;update&#34;, &#34;watch&#34;, &#34;patch&#34;]</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 14</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 15</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 16</span><span class="cl"><span class="w">  </span><span class="l">rule {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 17</span><span class="cl"><span class="w">    </span><span class="l">api_groups = [&#34;&#34;, &#34;extensions&#34;]</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 18</span><span class="cl"><span class="w">    </span><span class="l">resources  = [&#34;nodes&#34;, &#34;pods&#34;, &#34;secrets&#34;, &#34;services&#34;, &#34;namespaces&#34;]</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 19</span><span class="cl"><span class="w">    </span><span class="l">verbs      = [&#34;get&#34;, &#34;list&#34;, &#34;watch&#34;]</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 20</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 21</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 22</span><span class="cl"><span class="w">  </span><span class="l">depends_on = [</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 23</span><span class="cl"><span class="w">    </span><span class="l">aws_eks_cluster.main</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 24</span><span class="cl"><span class="w">  </span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 25</span><span class="cl"><span class="w"></span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 26</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 27</span><span class="cl"><span class="w"></span><span class="l">resource &#34;kubernetes_cluster_role_binding&#34; &#34;ingress&#34; {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 28</span><span class="cl"><span class="w">  </span><span class="l">metadata {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 29</span><span class="cl"><span class="w">    </span><span class="l">name = &#34;alb-ingress-controller&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 30</span><span class="cl"><span class="w">    </span><span class="l">labels = {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 31</span><span class="cl"><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/name&#34;</span><span class="w">       </span><span class="l">= &#34;alb-ingress-controller&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 32</span><span class="cl"><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/managed-by&#34;</span><span class="w"> </span><span class="l">= &#34;terraform&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 33</span><span class="cl"><span class="w">    </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 34</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 35</span><span class="cl"><span class="w">  </span><span class="l">role_ref {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 36</span><span class="cl"><span class="w">    </span><span class="l">api_group = &#34;rbac.authorization.k8s.io&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 37</span><span class="cl"><span class="w">    </span><span class="l">kind      = &#34;ClusterRole&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 38</span><span class="cl"><span class="w">    </span><span class="l">name      = kubernetes_cluster_role.ingress.metadata[0].name</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 39</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 40</span><span class="cl"><span class="w">  </span><span class="l">subject {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 41</span><span class="cl"><span class="w">    </span><span class="l">kind      = &#34;ServiceAccount&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 42</span><span class="cl"><span class="w">    </span><span class="l">name      = kubernetes_service_account.ingress.metadata[0].name</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 43</span><span class="cl"><span class="w">    </span><span class="l">namespace = kubernetes_service_account.ingress.metadata[0].namespace</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 44</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 45</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 46</span><span class="cl"><span class="w">  </span><span class="l">depends_on = [</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 47</span><span class="cl"><span class="w">    </span><span class="l">aws_eks_cluster.main,</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 48</span><span class="cl"><span class="w">    </span><span class="l">kubernetes_cluster_role.ingress</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 49</span><span class="cl"><span class="w">  </span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 50</span><span class="cl"><span class="w"></span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 51</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 52</span><span class="cl"><span class="w"></span><span class="l">resource &#34;kubernetes_service_account&#34; &#34;ingress&#34; {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 53</span><span class="cl"><span class="w">  </span><span class="l">automount_service_account_token = true</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 54</span><span class="cl"><span class="w">  </span><span class="l">metadata {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 55</span><span class="cl"><span class="w">    </span><span class="l">name      = &#34;alb-ingress-controller&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 56</span><span class="cl"><span class="w">    </span><span class="l">namespace = &#34;kube-system&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 57</span><span class="cl"><span class="w">    </span><span class="l">labels = {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 58</span><span class="cl"><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/name&#34;</span><span class="w">       </span><span class="l">= &#34;alb-ingress-controller&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 59</span><span class="cl"><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/managed-by&#34;</span><span class="w"> </span><span class="l">= &#34;terraform&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 60</span><span class="cl"><span class="w">    </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 61</span><span class="cl"><span class="w">    </span><span class="l">annotations = {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 62</span><span class="cl"><span class="w">      </span><span class="s2">&#34;eks.amazonaws.com/role-arn&#34;</span><span class="w"> </span><span class="l">= aws_iam_role.eks_alb_ingress_controller.arn</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 63</span><span class="cl"><span class="w">    </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 64</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 65</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 66</span><span class="cl"><span class="w">  </span><span class="l">depends_on = [</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 67</span><span class="cl"><span class="w">    </span><span class="l">aws_eks_cluster.main</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 68</span><span class="cl"><span class="w">  </span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 69</span><span class="cl"><span class="w"></span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 70</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 71</span><span class="cl"><span class="w"></span><span class="l">resource &#34;kubernetes_deployment&#34; &#34;ingress&#34; {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 72</span><span class="cl"><span class="w">  </span><span class="l">metadata {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 73</span><span class="cl"><span class="w">    </span><span class="l">name      = &#34;alb-ingress-controller&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 74</span><span class="cl"><span class="w">    </span><span class="l">namespace = &#34;kube-system&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 75</span><span class="cl"><span class="w">    </span><span class="l">labels = {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 76</span><span class="cl"><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/name&#34;</span><span class="w">       </span><span class="l">= &#34;alb-ingress-controller&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 77</span><span class="cl"><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/version&#34;</span><span class="w">    </span><span class="l">= &#34;v1.1.9&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 78</span><span class="cl"><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/managed-by&#34;</span><span class="w"> </span><span class="l">= &#34;terraform&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 79</span><span class="cl"><span class="w">    </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 80</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 81</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 82</span><span class="cl"><span class="w">  </span><span class="l">spec {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 83</span><span class="cl"><span class="w">    </span><span class="l">replicas = 1</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 84</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 85</span><span class="cl"><span class="w">    </span><span class="l">selector {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 86</span><span class="cl"><span class="w">      </span><span class="l">match_labels = {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 87</span><span class="cl"><span class="w">        </span><span class="s2">&#34;app.kubernetes.io/name&#34;</span><span class="w"> </span><span class="l">= &#34;alb-ingress-controller&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 88</span><span class="cl"><span class="w">      </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 89</span><span class="cl"><span class="w">    </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 90</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 91</span><span class="cl"><span class="w">    </span><span class="l">template {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 92</span><span class="cl"><span class="w">      </span><span class="l">metadata {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 93</span><span class="cl"><span class="w">        </span><span class="l">labels = {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 94</span><span class="cl"><span class="w">          </span><span class="s2">&#34;app.kubernetes.io/name&#34;</span><span class="w">    </span><span class="l">= &#34;alb-ingress-controller&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 95</span><span class="cl"><span class="w">          </span><span class="s2">&#34;app.kubernetes.io/version&#34;</span><span class="w"> </span><span class="l">= &#34;v1.1.9&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 96</span><span class="cl"><span class="w">        </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 97</span><span class="cl"><span class="w">      </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 98</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 99</span><span class="cl"><span class="w">      </span><span class="l">spec {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">100</span><span class="cl"><span class="w">        </span><span class="l">dns_policy                       = &#34;ClusterFirst&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">101</span><span class="cl"><span class="w">        </span><span class="l">restart_policy                   = &#34;Always&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">102</span><span class="cl"><span class="w">        </span><span class="l">service_account_name             = kubernetes_service_account.ingress.metadata[0].name</span><span class="w">
-</span></span></span><span class="line"><span class="ln">103</span><span class="cl"><span class="w">        </span><span class="l">termination_grace_period_seconds = 60</span><span class="w">
-</span></span></span><span class="line"><span class="ln">104</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">105</span><span class="cl"><span class="w">        </span><span class="l">container {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">106</span><span class="cl"><span class="w">          </span><span class="l">name              = &#34;alb-ingress-controller&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">107</span><span class="cl"><span class="w">          </span><span class="l">image             = &#34;docker.io/amazon/aws-alb-ingress-controller:v1.1.9&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">108</span><span class="cl"><span class="w">          </span><span class="l">image_pull_policy = &#34;Always&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">109</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">110</span><span class="cl"><span class="w">          </span><span class="l">args = [</span><span class="w">
-</span></span></span><span class="line"><span class="ln">111</span><span class="cl"><span class="w">            </span><span class="s2">&#34;--ingress-class=alb&#34;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="ln">112</span><span class="cl"><span class="w">            </span><span class="s2">&#34;--cluster-name=${aws_eks_cluster.main.id}&#34;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="ln">113</span><span class="cl"><span class="w">            </span><span class="s2">&#34;--aws-vpc-id=${var.vpc_id}&#34;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="ln">114</span><span class="cl"><span class="w">            </span><span class="s2">&#34;--aws-region=${var.region}&#34;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="ln">115</span><span class="cl"><span class="w">            </span><span class="s2">&#34;--aws-max-retries=10&#34;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="ln">116</span><span class="cl"><span class="w">          </span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="ln">117</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">118</span><span class="cl"><span class="w">          </span><span class="l">volume_mount {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">119</span><span class="cl"><span class="w">            </span><span class="l">mount_path = &#34;/var/run/secrets/kubernetes.io/serviceaccount&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">120</span><span class="cl"><span class="w">            </span><span class="l">name       = kubernetes_service_account.ingress.default_secret_name</span><span class="w">
-</span></span></span><span class="line"><span class="ln">121</span><span class="cl"><span class="w">            </span><span class="l">read_only  = true</span><span class="w">
-</span></span></span><span class="line"><span class="ln">122</span><span class="cl"><span class="w">          </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">123</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">124</span><span class="cl"><span class="w">          </span><span class="l">port {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">125</span><span class="cl"><span class="w">            </span><span class="l">name           = &#34;health&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">126</span><span class="cl"><span class="w">            </span><span class="l">container_port = 10254</span><span class="w">
-</span></span></span><span class="line"><span class="ln">127</span><span class="cl"><span class="w">            </span><span class="l">protocol       = &#34;TCP&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">128</span><span class="cl"><span class="w">          </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">129</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">130</span><span class="cl"><span class="w">          </span><span class="l">readiness_probe {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">131</span><span class="cl"><span class="w">            </span><span class="l">http_get {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">132</span><span class="cl"><span class="w">              </span><span class="l">path   = &#34;/healthz&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">133</span><span class="cl"><span class="w">              </span><span class="l">port   = &#34;health&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">134</span><span class="cl"><span class="w">              </span><span class="l">scheme = &#34;HTTP&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">135</span><span class="cl"><span class="w">            </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">136</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">137</span><span class="cl"><span class="w">            </span><span class="l">initial_delay_seconds = 30</span><span class="w">
-</span></span></span><span class="line"><span class="ln">138</span><span class="cl"><span class="w">            </span><span class="l">period_seconds        = 60</span><span class="w">
-</span></span></span><span class="line"><span class="ln">139</span><span class="cl"><span class="w">            </span><span class="l">timeout_seconds       = 3</span><span class="w">
-</span></span></span><span class="line"><span class="ln">140</span><span class="cl"><span class="w">          </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">141</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">142</span><span class="cl"><span class="w">          </span><span class="l">liveness_probe {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">143</span><span class="cl"><span class="w">            </span><span class="l">http_get {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">144</span><span class="cl"><span class="w">              </span><span class="l">path   = &#34;/healthz&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">145</span><span class="cl"><span class="w">              </span><span class="l">port   = &#34;health&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">146</span><span class="cl"><span class="w">              </span><span class="l">scheme = &#34;HTTP&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">147</span><span class="cl"><span class="w">            </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">148</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">149</span><span class="cl"><span class="w">            </span><span class="l">initial_delay_seconds = 60</span><span class="w">
-</span></span></span><span class="line"><span class="ln">150</span><span class="cl"><span class="w">            </span><span class="l">period_seconds        = 60</span><span class="w">
-</span></span></span><span class="line"><span class="ln">151</span><span class="cl"><span class="w">          </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">152</span><span class="cl"><span class="w">        </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">153</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">154</span><span class="cl"><span class="w">        </span><span class="l">volume {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">155</span><span class="cl"><span class="w">          </span><span class="l">name = kubernetes_service_account.ingress.default_secret_name</span><span class="w">
-</span></span></span><span class="line"><span class="ln">156</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">157</span><span class="cl"><span class="w">          </span><span class="l">secret {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">158</span><span class="cl"><span class="w">            </span><span class="l">secret_name = kubernetes_service_account.ingress.default_secret_name</span><span class="w">
-</span></span></span><span class="line"><span class="ln">159</span><span class="cl"><span class="w">          </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">160</span><span class="cl"><span class="w">        </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">161</span><span class="cl"><span class="w">      </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">162</span><span class="cl"><span class="w">    </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">163</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">164</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">165</span><span class="cl"><span class="w">  </span><span class="l">depends_on = [</span><span class="w">
-</span></span></span><span class="line"><span class="ln">166</span><span class="cl"><span class="w">    </span><span class="l">kubernetes_cluster_role_binding.ingress,</span><span class="w">
-</span></span></span><span class="line"><span class="ln">167</span><span class="cl"><span class="w">    </span><span class="l">aws_eks_cluster.main</span><span class="w">
-</span></span></span><span class="line"><span class="ln">168</span><span class="cl"><span class="w">  </span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="ln">169</span><span class="cl"><span class="w"></span>}<span class="w">
-</span></span></span></code></pre></div><ul>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln">  1</span><span class="w">	</span>resource<span class="w"> </span><span class="s2">&#34;kubernetes_cluster_role&#34;</span><span class="w"> </span><span class="s2">&#34;ingress&#34;</span><span class="w"> </span>{<span class="w">
+</span><span class="ln">  2</span><span class="w">  </span>metadata<span class="w"> </span>{<span class="w">
+</span><span class="ln">  3</span><span class="w">    </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;alb-ingress-controller&#34;</span><span class="w">
+</span><span class="ln">  4</span><span class="w">    </span>labels<span class="w"> </span>=<span class="w"> </span>{<span class="w">
+</span><span class="ln">  5</span><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/name&#34;</span><span class="w">       </span>=<span class="w"> </span><span class="s2">&#34;alb-ingress-controller&#34;</span><span class="w">
+</span><span class="ln">  6</span><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/managed-by&#34;</span><span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;terraform&#34;</span><span class="w">
+</span><span class="ln">  7</span><span class="w">    </span>}<span class="w">
+</span><span class="ln">  8</span><span class="w">  </span>}<span class="w">
+</span><span class="ln">  9</span><span class="w">
+</span><span class="ln"> 10</span><span class="w">  </span>rule<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 11</span><span class="w">    </span>api_groups<span class="w"> </span>=<span class="w"> </span><span class="p">[</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;extensions&#34;</span><span class="p">]</span><span class="w">
+</span><span class="ln"> 12</span><span class="w">    </span>resources<span class="w">  </span>=<span class="w"> </span><span class="p">[</span><span class="s2">&#34;configmaps&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;endpoints&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;events&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;ingresses&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;ingresses/status&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;services&#34;</span><span class="p">]</span><span class="w">
+</span><span class="ln"> 13</span><span class="w">    </span>verbs<span class="w">      </span>=<span class="w"> </span><span class="p">[</span><span class="s2">&#34;create&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;get&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;list&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;update&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;watch&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;patch&#34;</span><span class="p">]</span><span class="w">
+</span><span class="ln"> 14</span><span class="w">  </span>}<span class="w">
+</span><span class="ln"> 15</span><span class="w">
+</span><span class="ln"> 16</span><span class="w">  </span>rule<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 17</span><span class="w">    </span>api_groups<span class="w"> </span>=<span class="w"> </span><span class="p">[</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;extensions&#34;</span><span class="p">]</span><span class="w">
+</span><span class="ln"> 18</span><span class="w">    </span>resources<span class="w">  </span>=<span class="w"> </span><span class="p">[</span><span class="s2">&#34;nodes&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;pods&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;secrets&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;services&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;namespaces&#34;</span><span class="p">]</span><span class="w">
+</span><span class="ln"> 19</span><span class="w">    </span>verbs<span class="w">      </span>=<span class="w"> </span><span class="p">[</span><span class="s2">&#34;get&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;list&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;watch&#34;</span><span class="p">]</span><span class="w">
+</span><span class="ln"> 20</span><span class="w">  </span>}<span class="w">
+</span><span class="ln"> 21</span><span class="w">
+</span><span class="ln"> 22</span><span class="w">  </span>depends_on<span class="w"> </span>=<span class="w"> </span><span class="p">[</span><span class="w">
+</span><span class="ln"> 23</span><span class="w">    </span>aws_eks_cluster.main<span class="w">
+</span><span class="ln"> 24</span><span class="w">  </span><span class="p">]</span><span class="w">
+</span><span class="ln"> 25</span><span class="w"></span>}<span class="w">
+</span><span class="ln"> 26</span><span class="w">
+</span><span class="ln"> 27</span><span class="w"></span>resource<span class="w"> </span><span class="s2">&#34;kubernetes_cluster_role_binding&#34;</span><span class="w"> </span><span class="s2">&#34;ingress&#34;</span><span class="w"> </span>{<span class="w">
+</span><span class="ln"> 28</span><span class="w">  </span>metadata<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 29</span><span class="w">    </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;alb-ingress-controller&#34;</span><span class="w">
+</span><span class="ln"> 30</span><span class="w">    </span>labels<span class="w"> </span>=<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 31</span><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/name&#34;</span><span class="w">       </span>=<span class="w"> </span><span class="s2">&#34;alb-ingress-controller&#34;</span><span class="w">
+</span><span class="ln"> 32</span><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/managed-by&#34;</span><span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;terraform&#34;</span><span class="w">
+</span><span class="ln"> 33</span><span class="w">    </span>}<span class="w">
+</span><span class="ln"> 34</span><span class="w">  </span>}<span class="w">
+</span><span class="ln"> 35</span><span class="w">  </span>role_ref<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 36</span><span class="w">    </span>api_group<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;rbac.authorization.k8s.io&#34;</span><span class="w">
+</span><span class="ln"> 37</span><span class="w">    </span>kind<span class="w">      </span>=<span class="w"> </span><span class="s2">&#34;ClusterRole&#34;</span><span class="w">
+</span><span class="ln"> 38</span><span class="w">    </span>name<span class="w">      </span>=<span class="w"> </span>kubernetes_cluster_role.ingress.metadata<span class="p">[</span><span class="m">0</span><span class="p">]</span>.name<span class="w">
+</span><span class="ln"> 39</span><span class="w">  </span>}<span class="w">
+</span><span class="ln"> 40</span><span class="w">  </span>subject<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 41</span><span class="w">    </span>kind<span class="w">      </span>=<span class="w"> </span><span class="s2">&#34;ServiceAccount&#34;</span><span class="w">
+</span><span class="ln"> 42</span><span class="w">    </span>name<span class="w">      </span>=<span class="w"> </span>kubernetes_service_account.ingress.metadata<span class="p">[</span><span class="m">0</span><span class="p">]</span>.name<span class="w">
+</span><span class="ln"> 43</span><span class="w">    </span>namespace<span class="w"> </span>=<span class="w"> </span>kubernetes_service_account.ingress.metadata<span class="p">[</span><span class="m">0</span><span class="p">]</span>.namespace<span class="w">
+</span><span class="ln"> 44</span><span class="w">  </span>}<span class="w">
+</span><span class="ln"> 45</span><span class="w">
+</span><span class="ln"> 46</span><span class="w">  </span>depends_on<span class="w"> </span>=<span class="w"> </span><span class="p">[</span><span class="w">
+</span><span class="ln"> 47</span><span class="w">    </span>aws_eks_cluster.main<span class="p">,</span><span class="w">
+</span><span class="ln"> 48</span><span class="w">    </span>kubernetes_cluster_role.ingress<span class="w">
+</span><span class="ln"> 49</span><span class="w">  </span><span class="p">]</span><span class="w">
+</span><span class="ln"> 50</span><span class="w"></span>}<span class="w">
+</span><span class="ln"> 51</span><span class="w">
+</span><span class="ln"> 52</span><span class="w"></span>resource<span class="w"> </span><span class="s2">&#34;kubernetes_service_account&#34;</span><span class="w"> </span><span class="s2">&#34;ingress&#34;</span><span class="w"> </span>{<span class="w">
+</span><span class="ln"> 53</span><span class="w">  </span>automount_service_account_token<span class="w"> </span>=<span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="ln"> 54</span><span class="w">  </span>metadata<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 55</span><span class="w">    </span>name<span class="w">      </span>=<span class="w"> </span><span class="s2">&#34;alb-ingress-controller&#34;</span><span class="w">
+</span><span class="ln"> 56</span><span class="w">    </span>namespace<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;kube-system&#34;</span><span class="w">
+</span><span class="ln"> 57</span><span class="w">    </span>labels<span class="w"> </span>=<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 58</span><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/name&#34;</span><span class="w">       </span>=<span class="w"> </span><span class="s2">&#34;alb-ingress-controller&#34;</span><span class="w">
+</span><span class="ln"> 59</span><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/managed-by&#34;</span><span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;terraform&#34;</span><span class="w">
+</span><span class="ln"> 60</span><span class="w">    </span>}<span class="w">
+</span><span class="ln"> 61</span><span class="w">    </span>annotations<span class="w"> </span>=<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 62</span><span class="w">      </span><span class="s2">&#34;eks.amazonaws.com/role-arn&#34;</span><span class="w"> </span>=<span class="w"> </span>aws_iam_role.eks_alb_ingress_controller.arn<span class="w">
+</span><span class="ln"> 63</span><span class="w">    </span>}<span class="w">
+</span><span class="ln"> 64</span><span class="w">  </span>}<span class="w">
+</span><span class="ln"> 65</span><span class="w">
+</span><span class="ln"> 66</span><span class="w">  </span>depends_on<span class="w"> </span>=<span class="w"> </span><span class="p">[</span><span class="w">
+</span><span class="ln"> 67</span><span class="w">    </span>aws_eks_cluster.main<span class="w">
+</span><span class="ln"> 68</span><span class="w">  </span><span class="p">]</span><span class="w">
+</span><span class="ln"> 69</span><span class="w"></span>}<span class="w">
+</span><span class="ln"> 70</span><span class="w">
+</span><span class="ln"> 71</span><span class="w"></span>resource<span class="w"> </span><span class="s2">&#34;kubernetes_deployment&#34;</span><span class="w"> </span><span class="s2">&#34;ingress&#34;</span><span class="w"> </span>{<span class="w">
+</span><span class="ln"> 72</span><span class="w">  </span>metadata<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 73</span><span class="w">    </span>name<span class="w">      </span>=<span class="w"> </span><span class="s2">&#34;alb-ingress-controller&#34;</span><span class="w">
+</span><span class="ln"> 74</span><span class="w">    </span>namespace<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;kube-system&#34;</span><span class="w">
+</span><span class="ln"> 75</span><span class="w">    </span>labels<span class="w"> </span>=<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 76</span><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/name&#34;</span><span class="w">       </span>=<span class="w"> </span><span class="s2">&#34;alb-ingress-controller&#34;</span><span class="w">
+</span><span class="ln"> 77</span><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/version&#34;</span><span class="w">    </span>=<span class="w"> </span><span class="s2">&#34;v1.1.9&#34;</span><span class="w">
+</span><span class="ln"> 78</span><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/managed-by&#34;</span><span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;terraform&#34;</span><span class="w">
+</span><span class="ln"> 79</span><span class="w">    </span>}<span class="w">
+</span><span class="ln"> 80</span><span class="w">  </span>}<span class="w">
+</span><span class="ln"> 81</span><span class="w">
+</span><span class="ln"> 82</span><span class="w">  </span>spec<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 83</span><span class="w">    </span>replicas<span class="w"> </span>=<span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="ln"> 84</span><span class="w">
+</span><span class="ln"> 85</span><span class="w">    </span>selector<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 86</span><span class="w">      </span>match_labels<span class="w"> </span>=<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 87</span><span class="w">        </span><span class="s2">&#34;app.kubernetes.io/name&#34;</span><span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;alb-ingress-controller&#34;</span><span class="w">
+</span><span class="ln"> 88</span><span class="w">      </span>}<span class="w">
+</span><span class="ln"> 89</span><span class="w">    </span>}<span class="w">
+</span><span class="ln"> 90</span><span class="w">
+</span><span class="ln"> 91</span><span class="w">    </span>template<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 92</span><span class="w">      </span>metadata<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 93</span><span class="w">        </span>labels<span class="w"> </span>=<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 94</span><span class="w">          </span><span class="s2">&#34;app.kubernetes.io/name&#34;</span><span class="w">    </span>=<span class="w"> </span><span class="s2">&#34;alb-ingress-controller&#34;</span><span class="w">
+</span><span class="ln"> 95</span><span class="w">          </span><span class="s2">&#34;app.kubernetes.io/version&#34;</span><span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;v1.1.9&#34;</span><span class="w">
+</span><span class="ln"> 96</span><span class="w">        </span>}<span class="w">
+</span><span class="ln"> 97</span><span class="w">      </span>}<span class="w">
+</span><span class="ln"> 98</span><span class="w">
+</span><span class="ln"> 99</span><span class="w">      </span>spec<span class="w"> </span>{<span class="w">
+</span><span class="ln">100</span><span class="w">        </span>dns_policy<span class="w">                       </span>=<span class="w"> </span><span class="s2">&#34;ClusterFirst&#34;</span><span class="w">
+</span><span class="ln">101</span><span class="w">        </span>restart_policy<span class="w">                   </span>=<span class="w"> </span><span class="s2">&#34;Always&#34;</span><span class="w">
+</span><span class="ln">102</span><span class="w">        </span>service_account_name<span class="w">             </span>=<span class="w"> </span>kubernetes_service_account.ingress.metadata<span class="p">[</span><span class="m">0</span><span class="p">]</span>.name<span class="w">
+</span><span class="ln">103</span><span class="w">        </span>termination_grace_period_seconds<span class="w"> </span>=<span class="w"> </span><span class="m">60</span><span class="w">
+</span><span class="ln">104</span><span class="w">
+</span><span class="ln">105</span><span class="w">        </span>container<span class="w"> </span>{<span class="w">
+</span><span class="ln">106</span><span class="w">          </span>name<span class="w">              </span>=<span class="w"> </span><span class="s2">&#34;alb-ingress-controller&#34;</span><span class="w">
+</span><span class="ln">107</span><span class="w">          </span>image<span class="w">             </span>=<span class="w"> </span><span class="s2">&#34;docker.io/amazon/aws-alb-ingress-controller:v1.1.9&#34;</span><span class="w">
+</span><span class="ln">108</span><span class="w">          </span>image_pull_policy<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;Always&#34;</span><span class="w">
+</span><span class="ln">109</span><span class="w">
+</span><span class="ln">110</span><span class="w">          </span>args<span class="w"> </span>=<span class="w"> </span><span class="p">[</span><span class="w">
+</span><span class="ln">111</span><span class="w">            </span><span class="s2">&#34;--ingress-class=alb&#34;</span><span class="p">,</span><span class="w">
+</span><span class="ln">112</span><span class="w">            </span><span class="s2">&#34;--cluster-name=${aws_eks_cluster.main.id}&#34;</span><span class="p">,</span><span class="w">
+</span><span class="ln">113</span><span class="w">            </span><span class="s2">&#34;--aws-vpc-id=${var.vpc_id}&#34;</span><span class="p">,</span><span class="w">
+</span><span class="ln">114</span><span class="w">            </span><span class="s2">&#34;--aws-region=${var.region}&#34;</span><span class="p">,</span><span class="w">
+</span><span class="ln">115</span><span class="w">            </span><span class="s2">&#34;--aws-max-retries=10&#34;</span><span class="p">,</span><span class="w">
+</span><span class="ln">116</span><span class="w">          </span><span class="p">]</span><span class="w">
+</span><span class="ln">117</span><span class="w">
+</span><span class="ln">118</span><span class="w">          </span>volume_mount<span class="w"> </span>{<span class="w">
+</span><span class="ln">119</span><span class="w">            </span>mount_path<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;/var/run/secrets/kubernetes.io/serviceaccount&#34;</span><span class="w">
+</span><span class="ln">120</span><span class="w">            </span>name<span class="w">       </span>=<span class="w"> </span>kubernetes_service_account.ingress.default_secret_name<span class="w">
+</span><span class="ln">121</span><span class="w">            </span>read_only<span class="w">  </span>=<span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="ln">122</span><span class="w">          </span>}<span class="w">
+</span><span class="ln">123</span><span class="w">
+</span><span class="ln">124</span><span class="w">          </span>port<span class="w"> </span>{<span class="w">
+</span><span class="ln">125</span><span class="w">            </span>name<span class="w">           </span>=<span class="w"> </span><span class="s2">&#34;health&#34;</span><span class="w">
+</span><span class="ln">126</span><span class="w">            </span>container_port<span class="w"> </span>=<span class="w"> </span><span class="m">10254</span><span class="w">
+</span><span class="ln">127</span><span class="w">            </span>protocol<span class="w">       </span>=<span class="w"> </span><span class="s2">&#34;TCP&#34;</span><span class="w">
+</span><span class="ln">128</span><span class="w">          </span>}<span class="w">
+</span><span class="ln">129</span><span class="w">
+</span><span class="ln">130</span><span class="w">          </span>readiness_probe<span class="w"> </span>{<span class="w">
+</span><span class="ln">131</span><span class="w">            </span>http_get<span class="w"> </span>{<span class="w">
+</span><span class="ln">132</span><span class="w">              </span>path<span class="w">   </span>=<span class="w"> </span><span class="s2">&#34;/healthz&#34;</span><span class="w">
+</span><span class="ln">133</span><span class="w">              </span>port<span class="w">   </span>=<span class="w"> </span><span class="s2">&#34;health&#34;</span><span class="w">
+</span><span class="ln">134</span><span class="w">              </span>scheme<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;HTTP&#34;</span><span class="w">
+</span><span class="ln">135</span><span class="w">            </span>}<span class="w">
+</span><span class="ln">136</span><span class="w">
+</span><span class="ln">137</span><span class="w">            </span>initial_delay_seconds<span class="w"> </span>=<span class="w"> </span><span class="m">30</span><span class="w">
+</span><span class="ln">138</span><span class="w">            </span>period_seconds<span class="w">        </span>=<span class="w"> </span><span class="m">60</span><span class="w">
+</span><span class="ln">139</span><span class="w">            </span>timeout_seconds<span class="w">       </span>=<span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="ln">140</span><span class="w">          </span>}<span class="w">
+</span><span class="ln">141</span><span class="w">
+</span><span class="ln">142</span><span class="w">          </span>liveness_probe<span class="w"> </span>{<span class="w">
+</span><span class="ln">143</span><span class="w">            </span>http_get<span class="w"> </span>{<span class="w">
+</span><span class="ln">144</span><span class="w">              </span>path<span class="w">   </span>=<span class="w"> </span><span class="s2">&#34;/healthz&#34;</span><span class="w">
+</span><span class="ln">145</span><span class="w">              </span>port<span class="w">   </span>=<span class="w"> </span><span class="s2">&#34;health&#34;</span><span class="w">
+</span><span class="ln">146</span><span class="w">              </span>scheme<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;HTTP&#34;</span><span class="w">
+</span><span class="ln">147</span><span class="w">            </span>}<span class="w">
+</span><span class="ln">148</span><span class="w">
+</span><span class="ln">149</span><span class="w">            </span>initial_delay_seconds<span class="w"> </span>=<span class="w"> </span><span class="m">60</span><span class="w">
+</span><span class="ln">150</span><span class="w">            </span>period_seconds<span class="w">        </span>=<span class="w"> </span><span class="m">60</span><span class="w">
+</span><span class="ln">151</span><span class="w">          </span>}<span class="w">
+</span><span class="ln">152</span><span class="w">        </span>}<span class="w">
+</span><span class="ln">153</span><span class="w">
+</span><span class="ln">154</span><span class="w">        </span>volume<span class="w"> </span>{<span class="w">
+</span><span class="ln">155</span><span class="w">          </span>name<span class="w"> </span>=<span class="w"> </span>kubernetes_service_account.ingress.default_secret_name<span class="w">
+</span><span class="ln">156</span><span class="w">
+</span><span class="ln">157</span><span class="w">          </span>secret<span class="w"> </span>{<span class="w">
+</span><span class="ln">158</span><span class="w">            </span>secret_name<span class="w"> </span>=<span class="w"> </span>kubernetes_service_account.ingress.default_secret_name<span class="w">
+</span><span class="ln">159</span><span class="w">          </span>}<span class="w">
+</span><span class="ln">160</span><span class="w">        </span>}<span class="w">
+</span><span class="ln">161</span><span class="w">      </span>}<span class="w">
+</span><span class="ln">162</span><span class="w">    </span>}<span class="w">
+</span><span class="ln">163</span><span class="w">  </span>}<span class="w">
+</span><span class="ln">164</span><span class="w">
+</span><span class="ln">165</span><span class="w">  </span>depends_on<span class="w"> </span>=<span class="w"> </span><span class="p">[</span><span class="w">
+</span><span class="ln">166</span><span class="w">    </span>kubernetes_cluster_role_binding.ingress<span class="p">,</span><span class="w">
+</span><span class="ln">167</span><span class="w">    </span>aws_eks_cluster.main<span class="w">
+</span><span class="ln">168</span><span class="w">  </span><span class="p">]</span><span class="w">
+</span><span class="ln">169</span><span class="w"></span>}<span class="w">
+</span></code></pre></div><ul>
 <li>The Alb ingress resource should look likes following</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="w">	</span><span class="l">resource &#34;kubernetes_ingress&#34; &#34;example_ingress&#34; {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">  </span><span class="l">metadata {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">    </span><span class="l">name      = &#34;example-ingress&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">    </span><span class="l">namespace = &#34;default&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">    </span><span class="l">annotations = {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">      </span><span class="s2">&#34;kubernetes.io/ingress.class&#34;</span><span class="w">                    </span><span class="l">= &#34;alb&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">      </span><span class="s2">&#34;alb.ingress.kubernetes.io/scheme&#34;</span><span class="w">               </span><span class="l">= &#34;internet-facing&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">      </span><span class="s2">&#34;alb.ingress.kubernetes.io/target-type&#34;</span><span class="w">          </span><span class="l">= &#34;instance&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">      </span><span class="nt">&#34;alb.ingress.kubernetes.io/listen-ports&#34;         = &#34;[{\&#34;HTTPS\&#34;: 443},{\&#34;HTTP\&#34;: </span><span class="m">80</span>}<span class="p">]</span><span class="s2">&#34;
-</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="s2">      &#34;</span><span class="l">alb.ingress.kubernetes.io/actions.ssl-redirect&#34; = &#34;{\&#34;Type\&#34;: \&#34;redirect\&#34;, \&#34;RedirectConfig\&#34;: { \&#34;Protocol\&#34;: \&#34;HTTPS\&#34;, \&#34;Port\&#34;: \&#34;443\&#34;, \&#34;StatusCode\&#34;: \&#34;HTTP_301\&#34;}}&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">      </span><span class="s2">&#34;alb.ingress.kubernetes.io/security-groups&#34;</span><span class="w">      </span><span class="l">= var.alb_security_group_ids</span><span class="w">
-</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">      </span><span class="s2">&#34;alb.ingress.kubernetes.io/certificate-arn&#34;</span><span class="w">      </span><span class="l">= var.alb_certificates</span><span class="w">
-</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">      </span><span class="s2">&#34;alb.ingress.kubernetes.io/healthcheck-path&#34;</span><span class="w">     </span><span class="l">= &#34;/&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">      </span><span class="s2">&#34;alb.ingress.kubernetes.io/success-codes&#34;</span><span class="w">        </span><span class="l">= &#34;200,201,302,301&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">      </span><span class="s2">&#34;alb.ingress.kubernetes.io/unhealthy-threshold-count&#34;</span><span class="w"> </span><span class="l">=  &#34;5&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">    </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">  </span><span class="l">spec {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">    </span><span class="l">rule {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">      </span><span class="l">host = var.web_dns_name</span><span class="w">
-</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">      </span><span class="l">http {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">        </span><span class="l">path {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">          </span><span class="l">backend {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">            </span><span class="l">service_name = &#34;ssl-redirect&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">            </span><span class="l">service_port = &#34;use-annotation&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">          </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">          </span><span class="l">path = &#34;/*&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">        </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">        </span><span class="l">path {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">          </span><span class="l">backend {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">            </span><span class="l">service_name = &#34;example-web&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">            </span><span class="l">service_port = 80</span><span class="w">
-</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">          </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w">          </span><span class="l">path = &#34;/*&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w">        </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w">      </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w">    </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w">  </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w"></span>}<span class="w">
-</span></span></span></code></pre></div><h3 id="the-merge-ingress-it-will-only-work-if-you-create-ingress-in-the-same-namespace">The Merge ingress it will only work if you create ingress in the same namespace</h3>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span><span class="w">	</span>resource<span class="w"> </span><span class="s2">&#34;kubernetes_ingress&#34;</span><span class="w"> </span><span class="s2">&#34;example_ingress&#34;</span><span class="w"> </span>{<span class="w">
+</span><span class="ln"> 2</span><span class="w">  </span>metadata<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 3</span><span class="w">    </span>name<span class="w">      </span>=<span class="w"> </span><span class="s2">&#34;example-ingress&#34;</span><span class="w">
+</span><span class="ln"> 4</span><span class="w">    </span>namespace<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;default&#34;</span><span class="w">
+</span><span class="ln"> 5</span><span class="w">    </span>annotations<span class="w"> </span>=<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 6</span><span class="w">      </span><span class="s2">&#34;kubernetes.io/ingress.class&#34;</span><span class="w">                    </span>=<span class="w"> </span><span class="s2">&#34;alb&#34;</span><span class="w">
+</span><span class="ln"> 7</span><span class="w">      </span><span class="s2">&#34;alb.ingress.kubernetes.io/scheme&#34;</span><span class="w">               </span>=<span class="w"> </span><span class="s2">&#34;internet-facing&#34;</span><span class="w">
+</span><span class="ln"> 8</span><span class="w">      </span><span class="s2">&#34;alb.ingress.kubernetes.io/target-type&#34;</span><span class="w">          </span>=<span class="w"> </span><span class="s2">&#34;instance&#34;</span><span class="w">
+</span><span class="ln"> 9</span><span class="w">      </span><span class="k">&#34;alb.ingress.kubernetes.io/listen-ports&#34;         = &#34;[{\&#34;HTTPS\&#34;: 443},{\&#34;HTTP\&#34;: </span><span class="m">80</span>}<span class="p">]</span><span class="s2">&#34;
+</span><span class="ln">10</span><span class="s2">      &#34;</span>alb.ingress.kubernetes.io/actions.ssl-redirect<span class="k">&#34; = &#34;{\&#34;Type\&#34;: \&#34;redirect\&#34;, \&#34;RedirectConfig\&#34;: { \&#34;Protocol\&#34;: \&#34;HTTPS\&#34;, \&#34;Port\&#34;: \&#34;443\&#34;, \&#34;StatusCode\&#34;: </span>\<span class="s2">&#34;HTTP_301\&#34;}}&#34;</span><span class="w">
+</span><span class="ln">11</span><span class="w">      </span><span class="s2">&#34;alb.ingress.kubernetes.io/security-groups&#34;</span><span class="w">      </span>=<span class="w"> </span>var.alb_security_group_ids<span class="w">
+</span><span class="ln">12</span><span class="w">      </span><span class="s2">&#34;alb.ingress.kubernetes.io/certificate-arn&#34;</span><span class="w">      </span>=<span class="w"> </span>var.alb_certificates<span class="w">
+</span><span class="ln">13</span><span class="w">      </span><span class="s2">&#34;alb.ingress.kubernetes.io/healthcheck-path&#34;</span><span class="w">     </span>=<span class="w"> </span><span class="s2">&#34;/&#34;</span><span class="w">
+</span><span class="ln">14</span><span class="w">      </span><span class="s2">&#34;alb.ingress.kubernetes.io/success-codes&#34;</span><span class="w">        </span>=<span class="w"> </span><span class="s2">&#34;200,201,302,301&#34;</span><span class="w">
+</span><span class="ln">15</span><span class="w">      </span><span class="s2">&#34;alb.ingress.kubernetes.io/unhealthy-threshold-count&#34;</span><span class="w"> </span>=<span class="w">  </span><span class="s2">&#34;5&#34;</span><span class="w">
+</span><span class="ln">16</span><span class="w">    </span>}<span class="w">
+</span><span class="ln">17</span><span class="w">  </span>}<span class="w">
+</span><span class="ln">18</span><span class="w">  </span>spec<span class="w"> </span>{<span class="w">
+</span><span class="ln">19</span><span class="w">    </span>rule<span class="w"> </span>{<span class="w">
+</span><span class="ln">20</span><span class="w">      </span>host<span class="w"> </span>=<span class="w"> </span>var.web_dns_name<span class="w">
+</span><span class="ln">21</span><span class="w">      </span>http<span class="w"> </span>{<span class="w">
+</span><span class="ln">22</span><span class="w">        </span>path<span class="w"> </span>{<span class="w">
+</span><span class="ln">23</span><span class="w">          </span>backend<span class="w"> </span>{<span class="w">
+</span><span class="ln">24</span><span class="w">            </span>service_name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;ssl-redirect&#34;</span><span class="w">
+</span><span class="ln">25</span><span class="w">            </span>service_port<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;use-annotation&#34;</span><span class="w">
+</span><span class="ln">26</span><span class="w">          </span>}<span class="w">
+</span><span class="ln">27</span><span class="w">          </span>path<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;/*&#34;</span><span class="w">
+</span><span class="ln">28</span><span class="w">        </span>}<span class="w">
+</span><span class="ln">29</span><span class="w">        </span>path<span class="w"> </span>{<span class="w">
+</span><span class="ln">30</span><span class="w">          </span>backend<span class="w"> </span>{<span class="w">
+</span><span class="ln">31</span><span class="w">            </span>service_name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;example-web&#34;</span><span class="w">
+</span><span class="ln">32</span><span class="w">            </span>service_port<span class="w"> </span>=<span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="ln">33</span><span class="w">          </span>}<span class="w">
+</span><span class="ln">34</span><span class="w">          </span>path<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;/*&#34;</span><span class="w">
+</span><span class="ln">35</span><span class="w">        </span>}<span class="w">
+</span><span class="ln">36</span><span class="w">      </span>}<span class="w">
+</span><span class="ln">37</span><span class="w">    </span>}<span class="w">
+</span><span class="ln">38</span><span class="w">  </span>}<span class="w">
+</span><span class="ln">39</span><span class="w"></span>}<span class="w">
+</span></code></pre></div><h3 id="the-merge-ingress-it-will-only-work-if-you-create-ingress-in-the-same-namespace">The Merge ingress it will only work if you create ingress in the same namespace</h3>
 <ul>
 <li>The merge ingress helm chart need download to self github repo <a href="https://github.com/jakubkulhan/ingress-merge">merge ingress</a></li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">1</span><span class="cl"><span class="l">resource &#34;helm_release&#34; &#34;merge_ingress_controller&#34; {</span><span class="w">
-</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w">   </span><span class="l">name = &#34;merge-ingress&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w">   </span><span class="l">chart = &#34;${path.module}/../../../../charts/ingress-merge&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w">    </span><span class="l">namespace  = &#34;kube-system&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w"> </span>}<span class="w">
-</span></span></span></code></pre></div><ul>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln">1</span>resource<span class="w"> </span><span class="s2">&#34;helm_release&#34;</span><span class="w"> </span><span class="s2">&#34;merge_ingress_controller&#34;</span><span class="w"> </span>{<span class="w">
+</span><span class="ln">2</span><span class="w">   </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;merge-ingress&#34;</span><span class="w">
+</span><span class="ln">3</span><span class="w">   </span>chart<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;${path.module}/../../../../charts/ingress-merge&#34;</span><span class="w">
+</span><span class="ln">4</span><span class="w">    </span>namespace<span class="w">  </span>=<span class="w"> </span><span class="s2">&#34;kube-system&#34;</span><span class="w">
+</span><span class="ln">5</span><span class="w"> </span>}<span class="w">
+</span></code></pre></div><ul>
 <li>Should create merged_ingress configmap in every namespace if has ingress</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="l">resource &#34;kubernetes_config_map&#34; &#34;merged_ingress&#34; {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">   </span><span class="l">metadata {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">     </span><span class="l">name = &#34;merged-ingress&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">     </span><span class="l">namespace = &#34;default&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">   </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">   </span><span class="l">data = {</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">     </span><span class="l">annotations =&lt;&lt;DOC</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">       </span><span class="nt">&#34;kubernetes.io/ingress.class&#34;: </span><span class="s2">&#34;alb&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">       </span><span class="nt">&#34;alb.ingress.kubernetes.io/scheme&#34;: </span><span class="s2">&#34;internet-facing&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">       </span><span class="nt">&#34;alb.ingress.kubernetes.io/target-type&#34;: </span><span class="s2">&#34;instance&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">       </span><span class="nt">&#34;alb.ingress.kubernetes.io/listen-ports&#34;: &#34;[{\&#34;HTTPS\&#34;: 443},{\&#34;HTTP\&#34;: </span><span class="m">80</span>}<span class="p">]</span><span class="s2">&#34;
-</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="s2">       &#34;</span><span class="l">alb.ingress.kubernetes.io/actions.ssl-redirect&#34;: &#34;{\&#34;Type\&#34;: \&#34;redirect\&#34;, \&#34;RedirectConfig\&#34;: { \&#34;Protocol\&#34;: \&#34;HTTPS\&#34;, \&#34;Port\&#34;: \&#34;443\&#34;, \&#34;StatusCode\&#34;: \&#34;HTTP_301\&#34;}}&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">       </span><span class="nt">&#34;alb.ingress.kubernetes.io/security-groups&#34;: </span><span class="l">${var.alb_security_group_ids}</span><span class="w">
-</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">       </span><span class="nt">&#34;alb.ingress.kubernetes.io/certificate-arn&#34;: </span><span class="l">${var.alb_certificates}</span><span class="w">
-</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">       </span><span class="nt">&#34;alb.ingress.kubernetes.io/healthcheck-path&#34;: </span><span class="s2">&#34;/&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">       </span><span class="nt">&#34;alb.ingress.kubernetes.io/success-codes&#34;: </span><span class="s2">&#34;200,201,302,301&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">       </span><span class="nt">&#34;alb.ingress.kubernetes.io/unhealthy-threshold-count&#34;: </span><span class="w"> </span><span class="s2">&#34;5&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w"> </span><span class="l">DOC</span><span class="w">
-</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">   </span>}<span class="w">
-</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w"> </span>}<span class="w">
-</span></span></span></code></pre></div><ul>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span>resource<span class="w"> </span><span class="s2">&#34;kubernetes_config_map&#34;</span><span class="w"> </span><span class="s2">&#34;merged_ingress&#34;</span><span class="w"> </span>{<span class="w">
+</span><span class="ln"> 2</span><span class="w">   </span>metadata<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 3</span><span class="w">     </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;merged-ingress&#34;</span><span class="w">
+</span><span class="ln"> 4</span><span class="w">     </span>namespace<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;default&#34;</span><span class="w">
+</span><span class="ln"> 5</span><span class="w">   </span>}<span class="w">
+</span><span class="ln"> 6</span><span class="w">
+</span><span class="ln"> 7</span><span class="w">   </span>data<span class="w"> </span>=<span class="w"> </span>{<span class="w">
+</span><span class="ln"> 8</span><span class="w">     </span>annotations<span class="w"> </span>=&lt;&lt;DOC<span class="w">
+</span><span class="ln"> 9</span><span class="w">       </span><span class="k">&#34;kubernetes.io/ingress.class&#34;: </span><span class="s2">&#34;alb&#34;</span><span class="w">
+</span><span class="ln">10</span><span class="w">       </span><span class="k">&#34;alb.ingress.kubernetes.io/scheme&#34;: </span><span class="s2">&#34;internet-facing&#34;</span><span class="w">
+</span><span class="ln">11</span><span class="w">       </span><span class="k">&#34;alb.ingress.kubernetes.io/target-type&#34;: </span><span class="s2">&#34;instance&#34;</span><span class="w">
+</span><span class="ln">12</span><span class="w">       </span><span class="k">&#34;alb.ingress.kubernetes.io/listen-ports&#34;: &#34;[{\&#34;HTTPS\&#34;: 443},{\&#34;HTTP\&#34;: </span><span class="m">80</span>}<span class="p">]</span><span class="s2">&#34;
+</span><span class="ln">13</span><span class="s2">       &#34;</span>alb.ingress.kubernetes.io/actions.ssl-redirect<span class="k">&#34;: &#34;{\&#34;Type\&#34;: \&#34;redirect\&#34;, \&#34;RedirectConfig\&#34;: { \&#34;Protocol\&#34;: \&#34;HTTPS\&#34;, \&#34;Port\&#34;: \&#34;443\&#34;, \&#34;StatusCode\&#34;: </span>\<span class="s2">&#34;HTTP_301\&#34;}}&#34;</span><span class="w">
+</span><span class="ln">14</span><span class="w">       </span><span class="k">&#34;alb.ingress.kubernetes.io/security-groups&#34;: </span>${var.alb_security_group_ids}<span class="w">
+</span><span class="ln">15</span><span class="w">       </span><span class="k">&#34;alb.ingress.kubernetes.io/certificate-arn&#34;: </span>${var.alb_certificates}<span class="w">
+</span><span class="ln">16</span><span class="w">       </span><span class="k">&#34;alb.ingress.kubernetes.io/healthcheck-path&#34;: </span><span class="s2">&#34;/&#34;</span><span class="w">
+</span><span class="ln">17</span><span class="w">       </span><span class="k">&#34;alb.ingress.kubernetes.io/success-codes&#34;: </span><span class="s2">&#34;200,201,302,301&#34;</span><span class="w">
+</span><span class="ln">18</span><span class="w">       </span><span class="k">&#34;alb.ingress.kubernetes.io/unhealthy-threshold-count&#34;: </span><span class="w"> </span><span class="s2">&#34;5&#34;</span><span class="w">
+</span><span class="ln">19</span><span class="w"> </span>DOC<span class="w">
+</span><span class="ln">20</span><span class="w">   </span>}<span class="w">
+</span><span class="ln">21</span><span class="w"> </span>}<span class="w">
+</span></code></pre></div><ul>
 <li>The ingress resource should be create in default namespace</li>
 </ul>
 
@@ -552,6 +552,14 @@
     <h2 class="mt-4">Featured Posts</h2>
     
     <ul>
+    
+      <li>
+        <a href="https://blog.wisekee.com/post/awesome-open-source/" class="nav-link">Awesome open resoure tools and project</a>
+      </li>
+    
+      <li>
+        <a href="https://blog.wisekee.com/post/awesome-blog-resources/" class="nav-link">Awesome blog&#39;s resoures</a>
+      </li>
     
       <li>
         <a href="https://blog.wisekee.com/post/k8s-metrics-server/" class="nav-link">Solve the problem of Metrics - Server</a>
@@ -579,13 +587,13 @@
     <ul class="flex-column">
       
       <li>
+        <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/awesome-open-source/" class="nav-link">Awesome open resoure tools and project</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/awesome-blog-resources/" class="nav-link">Awesome blog&#39;s resoures</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/go-private-package-registry-athens/" class="nav-link">Go language private registry glance</a>
@@ -626,7 +634,7 @@
         
         <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent">
           FEATURED
-          <span class='button_tally'>6</span>
+          <span class='button_tally'>8</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/terraform/' class=" post_tag button button_translucent">
@@ -782,7 +790,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent" data-position=6>FEATURED<span class='button_tally'>6</span>
+            <a href='https://blog.wisekee.com/tags/featured/' class=" post_tag button button_translucent" data-position=8>FEATURED<span class='button_tally'>8</span>
             </a>
             
             
