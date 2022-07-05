@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>Php file cache in project | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.74.3" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -140,95 +140,95 @@
 
     
     <h4 id="use-cache-library-out-of-laravel-framework">use cache library out of laravel framework</h4>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="ln"> 1</span><span class="cp">&lt;?php</span>
-<span class="ln"> 2</span>
-<span class="ln"> 3</span><span class="k">namespace</span> <span class="nx">Company</span><span class="p">;</span>
-<span class="ln"> 4</span>
-<span class="ln"> 5</span>
-<span class="ln"> 6</span><span class="k">use</span> <span class="nx">Illuminate\Cache\CacheManager</span><span class="p">;</span>
-<span class="ln"> 7</span><span class="k">use</span> <span class="nx">Illuminate\Container\Container</span><span class="p">;</span>
-<span class="ln"> 8</span><span class="k">use</span> <span class="nx">Illuminate\Filesystem\Filesystem</span><span class="p">;</span>
-<span class="ln"> 9</span>
-<span class="ln">10</span><span class="k">class</span> <span class="nc">FileCache</span> <span class="p">{</span>
-<span class="ln">11</span>
-<span class="ln">12</span>
-<span class="ln">13</span>    <span class="k">private</span> <span class="nv">$cacheManager</span><span class="p">;</span>
-<span class="ln">14</span>    <span class="k">private</span> <span class="nv">$cache</span><span class="p">;</span>
-<span class="ln">15</span>
-<span class="ln">16</span>    <span class="k">private</span>  <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
-<span class="ln">17</span>    <span class="p">{</span>
-<span class="ln">18</span>       <span class="nv">$container</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Container</span><span class="p">();</span>
-<span class="ln">19</span>       <span class="nv">$container</span><span class="p">[</span><span class="s1">&#39;config&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
-<span class="ln">20</span>            <span class="s1">&#39;cache.default&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;file&#39;</span><span class="p">,</span>
-<span class="ln">21</span>            <span class="s1">&#39;cache.stores.file&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-<span class="ln">22</span>                <span class="s1">&#39;driver&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;file&#39;</span><span class="p">,</span>
-<span class="ln">23</span>                <span class="s1">&#39;path&#39;</span> <span class="o">=&gt;</span> <span class="no">__DIR__</span> <span class="o">.</span> <span class="s1">&#39;/../../../storage/framework/cache&#39;</span>
-<span class="ln">24</span>            <span class="p">]</span>
-<span class="ln">25</span>        <span class="p">];</span>
-<span class="ln">26</span>
-<span class="ln">27</span>       <span class="nv">$container</span><span class="p">[</span><span class="s1">&#39;files&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Filesystem</span><span class="p">();</span>
-<span class="ln">28</span>       <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cacheManager</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CacheManager</span><span class="p">(</span><span class="nv">$container</span><span class="p">);</span>
-<span class="ln">29</span>       <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cache</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cacheManager</span><span class="o">-&gt;</span><span class="na">store</span><span class="p">();</span>
-<span class="ln">30</span>    <span class="p">}</span>
-<span class="ln">31</span>
-<span class="ln">32</span>    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">rememberForever</span><span class="p">(</span><span class="nv">$key</span><span class="p">,</span> <span class="nx">callable</span> <span class="nv">$callBack</span><span class="p">)</span> <span class="p">{</span>
-<span class="ln">33</span>        <span class="k">return</span> <span class="p">(</span><span class="k">new</span> <span class="k">static</span><span class="p">())</span>
-<span class="ln">34</span>            <span class="o">-&gt;</span><span class="na">cache</span>
-<span class="ln">35</span>            <span class="o">-&gt;</span><span class="na">rememberForever</span><span class="p">(</span><span class="nv">$key</span><span class="p">,</span> <span class="nv">$callBack</span><span class="p">);</span>
-<span class="ln">36</span>    <span class="p">}</span>
-<span class="ln">37</span><span class="p">}</span>
-</code></pre></div><h4 id="use-file-cache-get-aws-secretsmanager-item">use file cache get AWS SecretsManager item</h4>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="ln"> 1</span><span class="cp">&lt;?php</span>
-<span class="ln"> 2</span>
-<span class="ln"> 3</span><span class="k">namespace</span> <span class="nx">Company</span><span class="p">;</span>
-<span class="ln"> 4</span>
-<span class="ln"> 5</span><span class="k">use</span> <span class="nx">Aws\Exception\AwsException</span><span class="p">;</span>
-<span class="ln"> 6</span><span class="k">use</span> <span class="nx">Aws\SecretsManager\SecretsManagerClient</span><span class="p">;</span>
-<span class="ln"> 7</span>
-<span class="ln"> 8</span><span class="k">class</span> <span class="nc">Configuration</span>
-<span class="ln"> 9</span><span class="p">{</span>
-<span class="ln">10</span>
-<span class="ln">11</span>    <span class="k">private</span> <span class="k">const</span> <span class="no">SECRET_PATTERN</span> <span class="o">=</span> <span class="s1">&#39;#/secretsmanager/[^\s\n]+#&#39;</span><span class="p">;</span>
-<span class="ln">12</span>
-<span class="ln">13</span>    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">wrapEnv</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$key</span><span class="p">)</span><span class="o">:</span> <span class="nx">string</span>
-<span class="ln">14</span>    <span class="p">{</span>
-<span class="ln">15</span>        <span class="nv">$value</span> <span class="o">=</span> <span class="nx">Env</span><span class="p">(</span><span class="nv">$key</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
-<span class="ln">16</span>        <span class="k">if</span> <span class="p">(</span><span class="nx">preg_match</span><span class="p">(</span><span class="k">static</span><span class="o">::</span><span class="na">SECRET_PATTERN</span><span class="p">,</span> <span class="nv">$value</span><span class="p">))</span> <span class="p">{</span>
-<span class="ln">17</span>            <span class="k">return</span> <span class="nx">FileCache</span><span class="o">::</span><span class="na">rememberForever</span><span class="p">(</span><span class="s2">&#34;AWS:SM:&#34;</span><span class="o">.</span><span class="nv">$key</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="k">use</span><span class="p">(</span><span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
-<span class="ln">18</span>                <span class="k">return</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">fetchFromSM</span><span class="p">(</span><span class="nv">$value</span><span class="p">);</span>
-<span class="ln">19</span>            <span class="p">});</span>
-<span class="ln">20</span>        <span class="p">}</span>
-<span class="ln">21</span>
-<span class="ln">22</span>        <span class="k">return</span> <span class="nv">$value</span><span class="p">;</span>
-<span class="ln">23</span>    <span class="p">}</span>
-<span class="ln">24</span>
-<span class="ln">25</span>    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">fetchFromSM</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$key</span><span class="p">)</span><span class="o">:</span> <span class="nx">string</span>
-<span class="ln">26</span>    <span class="p">{</span>
-<span class="ln">27</span>        <span class="nv">$args</span> <span class="o">=</span> <span class="p">[</span>
-<span class="ln">28</span>            <span class="s1">&#39;region&#39;</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;AWS_DEFAULT_REGION&#39;</span><span class="p">,</span> <span class="s1">&#39;us-east-1&#39;</span><span class="p">),</span>
-<span class="ln">29</span>            <span class="s1">&#39;version&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;2017-10-17&#39;</span><span class="p">,</span>
-<span class="ln">30</span>        <span class="p">];</span>
-<span class="ln">31</span>        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nx">env</span><span class="p">(</span><span class="s1">&#39;AWS_MOCK_SM_URL&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)))</span> <span class="p">{</span>
-<span class="ln">32</span>            <span class="nv">$args</span><span class="p">[</span><span class="s1">&#39;endpoint&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;AWS_MOCK_SM_URL&#39;</span><span class="p">);</span>
-<span class="ln">33</span>        <span class="p">}</span>
-<span class="ln">34</span>        <span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SecretsManagerClient</span><span class="p">(</span><span class="nv">$args</span><span class="p">);</span>
-<span class="ln">35</span>        <span class="k">try</span> <span class="p">{</span>
-<span class="ln">36</span>            <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">getSecretValue</span><span class="p">([</span><span class="s1">&#39;SecretId&#39;</span> <span class="o">=&gt;</span> <span class="nv">$key</span><span class="p">,]);</span>
-<span class="ln">37</span>        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">AwsException</span> <span class="nv">$ex</span><span class="p">)</span> <span class="p">{</span>
-<span class="ln">38</span>            <span class="k">throw</span> <span class="nv">$ex</span><span class="p">;</span>
-<span class="ln">39</span>        <span class="p">}</span>
-<span class="ln">40</span>
-<span class="ln">41</span>        <span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">&#39;SecretString&#39;</span><span class="p">]))</span> <span class="p">{</span>
-<span class="ln">42</span>            <span class="nv">$value</span> <span class="o">=</span> <span class="nv">$result</span><span class="p">[</span><span class="s1">&#39;SecretString&#39;</span><span class="p">];</span>
-<span class="ln">43</span>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-<span class="ln">44</span>            <span class="nv">$value</span> <span class="o">=</span> <span class="nx">base64_decode</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">&#39;SecretString&#39;</span><span class="p">]);</span>
-<span class="ln">45</span>        <span class="p">}</span>
-<span class="ln">46</span>
-<span class="ln">47</span>        <span class="k">return</span> <span class="nv">$value</span><span class="p">;</span>
-<span class="ln">48</span>    <span class="p">}</span>
-<span class="ln">49</span>
-<span class="ln">50</span><span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="k">namespace</span> <span class="nx">Company</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="k">use</span> <span class="nx">Illuminate\Cache\CacheManager</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="k">use</span> <span class="nx">Illuminate\Container\Container</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="k">use</span> <span class="nx">Illuminate\Filesystem\Filesystem</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="k">class</span> <span class="nc">FileCache</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">
+</span></span><span class="line"><span class="ln">12</span><span class="cl">
+</span></span><span class="line"><span class="ln">13</span><span class="cl">    <span class="k">private</span> <span class="nv">$cacheManager</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">    <span class="k">private</span> <span class="nv">$cache</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">
+</span></span><span class="line"><span class="ln">16</span><span class="cl">    <span class="k">private</span>  <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">       <span class="nv">$container</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Container</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">       <span class="nv">$container</span><span class="p">[</span><span class="s1">&#39;config&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">            <span class="s1">&#39;cache.default&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;file&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">            <span class="s1">&#39;cache.stores.file&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">                <span class="s1">&#39;driver&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;file&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">                <span class="s1">&#39;path&#39;</span> <span class="o">=&gt;</span> <span class="no">__DIR__</span> <span class="o">.</span> <span class="s1">&#39;/../../../storage/framework/cache&#39;</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">            <span class="p">]</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">
+</span></span><span class="line"><span class="ln">27</span><span class="cl">       <span class="nv">$container</span><span class="p">[</span><span class="s1">&#39;files&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Filesystem</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">       <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cacheManager</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CacheManager</span><span class="p">(</span><span class="nv">$container</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">       <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cache</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cacheManager</span><span class="o">-&gt;</span><span class="na">store</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">
+</span></span><span class="line"><span class="ln">32</span><span class="cl">    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">rememberForever</span><span class="p">(</span><span class="nv">$key</span><span class="p">,</span> <span class="nx">callable</span> <span class="nv">$callBack</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="k">new</span> <span class="k">static</span><span class="p">())</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl">            <span class="o">-&gt;</span><span class="na">cache</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl">            <span class="o">-&gt;</span><span class="na">rememberForever</span><span class="p">(</span><span class="nv">$key</span><span class="p">,</span> <span class="nv">$callBack</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">36</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h4 id="use-file-cache-get-aws-secretsmanager-item">use file cache get AWS SecretsManager item</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="k">namespace</span> <span class="nx">Company</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="k">use</span> <span class="nx">Aws\Exception\AwsException</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="k">use</span> <span class="nx">Aws\SecretsManager\SecretsManagerClient</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="k">class</span> <span class="nc">Configuration</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="k">private</span> <span class="k">const</span> <span class="no">SECRET_PATTERN</span> <span class="o">=</span> <span class="s1">&#39;#/secretsmanager/[^\s\n]+#&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">
+</span></span><span class="line"><span class="ln">13</span><span class="cl">    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">wrapEnv</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$key</span><span class="p">)</span><span class="o">:</span> <span class="nx">string</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">        <span class="nv">$value</span> <span class="o">=</span> <span class="nx">Env</span><span class="p">(</span><span class="nv">$key</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">preg_match</span><span class="p">(</span><span class="k">static</span><span class="o">::</span><span class="na">SECRET_PATTERN</span><span class="p">,</span> <span class="nv">$value</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">            <span class="k">return</span> <span class="nx">FileCache</span><span class="o">::</span><span class="na">rememberForever</span><span class="p">(</span><span class="s2">&#34;AWS:SM:&#34;</span><span class="o">.</span><span class="nv">$key</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="k">use</span><span class="p">(</span><span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">                <span class="k">return</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">fetchFromSM</span><span class="p">(</span><span class="nv">$value</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">            <span class="p">});</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">
+</span></span><span class="line"><span class="ln">22</span><span class="cl">        <span class="k">return</span> <span class="nv">$value</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">
+</span></span><span class="line"><span class="ln">25</span><span class="cl">    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">fetchFromSM</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$key</span><span class="p">)</span><span class="o">:</span> <span class="nx">string</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">        <span class="nv">$args</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">            <span class="s1">&#39;region&#39;</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;AWS_DEFAULT_REGION&#39;</span><span class="p">,</span> <span class="s1">&#39;us-east-1&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">            <span class="s1">&#39;version&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;2017-10-17&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nx">env</span><span class="p">(</span><span class="s1">&#39;AWS_MOCK_SM_URL&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">            <span class="nv">$args</span><span class="p">[</span><span class="s1">&#39;endpoint&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">env</span><span class="p">(</span><span class="s1">&#39;AWS_MOCK_SM_URL&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl">        <span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SecretsManagerClient</span><span class="p">(</span><span class="nv">$args</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl">        <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">36</span><span class="cl">            <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">getSecretValue</span><span class="p">([</span><span class="s1">&#39;SecretId&#39;</span> <span class="o">=&gt;</span> <span class="nv">$key</span><span class="p">,]);</span>
+</span></span><span class="line"><span class="ln">37</span><span class="cl">        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">AwsException</span> <span class="nv">$ex</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">38</span><span class="cl">            <span class="k">throw</span> <span class="nv">$ex</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">39</span><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="ln">40</span><span class="cl">
+</span></span><span class="line"><span class="ln">41</span><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">&#39;SecretString&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">42</span><span class="cl">            <span class="nv">$value</span> <span class="o">=</span> <span class="nv">$result</span><span class="p">[</span><span class="s1">&#39;SecretString&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="ln">43</span><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">44</span><span class="cl">            <span class="nv">$value</span> <span class="o">=</span> <span class="nx">base64_decode</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s1">&#39;SecretString&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="ln">45</span><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="ln">46</span><span class="cl">
+</span></span><span class="line"><span class="ln">47</span><span class="cl">        <span class="k">return</span> <span class="nv">$value</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">48</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">49</span><span class="cl">
+</span></span><span class="line"><span class="ln">50</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
   </article>
 <aside class="sidebar">
   <section class="sidebar_inner">

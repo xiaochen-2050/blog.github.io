@@ -2,7 +2,7 @@
 <html lang="en" data-figures="">
   <head>  <title>Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.74.3" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -126,7 +126,7 @@
         <div>
           <p class = 'pale'>Sometimes we need to manage distributed task scheduling and secure clandestine transport, so introducing HashiStack is a good choice
 Prepare Ansible script and playbook I choice the following playbook roles for stacks,But I changed things to suit my own needs
- Consul: github url Nomad: github url Vault use both repo …</p>
+Consul: github url Nomad: github url Vault use both repo …</p>
           <a href='https://blog.wisekee.com/post/launch-hashistack-through-ansible/' class='excerpt_more button'>Read More</a>
         </div>
       </div>
@@ -158,7 +158,7 @@ Prepare Ansible script and playbook I choice the following playbook roles for st
       <div class = 'excerpt_footer'>
         <div>
           <p class = 'pale'>Deploymnet Prometheus+Grafana in single machine use docker-compose service Collect and report node status in grafana dashboard, through node-exporter and process-exporter to promethues tsdb
- Setup and install relative components  1#update the system and install docker component 2yum update -y 3yum install -y yum-utils …</p>
+Setup and install relative components 1#update the system and install docker component 2yum update -y 3yum install -y yum-utils …</p>
           <a href='https://blog.wisekee.com/post/deployment-promethues-grafana/' class='excerpt_more button'>Read More</a>
         </div>
       </div>
@@ -190,7 +190,7 @@ Prepare Ansible script and playbook I choice the following playbook roles for st
       <div class = 'excerpt_footer'>
         <div>
           <p class = 'pale'>Make Ansible docker image for CI/CD workfolws Sometimes need connect to the remote host use publickey and jump server,copy the ssh key to docker image is necessary
- The Dockerfile …</p>
+The Dockerfile 1FROM centos:7 2 3ARG SSH_PRIVATE_KEY 4ARG SSH_HOST_CONFIG 5 6RUN curl -o /etc/yum.repos.d/CentOS-Base.repo …</p>
           <a href='https://blog.wisekee.com/post/make-ansible-docker-image/' class='excerpt_more button'>Read More</a>
         </div>
       </div>
@@ -222,7 +222,7 @@ Prepare Ansible script and playbook I choice the following playbook roles for st
       <div class = 'excerpt_footer'>
         <div>
           <p class = 'pale'>install ELK stack use docker-compose Install and setup ELK stack in single machine use docker compose service. and uesfilebeat ship the logs
- settings the centos system  1sudo yum install -y yum-utils 2sudo yum-config-manager \ 3 --add-repo \ 4 https://download.docker.com/linux/centos/docker-ce.repo 5sudo yum install …</p>
+settings the centos system 1sudo yum install -y yum-utils 2sudo yum-config-manager \ 3 --add-repo \ 4 https://download.docker.com/linux/centos/docker-ce.repo 5sudo yum install …</p>
           <a href='https://blog.wisekee.com/post/docker-compose-elk/' class='excerpt_more button'>Read More</a>
         </div>
       </div>
@@ -253,7 +253,7 @@ Prepare Ansible script and playbook I choice the following playbook roles for st
     </div>
       <div class = 'excerpt_footer'>
         <div>
-          <p class = 'pale'>Wrap the ansible vault scripts 1#!/usr/bin/env bash 2 3[ &#34;$#&#34; -gt 2 ] || { 4 echo &#34;Usage $0encrypt|decrypt option...&#34; 5 echo &#34;Must be least three argumeents required&#34; 6 exit 1 7} 8 9#the decrypt key file path, also can put the aws ssm 10vault_id=&#39;/opt/ansible_pass&#39; 11 12 13function …</p>
+          <p class = 'pale'>Wrap the ansible vault scripts 1#!/usr/bin/env bash 2 3[ &#34;$#&#34; -gt 2 ] || { 4 echo &#34;Usage $0 encrypt|decrypt option...&#34; 5 echo &#34;Must be least three argumeents required&#34; 6 exit 1 7} 8 9#the decrypt key file path, also can put the aws ssm 10vault_id=&#39;/opt/ansible_pass&#39; 11 12 13function …</p>
           <a href='https://blog.wisekee.com/post/ansible-encrypt-secure/' class='excerpt_more button'>Read More</a>
         </div>
       </div>
@@ -261,37 +261,35 @@ Prepare Ansible script and playbook I choice the following playbook roles for st
   </li>
   
     <li>
-<ul class="pagination">
-  <li class="page-item">
-    <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
-  </li>
-  <li class="page-item">
-    <a href="/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/">1</a>
-  </li>
-  <li class="page-item active">
-    <a class="page-link" href="/page/2/">2</a>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/page/3/">3</a>
-  </li>
-  <li class="page-item disabled">
-    <span aria-hidden="true">&nbsp;&hellip;&nbsp;</span>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/page/8/">8</a>
-  </li>
-  <li class="page-item">
-    <a href="/page/3/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-  </li>
-  <li class="page-item">
-    <a href="/page/8/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
-  </li>
-</ul>
-
-
+    <ul class="pagination pagination-default">
+      <li class="page-item">
+        <a href="/" aria-label="First" class="page-link" role="button"><span aria-hidden="true">&laquo;&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/" aria-label="Page 1" class="page-link" role="button">1</a>
+      </li>
+      <li class="page-item active">
+        <a aria-current="page" aria-label="Page 2" class="page-link" role="button">2</a>
+      </li>
+      <li class="page-item">
+        <a href="/page/3/" aria-label="Page 3" class="page-link" role="button">3</a>
+      </li>
+      <li class="page-item">
+        <a href="/page/4/" aria-label="Page 4" class="page-link" role="button">4</a>
+      </li>
+      <li class="page-item">
+        <a href="/page/5/" aria-label="Page 5" class="page-link" role="button">5</a>
+      </li>
+      <li class="page-item">
+        <a href="/page/3/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/page/8/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+      </li>
+    </ul>
     </li>
   </ul>
 <aside class="sidebar">

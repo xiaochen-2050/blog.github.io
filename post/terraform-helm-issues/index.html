@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>Points to note about  Terraform helm provider | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.74.3" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -142,92 +142,92 @@
 
     
     <h3 id="the-metrics-server-helm-chart-as-terraform-hcl">The Metrics-Server helm chart as Terraform HCL</h3>
-<div class="highlight"><pre class="chroma"><code class="language-YAML" data-lang="YAML"><span class="ln"> 1</span>resource<span class="w"> </span><span class="s2">&#34;helm_release&#34;</span><span class="w"> </span><span class="s2">&#34;metrics-server&#34;</span><span class="w"> </span>{<span class="w">
-</span><span class="ln"> 2</span><span class="w">    </span>name<span class="w">       </span>=<span class="w"> </span><span class="s2">&#34;metrics-server&#34;</span><span class="w">
-</span><span class="ln"> 3</span><span class="w">    </span>repository<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;https://charts.bitnami.com/bitnami&#34;</span><span class="w">
-</span><span class="ln"> 4</span><span class="w">    </span>chart<span class="w">      </span>=<span class="w"> </span><span class="s2">&#34;metrics-server&#34;</span><span class="w">
-</span><span class="ln"> 5</span><span class="w">    </span>version<span class="w">    </span>=<span class="w"> </span><span class="s2">&#34;4.1.4&#34;</span><span class="w">
-</span><span class="ln"> 6</span><span class="w">    </span>namespace<span class="w">  </span>=<span class="w"> </span><span class="s2">&#34;kube-system&#34;</span><span class="w">
-</span><span class="ln"> 7</span><span class="w">
-</span><span class="ln"> 8</span><span class="w">    </span>set<span class="w"> </span>{<span class="w">
-</span><span class="ln"> 9</span><span class="w">      </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;extraArgs.kubelet-preferred-address-types&#34;</span><span class="w">
-</span><span class="ln">10</span><span class="w">      </span>value<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;InternalIP\\,ExternalIP\\,Hostname&#34;</span><span class="w">
-</span><span class="ln">11</span><span class="w">    </span>}<span class="w">
-</span><span class="ln">12</span><span class="w">
-</span><span class="ln">13</span><span class="w">    </span>set<span class="w"> </span>{<span class="w">
-</span><span class="ln">14</span><span class="w">      </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;resources.requests.memory&#34;</span><span class="w">
-</span><span class="ln">15</span><span class="w">      </span>value<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;500Mi&#34;</span><span class="w">
-</span><span class="ln">16</span><span class="w">    </span>}<span class="w">
-</span><span class="ln">17</span><span class="w">
-</span><span class="ln">18</span><span class="w">    </span>set<span class="w"> </span>{<span class="w">
-</span><span class="ln">19</span><span class="w">      </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;resources.limits.memory&#34;</span><span class="w">
-</span><span class="ln">20</span><span class="w">      </span>value<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;1Gi&#34;</span><span class="w">
-</span><span class="ln">21</span><span class="w">    </span>}<span class="w">
-</span><span class="ln">22</span><span class="w">
-</span><span class="ln">23</span><span class="w">    </span>set<span class="w"> </span>{<span class="w">
-</span><span class="ln">24</span><span class="w">      </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;apiService.create&#34;</span><span class="w">
-</span><span class="ln">25</span><span class="w">      </span>value<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">
-</span><span class="ln">26</span><span class="w">    </span>}<span class="w">
-</span><span class="ln">27</span><span class="w">
-</span><span class="ln">28</span><span class="w"></span>}<span class="w">
-</span></code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-YAML" data-lang="YAML"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="l">resource &#34;helm_release&#34; &#34;metrics-server&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">    </span><span class="l">name       = &#34;metrics-server&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">    </span><span class="l">repository = &#34;https://charts.bitnami.com/bitnami&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">    </span><span class="l">chart      = &#34;metrics-server&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">    </span><span class="l">version    = &#34;4.1.4&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">    </span><span class="l">namespace  = &#34;kube-system&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">    </span><span class="l">set {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">      </span><span class="l">name = &#34;extraArgs.kubelet-preferred-address-types&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">      </span><span class="l">value = &#34;InternalIP\\,ExternalIP\\,Hostname&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">    </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">    </span><span class="l">set {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">      </span><span class="l">name = &#34;resources.requests.memory&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">      </span><span class="l">value = &#34;500Mi&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">    </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">    </span><span class="l">set {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">      </span><span class="l">name = &#34;resources.limits.memory&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">      </span><span class="l">value = &#34;1Gi&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">    </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">    </span><span class="l">set {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">      </span><span class="l">name = &#34;apiService.create&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">      </span><span class="l">value = &#34;true&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">    </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span></code></pre></div><ul>
 <li>The <code>apiService.create</code> always assign to <code>true</code> when in AWS EKS or other kubernetes distribution</li>
 <li>The values include comma <code>,</code> muste be use escape in terraform</li>
 <li>Any resources should be specific quota, like resource requests and limits</li>
 </ul>
 <h4 id="when-name-includes-dot-annotations-also-escaped">When <code>Name</code> includes dot annotations also escaped</h4>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln">1</span><span class="c"># set {</span><span class="w">
-</span><span class="ln">2</span><span class="w"></span><span class="c">#   type  = &#34;string&#34;</span><span class="w">
-</span><span class="ln">3</span><span class="w"></span><span class="c">#   name  = &#34;ingress.web.annotations.alb\\.ingress\\.kubernetes\\.io/security-groups&#34;</span><span class="w">
-</span><span class="ln">4</span><span class="w"></span><span class="c">#   value = &#34;${var.office_sg_id}\\,${var.internal_sg_id}\\,${var.cluster_sg_id}&#34;</span><span class="w">
-</span><span class="ln">5</span><span class="w"></span><span class="c"># }</span><span class="w">
-</span></code></pre></div><h4 id="terraform-helm-release-use-local-charts">terraform helm release use local charts</h4>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span>resource<span class="w"> </span><span class="s2">&#34;helm_release&#34;</span><span class="w"> </span><span class="s2">&#34;fluentd_server&#34;</span><span class="w"> </span>{<span class="w">
-</span><span class="ln"> 2</span><span class="w">  </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;fluentd-server&#34;</span><span class="w">
-</span><span class="ln"> 3</span><span class="w">  </span><span class="c"># repository = &#34;https://charts.bitnami.com/bitnami&#34;</span><span class="w">
-</span><span class="ln"> 4</span><span class="w">  </span>chart<span class="w">     </span>=<span class="w"> </span><span class="s2">&#34;${path.module}/../../../../../charts/fluentd&#34;</span><span class="w">
-</span><span class="ln"> 5</span><span class="w">  </span>version<span class="w">   </span>=<span class="w"> </span><span class="s2">&#34;3.1.0&#34;</span><span class="w">
-</span><span class="ln"> 6</span><span class="w">  </span>namespace<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;kube-system&#34;</span><span class="w">
-</span><span class="ln"> 7</span><span class="w">
-</span><span class="ln"> 8</span><span class="w">  </span>values<span class="w"> </span>=<span class="w"> </span><span class="p">[</span><span class="w">
-</span><span class="ln"> 9</span><span class="w">    </span>&lt;&lt;-EOF<span class="w">
-</span><span class="ln">10</span><span class="w">    </span><span class="k">forwarder</span><span class="p">:</span><span class="w">
-</span><span class="ln">11</span><span class="w">      </span><span class="k">configMap</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;fluentd-forwarder-config&#34;</span><span class="w">
-</span><span class="ln">12</span><span class="w">      </span><span class="k">rbac</span><span class="p">:</span><span class="w">
-</span><span class="ln">13</span><span class="w">        </span><span class="k">pspEnabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">14</span><span class="w">      </span><span class="k">resources</span><span class="p">:</span><span class="w">
-</span><span class="ln">15</span><span class="w">        </span><span class="k">limits</span><span class="p">:</span><span class="w">
-</span><span class="ln">16</span><span class="w">          </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>1Gi<span class="w">
-</span><span class="ln">17</span><span class="w">        </span><span class="k">requests</span><span class="p">:</span><span class="w">
-</span><span class="ln">18</span><span class="w">          </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>512Mi<span class="w">
-</span><span class="ln">19</span><span class="w">    </span><span class="k">aggregator</span><span class="p">:</span><span class="w">
-</span><span class="ln">20</span><span class="w">      </span><span class="k">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="ln">21</span><span class="w">      </span><span class="k">configMap</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;fluentd-elasticsearch-config&#34;</span><span class="w">
-</span><span class="ln">22</span><span class="w">      </span><span class="k">resources</span><span class="p">:</span><span class="w">
-</span><span class="ln">23</span><span class="w">        </span><span class="k">limits</span><span class="p">:</span><span class="w">
-</span><span class="ln">24</span><span class="w">          </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>1Gi<span class="w">
-</span><span class="ln">25</span><span class="w">        </span><span class="k">requests</span><span class="p">:</span><span class="w">
-</span><span class="ln">26</span><span class="w">          </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>512Mi<span class="w">
-</span><span class="ln">27</span><span class="w">      </span><span class="k">extraEnv</span><span class="p">:</span><span class="w">
-</span><span class="ln">28</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>ELASTICSEARCH_HOST<span class="w">
-</span><span class="ln">29</span><span class="w">          </span><span class="k">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${var.es_url}&#34;</span><span class="w">
-</span><span class="ln">30</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>ELASTICSEARCH_PORT<span class="w">
-</span><span class="ln">31</span><span class="w">          </span><span class="k">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;80&#34;</span><span class="w">
-</span><span class="ln">32</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>ELASTICSEARCH_SCHEME<span class="w">
-</span><span class="ln">33</span><span class="w">          </span><span class="k">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;http&#34;</span><span class="w">        
-</span><span class="ln">34</span><span class="w">      </span><span class="k">persistence</span><span class="p">:</span><span class="w">
-</span><span class="ln">35</span><span class="w">        </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">36</span><span class="w">        </span><span class="k">storageClass</span><span class="p">:</span><span class="w"> </span>gp2<span class="w">
-</span><span class="ln">37</span><span class="w">    </span>EOF<span class="w">
-</span><span class="ln">38</span><span class="w">  </span><span class="p">]</span><span class="w">
-</span><span class="ln">39</span><span class="w">
-</span><span class="ln">40</span><span class="w">  </span>depends_on<span class="w"> </span>=<span class="w"> </span><span class="p">[</span><span class="w">
-</span><span class="ln">41</span><span class="w">    </span>kubernetes_config_map.fluentd_elasticsearch_output<span class="p">,</span><span class="w">
-</span><span class="ln">42</span><span class="w">    </span>kubernetes_config_map.fluentd_forwarder_config<span class="w">
-</span><span class="ln">43</span><span class="w">  </span><span class="p">]</span><span class="w">
-</span><span class="ln">44</span><span class="w">
-</span><span class="ln">45</span><span class="w"></span>}<span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">1</span><span class="cl"><span class="c"># set {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="c">#   type  = &#34;string&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w"></span><span class="c">#   name  = &#34;ingress.web.annotations.alb\\.ingress\\.kubernetes\\.io/security-groups&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w"></span><span class="c">#   value = &#34;${var.office_sg_id}\\,${var.internal_sg_id}\\,${var.cluster_sg_id}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w"></span><span class="c"># }</span><span class="w">
+</span></span></span></code></pre></div><h4 id="terraform-helm-release-use-local-charts">terraform helm release use local charts</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="l">resource &#34;helm_release&#34; &#34;fluentd_server&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">  </span><span class="l">name = &#34;fluentd-server&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">  </span><span class="c"># repository = &#34;https://charts.bitnami.com/bitnami&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="l">chart     = &#34;${path.module}/../../../../../charts/fluentd&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span><span class="l">version   = &#34;3.1.0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">  </span><span class="l">namespace = &#34;kube-system&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">  </span><span class="l">values = [</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">    </span><span class="l">&lt;&lt;-EOF</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">    </span><span class="nt">forwarder</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">      </span><span class="nt">configMap</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;fluentd-forwarder-config&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">      </span><span class="nt">rbac</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">        </span><span class="nt">pspEnabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">      </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">        </span><span class="nt">limits</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">1Gi</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">        </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">512Mi</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">    </span><span class="nt">aggregator</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">      </span><span class="nt">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">      </span><span class="nt">configMap</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;fluentd-elasticsearch-config&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">      </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">        </span><span class="nt">limits</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">1Gi</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">        </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">512Mi</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">      </span><span class="nt">extraEnv</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ELASTICSEARCH_HOST</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${var.es_url}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ELASTICSEARCH_PORT</span><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;80&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ELASTICSEARCH_SCHEME</span><span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;http&#34;</span><span class="w">        
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w">      </span><span class="nt">persistence</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w">        </span><span class="nt">storageClass</span><span class="p">:</span><span class="w"> </span><span class="l">gp2</span><span class="w">
+</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w">    </span><span class="l">EOF</span><span class="w">
+</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w">  </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w">  </span><span class="l">depends_on = [</span><span class="w">
+</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="w">    </span><span class="l">kubernetes_config_map.fluentd_elasticsearch_output,</span><span class="w">
+</span></span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="w">    </span><span class="l">kubernetes_config_map.fluentd_forwarder_config</span><span class="w">
+</span></span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="w">  </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span></code></pre></div>
   </article>
 <aside class="sidebar">
   <section class="sidebar_inner">

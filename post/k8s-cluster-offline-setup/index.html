@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>Offline install and setup kubernetes cluster in internal network | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.74.3" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -148,12 +148,12 @@
 <li>Download the Terraform binary  <a href="https://www.terraform.io/downloads.html">terraform</a>
 You can also download the HELM binary to operate the k8s cluster.</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>wget https://releases.hashicorp.com/terraform/0.15.4/terraform_0.15.4_linux_amd64.zip
-<span class="ln">2</span>unzip terraform_0.15.4_linux_amd64.zip
-<span class="ln">3</span>mv terraform /usr/local/bin/
-<span class="ln">4</span>chmod +x /usr/local/bin/terraform
-<span class="ln">5</span>terraform version
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">wget https://releases.hashicorp.com/terraform/0.15.4/terraform_0.15.4_linux_amd64.zip
+</span></span><span class="line"><span class="ln">2</span><span class="cl">unzip terraform_0.15.4_linux_amd64.zip
+</span></span><span class="line"><span class="ln">3</span><span class="cl">mv terraform /usr/local/bin/
+</span></span><span class="line"><span class="ln">4</span><span class="cl">chmod +x /usr/local/bin/terraform
+</span></span><span class="line"><span class="ln">5</span><span class="cl">terraform version
+</span></span></code></pre></div><ul>
 <li>
 <p>Prepare the Terraform syntax tips plugins in idea IDE
 <code>https://plugins.jetbrains.com/plugin/7808-hashicorp-terraform--hcl-language-support</code></p>
@@ -162,274 +162,271 @@ You can also download the HELM binary to operate the k8s cluster.</li>
 <p>Because the Terraform plugins and providers Offline to local directory and push to CVS repo so needs to install git lfs plugins</p>
 </li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>git lfs install <span class="c1">#the binary in git repo need to lfs plugin</span>
-<span class="ln">2</span><span class="nb">cd</span> app/dev/ <span class="c1">#enter the app dir</span>
-<span class="ln">3</span>terraform init  -backend-config<span class="o">=</span>./backend.tfvars <span class="c1">#init terraform environment</span>
-<span class="ln">4</span>terraform fmt <span class="c1"># format the HCL code</span>
-<span class="ln">5</span>terraform validate <span class="c1">#validation the HCL syntax</span>
-<span class="ln">6</span>terraform plan -var-file<span class="o">=</span>./dev.tfvars <span class="c1">#view the IAC information and changed</span>
-<span class="ln">7</span>terraform apply -var-file<span class="o">=</span>./dev.tfvars <span class="c1">#asign to change</span> 
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">git lfs install <span class="c1">#the binary in git repo need to lfs plugin</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nb">cd</span> app/dev/ <span class="c1">#enter the app dir</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">terraform init  -backend-config<span class="o">=</span>./backend.tfvars <span class="c1">#init terraform environment</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">terraform fmt <span class="c1"># format the HCL code</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">terraform validate <span class="c1">#validation the HCL syntax</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">terraform plan -var-file<span class="o">=</span>./dev.tfvars <span class="c1">#view the IAC information and changed</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">terraform apply -var-file<span class="o">=</span>./dev.tfvars <span class="c1">#asign to change </span>
+</span></span></code></pre></div><ul>
 <li>Init the directories level</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span>├── charts <span class="c1"># storage the helm charts</span>
-<span class="ln"> 2</span>│   ├── eck-operator
-<span class="ln"> 3</span>│   ├── etcd
-<span class="ln"> 4</span>│   ├── fluentd
-<span class="ln"> 5</span>│   ├── ingress-nginx
-<span class="ln"> 6</span>│   ├── kube-prometheus-stack
-<span class="ln"> 7</span>│   ├── kubernetes-dashboard
-<span class="ln"> 8</span>│   ├── postgresql
-<span class="ln"> 9</span>│   └── myapp-skeleton <span class="c1"># yourself the helm chart</span>
-<span class="ln">10</span>├── iac <span class="c1"># storage the terraform HCL code and environment config</span>
-<span class="ln">11</span>│   ├── base <span class="c1"># the public global settings</span>
-<span class="ln">12</span>│   ├── base-us <span class="c1"># the other special global settings</span>
-<span class="ln">13</span>│   ├── exec.sh <span class="c1"># quickly create environment structure</span> 
-<span class="ln">14</span>│   ├── modules <span class="c1"># the public modules reference to othe environment</span>
-<span class="ln">15</span>│   ├── dev <span class="c1"># the developement env</span>
-<span class="ln">16</span>│   └── qa <span class="c1"># the qa testing env</span>
-<span class="ln">17</span>├── README.md
-<span class="ln">18</span>└── tests <span class="c1"># some test suite and so on</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">├── charts <span class="c1"># storage the helm charts</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">│   ├── eck-operator
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">│   ├── etcd
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">│   ├── fluentd
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">│   ├── ingress-nginx
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">│   ├── kube-prometheus-stack
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">│   ├── kubernetes-dashboard
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">│   ├── postgresql
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">│   └── myapp-skeleton <span class="c1"># yourself the helm chart</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">├── iac <span class="c1"># storage the terraform HCL code and environment config</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">│   ├── base <span class="c1"># the public global settings</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">│   ├── base-us <span class="c1"># the other special global settings</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">│   ├── exec.sh <span class="c1"># quickly create environment structure </span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">│   ├── modules <span class="c1"># the public modules reference to othe environment</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">│   ├── dev <span class="c1"># the developement env</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">│   └── qa <span class="c1"># the qa testing env</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">├── README.md
+</span></span><span class="line"><span class="ln">18</span><span class="cl">└── tests <span class="c1"># some test suite and so on</span>
+</span></span></code></pre></div><ul>
 <li>The <code>base</code>  directory  include global resources definitions has different <code>*.tfvars</code> in each environment dir. such as: dev/dev.tfvars qa/qa.tfvars</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span>01_main.tf
-<span class="ln"> 2</span>02_base.tf
-<span class="ln"> 3</span>03_ceph_ingress.tf
-<span class="ln"> 4</span>04_operators.tf
-<span class="ln"> 5</span>05_other.tf
-<span class="ln"> 6</span>backend.tfvars
-<span class="ln"> 7</span>base.tfvars
-<span class="ln"> 8</span>outputs.tf
-<span class="ln"> 9</span>terraform.tfstate
-<span class="ln">10</span>variables.tf
-</code></pre></div><p>They have the same structure, but different values</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span>cat base/base.tfvars
-<span class="ln"> 2</span><span class="nv">k8s</span> <span class="o">=</span> <span class="o">{</span>
-<span class="ln"> 3</span>  config_path : <span class="s2">&#34;~/.kube/config&#34;</span>
-<span class="ln"> 4</span>  config_context : <span class="s2">&#34;kubernetes-admin@kubernetes&#34;</span>
-<span class="ln"> 5</span><span class="o">}</span>
-<span class="ln"> 6</span><span class="nv">nodes_ip</span> <span class="o">=</span> <span class="o">[</span>
-<span class="ln"> 7</span>    <span class="s2">&#34;10.10.1.1&#34;</span>,
-<span class="ln"> 8</span>    <span class="s2">&#34;10.10.1.2&#34;</span>,
-<span class="ln"> 9</span>    <span class="s2">&#34;10.10.1.3&#34;</span>
-<span class="ln">10</span>  <span class="o">]</span>
-<span class="ln">11</span><span class="nv">private_registry_prefix</span> <span class="o">=</span> <span class="s2">&#34;registry.me&#34;</span>
-<span class="ln">12</span><span class="nv">custom_namespaces</span>       <span class="o">=</span> <span class="o">[</span><span class="s2">&#34;qa&#34;</span>, <span class="s2">&#34;dev&#34;</span><span class="o">]</span>
-<span class="ln">13</span><span class="nv">component</span> <span class="o">=</span> <span class="o">{</span>
-<span class="ln">14</span>    <span class="nv">redis</span> <span class="o">=</span> <span class="o">{</span>
-<span class="ln">15</span>      enabled: <span class="nb">true</span>
-<span class="ln">16</span>    <span class="o">}</span>
-<span class="ln">17</span>    <span class="nv">postgres</span> <span class="o">=</span> <span class="o">{</span>
-<span class="ln">18</span>      enabled: <span class="nb">true</span>
-<span class="ln">19</span>    <span class="o">}</span>
-<span class="ln">20</span>    <span class="nv">elk</span> <span class="o">=</span> <span class="o">{</span>
-<span class="ln">21</span>      enabled: <span class="nb">true</span>
-<span class="ln">22</span>      es_storage_size: <span class="s2">&#34;20Gi&#34;</span>
-<span class="ln">23</span>      expose_es_endpoint: <span class="nb">true</span>
-<span class="ln">24</span>      kibana_node_count:  <span class="m">1</span>
-<span class="ln">25</span>      master_node_count: <span class="m">2</span>
-<span class="ln">26</span>      data_node_count: <span class="m">2</span>
-<span class="ln">27</span>      apm_node_count: <span class="m">2</span>
-<span class="ln">28</span>    <span class="o">}</span>
-<span class="ln">29</span>    <span class="nv">fluentd</span> <span class="o">=</span> <span class="o">{</span>
-<span class="ln">30</span>      enabled: <span class="nb">true</span>
-<span class="ln">31</span>    <span class="o">}</span>
-<span class="ln">32</span><span class="o">}</span>
-<span class="ln">33</span><span class="nv">core_domains</span> <span class="o">=</span> <span class="o">{</span>
-<span class="ln">34</span>  grafana : <span class="s2">&#34;kb.k8s.test.com&#34;</span>
-<span class="ln">35</span>  alert_manager : <span class="s2">&#34;alert.k8s.test.com&#34;</span>
-<span class="ln">36</span>  ceph_ingress : <span class="s2">&#34;ceph.k8s.test.com&#34;</span>
-<span class="ln">37</span>  dashboard : <span class="s2">&#34;admin.k8s.test.com&#34;</span>
-<span class="ln">38</span>  pg_op_ui: <span class="s2">&#34;pg-op-ui.k8s.test.com&#34;</span>
-<span class="ln">39</span>  redis_insight: <span class="s2">&#34;redis-ui.k8s.test.com&#34;</span>
-<span class="ln">40</span>  kibana: <span class="s2">&#34;kibana.k8s.test.com&#34;</span>
-<span class="ln">41</span>  prometheus: <span class="s2">&#34;metric.k8s.test.com&#34;</span>
-<span class="ln">42</span>  es_master: <span class="s2">&#34;es-master.k8s.test.com&#34;</span>
-<span class="ln">43</span>  es_data: <span class="s2">&#34;es-data.k8s.test.com&#34;</span>
-<span class="ln">44</span><span class="o">}</span>
-<span class="ln">45</span><span class="nv">storage_class_name</span> <span class="o">=</span> <span class="s2">&#34;rook-cephfs&#34;</span>
-<span class="ln">46</span><span class="nv">s3_config</span> <span class="o">=</span> <span class="o">{</span>
-<span class="ln">47</span>  access_key: <span class="s2">&#34;xxxxxxxxxxxxxxxxxxxxxxxxx&#34;</span>
-<span class="ln">48</span>  secret_key: <span class="s2">&#34;xxxxxxxxxxxxxxxxxxxxxxxxx&#34;</span>
-<span class="ln">49</span><span class="o">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">01_main.tf
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">02_base.tf
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">03_ceph_ingress.tf
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">04_operators.tf
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">05_other.tf
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">backend.tfvars
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">base.tfvars
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">outputs.tf
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">terraform.tfstate
+</span></span><span class="line"><span class="ln">10</span><span class="cl">variables.tf
+</span></span></code></pre></div><p>They have the same structure, but different values</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">cat base/base.tfvars
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="nv">k8s</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  config_path : <span class="s2">&#34;~/.kube/config&#34;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  config_context : <span class="s2">&#34;kubernetes-admin@kubernetes&#34;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="nv">nodes_ip</span> <span class="o">=</span> <span class="o">[</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="s2">&#34;10.10.1.1&#34;</span>,
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="s2">&#34;10.10.1.2&#34;</span>,
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="s2">&#34;10.10.1.3&#34;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="o">]</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="nv">private_registry_prefix</span> <span class="o">=</span> <span class="s2">&#34;registry.me&#34;</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="nv">custom_namespaces</span>       <span class="o">=</span> <span class="o">[</span><span class="s2">&#34;qa&#34;</span>, <span class="s2">&#34;dev&#34;</span><span class="o">]</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="nv">component</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">    <span class="nv">redis</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">      enabled: <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">    <span class="nv">postgres</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">      enabled: <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">    <span class="nv">elk</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">      enabled: <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">      es_storage_size: <span class="s2">&#34;20Gi&#34;</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">      expose_es_endpoint: <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">      kibana_node_count:  <span class="m">1</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">      master_node_count: <span class="m">2</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">      data_node_count: <span class="m">2</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">      apm_node_count: <span class="m">2</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">    <span class="nv">fluentd</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">      enabled: <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="nv">core_domains</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl">  grafana : <span class="s2">&#34;kb.k8s.test.com&#34;</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl">  alert_manager : <span class="s2">&#34;alert.k8s.test.com&#34;</span>
+</span></span><span class="line"><span class="ln">36</span><span class="cl">  ceph_ingress : <span class="s2">&#34;ceph.k8s.test.com&#34;</span>
+</span></span><span class="line"><span class="ln">37</span><span class="cl">  dashboard : <span class="s2">&#34;admin.k8s.test.com&#34;</span>
+</span></span><span class="line"><span class="ln">38</span><span class="cl">  pg_op_ui: <span class="s2">&#34;pg-op-ui.k8s.test.com&#34;</span>
+</span></span><span class="line"><span class="ln">39</span><span class="cl">  redis_insight: <span class="s2">&#34;redis-ui.k8s.test.com&#34;</span>
+</span></span><span class="line"><span class="ln">40</span><span class="cl">  kibana: <span class="s2">&#34;kibana.k8s.test.com&#34;</span>
+</span></span><span class="line"><span class="ln">41</span><span class="cl">  prometheus: <span class="s2">&#34;metric.k8s.test.com&#34;</span>
+</span></span><span class="line"><span class="ln">42</span><span class="cl">  es_master: <span class="s2">&#34;es-master.k8s.test.com&#34;</span>
+</span></span><span class="line"><span class="ln">43</span><span class="cl">  es_data: <span class="s2">&#34;es-data.k8s.test.com&#34;</span>
+</span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="nv">storage_class_name</span> <span class="o">=</span> <span class="s2">&#34;rook-cephfs&#34;</span>
+</span></span><span class="line"><span class="ln">46</span><span class="cl"><span class="nv">s3_config</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln">47</span><span class="cl">  access_key: <span class="s2">&#34;xxxxxxxxxxxxxxxxxxxxxxxxx&#34;</span>
+</span></span><span class="line"><span class="ln">48</span><span class="cl">  secret_key: <span class="s2">&#34;xxxxxxxxxxxxxxxxxxxxxxxxx&#34;</span>
+</span></span><span class="line"><span class="ln">49</span><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><ul>
 <li>The <code>dev/dev.tfvars</code></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span><span class="nv">k8s</span> <span class="o">=</span> <span class="o">{</span>
-<span class="ln"> 2</span>  config_path : <span class="s2">&#34;~/.kube/config&#34;</span>
-<span class="ln"> 3</span>  config_context : <span class="s2">&#34;kubernetes-admin@kubernetes&#34;</span>
-<span class="ln"> 4</span><span class="o">}</span>
-<span class="ln"> 5</span><span class="nv">private_registry_prefix</span> <span class="o">=</span> <span class="s2">&#34;registry.me&#34;</span>
-<span class="ln"> 6</span><span class="nv">storage_class_name</span>      <span class="o">=</span> <span class="s2">&#34;rook-cephfs&#34;</span>
-<span class="ln"> 7</span><span class="nv">namespace</span>               <span class="o">=</span> <span class="s2">&#34;dev&#34;</span>
-<span class="ln"> 8</span><span class="nv">domains</span> <span class="o">=</span> <span class="o">{</span>
-<span class="ln"> 9</span>  rocketmq_console : <span class="s2">&#34;rq.k8s.test.com&#34;</span>
-<span class="ln">10</span>  etcd_ui: <span class="s2">&#34;etcd-ui.k8s.test.com&#34;</span>
-<span class="ln">11</span><span class="o">}</span>
-<span class="ln">12</span><span class="nv">middleware</span> <span class="o">=</span> <span class="o">{</span>
-<span class="ln">13</span>  <span class="nv">rocketmq</span> <span class="o">=</span> <span class="o">{</span>
-<span class="ln">14</span>    <span class="nv">enabled</span>             <span class="o">=</span> <span class="nb">true</span>
-<span class="ln">15</span>    <span class="nv">broker_extra_config</span> <span class="o">=</span> <span class="s">&lt;&lt;-EOT
-</span><span class="ln">16</span><span class="s">      brokerIP1=10.10.1.1
-</span><span class="ln">17</span><span class="s">      brokerIP2=10.10.1.1
-</span><span class="ln">18</span><span class="s">    EOT</span>
-<span class="ln">19</span>    <span class="nv">broker_size</span>         <span class="o">=</span> <span class="m">1</span>
-<span class="ln">20</span>    <span class="nv">broker_memory_set</span>   <span class="o">=</span> <span class="s2">&#34;-Xms1g -Xmx1g -Xmn1g&#34;</span>
-<span class="ln">21</span>  <span class="o">}</span>
-<span class="ln">22</span>  <span class="nv">redis</span> <span class="o">=</span> <span class="o">{</span>
-<span class="ln">23</span>    enabled : <span class="nb">true</span>
-<span class="ln">24</span>    mode : <span class="s2">&#34;standalone&#34;</span>
-<span class="ln">25</span>  <span class="o">}</span>
-<span class="ln">26</span>  <span class="nv">postgres</span> <span class="o">=</span> <span class="o">{</span>
-<span class="ln">27</span>    enabled : <span class="nb">true</span>
-<span class="ln">28</span>    team_id : <span class="s2">&#34;saas&#34;</span>
-<span class="ln">29</span>    cluster_name : <span class="s2">&#34;postgres&#34;</span>
-<span class="ln">30</span>  <span class="o">}</span>
-<span class="ln">31</span>  <span class="nv">etcd</span> <span class="o">=</span> <span class="o">{</span>
-<span class="ln">32</span>    enabled: <span class="nb">true</span>
-<span class="ln">33</span>  <span class="o">}</span>
-<span class="ln">34</span><span class="o">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nv">k8s</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  config_path : <span class="s2">&#34;~/.kube/config&#34;</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  config_context : <span class="s2">&#34;kubernetes-admin@kubernetes&#34;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="nv">private_registry_prefix</span> <span class="o">=</span> <span class="s2">&#34;registry.me&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="nv">storage_class_name</span>      <span class="o">=</span> <span class="s2">&#34;rook-cephfs&#34;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="nv">namespace</span>               <span class="o">=</span> <span class="s2">&#34;dev&#34;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="nv">domains</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  rocketmq_console : <span class="s2">&#34;rq.k8s.test.com&#34;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  etcd_ui: <span class="s2">&#34;etcd-ui.k8s.test.com&#34;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="nv">middleware</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">  <span class="nv">rocketmq</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">    <span class="nv">enabled</span>             <span class="o">=</span> <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">    <span class="nv">broker_extra_config</span> <span class="o">=</span> <span class="s">&lt;&lt;-EOT
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="s">      brokerIP1=10.10.1.1
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="s">      brokerIP2=10.10.1.1
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="s">    EOT</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">    <span class="nv">broker_size</span>         <span class="o">=</span> <span class="m">1</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">    <span class="nv">broker_memory_set</span>   <span class="o">=</span> <span class="s2">&#34;-Xms1g -Xmx1g -Xmn1g&#34;</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">  <span class="nv">redis</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">    enabled : <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">    mode : <span class="s2">&#34;standalone&#34;</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">  <span class="nv">postgres</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">    enabled : <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">    team_id : <span class="s2">&#34;saas&#34;</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">    cluster_name : <span class="s2">&#34;postgres&#34;</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">  <span class="nv">etcd</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">    enabled: <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><ul>
 <li>All environment reference the <code>base</code> directory&rsquo;s <code>01_main.tf</code> symbolical link to it&rsquo;s</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span>terraform <span class="o">{</span>
-<span class="ln"> 2</span>  <span class="nv">required_version</span> <span class="o">=</span> <span class="s2">&#34;&gt;= 0.13&#34;</span>
-<span class="ln"> 3</span>  required_providers <span class="o">{</span>
-<span class="ln"> 4</span>    <span class="nv">kubernetes</span> <span class="o">=</span> <span class="o">{</span>
-<span class="ln"> 5</span>      <span class="nb">source</span>  <span class="o">=</span> <span class="s2">&#34;hashicorp/kubernetes&#34;</span>
-<span class="ln"> 6</span>      <span class="nv">version</span> <span class="o">=</span> <span class="s2">&#34;2.2.0&#34;</span>
-<span class="ln"> 7</span>    <span class="o">}</span>
-<span class="ln"> 8</span>    <span class="nv">helm</span> <span class="o">=</span> <span class="o">{</span>
-<span class="ln"> 9</span>      <span class="nb">source</span>  <span class="o">=</span> <span class="s2">&#34;hashicorp/helm&#34;</span>
-<span class="ln">10</span>      <span class="nv">version</span> <span class="o">=</span> <span class="s2">&#34;2.1.2&#34;</span>
-<span class="ln">11</span>    <span class="o">}</span>
-<span class="ln">12</span>    <span class="nv">kubectl</span> <span class="o">=</span> <span class="o">{</span>
-<span class="ln">13</span>      <span class="nb">source</span>  <span class="o">=</span> <span class="s2">&#34;gavinbunney/kubectl&#34;</span>
-<span class="ln">14</span>      <span class="nv">version</span> <span class="o">=</span> <span class="s2">&#34;1.11.1&#34;</span>
-<span class="ln">15</span>    <span class="o">}</span>
-<span class="ln">16</span>    <span class="nv">template</span> <span class="o">=</span> <span class="o">{</span>
-<span class="ln">17</span>      <span class="nb">source</span>  <span class="o">=</span> <span class="s2">&#34;hashicorp/template&#34;</span>
-<span class="ln">18</span>      <span class="nv">version</span> <span class="o">=</span> <span class="s2">&#34;2.2.0&#34;</span>
-<span class="ln">19</span>    <span class="o">}</span>
-<span class="ln">20</span>  <span class="o">}</span>
-<span class="ln">21</span>
-<span class="ln">22</span>  backend <span class="s2">&#34;s3&#34;</span> <span class="o">{</span>
-<span class="ln">23</span>    <span class="nv">region</span>                      <span class="o">=</span> <span class="s2">&#34;main&#34;</span>
-<span class="ln">24</span>    <span class="nv">skip_requesting_account_id</span>  <span class="o">=</span> <span class="nb">true</span>
-<span class="ln">25</span>    <span class="nv">skip_credentials_validation</span> <span class="o">=</span> <span class="nb">true</span>
-<span class="ln">26</span>    <span class="nv">skip_get_ec2_platforms</span>      <span class="o">=</span> <span class="nb">true</span>
-<span class="ln">27</span>    <span class="nv">skip_metadata_api_check</span>     <span class="o">=</span> <span class="nb">true</span>
-<span class="ln">28</span>    <span class="nv">skip_region_validation</span>      <span class="o">=</span> <span class="nb">true</span>
-<span class="ln">29</span>    <span class="nv">force_path_style</span>            <span class="o">=</span> <span class="nb">true</span>
-<span class="ln">30</span>  <span class="o">}</span>
-<span class="ln">31</span>
-<span class="ln">32</span><span class="o">}</span>
-<span class="ln">33</span>
-<span class="ln">34</span>provider <span class="s2">&#34;kubernetes&#34;</span> <span class="o">{</span>
-<span class="ln">35</span>  <span class="nv">config_path</span>    <span class="o">=</span> var.k8s.config_path
-<span class="ln">36</span>  <span class="nv">config_context</span> <span class="o">=</span> var.k8s.config_context
-<span class="ln">37</span><span class="o">}</span>
-<span class="ln">38</span>
-<span class="ln">39</span>provider <span class="s2">&#34;helm&#34;</span> <span class="o">{</span>
-<span class="ln">40</span>  kubernetes <span class="o">{</span>
-<span class="ln">41</span>    <span class="nv">config_path</span> <span class="o">=</span> var.k8s.config_path
-<span class="ln">42</span>  <span class="o">}</span>
-<span class="ln">43</span><span class="o">}</span>
-<span class="ln">44</span>
-<span class="ln">45</span>provider <span class="s2">&#34;kubectl&#34;</span> <span class="o">{</span>
-<span class="ln">46</span>  <span class="nv">config_path</span>    <span class="o">=</span> var.k8s.config_path
-<span class="ln">47</span>  <span class="nv">config_context</span> <span class="o">=</span> var.k8s.config_context
-<span class="ln">48</span><span class="o">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">terraform <span class="o">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="nv">required_version</span> <span class="o">=</span> <span class="s2">&#34;&gt;= 0.13&#34;</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  required_providers <span class="o">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="nv">kubernetes</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">      <span class="nb">source</span>  <span class="o">=</span> <span class="s2">&#34;hashicorp/kubernetes&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">      <span class="nv">version</span> <span class="o">=</span> <span class="s2">&#34;2.2.0&#34;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="nv">helm</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">      <span class="nb">source</span>  <span class="o">=</span> <span class="s2">&#34;hashicorp/helm&#34;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">      <span class="nv">version</span> <span class="o">=</span> <span class="s2">&#34;2.1.2&#34;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    <span class="nv">kubectl</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">      <span class="nb">source</span>  <span class="o">=</span> <span class="s2">&#34;gavinbunney/kubectl&#34;</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">      <span class="nv">version</span> <span class="o">=</span> <span class="s2">&#34;1.11.1&#34;</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">    <span class="nv">template</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">      <span class="nb">source</span>  <span class="o">=</span> <span class="s2">&#34;hashicorp/template&#34;</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">      <span class="nv">version</span> <span class="o">=</span> <span class="s2">&#34;2.2.0&#34;</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">
+</span></span><span class="line"><span class="ln">22</span><span class="cl">  backend <span class="s2">&#34;s3&#34;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">    <span class="nv">region</span>                      <span class="o">=</span> <span class="s2">&#34;main&#34;</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">    <span class="nv">skip_requesting_account_id</span>  <span class="o">=</span> <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">    <span class="nv">skip_credentials_validation</span> <span class="o">=</span> <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">    <span class="nv">skip_get_ec2_platforms</span>      <span class="o">=</span> <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">    <span class="nv">skip_metadata_api_check</span>     <span class="o">=</span> <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">    <span class="nv">skip_region_validation</span>      <span class="o">=</span> <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">    <span class="nv">force_path_style</span>            <span class="o">=</span> <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">
+</span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">
+</span></span><span class="line"><span class="ln">34</span><span class="cl">provider <span class="s2">&#34;kubernetes&#34;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl">  <span class="nv">config_path</span>    <span class="o">=</span> var.k8s.config_path
+</span></span><span class="line"><span class="ln">36</span><span class="cl">  <span class="nv">config_context</span> <span class="o">=</span> var.k8s.config_context
+</span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="ln">38</span><span class="cl">
+</span></span><span class="line"><span class="ln">39</span><span class="cl">provider <span class="s2">&#34;helm&#34;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln">40</span><span class="cl">  kubernetes <span class="o">{</span>
+</span></span><span class="line"><span class="ln">41</span><span class="cl">    <span class="nv">config_path</span> <span class="o">=</span> var.k8s.config_path
+</span></span><span class="line"><span class="ln">42</span><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="ln">44</span><span class="cl">
+</span></span><span class="line"><span class="ln">45</span><span class="cl">provider <span class="s2">&#34;kubectl&#34;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln">46</span><span class="cl">  <span class="nv">config_path</span>    <span class="o">=</span> var.k8s.config_path
+</span></span><span class="line"><span class="ln">47</span><span class="cl">  <span class="nv">config_context</span> <span class="o">=</span> var.k8s.config_context
+</span></span><span class="line"><span class="ln">48</span><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><ul>
 <li>Terraform state manager through s3 storage
 config in <code>backend.tfvars</code>. use <code>minio</code> replace in non AWS environment</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span><span class="nv">endpoint</span>   <span class="o">=</span> <span class="s2">&#34;http://s3.test.com&#34;</span>
-<span class="ln">2</span><span class="nv">bucket</span>     <span class="o">=</span> <span class="s2">&#34;terraform-state&#34;</span>
-<span class="ln">3</span><span class="nv">key</span>        <span class="o">=</span> <span class="s2">&#34;k8s-dev/terraform.tfstate&#34;</span>
-<span class="ln">4</span><span class="nv">access_key</span> <span class="o">=</span> <span class="s2">&#34;xxxxxxx&#34;</span>
-<span class="ln">5</span><span class="nv">secret_key</span> <span class="o">=</span> <span class="s2">&#34;xxxxxxx&#34;</span>
-<span class="ln">6</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl"><span class="nv">endpoint</span>   <span class="o">=</span> <span class="s2">&#34;http://s3.test.com&#34;</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nv">bucket</span>     <span class="o">=</span> <span class="s2">&#34;terraform-state&#34;</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="nv">key</span>        <span class="o">=</span> <span class="s2">&#34;k8s-dev/terraform.tfstate&#34;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="nv">access_key</span> <span class="o">=</span> <span class="s2">&#34;xxxxxxx&#34;</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="nv">secret_key</span> <span class="o">=</span> <span class="s2">&#34;xxxxxxx&#34;</span>
+</span></span></code></pre></div><ul>
 <li>At any time to backup the state file to local</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>terraform state pull &gt; ./terraform.tfstate
-<span class="ln">2</span><span class="c1">#the terraform.tfstate is ignored in git repo</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">terraform state pull &gt; ./terraform.tfstate
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1">#the terraform.tfstate is ignored in git repo</span>
+</span></span></code></pre></div><ul>
 <li>When initialization the new base environment use the raipd command</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>./exec.sh base base-test-pipeline
-<span class="ln">2</span><span class="nb">cd</span> base-test-pipeline <span class="o">&amp;&amp;</span> terraform init -backend-config<span class="o">=</span>./backend.tfvars
-<span class="ln">3</span>terraform validate
-<span class="ln">4</span>terraform plan -var-file<span class="o">=</span>./base.tfvars
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">./exec.sh base base-test-pipeline
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nb">cd</span> base-test-pipeline <span class="o">&amp;&amp;</span> terraform init -backend-config<span class="o">=</span>./backend.tfvars
+</span></span><span class="line"><span class="ln">3</span><span class="cl">terraform validate
+</span></span><span class="line"><span class="ln">4</span><span class="cl">terraform plan -var-file<span class="o">=</span>./base.tfvars
+</span></span></code></pre></div><ul>
 <li>When init app environment based to parent base environment</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>./exec.sh app app-test-01
-<span class="ln">2</span><span class="nb">cd</span> app-test-01 <span class="o">&amp;&amp;</span> terraform init  -backend-config<span class="o">=</span>./backend.tfvars
-<span class="ln">3</span>terraform validate
-<span class="ln">4</span>terraform plan -var-file<span class="o">=</span>./env.tfvars
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">./exec.sh app app-test-01
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nb">cd</span> app-test-01 <span class="o">&amp;&amp;</span> terraform init  -backend-config<span class="o">=</span>./backend.tfvars
+</span></span><span class="line"><span class="ln">3</span><span class="cl">terraform validate
+</span></span><span class="line"><span class="ln">4</span><span class="cl">terraform plan -var-file<span class="o">=</span>./env.tfvars
+</span></span></code></pre></div><ul>
 <li>The simple <code>exec.sh</code> script look like this following</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span><span class="cp">#!/usr/bin/env bash
-</span><span class="ln"> 2</span><span class="cp"></span><span class="nb">set</span> -e
-<span class="ln"> 3</span>
-<span class="ln"> 4</span><span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$#</span><span class="s2">&#34;</span> -eq <span class="m">2</span> <span class="o">]</span> <span class="o">||</span> <span class="o">{</span>
-<span class="ln"> 5</span>  <span class="nb">echo</span> <span class="s2">&#34;Create a base or app environment directory layout&#34;</span>
-<span class="ln"> 6</span>  <span class="nb">echo</span> <span class="s2">&#34;Please refer to Environment directory name: </span><span class="nv">$0</span><span class="s2"> base|app EnvironmentName&#34;</span>
-<span class="ln"> 7</span>  <span class="nb">exit</span> <span class="m">1</span>
-<span class="ln"> 8</span><span class="o">}</span>
-<span class="ln"> 9</span><span class="nb">declare</span> -r <span class="nv">env_type</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">base</span><span class="si">}</span><span class="s2">&#34;</span>
-<span class="ln">10</span><span class="nb">declare</span> -r <span class="nv">env_dir</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">2</span><span class="k">:-</span><span class="nv">sample</span><span class="si">}</span><span class="s2">&#34;</span>
-<span class="ln">11</span>
-<span class="ln">12</span>mkdir -p <span class="si">${</span><span class="nv">env_dir</span><span class="si">}</span>/.terraform
-<span class="ln">13</span><span class="nb">cd</span> <span class="si">${</span><span class="nv">env_dir</span><span class="si">}</span>/.terraform <span class="o">&amp;&amp;</span> ln -s ../../base/.terraform/providers ./providers
-<span class="ln">14</span><span class="nb">cd</span> ..
-<span class="ln">15</span>ln -s ../base/.terraform.lock.hcl .terraform.lock.hcl
-<span class="ln">16</span>ln -s ../base/01_main.tf ./01_main.tf
-<span class="ln">17</span>cp ../base/backend.tfvars ./backend.tfvars
-<span class="ln">18</span>sed -i <span class="s2">&#34;s#^key.*#key = \&#34;</span><span class="si">${</span><span class="nv">env_dir</span><span class="si">}</span><span class="s2">/terraform.tfstate\&#34;#g&#34;</span> backend.tfvars
-<span class="ln">19</span>
-<span class="ln">20</span>
-<span class="ln">21</span><span class="k">if</span> <span class="o">[[</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">env_type</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;base&#34;</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
-<span class="ln">22</span>  ln -s ../base/02_base.tf ./02_base.tf
-<span class="ln">23</span>  ln -s ../base/03_ceph_ingress.tf ./03_ceph_ingress.tf
-<span class="ln">24</span>  ln -s ../base/04_operators.tf ./04_operators.tf
-<span class="ln">25</span>  ln -s ../base/variables.tf ./variables.tf
-<span class="ln">26</span>  touch base.tfvars
-<span class="ln">27</span>  <span class="nb">echo</span> <span class="s2">&#34;Please copy the keys to base.tfvars file don&#39;t include the values!!!&#34;</span>
-<span class="ln">28</span><span class="k">fi</span>
-<span class="ln">29</span>
-<span class="ln">30</span><span class="k">if</span> <span class="o">[[</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">env_type</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;app&#34;</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
-<span class="ln">31</span>  ln ../saas-dev/variables.tf ./variables.tf
-<span class="ln">32</span>  touch env.tfvars
-<span class="ln">33</span>  <span class="nb">echo</span> <span class="s2">&#34;Please copy the app environment file keys to env.tfvars don&#39;t include the values!!!&#34;</span>
-<span class="ln">34</span><span class="k">fi</span>
-<span class="ln">35</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="cp">#!/usr/bin/env bash
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="cp"></span><span class="nb">set</span> -e
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$#</span><span class="s2">&#34;</span> -eq <span class="m">2</span> <span class="o">]</span> <span class="o">||</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;Create a base or app environment directory layout&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;Please refer to Environment directory name: </span><span class="nv">$0</span><span class="s2"> base|app EnvironmentName&#34;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  <span class="nb">exit</span> <span class="m">1</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="nb">declare</span> -r <span class="nv">env_type</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="nv">base</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="nb">declare</span> -r <span class="nv">env_dir</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">2</span><span class="k">:-</span><span class="nv">sample</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">
+</span></span><span class="line"><span class="ln">12</span><span class="cl">mkdir -p <span class="si">${</span><span class="nv">env_dir</span><span class="si">}</span>/.terraform
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="nb">cd</span> <span class="si">${</span><span class="nv">env_dir</span><span class="si">}</span>/.terraform <span class="o">&amp;&amp;</span> ln -s ../../base/.terraform/providers ./providers
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="nb">cd</span> ..
+</span></span><span class="line"><span class="ln">15</span><span class="cl">ln -s ../base/.terraform.lock.hcl .terraform.lock.hcl
+</span></span><span class="line"><span class="ln">16</span><span class="cl">ln -s ../base/01_main.tf ./01_main.tf
+</span></span><span class="line"><span class="ln">17</span><span class="cl">cp ../base/backend.tfvars ./backend.tfvars
+</span></span><span class="line"><span class="ln">18</span><span class="cl">sed -i <span class="s2">&#34;s#^key.*#key = \&#34;</span><span class="si">${</span><span class="nv">env_dir</span><span class="si">}</span><span class="s2">/terraform.tfstate\&#34;#g&#34;</span> backend.tfvars
+</span></span><span class="line"><span class="ln">19</span><span class="cl">
+</span></span><span class="line"><span class="ln">20</span><span class="cl">
+</span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="k">if</span> <span class="o">[[</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">env_type</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;base&#34;</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">  ln -s ../base/02_base.tf ./02_base.tf
+</span></span><span class="line"><span class="ln">23</span><span class="cl">  ln -s ../base/03_ceph_ingress.tf ./03_ceph_ingress.tf
+</span></span><span class="line"><span class="ln">24</span><span class="cl">  ln -s ../base/04_operators.tf ./04_operators.tf
+</span></span><span class="line"><span class="ln">25</span><span class="cl">  ln -s ../base/variables.tf ./variables.tf
+</span></span><span class="line"><span class="ln">26</span><span class="cl">  touch base.tfvars
+</span></span><span class="line"><span class="ln">27</span><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;Please copy the keys to base.tfvars file don&#39;t include the values!!!&#34;</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">
+</span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="k">if</span> <span class="o">[[</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">env_type</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;app&#34;</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">  ln ../saas-dev/variables.tf ./variables.tf
+</span></span><span class="line"><span class="ln">32</span><span class="cl">  touch env.tfvars
+</span></span><span class="line"><span class="ln">33</span><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;Please copy the app environment file keys to env.tfvars don&#39;t include the values!!!&#34;</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></div><ul>
 <li>Probably going to prepare docker images import to local private registry</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span>registry.me/public/grafana/grafana-image-renderer                   latest        601MB
-<span class="ln"> 2</span>registry.me/public/prometheus-operator/prometheus-config-reloader   v0.47.1       12.4MB
-<span class="ln"> 3</span>registry.me/public/prometheus-operator/prometheus-operator          v0.47.1       43.9MB
-<span class="ln"> 4</span>registry.me/public/grafana/grafana                                  7.5.5         204MB
-<span class="ln"> 5</span>registry.me/public/kube-state-metrics/kube-state-metrics            v2.0.0        33.4MB
-<span class="ln"> 6</span>registry.me/public/prometheus/prometheus                            v2.26.0       169MB
-<span class="ln"> 7</span>registry.me/public/kiwigrid/k8s-sidecar                             1.10.7        88.8MB
-<span class="ln"> 8</span>registry.me/public/prometheus/node-exporter                         v1.1.2        26MB
-<span class="ln"> 9</span>registry.me/public/kubernetesui/dashboard                           v2.2.0        225MB
-<span class="ln">10</span>registry.me/public/jettech/kube-webhook-certgen                     v1.5.1        44.7MB
-<span class="ln">11</span>registry.me/public/kubernetesui/metrcis-scraper                     v1.0.6        34.5MB
-<span class="ln">12</span>registry.me/public/kubernetesui/metrics-scraper                     v1.0.6        34.5MB
-<span class="ln">13</span>registry.me/public/curlimages/curl                                  7.73.0        11.1MB
-<span class="ln">14</span>registry.me/public/prometheus/alertmanager                          v0.21.0       55.5MB
-<span class="ln">15</span>registry.me/public/busybox                                          1.31.1        1.22MB
-<span class="ln">16</span>registry.me/public/defaultbackend-amd64                             1.5           5.13MB
-<span class="ln">17</span>registry.me/public/bats/bats                                        v1.1.0        15MB
-<span class="ln">18</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">registry.me/public/grafana/grafana-image-renderer                   latest        601MB
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">registry.me/public/prometheus-operator/prometheus-config-reloader   v0.47.1       12.4MB
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">registry.me/public/prometheus-operator/prometheus-operator          v0.47.1       43.9MB
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">registry.me/public/grafana/grafana                                  7.5.5         204MB
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">registry.me/public/kube-state-metrics/kube-state-metrics            v2.0.0        33.4MB
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">registry.me/public/prometheus/prometheus                            v2.26.0       169MB
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">registry.me/public/kiwigrid/k8s-sidecar                             1.10.7        88.8MB
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">registry.me/public/prometheus/node-exporter                         v1.1.2        26MB
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">registry.me/public/kubernetesui/dashboard                           v2.2.0        225MB
+</span></span><span class="line"><span class="ln">10</span><span class="cl">registry.me/public/jettech/kube-webhook-certgen                     v1.5.1        44.7MB
+</span></span><span class="line"><span class="ln">11</span><span class="cl">registry.me/public/kubernetesui/metrcis-scraper                     v1.0.6        34.5MB
+</span></span><span class="line"><span class="ln">12</span><span class="cl">registry.me/public/kubernetesui/metrics-scraper                     v1.0.6        34.5MB
+</span></span><span class="line"><span class="ln">13</span><span class="cl">registry.me/public/curlimages/curl                                  7.73.0        11.1MB
+</span></span><span class="line"><span class="ln">14</span><span class="cl">registry.me/public/prometheus/alertmanager                          v0.21.0       55.5MB
+</span></span><span class="line"><span class="ln">15</span><span class="cl">registry.me/public/busybox                                          1.31.1        1.22MB
+</span></span><span class="line"><span class="ln">16</span><span class="cl">registry.me/public/defaultbackend-amd64                             1.5           5.13MB
+</span></span><span class="line"><span class="ln">17</span><span class="cl">registry.me/public/bats/bats                                        v1.1.0        15MB
+</span></span></code></pre></div>
   </article>
 <aside class="sidebar">
   <section class="sidebar_inner">

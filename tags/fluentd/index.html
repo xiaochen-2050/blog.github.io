@@ -2,7 +2,7 @@
 <html lang="en" data-figures="">
   <head>  <title>Fluentd | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.74.3" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -120,7 +120,8 @@
       <div class = 'excerpt_footer'>
         <div>
           <p class = 'pale'>Use the Elasticsearch cloud on k8s component as logs and apm platform. the Fluentd collect the kubernetes container logs to Elasticsearch and kibana represent and search
-The ECK operator configure The ECK operator custom resources use kubectl providers. …</p>
+The ECK operator configure The ECK operator custom resources use kubectl providers.
+1terraform { 2 required_providers { 3 kubectl = { 4 source = …</p>
           <a href='https://blog.wisekee.com/post/eck-vs-flutd-collect-logs/' class='excerpt_more button'>Read More</a>
         </div>
       </div>
@@ -151,7 +152,7 @@ The ECK operator configure The ECK operator custom resources use kubectl provide
     </div>
       <div class = 'excerpt_footer'>
         <div>
-          <p class = 'pale'>step1 the main.tf include following contents: 1resource&#34;helm_release&#34;&#34;fluentd_server&#34;{2name=&#34;fluentd-server&#34;3repository=&#34;https://charts.bitnami.com/bitnami&#34;4# chart = …</p>
+          <p class = 'pale'>step1 the main.tf include following contents: 1resource &#34;helm_release&#34; &#34;fluentd_server&#34; { 2 name = &#34;fluentd-server&#34; 3 repository = &#34;https://charts.bitnami.com/bitnami&#34; 4 # chart = &#34;${path.module}/../../../../../charts/fluentd&#34; 5 version = &#34;3.1.0&#34; 6 namespace = …</p>
           <a href='https://blog.wisekee.com/post/terraform-helm-fluentd/' class='excerpt_more button'>Read More</a>
         </div>
       </div>
@@ -159,8 +160,6 @@ The ECK operator configure The ECK operator custom resources use kubectl provide
   </li>
   
     <li>
-
-
     </li>
   </ul>
 <aside class="sidebar">

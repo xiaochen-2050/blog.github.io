@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>Getting started Serverless framework Nuclio | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.74.3" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -144,44 +144,44 @@
     <ul>
 <li>use Helm charts: <a href="https://github.com/nuclio/nuclio/tree/master/hack/k8s/helm/nuclio">Github</a></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>	helm repo add nuclio https://nuclio.github.io/nuclio/charts
-<span class="ln">2</span>	kubectl create namespace nuclio
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">	helm repo add nuclio https://nuclio.github.io/nuclio/charts
+</span></span><span class="line"><span class="ln">2</span><span class="cl">	kubectl create namespace nuclio
+</span></span></code></pre></div><ul>
 <li>copy registry to nuclio namespace from existing namespace</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>kubectl get secret repo-registry -n dev-ns -o yaml <span class="se">\
-</span><span class="ln">2</span><span class="se"></span><span class="p">|</span> sed s/<span class="s2">&#34;namespace: dev-ns&#34;</span>/<span class="s2">&#34;namespace: nuclio&#34;</span>/ <span class="se">\
-</span><span class="ln">3</span><span class="se"></span><span class="p">|</span> kubectl apply -f -
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">kubectl get secret repo-registry -n dev-ns -o yaml <span class="se">\
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="se"></span><span class="p">|</span> sed s/<span class="s2">&#34;namespace: dev-ns&#34;</span>/<span class="s2">&#34;namespace: nuclio&#34;</span>/ <span class="se">\
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="se"></span><span class="p">|</span> kubectl apply -f -
+</span></span></code></pre></div><ul>
 <li>install nuclio</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>	helm install nuclio <span class="se">\
-</span><span class="ln">2</span><span class="se"></span>    --set registry.secretName<span class="o">=</span>repo-registry <span class="se">\
-</span><span class="ln">3</span><span class="se"></span>    --set registry.pushPullUrl<span class="o">=</span>localhost/nucalio <span class="se">\
-</span><span class="ln">4</span><span class="se"></span>        nuclio/nuclio -n nuclio
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">	helm install nuclio <span class="se">\
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="se"></span>    --set registry.secretName<span class="o">=</span>repo-registry <span class="se">\
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="se"></span>    --set registry.pushPullUrl<span class="o">=</span>localhost/nucalio <span class="se">\
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="se"></span>        nuclio/nuclio -n nuclio
+</span></span></code></pre></div><ul>
 <li>visit dashboard</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>	kubectl -n nuclio port-forward <span class="k">$(</span>kubectl get pods -n nuclio -l nuclio.io/app<span class="o">=</span>dashboard -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span> 8070:8070
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">	kubectl -n nuclio port-forward <span class="k">$(</span>kubectl get pods -n nuclio -l nuclio.io/app<span class="o">=</span>dashboard -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span> 8070:8070
+</span></span></code></pre></div><ul>
 <li>testing the function in nuclio console web ui</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="ln"> 1</span><span class="kn">package</span> <span class="nx">main</span>
-<span class="ln"> 2</span>
-<span class="ln"> 3</span><span class="kn">import</span> <span class="p">(</span>
-<span class="ln"> 4</span>    <span class="s">&#34;github.com/nuclio/nuclio-sdk-go&#34;</span>
-<span class="ln"> 5</span><span class="p">)</span>
-<span class="ln"> 6</span>
-<span class="ln"> 7</span><span class="kd">func</span> <span class="nf">Handler</span><span class="p">(</span><span class="nx">context</span> <span class="o">*</span><span class="nx">nuclio</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">event</span> <span class="nx">nuclio</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-<span class="ln"> 8</span>    <span class="nx">context</span><span class="p">.</span><span class="nx">Logger</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;This is an unstrucured %s&#34;</span><span class="p">,</span> <span class="s">&#34;log&#34;</span><span class="p">)</span>
-<span class="ln"> 9</span>
-<span class="ln">10</span>	<span class="k">return</span> <span class="nx">nuclio</span><span class="p">.</span><span class="nx">Response</span><span class="p">{</span>
-<span class="ln">11</span>		<span class="nx">StatusCode</span><span class="p">:</span>  <span class="mi">200</span><span class="p">,</span>
-<span class="ln">12</span>		<span class="nx">ContentType</span><span class="p">:</span> <span class="s">&#34;application/text&#34;</span><span class="p">,</span>
-<span class="ln">13</span>		<span class="nx">Body</span><span class="p">:</span>        <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;Hello, from Nuclio :]. Okay let me change and update somethings&#34;</span><span class="p">),</span>
-<span class="ln">14</span>	<span class="p">},</span> <span class="kc">nil</span>
-<span class="ln">15</span><span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="s">&#34;github.com/nuclio/nuclio-sdk-go&#34;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="kd">func</span> <span class="nf">Handler</span><span class="p">(</span><span class="nx">context</span> <span class="o">*</span><span class="nx">nuclio</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">event</span> <span class="nx">nuclio</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="nx">context</span><span class="p">.</span><span class="nx">Logger</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;This is an unstrucured %s&#34;</span><span class="p">,</span> <span class="s">&#34;log&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl">	<span class="k">return</span> <span class="nx">nuclio</span><span class="p">.</span><span class="nx">Response</span><span class="p">{</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">		<span class="nx">StatusCode</span><span class="p">:</span>  <span class="mi">200</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">		<span class="nx">ContentType</span><span class="p">:</span> <span class="s">&#34;application/text&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">		<span class="nx">Body</span><span class="p">:</span>        <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;Hello, from Nuclio :]. Okay let me change and update somethings&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">	<span class="p">},</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
   </article>
 <aside class="sidebar">
   <section class="sidebar_inner">

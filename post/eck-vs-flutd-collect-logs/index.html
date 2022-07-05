@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>ECK stack up and running and collect logs use fluentd in kubernetes | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.74.3" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -144,338 +144,338 @@
     <p>Use the Elasticsearch cloud on k8s component as logs and apm platform. the Fluentd collect the kubernetes container logs to Elasticsearch and kibana represent and search</p>
 <h4 id="the-eck-operator-configure">The ECK operator configure</h4>
 <p>The ECK operator custom resources use kubectl providers.</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span>terraform<span class="w"> </span>{<span class="w">
-</span><span class="ln"> 2</span><span class="w">  </span>required_providers<span class="w"> </span>{<span class="w">
-</span><span class="ln"> 3</span><span class="w">    </span>kubectl<span class="w"> </span>=<span class="w"> </span>{<span class="w">
-</span><span class="ln"> 4</span><span class="w">      </span>source<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;gavinbunney/kubectl&#34;</span><span class="w">
-</span><span class="ln"> 5</span><span class="w">      </span>version<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;1.11.1&#34;</span><span class="w">
-</span><span class="ln"> 6</span><span class="w">    </span>}<span class="w">
-</span><span class="ln"> 7</span><span class="w">  </span>}<span class="w">
-</span><span class="ln"> 8</span><span class="w"></span>}<span class="w">
-</span><span class="ln"> 9</span><span class="w">
-</span><span class="ln">10</span><span class="w"></span>resource<span class="w"> </span><span class="s2">&#34;helm_release&#34;</span><span class="w"> </span><span class="s2">&#34;eck-operator&#34;</span><span class="w"> </span>{<span class="w">
-</span><span class="ln">11</span><span class="w">  </span>chart<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;${path.module}/../../../../../charts/eck-operator&#34;</span><span class="w">
-</span><span class="ln">12</span><span class="w">  </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;eck-operator&#34;</span><span class="w">
-</span><span class="ln">13</span><span class="w">  </span>namespace<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;kube-monitor&#34;</span><span class="w">
-</span><span class="ln">14</span><span class="w">
-</span><span class="ln">15</span><span class="w">  </span>values<span class="w"> </span>=<span class="w"> </span><span class="p">[</span><span class="w">
-</span><span class="ln">16</span><span class="w">    </span>&lt;&lt;-EOF<span class="w">
-</span><span class="ln">17</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w">
-</span><span class="ln">18</span><span class="w">      </span><span class="k">repository</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${var.repository_prefix}/public/eck-operator&#34;</span><span class="w">
-</span><span class="ln">19</span><span class="w">    </span><span class="k">config</span><span class="p">:</span><span class="w">
-</span><span class="ln">20</span><span class="w">      </span><span class="k">containerRegistry</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${var.repository_prefix}/public&#34;</span><span class="w">
-</span><span class="ln">21</span><span class="w">    </span><span class="k">internal</span><span class="p">:</span><span class="w">
-</span><span class="ln">22</span><span class="w">      </span><span class="k">kubeVersion</span><span class="p">:</span><span class="w"> </span><span class="m">1.21.1</span><span class="w">
-</span><span class="ln">23</span><span class="w">    </span>EOF<span class="w">
-</span><span class="ln">24</span><span class="w">  </span><span class="p">]</span><span class="w">
-</span><span class="ln">25</span><span class="w"></span>}<span class="w">
-</span><span class="ln">26</span><span class="w">
-</span><span class="ln">27</span><span class="w"></span>locals<span class="w"> </span>{<span class="w">
-</span><span class="ln">28</span><span class="w">  </span>template_vars<span class="w"> </span>=<span class="w"> </span>{<span class="w">
-</span><span class="ln">29</span><span class="w">    </span>namespace<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;kube-monitor&#34;</span><span class="w">
-</span><span class="ln">30</span><span class="w">    </span>elasticsearch_version<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;7.12.1&#34;</span><span class="w">
-</span><span class="ln">31</span><span class="w">    </span>elasticsearch_image<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;${var.repository_prefix}/public/elasticsearch:7.12.1&#34;</span><span class="w">
-</span><span class="ln">32</span><span class="w">    </span>master_node_count<span class="w"> </span>=<span class="w"> </span>var.node_count.master<span class="w">
-</span><span class="ln">33</span><span class="w">    </span>storage_size<span class="w"> </span>=<span class="w"> </span>var.es_storage_size<span class="w">
-</span><span class="ln">34</span><span class="w">    </span>default_storage_class<span class="w"> </span>=<span class="w"> </span>var.default_storage_class_name<span class="w">
-</span><span class="ln">35</span><span class="w">    </span>data_node_count<span class="w"> </span>=<span class="w"> </span>var.node_count.data<span class="w">
-</span><span class="ln">36</span><span class="w">  </span>}<span class="w">
-</span><span class="ln">37</span><span class="w"></span>}<span class="w">
-</span><span class="ln">38</span><span class="w">
-</span><span class="ln">39</span><span class="w"></span>resource<span class="w"> </span><span class="s2">&#34;kubectl_manifest&#34;</span><span class="w"> </span><span class="s2">&#34;elasticsearch&#34;</span><span class="w"> </span>{<span class="w">
-</span><span class="ln">40</span><span class="w">  </span>yaml_body<span class="w"> </span>=<span class="w"> </span>templatefile(<span class="s2">&#34;${path.module}/elastic_cluster.yaml&#34;</span><span class="p">,</span><span class="w"> </span>local.template_vars)<span class="w">
-</span><span class="ln">41</span><span class="w"></span>}<span class="w">
-</span></code></pre></div><h4 id="the-elasticsearch-custom-resource-definiations">The elasticsearch custom resource definiations</h4>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>elasticsearch.k8s.elastic.co/v1<span class="w">
-</span><span class="ln"> 2</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Elasticsearch<span class="w">
-</span><span class="ln"> 3</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 4</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>elasticsearch-cluster<span class="w">
-</span><span class="ln"> 5</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>${namespace}<span class="w">
-</span><span class="ln"> 6</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 7</span><span class="w">  </span><span class="k">version</span><span class="p">:</span><span class="w"> </span>${elasticsearch_version}<span class="w">
-</span><span class="ln"> 8</span><span class="w">  </span><span class="k">volumeClaimDeletePolicy</span><span class="p">:</span><span class="w"> </span>DeleteOnScaledownOnly<span class="w">
-</span><span class="ln"> 9</span><span class="w">  </span><span class="k">nodeSets</span><span class="p">:</span><span class="w">
-</span><span class="ln">10</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>masters<span class="w">
-</span><span class="ln">11</span><span class="w">      </span><span class="k">count</span><span class="p">:</span><span class="w"> </span>${master_node_count}<span class="w">
-</span><span class="ln">12</span><span class="w">      </span><span class="k">config</span><span class="p">:</span><span class="w">
-</span><span class="ln">13</span><span class="w">        </span><span class="k">node.roles</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;master&#34;</span><span class="p">]</span><span class="w">
-</span><span class="ln">14</span><span class="w">      </span><span class="k">podTemplate</span><span class="p">:</span><span class="w">
-</span><span class="ln">15</span><span class="w">        </span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="ln">16</span><span class="w">          </span><span class="k">labels</span><span class="p">:</span><span class="w">
-</span><span class="ln">17</span><span class="w">            </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>elasticsearch<span class="w">
-</span><span class="ln">18</span><span class="w">        </span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="ln">19</span><span class="w">          </span><span class="k">containers</span><span class="p">:</span><span class="w">
-</span><span class="ln">20</span><span class="w">            </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>elasticsearch<span class="w">
-</span><span class="ln">21</span><span class="w">              </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>${elasticsearch_image}<span class="w">
-</span><span class="ln">22</span><span class="w">              </span><span class="k">resources</span><span class="p">:</span><span class="w">
-</span><span class="ln">23</span><span class="w">                </span><span class="k">requests</span><span class="p">:</span><span class="w">
-</span><span class="ln">24</span><span class="w">                  </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>1Gi<span class="w">
-</span><span class="ln">25</span><span class="w">                  </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="ln">26</span><span class="w">                </span><span class="k">limits</span><span class="p">:</span><span class="w">
-</span><span class="ln">27</span><span class="w">                  </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>4Gi<span class="w">
-</span><span class="ln">28</span><span class="w">                  </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="ln">29</span><span class="w">      </span><span class="k">volumeClaimTemplates</span><span class="p">:</span><span class="w">
-</span><span class="ln">30</span><span class="w">        </span>- <span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="ln">31</span><span class="w">            </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>elasticsearch-data<span class="w">
-</span><span class="ln">32</span><span class="w">          </span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="ln">33</span><span class="w">            </span><span class="k">accessModes</span><span class="p">:</span><span class="w">
-</span><span class="ln">34</span><span class="w">              </span>- ReadWriteMany<span class="w">
-</span><span class="ln">35</span><span class="w">            </span><span class="k">resources</span><span class="p">:</span><span class="w">
-</span><span class="ln">36</span><span class="w">              </span><span class="k">requests</span><span class="p">:</span><span class="w">
-</span><span class="ln">37</span><span class="w">                </span><span class="k">storage</span><span class="p">:</span><span class="w"> </span>${storage_size}<span class="w">
-</span><span class="ln">38</span><span class="w">            </span><span class="k">storageClassName</span><span class="p">:</span><span class="w"> </span>${default_storage_class}<span class="w">
-</span><span class="ln">39</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>data<span class="w">
-</span><span class="ln">40</span><span class="w">      </span><span class="k">count</span><span class="p">:</span><span class="w"> </span>${data_node_count}<span class="w">
-</span><span class="ln">41</span><span class="w">      </span><span class="k">config</span><span class="p">:</span><span class="w">
-</span><span class="ln">42</span><span class="w">        </span><span class="k">node.roles</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;data&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;ingest&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;ml&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;transform&#34;</span><span class="p">]</span><span class="w">
-</span><span class="ln">43</span><span class="w">      </span><span class="k">podTemplate</span><span class="p">:</span><span class="w">
-</span><span class="ln">44</span><span class="w">        </span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="ln">45</span><span class="w">          </span><span class="k">labels</span><span class="p">:</span><span class="w">
-</span><span class="ln">46</span><span class="w">            </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>elasticsearch<span class="w">
-</span><span class="ln">47</span><span class="w">        </span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="ln">48</span><span class="w">          </span><span class="k">containers</span><span class="p">:</span><span class="w">
-</span><span class="ln">49</span><span class="w">            </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>elasticsearch<span class="w">
-</span><span class="ln">50</span><span class="w">              </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>${elasticsearch_image}<span class="w">
-</span><span class="ln">51</span><span class="w">              </span><span class="k">resources</span><span class="p">:</span><span class="w">
-</span><span class="ln">52</span><span class="w">                </span><span class="k">requests</span><span class="p">:</span><span class="w">
-</span><span class="ln">53</span><span class="w">                  </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>1Gi<span class="w">
-</span><span class="ln">54</span><span class="w">                  </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="ln">55</span><span class="w">                </span><span class="k">limits</span><span class="p">:</span><span class="w">
-</span><span class="ln">56</span><span class="w">                  </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>4Gi<span class="w">
-</span><span class="ln">57</span><span class="w">                  </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="ln">58</span><span class="w">      </span><span class="k">volumeClaimTemplates</span><span class="p">:</span><span class="w">
-</span><span class="ln">59</span><span class="w">        </span>- <span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="ln">60</span><span class="w">            </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>elasticsearch-data<span class="w">
-</span><span class="ln">61</span><span class="w">          </span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="ln">62</span><span class="w">            </span><span class="k">accessModes</span><span class="p">:</span><span class="w">
-</span><span class="ln">63</span><span class="w">              </span>- ReadWriteMany<span class="w">
-</span><span class="ln">64</span><span class="w">            </span><span class="k">resources</span><span class="p">:</span><span class="w">
-</span><span class="ln">65</span><span class="w">              </span><span class="k">requests</span><span class="p">:</span><span class="w">
-</span><span class="ln">66</span><span class="w">                </span><span class="k">storage</span><span class="p">:</span><span class="w"> </span>${storage_size}<span class="w">
-</span><span class="ln">67</span><span class="w">            </span><span class="k">storageClassName</span><span class="p">:</span><span class="w"> </span>${default_storage_class}<span class="w">
-</span></code></pre></div><h4 id="the-kibana-terraform-code">The kibana terraform code</h4>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span>locals<span class="w"> </span>{<span class="w">
-</span><span class="ln"> 2</span><span class="w">  </span>kibana_template_vars<span class="w"> </span>=<span class="w"> </span>{<span class="w">
-</span><span class="ln"> 3</span><span class="w">    </span>namespace<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;kube-monitor&#34;</span><span class="w">
-</span><span class="ln"> 4</span><span class="w">    </span>version<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;7.12.1&#34;</span><span class="w">
-</span><span class="ln"> 5</span><span class="w">    </span>image<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;${var.repository_prefix}/public/kibana:7.12.1&#34;</span><span class="w">
-</span><span class="ln"> 6</span><span class="w">    </span>node_count<span class="w"> </span>=<span class="w"> </span>var.node_count.kibana<span class="w">
-</span><span class="ln"> 7</span><span class="w">  </span>}<span class="w">
-</span><span class="ln"> 8</span><span class="w"></span>}<span class="w">
-</span><span class="ln"> 9</span><span class="w">
-</span><span class="ln">10</span><span class="w"></span>resource<span class="w"> </span><span class="s2">&#34;kubectl_manifest&#34;</span><span class="w"> </span><span class="s2">&#34;kibana&#34;</span><span class="w"> </span>{<span class="w">
-</span><span class="ln">11</span><span class="w">  </span>yaml_body<span class="w"> </span>=<span class="w"> </span>templatefile(<span class="s2">&#34;${path.module}/kibana.yaml&#34;</span><span class="p">,</span><span class="w"> </span>local.kibana_template_vars)<span class="w">
-</span><span class="ln">12</span><span class="w"></span>}<span class="w">
-</span><span class="ln">13</span><span class="w">
-</span><span class="ln">14</span><span class="w"></span>resource<span class="w"> </span><span class="s2">&#34;kubernetes_ingress&#34;</span><span class="w"> </span><span class="s2">&#34;kibana&#34;</span><span class="w"> </span>{<span class="w">
-</span><span class="ln">15</span><span class="w">  </span>metadata<span class="w"> </span>{<span class="w">
-</span><span class="ln">16</span><span class="w">    </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;kibana-ingress&#34;</span><span class="w">
-</span><span class="ln">17</span><span class="w">    </span>namespace<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;kube-monitor&#34;</span><span class="w">
-</span><span class="ln">18</span><span class="w">    </span>labels<span class="w"> </span>=<span class="w"> </span>{<span class="w">
-</span><span class="ln">19</span><span class="w">      </span>app<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;kibana-ingress&#34;</span><span class="w">
-</span><span class="ln">20</span><span class="w">    </span>}<span class="w">
-</span><span class="ln">21</span><span class="w">  </span>}<span class="w">
-</span><span class="ln">22</span><span class="w">  </span>spec<span class="w"> </span>{<span class="w">
-</span><span class="ln">23</span><span class="w">    </span>rule<span class="w"> </span>{<span class="w">
-</span><span class="ln">24</span><span class="w">      </span>host<span class="w"> </span>=<span class="w"> </span>var.kibana_domain<span class="w">
-</span><span class="ln">25</span><span class="w">      </span>http<span class="w"> </span>{<span class="w">
-</span><span class="ln">26</span><span class="w">        </span>path<span class="w"> </span>{<span class="w">
-</span><span class="ln">27</span><span class="w">          </span>path<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;/&#34;</span><span class="w">
-</span><span class="ln">28</span><span class="w">          </span>backend<span class="w"> </span>{<span class="w">
-</span><span class="ln">29</span><span class="w">            </span>service_name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;kibana-kb-http&#34;</span><span class="w">
-</span><span class="ln">30</span><span class="w">            </span>service_port<span class="w"> </span>=<span class="w"> </span><span class="m">5601</span><span class="w">
-</span><span class="ln">31</span><span class="w">          </span>}<span class="w">
-</span><span class="ln">32</span><span class="w">        </span>}<span class="w">
-</span><span class="ln">33</span><span class="w">      </span>}<span class="w">
-</span><span class="ln">34</span><span class="w">    </span>}<span class="w">
-</span><span class="ln">35</span><span class="w">  </span>}<span class="w">
-</span><span class="ln">36</span><span class="w"></span>}<span class="w">
-</span></code></pre></div><h4 id="the-kibana-custom-resource">The kibana custom resource</h4>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>kibana.k8s.elastic.co/v1<span class="w">
-</span><span class="ln"> 2</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Kibana<span class="w">
-</span><span class="ln"> 3</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 4</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>kibana<span class="w">
-</span><span class="ln"> 5</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>${namespace}<span class="w">
-</span><span class="ln"> 6</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 7</span><span class="w">  </span><span class="k">version</span><span class="p">:</span><span class="w"> </span>${version}<span class="w">
-</span><span class="ln"> 8</span><span class="w">  </span><span class="k">count</span><span class="p">:</span><span class="w"> </span>${node_count}<span class="w">
-</span><span class="ln"> 9</span><span class="w">  </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>${image}<span class="w">
-</span><span class="ln">10</span><span class="w">  </span><span class="k">elasticsearchRef</span><span class="p">:</span><span class="w">
-</span><span class="ln">11</span><span class="w">    </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>elasticsearch-cluster<span class="w">
-</span><span class="ln">12</span><span class="w">  </span><span class="k">podTemplate</span><span class="p">:</span><span class="w">
-</span><span class="ln">13</span><span class="w">    </span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="ln">14</span><span class="w">      </span><span class="k">labels</span><span class="p">:</span><span class="w">
-</span><span class="ln">15</span><span class="w">        </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>kibana<span class="w">
-</span><span class="ln">16</span><span class="w">    </span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="ln">17</span><span class="w">      </span><span class="k">containers</span><span class="p">:</span><span class="w">
-</span><span class="ln">18</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>kibana<span class="w">
-</span><span class="ln">19</span><span class="w">          </span><span class="k">resources</span><span class="p">:</span><span class="w">
-</span><span class="ln">20</span><span class="w">            </span><span class="k">requests</span><span class="p">:</span><span class="w">
-</span><span class="ln">21</span><span class="w">              </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>1Gi<span class="w">
-</span><span class="ln">22</span><span class="w">              </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span><span class="m">0.5</span><span class="w">
-</span><span class="ln">23</span><span class="w">            </span><span class="k">limits</span><span class="p">:</span><span class="w">
-</span><span class="ln">24</span><span class="w">              </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>2Gi<span class="w">
-</span><span class="ln">25</span><span class="w">              </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="ln">26</span><span class="w">  </span><span class="k">http</span><span class="p">:</span><span class="w">
-</span><span class="ln">27</span><span class="w">    </span><span class="k">tls</span><span class="p">:</span><span class="w">
-</span><span class="ln">28</span><span class="w">      </span><span class="k">selfSignedCertificate</span><span class="p">:</span><span class="w">
-</span><span class="ln">29</span><span class="w">        </span><span class="k">disabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></code></pre></div><h4 id="the-fluentd-terraform-configure">The fluentd terraform configure</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="l">terraform {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">  </span><span class="l">required_providers {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">    </span><span class="l">kubectl = {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">      </span><span class="l">source = &#34;gavinbunney/kubectl&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">      </span><span class="l">version = &#34;1.11.1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">    </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w"></span><span class="l">resource &#34;helm_release&#34; &#34;eck-operator&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">  </span><span class="l">chart = &#34;${path.module}/../../../../../charts/eck-operator&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">  </span><span class="l">name = &#34;eck-operator&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">  </span><span class="l">namespace = &#34;kube-monitor&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">  </span><span class="l">values = [</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">    </span><span class="l">&lt;&lt;-EOF</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">      </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${var.repository_prefix}/public/eck-operator&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">    </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">      </span><span class="nt">containerRegistry</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${var.repository_prefix}/public&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">    </span><span class="nt">internal</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">      </span><span class="nt">kubeVersion</span><span class="p">:</span><span class="w"> </span><span class="m">1.21.1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">    </span><span class="l">EOF</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">  </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w"></span><span class="l">locals {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">  </span><span class="l">template_vars = {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">    </span><span class="l">namespace = &#34;kube-monitor&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">    </span><span class="l">elasticsearch_version = &#34;7.12.1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">    </span><span class="l">elasticsearch_image = &#34;${var.repository_prefix}/public/elasticsearch:7.12.1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">    </span><span class="l">master_node_count = var.node_count.master</span><span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">    </span><span class="l">storage_size = var.es_storage_size</span><span class="w">
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w">    </span><span class="l">default_storage_class = var.default_storage_class_name</span><span class="w">
+</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w">    </span><span class="l">data_node_count = var.node_count.data</span><span class="w">
+</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w"></span><span class="l">resource &#34;kubectl_manifest&#34; &#34;elasticsearch&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w">  </span><span class="l">yaml_body = templatefile(&#34;${path.module}/elastic_cluster.yaml&#34;, local.template_vars)</span><span class="w">
+</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span></code></pre></div><h4 id="the-elasticsearch-custom-resource-definiations">The elasticsearch custom resource definiations</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch.k8s.elastic.co/v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Elasticsearch</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch-cluster</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">${namespace}</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l">${elasticsearch_version}</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">  </span><span class="nt">volumeClaimDeletePolicy</span><span class="p">:</span><span class="w"> </span><span class="l">DeleteOnScaledownOnly</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">  </span><span class="nt">nodeSets</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">masters</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">      </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l">${master_node_count}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">        </span><span class="nt">node.roles</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;master&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">      </span><span class="nt">podTemplate</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">        </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">          </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">        </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">          </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">            </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">              </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">${elasticsearch_image}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">              </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">                </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">                  </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">1Gi</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">                  </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">                </span><span class="nt">limits</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">                  </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">4Gi</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">                  </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">      </span><span class="nt">volumeClaimTemplates</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">        </span>- <span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch-data</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">          </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">            </span><span class="nt">accessModes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w">              </span>- <span class="l">ReadWriteMany</span><span class="w">
+</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w">            </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w">              </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w">                </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l">${storage_size}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w">            </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l">${default_storage_class}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">data</span><span class="w">
+</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w">      </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l">${data_node_count}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="w">        </span><span class="nt">node.roles</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;data&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;ingest&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;ml&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;transform&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="w">      </span><span class="nt">podTemplate</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="w">        </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="w">          </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">46</span><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch</span><span class="w">
+</span></span></span><span class="line"><span class="ln">47</span><span class="cl"><span class="w">        </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">48</span><span class="cl"><span class="w">          </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">49</span><span class="cl"><span class="w">            </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch</span><span class="w">
+</span></span></span><span class="line"><span class="ln">50</span><span class="cl"><span class="w">              </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">${elasticsearch_image}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">51</span><span class="cl"><span class="w">              </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">52</span><span class="cl"><span class="w">                </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">53</span><span class="cl"><span class="w">                  </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">1Gi</span><span class="w">
+</span></span></span><span class="line"><span class="ln">54</span><span class="cl"><span class="w">                  </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">55</span><span class="cl"><span class="w">                </span><span class="nt">limits</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">56</span><span class="cl"><span class="w">                  </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">4Gi</span><span class="w">
+</span></span></span><span class="line"><span class="ln">57</span><span class="cl"><span class="w">                  </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></span></span><span class="line"><span class="ln">58</span><span class="cl"><span class="w">      </span><span class="nt">volumeClaimTemplates</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">59</span><span class="cl"><span class="w">        </span>- <span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">60</span><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch-data</span><span class="w">
+</span></span></span><span class="line"><span class="ln">61</span><span class="cl"><span class="w">          </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">62</span><span class="cl"><span class="w">            </span><span class="nt">accessModes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">63</span><span class="cl"><span class="w">              </span>- <span class="l">ReadWriteMany</span><span class="w">
+</span></span></span><span class="line"><span class="ln">64</span><span class="cl"><span class="w">            </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">65</span><span class="cl"><span class="w">              </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">66</span><span class="cl"><span class="w">                </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l">${storage_size}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">67</span><span class="cl"><span class="w">            </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l">${default_storage_class}</span><span class="w">
+</span></span></span></code></pre></div><h4 id="the-kibana-terraform-code">The kibana terraform code</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="l">locals {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">  </span><span class="l">kibana_template_vars = {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">    </span><span class="l">namespace = &#34;kube-monitor&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">    </span><span class="l">version = &#34;7.12.1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">    </span><span class="l">image = &#34;${var.repository_prefix}/public/kibana:7.12.1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">    </span><span class="l">node_count = var.node_count.kibana</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w"></span><span class="l">resource &#34;kubectl_manifest&#34; &#34;kibana&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">  </span><span class="l">yaml_body = templatefile(&#34;${path.module}/kibana.yaml&#34;, local.kibana_template_vars)</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w"></span><span class="l">resource &#34;kubernetes_ingress&#34; &#34;kibana&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">  </span><span class="l">metadata {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">    </span><span class="l">name = &#34;kibana-ingress&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">    </span><span class="l">namespace = &#34;kube-monitor&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">    </span><span class="l">labels = {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">      </span><span class="l">app = &#34;kibana-ingress&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">    </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">  </span><span class="l">spec {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">    </span><span class="l">rule {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">      </span><span class="l">host = var.kibana_domain</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">      </span><span class="l">http {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">        </span><span class="l">path {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">          </span><span class="l">path = &#34;/&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">          </span><span class="l">backend {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">            </span><span class="l">service_name = &#34;kibana-kb-http&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">            </span><span class="l">service_port = 5601</span><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">          </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">        </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">      </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w">    </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span></code></pre></div><h4 id="the-kibana-custom-resource">The kibana custom resource</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">kibana.k8s.elastic.co/v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Kibana</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kibana</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">${namespace}</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l">${version}</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">  </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l">${node_count}</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">${image}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">  </span><span class="nt">elasticsearchRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch-cluster</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">  </span><span class="nt">podTemplate</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kibana</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kibana</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">          </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">            </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">              </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">1Gi</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">              </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="m">0.5</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">            </span><span class="nt">limits</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">              </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">2Gi</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">              </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">  </span><span class="nt">http</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">    </span><span class="nt">tls</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">      </span><span class="nt">selfSignedCertificate</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">        </span><span class="nt">disabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></div><h4 id="the-fluentd-terraform-configure">The fluentd terraform configure</h4>
 <p>Use tcp inputs and scrap kuberntes containers log forward to aggregate fluentd and send to elasticsearch</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln">  1</span>resource<span class="w"> </span><span class="s2">&#34;helm_release&#34;</span><span class="w"> </span><span class="s2">&#34;fluentd&#34;</span><span class="w"> </span>{<span class="w">
-</span><span class="ln">  2</span><span class="w">  </span>chart<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;${path.module}/../../../../charts/fluentd&#34;</span><span class="w">
-</span><span class="ln">  3</span><span class="w">  </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;fluentd&#34;</span><span class="w">
-</span><span class="ln">  4</span><span class="w">  </span>namespace<span class="w"> </span>=<span class="w"> </span>var.namespace<span class="w">
-</span><span class="ln">  5</span><span class="w">
-</span><span class="ln">  6</span><span class="w">  </span>values<span class="w"> </span>=<span class="w"> </span><span class="p">[</span><span class="w">
-</span><span class="ln">  7</span><span class="w">    </span>&lt;&lt;-EOF<span class="w">
-</span><span class="ln">  8</span><span class="w">      </span><span class="k">image</span><span class="p">:</span><span class="w">
-</span><span class="ln">  9</span><span class="w">        </span><span class="k">registry</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${var.repository_prefix}&#34;</span><span class="w">
-</span><span class="ln"> 10</span><span class="w">        </span><span class="k">repository</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;public/fluentd&#34;</span><span class="w">
-</span><span class="ln"> 11</span><span class="w">        </span><span class="k">tag</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1.13.1-debian-10-r0&#34;</span><span class="w">
-</span><span class="ln"> 12</span><span class="w">      </span><span class="k">forwarder</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 13</span><span class="w">        </span><span class="k">persistence</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 14</span><span class="w">          </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln"> 15</span><span class="w">        </span><span class="k">extraVolumes</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 16</span><span class="w">         </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>dockerlink<span class="w">
-</span><span class="ln"> 17</span><span class="w">           </span><span class="k">hostPath</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 18</span><span class="w">              </span><span class="k">path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/data2/docker&#34;</span><span class="w">
-</span><span class="ln"> 19</span><span class="w">              </span><span class="k">type</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Directory&#34;</span><span class="w">
-</span><span class="ln"> 20</span><span class="w">        </span><span class="k">extraVolumeMounts</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 21</span><span class="w">         </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>dockerlink<span class="w">
-</span><span class="ln"> 22</span><span class="w">           </span><span class="k">mountPath</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/data2/docker&#34;</span><span class="w">
-</span><span class="ln"> 23</span><span class="w">        </span><span class="k">extraEnv</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 24</span><span class="w">          </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>FLUENTD_UID<span class="w">
-</span><span class="ln"> 25</span><span class="w">            </span><span class="k">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0&#34;</span><span class="w">
-</span><span class="ln"> 26</span><span class="w">        </span><span class="k">configMapFiles</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 27</span><span class="w">          </span><span class="k">fluentd-inputs.conf</span><span class="p">:</span><span class="w"> </span><span class="sd">|
-</span><span class="ln"> 28</span><span class="sd">            &lt;source&gt;</span><span class="w">
-</span><span class="ln"> 29</span><span class="w">              </span>@type<span class="w"> </span>tcp<span class="w">
-</span><span class="ln"> 30</span><span class="w">              </span>bind<span class="w"> </span><span class="m">0.0.0.0</span><span class="w">
-</span><span class="ln"> 31</span><span class="w">              </span>port<span class="w"> </span><span class="m">24224</span><span class="w">
-</span><span class="ln"> 32</span><span class="w">              </span>delimiter<span class="w"> </span><span class="s2">&#34;\n&#34;</span><span class="w">
-</span><span class="ln"> 33</span><span class="w">              </span>source_address_key<span class="w"> </span>client_addr<span class="w">
-</span><span class="ln"> 34</span><span class="w">              </span>tag<span class="w"> </span>ues.services<span class="w">
-</span><span class="ln"> 35</span><span class="w">              </span>&lt;parse<span class="sd">&gt;
-</span><span class="ln"> 36</span><span class="sd">                @type json</span><span class="w">
-</span><span class="ln"> 37</span><span class="w">              </span>&lt;/parse<span class="sd">&gt;
-</span><span class="ln"> 38</span><span class="sd">            &lt;/source&gt;</span><span class="w">
-</span><span class="ln"> 39</span><span class="w">            </span>&lt;source<span class="sd">&gt;
-</span><span class="ln"> 40</span><span class="sd">              @type http</span><span class="w">
-</span><span class="ln"> 41</span><span class="w">              </span>port<span class="w"> </span><span class="m">9880</span><span class="w">
-</span><span class="ln"> 42</span><span class="w">            </span>&lt;/source<span class="sd">&gt;
-</span><span class="ln"> 43</span><span class="sd">            &lt;source&gt;</span><span class="w">
-</span><span class="ln"> 44</span><span class="w">              </span>@type<span class="w"> </span>tail<span class="w">
-</span><span class="ln"> 45</span><span class="w">              </span>path<span class="w"> </span>/var/log/containers/<span class="cp">*.log</span><span class="w">
-</span><span class="ln"> 46</span><span class="w">              </span>exclude_path<span class="w"> </span>/var/log/containers/<span class="cp">*fluentd*.log</span><span class="w">
-</span><span class="ln"> 47</span><span class="w">              </span>pos_file<span class="w"> </span>/opt/bitnami/fluentd/logs/buffers/fluentd-docker.pos<span class="w">
-</span><span class="ln"> 48</span><span class="w">              </span>tag<span class="w"> </span>kubernetes.*<span class="w">
-</span><span class="ln"> 49</span><span class="w">              </span>read_from_head<span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln"> 50</span><span class="w">              </span>&lt;parse<span class="sd">&gt;
-</span><span class="ln"> 51</span><span class="sd">                @type multi_format</span><span class="w">
-</span><span class="ln"> 52</span><span class="w">                </span>&lt;pattern<span class="sd">&gt;
-</span><span class="ln"> 53</span><span class="sd">                  format json</span><span class="w">
-</span><span class="ln"> 54</span><span class="w">                  </span>time_key<span class="w"> </span>time<span class="w">
-</span><span class="ln"> 55</span><span class="w">                  </span>time_format<span class="w"> </span>%Y-%m-%dT%H<span class="p">:</span>%M<span class="p">:</span>%S.%NZ<span class="w">
-</span><span class="ln"> 56</span><span class="w">                </span>&lt;/pattern<span class="sd">&gt;
-</span><span class="ln"> 57</span><span class="sd">                &lt;pattern&gt;</span><span class="w">
-</span><span class="ln"> 58</span><span class="w">                  </span>format<span class="w"> </span>/^(<span class="p">?</span>&lt;time&gt;.+)<span class="w"> </span>(<span class="p">?</span>&lt;stream&gt;stdout|stderr)<span class="w"> </span><span class="p">[</span>^<span class="w"> </span><span class="p">]</span>*<span class="w"> </span>(<span class="p">?</span>&lt;log&gt;.<span class="cp">*)$/</span><span class="w">
-</span><span class="ln"> 59</span><span class="w">                  </span>time_format<span class="w"> </span>%Y-%m-%dT%H<span class="p">:</span>%M<span class="p">:</span>%S.%N%<span class="p">:</span>z<span class="w">
-</span><span class="ln"> 60</span><span class="w">                </span>&lt;/pattern<span class="sd">&gt;
-</span><span class="ln"> 61</span><span class="sd">              &lt;/parse&gt;</span><span class="w">
-</span><span class="ln"> 62</span><span class="w">            </span>&lt;/source<span class="sd">&gt;
-</span><span class="ln"> 63</span><span class="sd">            &lt;filter kubernetes.**&gt;</span><span class="w">
-</span><span class="ln"> 64</span><span class="w">              </span>@type<span class="w"> </span>kubernetes_metadata<span class="w">
-</span><span class="ln"> 65</span><span class="w">            </span>&lt;/filter<span class="sd">&gt;
-</span><span class="ln"> 66</span><span class="sd">        containerPorts:</span><span class="w">
-</span><span class="ln"> 67</span><span class="w">           </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>tcp<span class="w">
-</span><span class="ln"> 68</span><span class="w">             </span><span class="k">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">24224</span><span class="w">
-</span><span class="ln"> 69</span><span class="w">             </span><span class="k">protocol</span><span class="p">:</span><span class="w"> </span>TCP<span class="w">
-</span><span class="ln"> 70</span><span class="w">           </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>http<span class="w">
-</span><span class="ln"> 71</span><span class="w">             </span><span class="k">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">9880</span><span class="w">
-</span><span class="ln"> 72</span><span class="w">             </span><span class="k">protocol</span><span class="p">:</span><span class="w"> </span>TCP<span class="w">
-</span><span class="ln"> 73</span><span class="w">        </span><span class="k">service</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 74</span><span class="w">          </span><span class="k">ports</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 75</span><span class="w">             </span><span class="k">tcp</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 76</span><span class="w">               </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">24224</span><span class="w">
-</span><span class="ln"> 77</span><span class="w">               </span><span class="k">targetPort</span><span class="p">:</span><span class="w"> </span>tcp<span class="w">
-</span><span class="ln"> 78</span><span class="w">               </span><span class="k">protocol</span><span class="p">:</span><span class="w"> </span>TCP<span class="w">
-</span><span class="ln"> 79</span><span class="w">             </span><span class="k">http</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 80</span><span class="w">               </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">9880</span><span class="w">
-</span><span class="ln"> 81</span><span class="w">               </span><span class="k">targetPort</span><span class="p">:</span><span class="w"> </span>http<span class="w">
-</span><span class="ln"> 82</span><span class="w">               </span><span class="k">protocol</span><span class="p">:</span><span class="w"> </span>TCP<span class="w">
-</span><span class="ln"> 83</span><span class="w">        </span><span class="k">resources</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 84</span><span class="w">          </span><span class="k">requests</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 85</span><span class="w">            </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span>100m<span class="w">
-</span><span class="ln"> 86</span><span class="w">            </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>500Mi<span class="w">
-</span><span class="ln"> 87</span><span class="w">          </span><span class="k">limits</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 88</span><span class="w">            </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span>1000m<span class="w">
-</span><span class="ln"> 89</span><span class="w">            </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>2Gi<span class="w">
-</span><span class="ln"> 90</span><span class="w">      </span><span class="k">aggregator</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 91</span><span class="w">        </span><span class="k">extraEnv</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 92</span><span class="w">          </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>ELASTIC_PASSWORD<span class="w">
-</span><span class="ln"> 93</span><span class="w">            </span><span class="k">valueFrom</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 94</span><span class="w">              </span><span class="k">secretKeyRef</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 95</span><span class="w">                </span><span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;elasticsearch-cluster-es-elastic-user&#34;</span><span class="w">
-</span><span class="ln"> 96</span><span class="w">                </span><span class="k">key</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;elastic&#34;</span><span class="w">
-</span><span class="ln"> 97</span><span class="w">        </span><span class="k">configMapFiles</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 98</span><span class="w">          </span><span class="k">fluentd-output.conf</span><span class="p">:</span><span class="w"> </span><span class="sd">|
-</span><span class="ln"> 99</span><span class="sd">            &lt;match fluentd.healthcheck&gt;</span><span class="w">
-</span><span class="ln">100</span><span class="w">              </span>@type<span class="w"> </span>stdout<span class="w">
-</span><span class="ln">101</span><span class="w">            </span>&lt;/match<span class="sd">&gt;
-</span><span class="ln">102</span><span class="sd">            &lt;match kubernetes.**&gt;</span><span class="w">
-</span><span class="ln">103</span><span class="w">              </span>@type<span class="w"> </span>elasticsearch<span class="w">
-</span><span class="ln">104</span><span class="w">              </span>include_tag_key<span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">105</span><span class="w">              </span>suppress_type_name<span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">106</span><span class="w">              </span>host<span class="w"> </span><span class="s2">&#34;elasticsearch-cluster-es-data&#34;</span><span class="w">
-</span><span class="ln">107</span><span class="w">              </span>port<span class="w"> </span><span class="s2">&#34;9200&#34;</span><span class="w">
-</span><span class="ln">108</span><span class="w">              </span>scheme<span class="w"> </span><span class="s2">&#34;https&#34;</span><span class="w">
-</span><span class="ln">109</span><span class="w">              </span>ssl_verify<span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="ln">110</span><span class="w">              </span>user<span class="w"> </span><span class="s2">&#34;elastic&#34;</span><span class="w">
-</span><span class="ln">111</span><span class="w">              </span>password<span class="w"> </span><span class="s2">&#34;#{ENV[&#39;ELASTIC_PASSWORD&#39;]}&#34;</span><span class="w">
-</span><span class="ln">112</span><span class="w">              </span>logstash_format<span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">113</span><span class="w">              </span>logstash_prefix<span class="w"> </span>kubernetes<span class="w">
-</span><span class="ln">114</span><span class="w">              </span>logstash_dateformat<span class="w"> </span>%Y.%m<span class="w">
-</span><span class="ln">115</span><span class="w">              </span>include_timestamp<span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">116</span><span class="w">              </span>reconnect_on_error<span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">117</span><span class="w">              </span>reload_on_failure<span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">118</span><span class="w">              </span>reload_connections<span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="ln">119</span><span class="w">              </span>&lt;buffer<span class="sd">&gt;
-</span><span class="ln">120</span><span class="sd">                @type memory</span><span class="w">
-</span><span class="ln">121</span><span class="w">              </span>&lt;/buffer<span class="sd">&gt;
-</span><span class="ln">122</span><span class="sd">            &lt;/match&gt;</span><span class="w">
-</span><span class="ln">123</span><span class="w">            </span>&lt;match<span class="w"> </span>ues.<span class="cp">**&gt;</span><span class="w">
-</span><span class="ln">124</span><span class="w">              </span>@type<span class="w"> </span>elasticsearch<span class="w">
-</span><span class="ln">125</span><span class="w">              </span>include_tag_key<span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">126</span><span class="w">              </span>suppress_type_name<span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">127</span><span class="w">              </span>host<span class="w"> </span><span class="s2">&#34;elasticsearch-cluster-es-data&#34;</span><span class="w">
-</span><span class="ln">128</span><span class="w">              </span>port<span class="w"> </span><span class="s2">&#34;9200&#34;</span><span class="w">
-</span><span class="ln">129</span><span class="w">              </span>scheme<span class="w"> </span><span class="s2">&#34;https&#34;</span><span class="w">
-</span><span class="ln">130</span><span class="w">              </span>ssl_verify<span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="ln">131</span><span class="w">              </span>user<span class="w"> </span><span class="s2">&#34;elastic&#34;</span><span class="w">
-</span><span class="ln">132</span><span class="w">              </span>password<span class="w"> </span><span class="s2">&#34;#{ENV[&#39;ELASTIC_PASSWORD&#39;]}&#34;</span><span class="w">
-</span><span class="ln">133</span><span class="w">              </span>logstash_format<span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">134</span><span class="w">              </span>logstash_prefix<span class="w"> </span>ues<span class="w">
-</span><span class="ln">135</span><span class="w">              </span>logstash_dateformat<span class="w"> </span>%Y.%m<span class="w">
-</span><span class="ln">136</span><span class="w">              </span>include_timestamp<span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">137</span><span class="w">              </span>reconnect_on_error<span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">138</span><span class="w">              </span>reload_on_failure<span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">139</span><span class="w">              </span>reload_connections<span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="ln">140</span><span class="w">              </span>&lt;buffer<span class="sd">&gt;
-</span><span class="ln">141</span><span class="sd">                @type memory</span><span class="w">
-</span><span class="ln">142</span><span class="w">              </span>&lt;/buffer<span class="sd">&gt;
-</span><span class="ln">143</span><span class="sd">            &lt;/match&gt;</span><span class="w">
-</span><span class="ln">144</span><span class="w">        </span><span class="k">resources</span><span class="p">:</span><span class="w">
-</span><span class="ln">145</span><span class="w">          </span><span class="k">requests</span><span class="p">:</span><span class="w">
-</span><span class="ln">146</span><span class="w">            </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span>100m<span class="w">
-</span><span class="ln">147</span><span class="w">            </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>500Mi<span class="w">
-</span><span class="ln">148</span><span class="w">          </span><span class="k">limits</span><span class="p">:</span><span class="w">
-</span><span class="ln">149</span><span class="w">            </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span>1000m<span class="w">
-</span><span class="ln">150</span><span class="w">            </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>2Gi<span class="w">
-</span><span class="ln">151</span><span class="w">    </span>EOF<span class="w">
-</span><span class="ln">152</span><span class="w">  </span><span class="p">]</span><span class="w">
-</span><span class="ln">153</span><span class="w"></span>}<span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">  1</span><span class="cl"><span class="l">resource &#34;helm_release&#34; &#34;fluentd&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">  2</span><span class="cl"><span class="w">  </span><span class="l">chart = &#34;${path.module}/../../../../charts/fluentd&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">  3</span><span class="cl"><span class="w">  </span><span class="l">name = &#34;fluentd&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">  4</span><span class="cl"><span class="w">  </span><span class="l">namespace = var.namespace</span><span class="w">
+</span></span></span><span class="line"><span class="ln">  5</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">  6</span><span class="cl"><span class="w">  </span><span class="l">values = [</span><span class="w">
+</span></span></span><span class="line"><span class="ln">  7</span><span class="cl"><span class="w">    </span><span class="l">&lt;&lt;-EOF</span><span class="w">
+</span></span></span><span class="line"><span class="ln">  8</span><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">  9</span><span class="cl"><span class="w">        </span><span class="nt">registry</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${var.repository_prefix}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 10</span><span class="cl"><span class="w">        </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;public/fluentd&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 11</span><span class="cl"><span class="w">        </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1.13.1-debian-10-r0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 12</span><span class="cl"><span class="w">      </span><span class="nt">forwarder</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 13</span><span class="cl"><span class="w">        </span><span class="nt">persistence</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 14</span><span class="cl"><span class="w">          </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 15</span><span class="cl"><span class="w">        </span><span class="nt">extraVolumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 16</span><span class="cl"><span class="w">         </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">dockerlink</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 17</span><span class="cl"><span class="w">           </span><span class="nt">hostPath</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 18</span><span class="cl"><span class="w">              </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/data2/docker&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 19</span><span class="cl"><span class="w">              </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Directory&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 20</span><span class="cl"><span class="w">        </span><span class="nt">extraVolumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 21</span><span class="cl"><span class="w">         </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">dockerlink</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 22</span><span class="cl"><span class="w">           </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/data2/docker&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 23</span><span class="cl"><span class="w">        </span><span class="nt">extraEnv</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 24</span><span class="cl"><span class="w">          </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">FLUENTD_UID</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 25</span><span class="cl"><span class="w">            </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 26</span><span class="cl"><span class="w">        </span><span class="nt">configMapFiles</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 27</span><span class="cl"><span class="w">          </span><span class="nt">fluentd-inputs.conf</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="ln"> 28</span><span class="cl"><span class="sd">            &lt;source&gt;
+</span></span></span><span class="line"><span class="ln"> 29</span><span class="cl"><span class="sd">              @type tcp
+</span></span></span><span class="line"><span class="ln"> 30</span><span class="cl"><span class="sd">              bind 0.0.0.0
+</span></span></span><span class="line"><span class="ln"> 31</span><span class="cl"><span class="sd">              port 24224
+</span></span></span><span class="line"><span class="ln"> 32</span><span class="cl"><span class="sd">              delimiter &#34;\n&#34;
+</span></span></span><span class="line"><span class="ln"> 33</span><span class="cl"><span class="sd">              source_address_key client_addr
+</span></span></span><span class="line"><span class="ln"> 34</span><span class="cl"><span class="sd">              tag ues.services
+</span></span></span><span class="line"><span class="ln"> 35</span><span class="cl"><span class="sd">              &lt;parse&gt;
+</span></span></span><span class="line"><span class="ln"> 36</span><span class="cl"><span class="sd">                @type json
+</span></span></span><span class="line"><span class="ln"> 37</span><span class="cl"><span class="sd">              &lt;/parse&gt;
+</span></span></span><span class="line"><span class="ln"> 38</span><span class="cl"><span class="sd">            &lt;/source&gt;
+</span></span></span><span class="line"><span class="ln"> 39</span><span class="cl"><span class="sd">            &lt;source&gt;
+</span></span></span><span class="line"><span class="ln"> 40</span><span class="cl"><span class="sd">              @type http
+</span></span></span><span class="line"><span class="ln"> 41</span><span class="cl"><span class="sd">              port 9880
+</span></span></span><span class="line"><span class="ln"> 42</span><span class="cl"><span class="sd">            &lt;/source&gt;
+</span></span></span><span class="line"><span class="ln"> 43</span><span class="cl"><span class="sd">            &lt;source&gt;
+</span></span></span><span class="line"><span class="ln"> 44</span><span class="cl"><span class="sd">              @type tail
+</span></span></span><span class="line"><span class="ln"> 45</span><span class="cl"><span class="sd">              path /var/log/containers/*.log
+</span></span></span><span class="line"><span class="ln"> 46</span><span class="cl"><span class="sd">              exclude_path /var/log/containers/*fluentd*.log
+</span></span></span><span class="line"><span class="ln"> 47</span><span class="cl"><span class="sd">              pos_file /opt/bitnami/fluentd/logs/buffers/fluentd-docker.pos
+</span></span></span><span class="line"><span class="ln"> 48</span><span class="cl"><span class="sd">              tag kubernetes.*
+</span></span></span><span class="line"><span class="ln"> 49</span><span class="cl"><span class="sd">              read_from_head true
+</span></span></span><span class="line"><span class="ln"> 50</span><span class="cl"><span class="sd">              &lt;parse&gt;
+</span></span></span><span class="line"><span class="ln"> 51</span><span class="cl"><span class="sd">                @type multi_format
+</span></span></span><span class="line"><span class="ln"> 52</span><span class="cl"><span class="sd">                &lt;pattern&gt;
+</span></span></span><span class="line"><span class="ln"> 53</span><span class="cl"><span class="sd">                  format json
+</span></span></span><span class="line"><span class="ln"> 54</span><span class="cl"><span class="sd">                  time_key time
+</span></span></span><span class="line"><span class="ln"> 55</span><span class="cl"><span class="sd">                  time_format %Y-%m-%dT%H:%M:%S.%NZ
+</span></span></span><span class="line"><span class="ln"> 56</span><span class="cl"><span class="sd">                &lt;/pattern&gt;
+</span></span></span><span class="line"><span class="ln"> 57</span><span class="cl"><span class="sd">                &lt;pattern&gt;
+</span></span></span><span class="line"><span class="ln"> 58</span><span class="cl"><span class="sd">                  format /^(?&lt;time&gt;.+) (?&lt;stream&gt;stdout|stderr) [^ ]* (?&lt;log&gt;.*)$/
+</span></span></span><span class="line"><span class="ln"> 59</span><span class="cl"><span class="sd">                  time_format %Y-%m-%dT%H:%M:%S.%N%:z
+</span></span></span><span class="line"><span class="ln"> 60</span><span class="cl"><span class="sd">                &lt;/pattern&gt;
+</span></span></span><span class="line"><span class="ln"> 61</span><span class="cl"><span class="sd">              &lt;/parse&gt;
+</span></span></span><span class="line"><span class="ln"> 62</span><span class="cl"><span class="sd">            &lt;/source&gt;
+</span></span></span><span class="line"><span class="ln"> 63</span><span class="cl"><span class="sd">            &lt;filter kubernetes.**&gt;
+</span></span></span><span class="line"><span class="ln"> 64</span><span class="cl"><span class="sd">              @type kubernetes_metadata
+</span></span></span><span class="line"><span class="ln"> 65</span><span class="cl"><span class="sd">            &lt;/filter&gt;</span><span class="w">            
+</span></span></span><span class="line"><span class="ln"> 66</span><span class="cl"><span class="w">        </span><span class="nt">containerPorts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 67</span><span class="cl"><span class="w">           </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">tcp</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 68</span><span class="cl"><span class="w">             </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">24224</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 69</span><span class="cl"><span class="w">             </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">TCP</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 70</span><span class="cl"><span class="w">           </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">http</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 71</span><span class="cl"><span class="w">             </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">9880</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 72</span><span class="cl"><span class="w">             </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">TCP</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 73</span><span class="cl"><span class="w">        </span><span class="nt">service</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 74</span><span class="cl"><span class="w">          </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 75</span><span class="cl"><span class="w">             </span><span class="nt">tcp</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 76</span><span class="cl"><span class="w">               </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">24224</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 77</span><span class="cl"><span class="w">               </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l">tcp</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 78</span><span class="cl"><span class="w">               </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">TCP</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 79</span><span class="cl"><span class="w">             </span><span class="nt">http</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 80</span><span class="cl"><span class="w">               </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">9880</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 81</span><span class="cl"><span class="w">               </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l">http</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 82</span><span class="cl"><span class="w">               </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">TCP</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 83</span><span class="cl"><span class="w">        </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 84</span><span class="cl"><span class="w">          </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 85</span><span class="cl"><span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l">100m</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 86</span><span class="cl"><span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">500Mi</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 87</span><span class="cl"><span class="w">          </span><span class="nt">limits</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 88</span><span class="cl"><span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l">1000m</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 89</span><span class="cl"><span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">2Gi</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 90</span><span class="cl"><span class="w">      </span><span class="nt">aggregator</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 91</span><span class="cl"><span class="w">        </span><span class="nt">extraEnv</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 92</span><span class="cl"><span class="w">          </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ELASTIC_PASSWORD</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 93</span><span class="cl"><span class="w">            </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 94</span><span class="cl"><span class="w">              </span><span class="nt">secretKeyRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 95</span><span class="cl"><span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;elasticsearch-cluster-es-elastic-user&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 96</span><span class="cl"><span class="w">                </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;elastic&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 97</span><span class="cl"><span class="w">        </span><span class="nt">configMapFiles</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 98</span><span class="cl"><span class="w">          </span><span class="nt">fluentd-output.conf</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="ln"> 99</span><span class="cl"><span class="sd">            &lt;match fluentd.healthcheck&gt;
+</span></span></span><span class="line"><span class="ln">100</span><span class="cl"><span class="sd">              @type stdout
+</span></span></span><span class="line"><span class="ln">101</span><span class="cl"><span class="sd">            &lt;/match&gt;
+</span></span></span><span class="line"><span class="ln">102</span><span class="cl"><span class="sd">            &lt;match kubernetes.**&gt;
+</span></span></span><span class="line"><span class="ln">103</span><span class="cl"><span class="sd">              @type elasticsearch
+</span></span></span><span class="line"><span class="ln">104</span><span class="cl"><span class="sd">              include_tag_key true
+</span></span></span><span class="line"><span class="ln">105</span><span class="cl"><span class="sd">              suppress_type_name true
+</span></span></span><span class="line"><span class="ln">106</span><span class="cl"><span class="sd">              host &#34;elasticsearch-cluster-es-data&#34;
+</span></span></span><span class="line"><span class="ln">107</span><span class="cl"><span class="sd">              port &#34;9200&#34;
+</span></span></span><span class="line"><span class="ln">108</span><span class="cl"><span class="sd">              scheme &#34;https&#34;
+</span></span></span><span class="line"><span class="ln">109</span><span class="cl"><span class="sd">              ssl_verify false
+</span></span></span><span class="line"><span class="ln">110</span><span class="cl"><span class="sd">              user &#34;elastic&#34;
+</span></span></span><span class="line"><span class="ln">111</span><span class="cl"><span class="sd">              password &#34;#{ENV[&#39;ELASTIC_PASSWORD&#39;]}&#34;
+</span></span></span><span class="line"><span class="ln">112</span><span class="cl"><span class="sd">              logstash_format true
+</span></span></span><span class="line"><span class="ln">113</span><span class="cl"><span class="sd">              logstash_prefix kubernetes
+</span></span></span><span class="line"><span class="ln">114</span><span class="cl"><span class="sd">              logstash_dateformat %Y.%m
+</span></span></span><span class="line"><span class="ln">115</span><span class="cl"><span class="sd">              include_timestamp true
+</span></span></span><span class="line"><span class="ln">116</span><span class="cl"><span class="sd">              reconnect_on_error true
+</span></span></span><span class="line"><span class="ln">117</span><span class="cl"><span class="sd">              reload_on_failure true
+</span></span></span><span class="line"><span class="ln">118</span><span class="cl"><span class="sd">              reload_connections false
+</span></span></span><span class="line"><span class="ln">119</span><span class="cl"><span class="sd">              &lt;buffer&gt;
+</span></span></span><span class="line"><span class="ln">120</span><span class="cl"><span class="sd">                @type memory
+</span></span></span><span class="line"><span class="ln">121</span><span class="cl"><span class="sd">              &lt;/buffer&gt;
+</span></span></span><span class="line"><span class="ln">122</span><span class="cl"><span class="sd">            &lt;/match&gt;
+</span></span></span><span class="line"><span class="ln">123</span><span class="cl"><span class="sd">            &lt;match ues.**&gt;
+</span></span></span><span class="line"><span class="ln">124</span><span class="cl"><span class="sd">              @type elasticsearch
+</span></span></span><span class="line"><span class="ln">125</span><span class="cl"><span class="sd">              include_tag_key true
+</span></span></span><span class="line"><span class="ln">126</span><span class="cl"><span class="sd">              suppress_type_name true
+</span></span></span><span class="line"><span class="ln">127</span><span class="cl"><span class="sd">              host &#34;elasticsearch-cluster-es-data&#34;
+</span></span></span><span class="line"><span class="ln">128</span><span class="cl"><span class="sd">              port &#34;9200&#34;
+</span></span></span><span class="line"><span class="ln">129</span><span class="cl"><span class="sd">              scheme &#34;https&#34;
+</span></span></span><span class="line"><span class="ln">130</span><span class="cl"><span class="sd">              ssl_verify false
+</span></span></span><span class="line"><span class="ln">131</span><span class="cl"><span class="sd">              user &#34;elastic&#34;
+</span></span></span><span class="line"><span class="ln">132</span><span class="cl"><span class="sd">              password &#34;#{ENV[&#39;ELASTIC_PASSWORD&#39;]}&#34;
+</span></span></span><span class="line"><span class="ln">133</span><span class="cl"><span class="sd">              logstash_format true
+</span></span></span><span class="line"><span class="ln">134</span><span class="cl"><span class="sd">              logstash_prefix ues
+</span></span></span><span class="line"><span class="ln">135</span><span class="cl"><span class="sd">              logstash_dateformat %Y.%m
+</span></span></span><span class="line"><span class="ln">136</span><span class="cl"><span class="sd">              include_timestamp true
+</span></span></span><span class="line"><span class="ln">137</span><span class="cl"><span class="sd">              reconnect_on_error true
+</span></span></span><span class="line"><span class="ln">138</span><span class="cl"><span class="sd">              reload_on_failure true
+</span></span></span><span class="line"><span class="ln">139</span><span class="cl"><span class="sd">              reload_connections false
+</span></span></span><span class="line"><span class="ln">140</span><span class="cl"><span class="sd">              &lt;buffer&gt;
+</span></span></span><span class="line"><span class="ln">141</span><span class="cl"><span class="sd">                @type memory
+</span></span></span><span class="line"><span class="ln">142</span><span class="cl"><span class="sd">              &lt;/buffer&gt;
+</span></span></span><span class="line"><span class="ln">143</span><span class="cl"><span class="sd">            &lt;/match&gt;</span><span class="w">            
+</span></span></span><span class="line"><span class="ln">144</span><span class="cl"><span class="w">        </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">145</span><span class="cl"><span class="w">          </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">146</span><span class="cl"><span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l">100m</span><span class="w">
+</span></span></span><span class="line"><span class="ln">147</span><span class="cl"><span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">500Mi</span><span class="w">
+</span></span></span><span class="line"><span class="ln">148</span><span class="cl"><span class="w">          </span><span class="nt">limits</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">149</span><span class="cl"><span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l">1000m</span><span class="w">
+</span></span></span><span class="line"><span class="ln">150</span><span class="cl"><span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">2Gi</span><span class="w">
+</span></span></span><span class="line"><span class="ln">151</span><span class="cl"><span class="w">    </span><span class="l">EOF</span><span class="w">
+</span></span></span><span class="line"><span class="ln">152</span><span class="cl"><span class="w">  </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">153</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span></code></pre></div>
   </article>
 <aside class="sidebar">
   <section class="sidebar_inner">

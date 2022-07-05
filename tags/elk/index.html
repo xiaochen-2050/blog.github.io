@@ -2,7 +2,7 @@
 <html lang="en" data-figures="">
   <head>  <title>elk | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.74.3" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -120,7 +120,7 @@
       <div class = 'excerpt_footer'>
         <div>
           <p class = 'pale'>install ELK stack use docker-compose Install and setup ELK stack in single machine use docker compose service. and uesfilebeat ship the logs
- settings the centos system  1sudo yum install -y yum-utils 2sudo yum-config-manager \ 3 --add-repo \ 4 https://download.docker.com/linux/centos/docker-ce.repo 5sudo yum install …</p>
+settings the centos system 1sudo yum install -y yum-utils 2sudo yum-config-manager \ 3 --add-repo \ 4 https://download.docker.com/linux/centos/docker-ce.repo 5sudo yum install …</p>
           <a href='https://blog.wisekee.com/post/docker-compose-elk/' class='excerpt_more button'>Read More</a>
         </div>
       </div>
@@ -152,7 +152,7 @@
       <div class = 'excerpt_footer'>
         <div>
           <p class = 'pale'>The syntax ingest pipeline template convenient for search
-1[2{3&#34;grok&#34;: {4&#34;field&#34;: &#34;message&#34;,5&#34;patterns&#34;: [6&#34;%{IPORHOST:remote_addr} - %{USERNAME:remote_user} \\[%{HTTPDATE:time_local}\\] \\\&#34;%{DATA:request}\\\&#34; %{INT:status} %{NUMBER:bytes_sent} …</p>
+1[ 2 { 3 &#34;grok&#34;: { 4 &#34;field&#34;: &#34;message&#34;, 5 &#34;patterns&#34;: [ 6 &#34;%{IPORHOST:remote_addr} - %{USERNAME:remote_user} \\[%{HTTPDATE:time_local}\\] \\\&#34;%{DATA:request}\\\&#34; %{INT:status} %{NUMBER:bytes_sent} …</p>
           <a href='https://blog.wisekee.com/post/elastic-cloud-ingest-pipeline/' class='excerpt_more button'>Read More</a>
         </div>
       </div>
@@ -183,7 +183,7 @@
     </div>
       <div class = 'excerpt_footer'>
         <div>
-          <p class = 'pale'>The logs collect workflow  Filebeat gather the file path log files then send to Logstash 5044 port The logstash receive and transform extract fields and send to Elasticsearch  The Filebeat config file is: /etc/filebeat.yml  installing the Filebeat script:  1#!/bin/bash 2FILEBEAT_NAME=filebeat-6.7.2-x86_64.rpm 3# …</p>
+          <p class = 'pale'>The logs collect workflow Filebeat gather the file path log files then send to Logstash 5044 port The logstash receive and transform extract fields and send to Elasticsearch The Filebeat config file is: /etc/filebeat.yml installing the Filebeat script: 1#!/bin/bash 2FILEBEAT_NAME=filebeat-6.7.2-x86_64.rpm 3# install …</p>
           <a href='https://blog.wisekee.com/post/logstash_configure/' class='excerpt_more button'>Read More</a>
         </div>
       </div>
@@ -191,8 +191,6 @@
   </li>
   
     <li>
-
-
     </li>
   </ul>
 <aside class="sidebar">

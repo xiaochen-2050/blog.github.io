@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>Installing eclipse-che in native kubernetes platform | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.74.3" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -143,41 +143,41 @@
     
     <h4 id="at-first-installing-olm">At first installing OLM</h4>
 <p>Requirement: kubectl configred and connect to Kubernetes cluster correct.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>curl -L https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.17.0/install.sh -o install.sh
-<span class="ln">2</span>chmod +x install.sh
-<span class="ln">3</span>./install.sh v0.17.0
-</code></pre></div><h4 id="installing-eclipse-che-operator">Installing Eclipse-Che Operator</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">curl -L https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.17.0/install.sh -o install.sh
+</span></span><span class="line"><span class="ln">2</span><span class="cl">chmod +x install.sh
+</span></span><span class="line"><span class="ln">3</span><span class="cl">./install.sh v0.17.0
+</span></span></code></pre></div><h4 id="installing-eclipse-che-operator">Installing Eclipse-Che Operator</h4>
 <p>According to: <a href="https://operatorhub.io/operator/eclipse-che">eclipse-che operator</a></p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>kubectl create -f https://operatorhub.io/install/eclipse-che.yaml
-<span class="ln">2</span><span class="c1"># view the Operator resources</span>
-<span class="ln">3</span>kubectl get pods --all-namespaces <span class="p">|</span> grep olm
-<span class="ln">4</span><span class="c1"># and the CluseterServiceVersion</span>
-<span class="ln">5</span>kubectl get csv -n my-eclipse-che
-</code></pre></div><h4 id="install-eclipse-che-instance-use-checluster-resource">Install Eclipse-che instance use CheCluster resource</h4>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span><span class="c">#The partial configure need to change</span><span class="w">
-</span><span class="ln"> 2</span><span class="w">  </span><span class="k">k8s</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 3</span><span class="w">    </span><span class="k">ingressClass</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;nginx&#39;</span><span class="w">
-</span><span class="ln"> 4</span><span class="w">    </span><span class="k">ingressDomain</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;che.dev.com&#39;</span><span class="w">
-</span><span class="ln"> 5</span><span class="w">    </span><span class="k">ingressStrategy</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;single-host&#39;</span><span class="w">
-</span><span class="ln"> 6</span><span class="w">    </span><span class="k">securityContextFsGroup</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
-</span><span class="ln"> 7</span><span class="w">    </span><span class="k">securityContextRunAsUser</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
-</span><span class="ln"> 8</span><span class="w">    </span><span class="k">singleHostExposureType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
-</span><span class="ln"> 9</span><span class="w">    </span><span class="k">tlsSecretName</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;self-domain-cert&#39;</span><span class="w">
-</span><span class="ln">10</span><span class="w">  </span><span class="k">server</span><span class="p">:</span><span class="w"> 
-</span><span class="ln">11</span><span class="w">    </span><span class="k">cheHost</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;che.dev.com&#39;</span><span class="w">
-</span><span class="ln">12</span><span class="w">    </span><span class="k">cheHostTLSSecret</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;self-domain-cert&#39;</span><span class="w">
-</span><span class="ln">13</span><span class="w">    </span><span class="c">#You can add more custom properties refer to this url: https://www.eclipse.org/che/docs/che-7/installation-guide/advanced-configuration-options-for-the-che-server-component/</span><span class="w">
-</span><span class="ln">14</span><span class="w">    </span><span class="k">customCheProperties</span><span class="p">:</span><span class="w">
-</span><span class="ln">15</span><span class="w">       </span><span class="k">CHE_LIMITS_USER_WORKSPACES_RUN_COUNT</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;10&#34;</span><span class="w">
-</span><span class="ln">16</span><span class="w">    </span><span class="k">tlsSupport</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">17</span><span class="w">	</span><span class="k">storage</span><span class="p">:</span><span class="w">
-</span><span class="ln">18</span><span class="w">    </span><span class="k">postgresPVCStorageClassName</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;nfs-client&#39;</span><span class="w">   
-</span><span class="ln">19</span><span class="w">    </span><span class="k">workspacePVCStorageClassName</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;nfs-client&#39;</span><span class="w">
-</span></code></pre></div><h4 id="execute-the-following-command">Execute the following command</h4>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>kubectl create -f ./CheCluster.yml -n my-eclipse-che <span class="c1"># or apply the resources update use `kubectl apply`</span>
-</code></pre></div><h4 id="view-the-keycloak-credentials-information">View the KeyCloak credentials information</h4>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>k get secrets/che-identity-secret -n my-eclipse-che -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.data}&#39;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">kubectl create -f https://operatorhub.io/install/eclipse-che.yaml
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"># view the Operator resources</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">kubectl get pods --all-namespaces <span class="p">|</span> grep olm
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="c1"># and the CluseterServiceVersion</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">kubectl get csv -n my-eclipse-che
+</span></span></code></pre></div><h4 id="install-eclipse-che-instance-use-checluster-resource">Install Eclipse-che instance use CheCluster resource</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c">#The partial configure need to change</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">  </span><span class="nt">k8s</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">    </span><span class="nt">ingressClass</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;nginx&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">    </span><span class="nt">ingressDomain</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;che.dev.com&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">    </span><span class="nt">ingressStrategy</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;single-host&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">    </span><span class="nt">securityContextFsGroup</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">    </span><span class="nt">securityContextRunAsUser</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">    </span><span class="nt">singleHostExposureType</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">    </span><span class="nt">tlsSecretName</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;self-domain-cert&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">  </span><span class="nt">server</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">    </span><span class="nt">cheHost</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;che.dev.com&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">    </span><span class="nt">cheHostTLSSecret</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;self-domain-cert&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">    </span><span class="c">#You can add more custom properties refer to this url: https://www.eclipse.org/che/docs/che-7/installation-guide/advanced-configuration-options-for-the-che-server-component/</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">    </span><span class="nt">customCheProperties</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">       </span><span class="nt">CHE_LIMITS_USER_WORKSPACES_RUN_COUNT</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;10&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">    </span><span class="nt">tlsSupport</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">	</span><span class="nt">storage</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">    </span><span class="nt">postgresPVCStorageClassName</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;nfs-client&#39;</span><span class="w">   
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">    </span><span class="nt">workspacePVCStorageClassName</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;nfs-client&#39;</span><span class="w">
+</span></span></span></code></pre></div><h4 id="execute-the-following-command">Execute the following command</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">kubectl create -f ./CheCluster.yml -n my-eclipse-che <span class="c1"># or apply the resources update use `kubectl apply`</span>
+</span></span></code></pre></div><h4 id="view-the-keycloak-credentials-information">View the KeyCloak credentials information</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">k get secrets/che-identity-secret -n my-eclipse-che -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.data}&#39;</span>
+</span></span></code></pre></div>
   </article>
 <aside class="sidebar">
   <section class="sidebar_inner">

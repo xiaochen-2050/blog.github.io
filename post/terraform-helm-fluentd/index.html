@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>Terraform&#43;Helm release&#43;fluentd in kubernetes | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.74.3" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -142,214 +142,214 @@
 
     
     <h4 id="step1-the-maintf-include-following-contents">step1 the <code>main.tf</code> include following contents:</h4>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span>resource<span class="w"> </span><span class="s2">&#34;helm_release&#34;</span><span class="w"> </span><span class="s2">&#34;fluentd_server&#34;</span><span class="w"> </span>{<span class="w">
-</span><span class="ln"> 2</span><span class="w">  </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;fluentd-server&#34;</span><span class="w">
-</span><span class="ln"> 3</span><span class="w">  </span>repository<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;https://charts.bitnami.com/bitnami&#34;</span><span class="w">
-</span><span class="ln"> 4</span><span class="w">  </span><span class="c"># chart     = &#34;${path.module}/../../../../../charts/fluentd&#34;</span><span class="w">
-</span><span class="ln"> 5</span><span class="w">  </span>version<span class="w">   </span>=<span class="w"> </span><span class="s2">&#34;3.1.0&#34;</span><span class="w">
-</span><span class="ln"> 6</span><span class="w">  </span>namespace<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;kube-system&#34;</span><span class="w">
-</span><span class="ln"> 7</span><span class="w">
-</span><span class="ln"> 8</span><span class="w">  </span>values<span class="w"> </span>=<span class="w"> </span><span class="p">[</span><span class="w">
-</span><span class="ln"> 9</span><span class="w">    </span>&lt;&lt;-EOF<span class="w">
-</span><span class="ln">10</span><span class="w">    </span><span class="k">forwarder</span><span class="p">:</span><span class="w">
-</span><span class="ln">11</span><span class="w">      </span><span class="k">configMap</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;fluentd-forwarder-config&#34;</span><span class="w">
-</span><span class="ln">12</span><span class="w">      </span><span class="k">rbac</span><span class="p">:</span><span class="w">
-</span><span class="ln">13</span><span class="w">        </span><span class="k">pspEnabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">14</span><span class="w">      </span><span class="k">resources</span><span class="p">:</span><span class="w">
-</span><span class="ln">15</span><span class="w">        </span><span class="k">limits</span><span class="p">:</span><span class="w">
-</span><span class="ln">16</span><span class="w">          </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>1Gi<span class="w">
-</span><span class="ln">17</span><span class="w">        </span><span class="k">requests</span><span class="p">:</span><span class="w">
-</span><span class="ln">18</span><span class="w">          </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>512Mi<span class="w">
-</span><span class="ln">19</span><span class="w">    </span><span class="k">aggregator</span><span class="p">:</span><span class="w">
-</span><span class="ln">20</span><span class="w">      </span><span class="k">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="ln">21</span><span class="w">      </span><span class="k">configMap</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;fluentd-elasticsearch-config&#34;</span><span class="w">
-</span><span class="ln">22</span><span class="w">      </span><span class="k">resources</span><span class="p">:</span><span class="w">
-</span><span class="ln">23</span><span class="w">        </span><span class="k">limits</span><span class="p">:</span><span class="w">
-</span><span class="ln">24</span><span class="w">          </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>1Gi<span class="w">
-</span><span class="ln">25</span><span class="w">        </span><span class="k">requests</span><span class="p">:</span><span class="w">
-</span><span class="ln">26</span><span class="w">          </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>512Mi<span class="w">
-</span><span class="ln">27</span><span class="w">      </span><span class="k">extraEnv</span><span class="p">:</span><span class="w">
-</span><span class="ln">28</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>ELASTICSEARCH_HOST<span class="w">
-</span><span class="ln">29</span><span class="w">          </span><span class="k">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${var.es_url}&#34;</span><span class="w">
-</span><span class="ln">30</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>ELASTICSEARCH_PORT<span class="w">
-</span><span class="ln">31</span><span class="w">          </span><span class="k">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;80&#34;</span><span class="w">
-</span><span class="ln">32</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>ELASTICSEARCH_SCHEME<span class="w">
-</span><span class="ln">33</span><span class="w">          </span><span class="k">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;http&#34;</span><span class="w">        
-</span><span class="ln">34</span><span class="w">      </span><span class="k">persistence</span><span class="p">:</span><span class="w">
-</span><span class="ln">35</span><span class="w">        </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">36</span><span class="w">        </span><span class="k">storageClass</span><span class="p">:</span><span class="w"> </span>gp2<span class="w">
-</span><span class="ln">37</span><span class="w">    </span>EOF<span class="w">
-</span><span class="ln">38</span><span class="w">  </span><span class="p">]</span><span class="w">
-</span><span class="ln">39</span><span class="w">
-</span><span class="ln">40</span><span class="w">  </span>depends_on<span class="w"> </span>=<span class="w"> </span><span class="p">[</span><span class="w">
-</span><span class="ln">41</span><span class="w">    </span>kubernetes_config_map.fluentd_elasticsearch_output<span class="p">,</span><span class="w">
-</span><span class="ln">42</span><span class="w">    </span>kubernetes_config_map.fluentd_forwarder_config<span class="w">
-</span><span class="ln">43</span><span class="w">  </span><span class="p">]</span><span class="w">
-</span><span class="ln">44</span><span class="w">
-</span><span class="ln">45</span><span class="w"></span>}<span class="w">
-</span></code></pre></div><h4 id="step2-the-fluentd-aggegator-configmap-config-aggregator_configmaptf">step2 the fluentd aggegator configmap config <code>aggregator_configmap.tf</code></h4>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span>resource<span class="w"> </span><span class="s2">&#34;kubernetes_config_map&#34;</span><span class="w"> </span><span class="s2">&#34;fluentd_elasticsearch_output&#34;</span><span class="w"> </span>{<span class="w">
-</span><span class="ln"> 2</span><span class="w">  </span>metadata<span class="w"> </span>{<span class="w">
-</span><span class="ln"> 3</span><span class="w">    </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;fluentd-elasticsearch-config&#34;</span><span class="w">
-</span><span class="ln"> 4</span><span class="w">    </span>namespace<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;kube-system&#34;</span><span class="w">
-</span><span class="ln"> 5</span><span class="w">  </span>}<span class="w">
-</span><span class="ln"> 6</span><span class="w">  </span>data<span class="w"> </span>=<span class="w"> </span>{<span class="w">
-</span><span class="ln"> 7</span><span class="w">    </span><span class="s2">&#34;fluentd.conf&#34;</span><span class="w"> </span>=&lt;&lt;-EOF<span class="w">
-</span><span class="ln"> 8</span><span class="w">    </span><span class="c"># Prometheus Exporter Plugin</span><span class="w">
-</span><span class="ln"> 9</span><span class="w">    </span><span class="c"># input plugin that exports metrics</span><span class="w">
-</span><span class="ln">10</span><span class="w">    </span>&lt;source<span class="sd">&gt;
-</span><span class="ln">11</span><span class="sd">      @type prometheus</span><span class="w">
-</span><span class="ln">12</span><span class="w">      </span>port<span class="w"> </span><span class="m">24231</span><span class="w">
-</span><span class="ln">13</span><span class="w">    </span>&lt;/source<span class="sd">&gt;
-</span><span class="ln">14</span><span class="sd">
-</span><span class="ln">15</span><span class="sd">    # input plugin that collects metrics from MonitorAgent</span><span class="w">
-</span><span class="ln">16</span><span class="w">    </span>&lt;source<span class="sd">&gt;
-</span><span class="ln">17</span><span class="sd">      @type prometheus_monitor</span><span class="w">
-</span><span class="ln">18</span><span class="w">      </span>&lt;labels<span class="sd">&gt;
-</span><span class="ln">19</span><span class="sd">        host $${hostname}</span><span class="w">
-</span><span class="ln">20</span><span class="w">      </span>&lt;/labels<span class="sd">&gt;
-</span><span class="ln">21</span><span class="sd">    &lt;/source&gt;</span><span class="w">
-</span><span class="ln">22</span><span class="w">
-</span><span class="ln">23</span><span class="w">    </span><span class="c"># input plugin that collects metrics for output plugin</span><span class="w">
-</span><span class="ln">24</span><span class="w">    </span>&lt;source<span class="sd">&gt;
-</span><span class="ln">25</span><span class="sd">      @type prometheus_output_monitor</span><span class="w">
-</span><span class="ln">26</span><span class="w">      </span>&lt;labels<span class="sd">&gt;
-</span><span class="ln">27</span><span class="sd">        host $${hostname}</span><span class="w">
-</span><span class="ln">28</span><span class="w">      </span>&lt;/labels<span class="sd">&gt;
-</span><span class="ln">29</span><span class="sd">    &lt;/source&gt;</span><span class="w">
-</span><span class="ln">30</span><span class="w">
-</span><span class="ln">31</span><span class="w">    </span><span class="c"># Ignore fluentd own events</span><span class="w">
-</span><span class="ln">32</span><span class="w">    </span>&lt;match<span class="w"> </span>fluent.<span class="cp">**&gt;</span><span class="w">
-</span><span class="ln">33</span><span class="w">      </span>@type<span class="w"> </span><span class="kc">null</span><span class="w">
-</span><span class="ln">34</span><span class="w">    </span>&lt;/match<span class="sd">&gt;
-</span><span class="ln">35</span><span class="sd">
-</span><span class="ln">36</span><span class="sd">    # TCP input to receive logs from the forwarders</span><span class="w">
-</span><span class="ln">37</span><span class="w">    </span>&lt;source<span class="sd">&gt;
-</span><span class="ln">38</span><span class="sd">      @type forward</span><span class="w">
-</span><span class="ln">39</span><span class="w">      </span>bind<span class="w"> </span><span class="m">0.0.0.0</span><span class="w">
-</span><span class="ln">40</span><span class="w">      </span>port<span class="w"> </span><span class="m">24224</span><span class="w">
-</span><span class="ln">41</span><span class="w">    </span>&lt;/source<span class="sd">&gt;
-</span><span class="ln">42</span><span class="sd">
-</span><span class="ln">43</span><span class="sd">    # HTTP input for the liveness and readiness probes</span><span class="w">
-</span><span class="ln">44</span><span class="w">    </span>&lt;source<span class="sd">&gt;
-</span><span class="ln">45</span><span class="sd">      @type http</span><span class="w">
-</span><span class="ln">46</span><span class="w">      </span>bind<span class="w"> </span><span class="m">0.0.0.0</span><span class="w">
-</span><span class="ln">47</span><span class="w">      </span>port<span class="w"> </span><span class="m">9880</span><span class="w">
-</span><span class="ln">48</span><span class="w">    </span>&lt;/source<span class="sd">&gt;
-</span><span class="ln">49</span><span class="sd">
-</span><span class="ln">50</span><span class="sd">    # Throw the healthcheck to the standard output instead of forwarding it</span><span class="w">
-</span><span class="ln">51</span><span class="w">    </span>&lt;match<span class="w"> </span>fluentd.healthcheck<span class="sd">&gt;
-</span><span class="ln">52</span><span class="sd">      @type stdout</span><span class="w">
-</span><span class="ln">53</span><span class="w">    </span>&lt;/match<span class="sd">&gt;
-</span><span class="ln">54</span><span class="sd">
-</span><span class="ln">55</span><span class="sd">    &lt;filter **&gt;</span><span class="w">
-</span><span class="ln">56</span><span class="w">      </span>@type<span class="w"> </span>record_transformer<span class="w">
-</span><span class="ln">57</span><span class="w">      </span>enable_ruby<span class="w">
-</span><span class="ln">58</span><span class="w">      </span>&lt;record<span class="sd">&gt;
-</span><span class="ln">59</span><span class="sd">        env &#34;${var.environment}&#34;</span><span class="w">
-</span><span class="ln">60</span><span class="w">      </span>&lt;/record<span class="sd">&gt;
-</span><span class="ln">61</span><span class="sd">    &lt;/filter&gt;</span><span class="w">
-</span><span class="ln">62</span><span class="w">
-</span><span class="ln">63</span><span class="w">    </span><span class="c"># Send the logs to the standard output</span><span class="w">
-</span><span class="ln">64</span><span class="w">    </span>&lt;match<span class="w"> </span><span class="cp">**&gt;</span><span class="w">
-</span><span class="ln">65</span><span class="w">      </span>@type<span class="w"> </span>elasticsearch_dynamic<span class="w">
-</span><span class="ln">66</span><span class="w">      </span>include_tag_key<span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">67</span><span class="w">      </span>host<span class="w"> </span><span class="s2">&#34;#{ENV[&#39;ELASTICSEARCH_HOST&#39;]}&#34;</span><span class="w">
-</span><span class="ln">68</span><span class="w">      </span>port<span class="w"> </span><span class="s2">&#34;#{ENV[&#39;ELASTICSEARCH_PORT&#39;]}&#34;</span><span class="w">
-</span><span class="ln">69</span><span class="w">      </span>scheme<span class="w"> </span><span class="s2">&#34;#{ENV[&#39;ELASTICSEARCH_SCHEME&#39;]}&#34;</span><span class="w">
-</span><span class="ln">70</span><span class="w">      </span>reconnect_on_error<span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">71</span><span class="w">      </span>reload_on_failure<span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">72</span><span class="w">      </span>reload_connections<span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="ln">73</span><span class="w">      </span>logstash_format<span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">74</span><span class="w">      </span>include_timestamp<span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">75</span><span class="w">      </span>logstash_prefix<span class="w"> </span>eks-$${record<span class="p">[</span><span class="s1">&#39;kubernetes&#39;</span><span class="p">][</span><span class="s1">&#39;namespace_name&#39;</span><span class="p">]</span>}<span class="w">
-</span><span class="ln">76</span><span class="w">      </span>logstash_dateformat<span class="w"> </span>%Y-%m<span class="w">
-</span><span class="ln">77</span><span class="w">
-</span><span class="ln">78</span><span class="w">      </span>&lt;buffer<span class="sd">&gt;
-</span><span class="ln">79</span><span class="sd">        @type file</span><span class="w">
-</span><span class="ln">80</span><span class="w">        </span>path<span class="w"> </span>/opt/bitnami/fluentd/logs/buffers/logs.buffer<span class="w">
-</span><span class="ln">81</span><span class="w">        </span>flush_thread_count<span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="ln">82</span><span class="w">        </span>flush_interval<span class="w"> </span>5s<span class="w">
-</span><span class="ln">83</span><span class="w">        </span>retry_forever<span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">84</span><span class="w">        </span>retry_max_interval<span class="w"> </span><span class="m">30</span><span class="w">
-</span><span class="ln">85</span><span class="w">        </span>chunk_limit_size<span class="w"> </span>2M<span class="w">
-</span><span class="ln">86</span><span class="w">        </span>queue_limit_length<span class="w"> </span><span class="m">32</span><span class="w">
-</span><span class="ln">87</span><span class="w">        </span>overflow_action<span class="w"> </span>block<span class="w">
-</span><span class="ln">88</span><span class="w">      </span>&lt;/buffer<span class="sd">&gt;
-</span><span class="ln">89</span><span class="sd">    &lt;/match&gt;</span><span class="w">
-</span><span class="ln">90</span><span class="w">    </span>&lt;label<span class="w"> </span>@ERROR<span class="sd">&gt;
-</span><span class="ln">91</span><span class="sd">      &lt;match **&gt;</span><span class="w">
-</span><span class="ln">92</span><span class="w">        </span>@type<span class="w"> </span>stdout<span class="w">
-</span><span class="ln">93</span><span class="w">      </span>&lt;/match<span class="sd">&gt;
-</span><span class="ln">94</span><span class="sd">    &lt;/label&gt;</span><span class="w">
-</span><span class="ln">95</span><span class="w">    </span>EOF<span class="w">
-</span><span class="ln">96</span><span class="w">  </span>}<span class="w">
-</span><span class="ln">97</span><span class="w"></span>}<span class="w">
-</span></code></pre></div><h4 id="step3--the-fluentd-forwarder-configmap-config-file-forwarder_configmaptf">step3  the fluentd forwarder configmap config file <code>forwarder_configmap.tf</code></h4>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span>resource<span class="w"> </span><span class="s2">&#34;kubernetes_config_map&#34;</span><span class="w"> </span><span class="s2">&#34;fluentd_forwarder_config&#34;</span><span class="w"> </span>{<span class="w">
-</span><span class="ln"> 2</span><span class="w">  </span>metadata<span class="w"> </span>{<span class="w">
-</span><span class="ln"> 3</span><span class="w">    </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;fluentd-forwarder-config&#34;</span><span class="w">
-</span><span class="ln"> 4</span><span class="w">    </span>namespace<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;kube-system&#34;</span><span class="w">
-</span><span class="ln"> 5</span><span class="w">  </span>}<span class="w">
-</span><span class="ln"> 6</span><span class="w">  </span>data<span class="w"> </span>=<span class="w"> </span>{<span class="w">
-</span><span class="ln"> 7</span><span class="w">    </span><span class="s2">&#34;fluentd.conf&#34;</span><span class="w"> </span>=&lt;&lt;-EOF<span class="w">
-</span><span class="ln"> 8</span><span class="w">    </span><span class="c"># Ignore fluentd own events</span><span class="w">
-</span><span class="ln"> 9</span><span class="w">    </span>&lt;match<span class="w"> </span>fluent.<span class="cp">**&gt;</span><span class="w">
-</span><span class="ln">10</span><span class="w">      </span>@type<span class="w"> </span><span class="kc">null</span><span class="w">
-</span><span class="ln">11</span><span class="w">    </span>&lt;/match<span class="sd">&gt;
-</span><span class="ln">12</span><span class="sd">
-</span><span class="ln">13</span><span class="sd">    # HTTP input for the liveness and readiness probes</span><span class="w">
-</span><span class="ln">14</span><span class="w">    </span>&lt;source<span class="sd">&gt;
-</span><span class="ln">15</span><span class="sd">      @type http</span><span class="w">
-</span><span class="ln">16</span><span class="w">      </span>port<span class="w"> </span><span class="m">9880</span><span class="w">
-</span><span class="ln">17</span><span class="w">    </span>&lt;/source<span class="sd">&gt;
-</span><span class="ln">18</span><span class="sd">
-</span><span class="ln">19</span><span class="sd">    # Throw the healthcheck to the standard output instead of forwarding it</span><span class="w">
-</span><span class="ln">20</span><span class="w">    </span>&lt;match<span class="w"> </span>fluentd.healthcheck<span class="sd">&gt;
-</span><span class="ln">21</span><span class="sd">      @type stdout</span><span class="w">
-</span><span class="ln">22</span><span class="w">    </span>&lt;/match<span class="sd">&gt;
-</span><span class="ln">23</span><span class="sd">
-</span><span class="ln">24</span><span class="sd">    # Get the logs from the containers running in the node</span><span class="w">
-</span><span class="ln">25</span><span class="w">    </span>&lt;source<span class="sd">&gt;
-</span><span class="ln">26</span><span class="sd">      @type tail</span><span class="w">
-</span><span class="ln">27</span><span class="w">      </span>path<span class="w"> </span>/var/log/containers/<span class="cp">*.log</span><span class="w">
-</span><span class="ln">28</span><span class="w">      </span><span class="c"># exclude Fluentd logs</span><span class="w">
-</span><span class="ln">29</span><span class="w">      </span>exclude_path<span class="w"> </span>/var/log/containers/<span class="cp">*fluentd*.log</span><span class="w">      
-</span><span class="ln">30</span><span class="w">      </span>pos_file<span class="w"> </span>/opt/bitnami/fluentd/logs/buffers/fluentd-docker.pos<span class="w">
-</span><span class="ln">31</span><span class="w">      </span>tag<span class="w"> </span>eks.*<span class="w">
-</span><span class="ln">32</span><span class="w">      </span>read_from_head<span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">33</span><span class="w">      </span>&lt;parse<span class="sd">&gt;
-</span><span class="ln">34</span><span class="sd">        @type json</span><span class="w">
-</span><span class="ln">35</span><span class="w">        </span><span class="c"># @type regexp</span><span class="w">
-</span><span class="ln">36</span><span class="w">        </span><span class="c"># expression /^(?&lt;time&gt;.+) (?&lt;stream&gt;stdout|stderr) [^ ]* (?&lt;log&gt;.*)$/</span><span class="w">
-</span><span class="ln">37</span><span class="w">        </span>time_format<span class="w"> </span>%Y-%m-%dT%H<span class="p">:</span>%M<span class="p">:</span>%S.%NZ<span class="w">
-</span><span class="ln">38</span><span class="w">      </span>&lt;/parse<span class="sd">&gt;
-</span><span class="ln">39</span><span class="sd">    &lt;/source&gt;</span><span class="w">
-</span><span class="ln">40</span><span class="w">
-</span><span class="ln">41</span><span class="w">    </span><span class="c"># enrich with kubernetes metadata</span><span class="w">
-</span><span class="ln">42</span><span class="w">    </span>&lt;filter<span class="w"> </span>eks.<span class="cp">**&gt;</span><span class="w">
-</span><span class="ln">43</span><span class="w">      </span>@type<span class="w"> </span>kubernetes_metadata<span class="w">
-</span><span class="ln">44</span><span class="w">    </span>&lt;/filter<span class="sd">&gt;
-</span><span class="ln">45</span><span class="sd">
-</span><span class="ln">46</span><span class="sd">    # Forward all logs to the aggregators</span><span class="w">
-</span><span class="ln">47</span><span class="w">    </span>&lt;match<span class="w"> </span>eks.<span class="cp">**&gt;</span><span class="w">
-</span><span class="ln">48</span><span class="w">      </span>@type<span class="w"> </span>forward<span class="w">
-</span><span class="ln">49</span><span class="w">      </span>&lt;server<span class="sd">&gt;
-</span><span class="ln">50</span><span class="sd">        host fluentd-server-headless.kube-system.svc.cluster.local</span><span class="w">
-</span><span class="ln">51</span><span class="w">        </span>port<span class="w"> </span><span class="m">24224</span><span class="w">
-</span><span class="ln">52</span><span class="w">      </span>&lt;/server<span class="sd">&gt;
-</span><span class="ln">53</span><span class="sd">
-</span><span class="ln">54</span><span class="sd">      &lt;buffer&gt;</span><span class="w">
-</span><span class="ln">55</span><span class="w">        </span>@type<span class="w"> </span>file<span class="w">
-</span><span class="ln">56</span><span class="w">        </span>path<span class="w"> </span>/opt/bitnami/fluentd/logs/buffers/logs.buffer<span class="w">
-</span><span class="ln">57</span><span class="w">        </span>flush_thread_count<span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="ln">58</span><span class="w">        </span>flush_interval<span class="w"> </span>5s<span class="w">
-</span><span class="ln">59</span><span class="w">      </span>&lt;/buffer<span class="sd">&gt;
-</span><span class="ln">60</span><span class="sd">    &lt;/match&gt;</span><span class="w">
-</span><span class="ln">61</span><span class="w">    </span>EOF<span class="w">
-</span><span class="ln">62</span><span class="w">  </span>}<span class="w">
-</span><span class="ln">63</span><span class="w"></span>}<span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="l">resource &#34;helm_release&#34; &#34;fluentd_server&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">  </span><span class="l">name = &#34;fluentd-server&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">  </span><span class="l">repository = &#34;https://charts.bitnami.com/bitnami&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="c"># chart     = &#34;${path.module}/../../../../../charts/fluentd&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span><span class="l">version   = &#34;3.1.0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">  </span><span class="l">namespace = &#34;kube-system&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">  </span><span class="l">values = [</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">    </span><span class="l">&lt;&lt;-EOF</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">    </span><span class="nt">forwarder</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">      </span><span class="nt">configMap</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;fluentd-forwarder-config&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">      </span><span class="nt">rbac</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">        </span><span class="nt">pspEnabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">      </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">        </span><span class="nt">limits</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">1Gi</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">        </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">512Mi</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">    </span><span class="nt">aggregator</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">      </span><span class="nt">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">      </span><span class="nt">configMap</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;fluentd-elasticsearch-config&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">      </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">        </span><span class="nt">limits</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">1Gi</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">        </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">512Mi</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">      </span><span class="nt">extraEnv</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ELASTICSEARCH_HOST</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${var.es_url}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ELASTICSEARCH_PORT</span><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;80&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ELASTICSEARCH_SCHEME</span><span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;http&#34;</span><span class="w">        
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w">      </span><span class="nt">persistence</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w">        </span><span class="nt">storageClass</span><span class="p">:</span><span class="w"> </span><span class="l">gp2</span><span class="w">
+</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w">    </span><span class="l">EOF</span><span class="w">
+</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w">  </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w">  </span><span class="l">depends_on = [</span><span class="w">
+</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="w">    </span><span class="l">kubernetes_config_map.fluentd_elasticsearch_output,</span><span class="w">
+</span></span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="w">    </span><span class="l">kubernetes_config_map.fluentd_forwarder_config</span><span class="w">
+</span></span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="w">  </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span></code></pre></div><h4 id="step2-the-fluentd-aggegator-configmap-config-aggregator_configmaptf">step2 the fluentd aggegator configmap config <code>aggregator_configmap.tf</code></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="l">resource &#34;kubernetes_config_map&#34; &#34;fluentd_elasticsearch_output&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">  </span><span class="l">metadata {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">    </span><span class="l">name = &#34;fluentd-elasticsearch-config&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">    </span><span class="l">namespace = &#34;kube-system&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">  </span><span class="l">data = {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">    </span><span class="s2">&#34;fluentd.conf&#34;</span><span class="w"> </span><span class="l">=&lt;&lt;-EOF</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">    </span><span class="c"># Prometheus Exporter Plugin</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">    </span><span class="c"># input plugin that exports metrics</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">    </span><span class="l">&lt;source&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">      </span>@<span class="l">type prometheus</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">      </span><span class="l">port 24231</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">    </span><span class="l">&lt;/source&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">    </span><span class="c"># input plugin that collects metrics from MonitorAgent</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">    </span><span class="l">&lt;source&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">      </span>@<span class="l">type prometheus_monitor</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">      </span><span class="l">&lt;labels&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">        </span><span class="l">host $${hostname}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">      </span><span class="l">&lt;/labels&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">    </span><span class="l">&lt;/source&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">    </span><span class="c"># input plugin that collects metrics for output plugin</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">    </span><span class="l">&lt;source&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">      </span>@<span class="l">type prometheus_output_monitor</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">      </span><span class="l">&lt;labels&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">        </span><span class="l">host $${hostname}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">      </span><span class="l">&lt;/labels&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">    </span><span class="l">&lt;/source&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">    </span><span class="c"># Ignore fluentd own events</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">    </span><span class="l">&lt;match fluent.**&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">      </span>@<span class="l">type null</span><span class="w">
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w">    </span><span class="l">&lt;/match&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w">    </span><span class="c"># TCP input to receive logs from the forwarders</span><span class="w">
+</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w">    </span><span class="l">&lt;source&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w">      </span>@<span class="l">type forward</span><span class="w">
+</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w">      </span><span class="l">bind 0.0.0.0</span><span class="w">
+</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w">      </span><span class="l">port 24224</span><span class="w">
+</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="w">    </span><span class="l">&lt;/source&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="w">    </span><span class="c"># HTTP input for the liveness and readiness probes</span><span class="w">
+</span></span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="w">    </span><span class="l">&lt;source&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="w">      </span>@<span class="l">type http</span><span class="w">
+</span></span></span><span class="line"><span class="ln">46</span><span class="cl"><span class="w">      </span><span class="l">bind 0.0.0.0</span><span class="w">
+</span></span></span><span class="line"><span class="ln">47</span><span class="cl"><span class="w">      </span><span class="l">port 9880</span><span class="w">
+</span></span></span><span class="line"><span class="ln">48</span><span class="cl"><span class="w">    </span><span class="l">&lt;/source&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">49</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">50</span><span class="cl"><span class="w">    </span><span class="c"># Throw the healthcheck to the standard output instead of forwarding it</span><span class="w">
+</span></span></span><span class="line"><span class="ln">51</span><span class="cl"><span class="w">    </span><span class="l">&lt;match fluentd.healthcheck&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">52</span><span class="cl"><span class="w">      </span>@<span class="l">type stdout</span><span class="w">
+</span></span></span><span class="line"><span class="ln">53</span><span class="cl"><span class="w">    </span><span class="l">&lt;/match&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">54</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">55</span><span class="cl"><span class="w">    </span><span class="l">&lt;filter **&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">56</span><span class="cl"><span class="w">      </span>@<span class="l">type record_transformer</span><span class="w">
+</span></span></span><span class="line"><span class="ln">57</span><span class="cl"><span class="w">      </span><span class="l">enable_ruby</span><span class="w">
+</span></span></span><span class="line"><span class="ln">58</span><span class="cl"><span class="w">      </span><span class="l">&lt;record&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">59</span><span class="cl"><span class="w">        </span><span class="l">env &#34;${var.environment}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">60</span><span class="cl"><span class="w">      </span><span class="l">&lt;/record&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">61</span><span class="cl"><span class="w">    </span><span class="l">&lt;/filter&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">62</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">63</span><span class="cl"><span class="w">    </span><span class="c"># Send the logs to the standard output</span><span class="w">
+</span></span></span><span class="line"><span class="ln">64</span><span class="cl"><span class="w">    </span><span class="l">&lt;match **&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">65</span><span class="cl"><span class="w">      </span>@<span class="l">type elasticsearch_dynamic</span><span class="w">
+</span></span></span><span class="line"><span class="ln">66</span><span class="cl"><span class="w">      </span><span class="l">include_tag_key true</span><span class="w">
+</span></span></span><span class="line"><span class="ln">67</span><span class="cl"><span class="w">      </span><span class="l">host &#34;#{ENV[&#39;ELASTICSEARCH_HOST&#39;]}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">68</span><span class="cl"><span class="w">      </span><span class="l">port &#34;#{ENV[&#39;ELASTICSEARCH_PORT&#39;]}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">69</span><span class="cl"><span class="w">      </span><span class="l">scheme &#34;#{ENV[&#39;ELASTICSEARCH_SCHEME&#39;]}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">70</span><span class="cl"><span class="w">      </span><span class="l">reconnect_on_error true</span><span class="w">
+</span></span></span><span class="line"><span class="ln">71</span><span class="cl"><span class="w">      </span><span class="l">reload_on_failure true</span><span class="w">
+</span></span></span><span class="line"><span class="ln">72</span><span class="cl"><span class="w">      </span><span class="l">reload_connections false</span><span class="w">
+</span></span></span><span class="line"><span class="ln">73</span><span class="cl"><span class="w">      </span><span class="l">logstash_format true</span><span class="w">
+</span></span></span><span class="line"><span class="ln">74</span><span class="cl"><span class="w">      </span><span class="l">include_timestamp true</span><span class="w">
+</span></span></span><span class="line"><span class="ln">75</span><span class="cl"><span class="w">      </span><span class="l">logstash_prefix eks-$${record[&#39;kubernetes&#39;][&#39;namespace_name&#39;]}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">76</span><span class="cl"><span class="w">      </span><span class="l">logstash_dateformat %Y-%m</span><span class="w">
+</span></span></span><span class="line"><span class="ln">77</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">78</span><span class="cl"><span class="w">      </span><span class="l">&lt;buffer&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">79</span><span class="cl"><span class="w">        </span>@<span class="l">type file</span><span class="w">
+</span></span></span><span class="line"><span class="ln">80</span><span class="cl"><span class="w">        </span><span class="l">path /opt/bitnami/fluentd/logs/buffers/logs.buffer</span><span class="w">
+</span></span></span><span class="line"><span class="ln">81</span><span class="cl"><span class="w">        </span><span class="l">flush_thread_count 2</span><span class="w">
+</span></span></span><span class="line"><span class="ln">82</span><span class="cl"><span class="w">        </span><span class="l">flush_interval 5s</span><span class="w">
+</span></span></span><span class="line"><span class="ln">83</span><span class="cl"><span class="w">        </span><span class="l">retry_forever true</span><span class="w">
+</span></span></span><span class="line"><span class="ln">84</span><span class="cl"><span class="w">        </span><span class="l">retry_max_interval 30</span><span class="w">
+</span></span></span><span class="line"><span class="ln">85</span><span class="cl"><span class="w">        </span><span class="l">chunk_limit_size 2M</span><span class="w">
+</span></span></span><span class="line"><span class="ln">86</span><span class="cl"><span class="w">        </span><span class="l">queue_limit_length 32</span><span class="w">
+</span></span></span><span class="line"><span class="ln">87</span><span class="cl"><span class="w">        </span><span class="l">overflow_action block</span><span class="w">
+</span></span></span><span class="line"><span class="ln">88</span><span class="cl"><span class="w">      </span><span class="l">&lt;/buffer&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">89</span><span class="cl"><span class="w">    </span><span class="l">&lt;/match&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">90</span><span class="cl"><span class="w">    </span><span class="l">&lt;label @ERROR&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">91</span><span class="cl"><span class="w">      </span><span class="l">&lt;match **&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">92</span><span class="cl"><span class="w">        </span>@<span class="l">type stdout</span><span class="w">
+</span></span></span><span class="line"><span class="ln">93</span><span class="cl"><span class="w">      </span><span class="l">&lt;/match&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">94</span><span class="cl"><span class="w">    </span><span class="l">&lt;/label&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">95</span><span class="cl"><span class="w">    </span><span class="l">EOF</span><span class="w">
+</span></span></span><span class="line"><span class="ln">96</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">97</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span></code></pre></div><h4 id="step3--the-fluentd-forwarder-configmap-config-file-forwarder_configmaptf">step3  the fluentd forwarder configmap config file <code>forwarder_configmap.tf</code></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="l">resource &#34;kubernetes_config_map&#34; &#34;fluentd_forwarder_config&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">  </span><span class="l">metadata {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">    </span><span class="l">name = &#34;fluentd-forwarder-config&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">    </span><span class="l">namespace = &#34;kube-system&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">  </span><span class="l">data = {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">    </span><span class="s2">&#34;fluentd.conf&#34;</span><span class="w"> </span><span class="l">=&lt;&lt;-EOF</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">    </span><span class="c"># Ignore fluentd own events</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">    </span><span class="l">&lt;match fluent.**&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">      </span>@<span class="l">type null</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">    </span><span class="l">&lt;/match&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">    </span><span class="c"># HTTP input for the liveness and readiness probes</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">    </span><span class="l">&lt;source&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">      </span>@<span class="l">type http</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">      </span><span class="l">port 9880</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">    </span><span class="l">&lt;/source&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">    </span><span class="c"># Throw the healthcheck to the standard output instead of forwarding it</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">    </span><span class="l">&lt;match fluentd.healthcheck&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">      </span>@<span class="l">type stdout</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">    </span><span class="l">&lt;/match&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">    </span><span class="c"># Get the logs from the containers running in the node</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">    </span><span class="l">&lt;source&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">      </span>@<span class="l">type tail</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">      </span><span class="l">path /var/log/containers/*.log</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">      </span><span class="c"># exclude Fluentd logs</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">      </span><span class="l">exclude_path /var/log/containers/*fluentd*.log      </span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">      </span><span class="l">pos_file /opt/bitnami/fluentd/logs/buffers/fluentd-docker.pos</span><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">      </span><span class="l">tag eks.*</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">      </span><span class="l">read_from_head true</span><span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">      </span><span class="l">&lt;parse&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w">        </span>@<span class="l">type json</span><span class="w">
+</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w">        </span><span class="c"># @type regexp</span><span class="w">
+</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w">        </span><span class="c"># expression /^(?&lt;time&gt;.+) (?&lt;stream&gt;stdout|stderr) [^ ]* (?&lt;log&gt;.*)$/</span><span class="w">
+</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w">        </span><span class="l">time_format %Y-%m-%dT%H:%M:%S.%NZ</span><span class="w">
+</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w">      </span><span class="l">&lt;/parse&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w">    </span><span class="l">&lt;/source&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="w">    </span><span class="c"># enrich with kubernetes metadata</span><span class="w">
+</span></span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="w">    </span><span class="l">&lt;filter eks.**&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="w">      </span>@<span class="l">type kubernetes_metadata</span><span class="w">
+</span></span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="w">    </span><span class="l">&lt;/filter&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">46</span><span class="cl"><span class="w">    </span><span class="c"># Forward all logs to the aggregators</span><span class="w">
+</span></span></span><span class="line"><span class="ln">47</span><span class="cl"><span class="w">    </span><span class="l">&lt;match eks.**&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">48</span><span class="cl"><span class="w">      </span>@<span class="l">type forward</span><span class="w">
+</span></span></span><span class="line"><span class="ln">49</span><span class="cl"><span class="w">      </span><span class="l">&lt;server&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">50</span><span class="cl"><span class="w">        </span><span class="l">host fluentd-server-headless.kube-system.svc.cluster.local</span><span class="w">
+</span></span></span><span class="line"><span class="ln">51</span><span class="cl"><span class="w">        </span><span class="l">port 24224</span><span class="w">
+</span></span></span><span class="line"><span class="ln">52</span><span class="cl"><span class="w">      </span><span class="l">&lt;/server&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">53</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">54</span><span class="cl"><span class="w">      </span><span class="l">&lt;buffer&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">55</span><span class="cl"><span class="w">        </span>@<span class="l">type file</span><span class="w">
+</span></span></span><span class="line"><span class="ln">56</span><span class="cl"><span class="w">        </span><span class="l">path /opt/bitnami/fluentd/logs/buffers/logs.buffer</span><span class="w">
+</span></span></span><span class="line"><span class="ln">57</span><span class="cl"><span class="w">        </span><span class="l">flush_thread_count 2</span><span class="w">
+</span></span></span><span class="line"><span class="ln">58</span><span class="cl"><span class="w">        </span><span class="l">flush_interval 5s</span><span class="w">
+</span></span></span><span class="line"><span class="ln">59</span><span class="cl"><span class="w">      </span><span class="l">&lt;/buffer&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">60</span><span class="cl"><span class="w">    </span><span class="l">&lt;/match&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">61</span><span class="cl"><span class="w">    </span><span class="l">EOF</span><span class="w">
+</span></span></span><span class="line"><span class="ln">62</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">63</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span></code></pre></div>
   </article>
 <aside class="sidebar">
   <section class="sidebar_inner">

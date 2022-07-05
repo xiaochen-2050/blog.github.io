@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>Go language private registry glance | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.74.3" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -143,14 +143,12 @@
     
     <h3 id="setup-go-private-package-repositry-athens-for-project-development">Setup GO private package repositry ATHENS for project development</h3>
 <p>Use Nexus proxy access public go package and private repository repo</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span><span class="c1">#The access workflow</span>
-<span class="ln">2</span>
-<span class="ln">3</span>                         <span class="p">|</span>------&gt; proxy-public internal            
-<span class="ln">4</span>internal.pack.com/goproxy---&gt;nexus
-<span class="ln">5</span>                        <span class="p">|</span>------&gt;athens---&gt;nginx---&gt; private gitlab
-<span class="ln">6</span>
-<span class="ln">7</span>
-</code></pre></div><h4 id="the-pull-package-workflow">The pull package workflow</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">#The access workflow</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">
+</span></span><span class="line"><span class="ln">3</span><span class="cl">                         <span class="p">|</span>------&gt; proxy-public internal            
+</span></span><span class="line"><span class="ln">4</span><span class="cl">internal.pack.com/goproxy---&gt;nexus
+</span></span><span class="line"><span class="ln">5</span><span class="cl">                        <span class="p">|</span>------&gt;athens---&gt;nginx---&gt; private gitlab
+</span></span></code></pre></div><h4 id="the-pull-package-workflow">The pull package workflow</h4>
 <pre><code>- set the environment variable `export  GOPROXY=internal.pack.com/goproxy`
 - setup nexus proxy the internal athens and public go proxy repo
 - the athens access internal gitlab code repo needs nginx rewrite the some paths
@@ -159,69 +157,69 @@
 <ul>
 <li>Generate the private certificate</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>openssl req -x509 -nodes -days <span class="m">876000</span> -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">openssl req -x509 -nodes -days <span class="m">876000</span> -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
+</span></span></code></pre></div><ul>
 <li>Prepare <code>Dockerfile</code></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln">1</span>FROM<span class="w"> </span>athens<span class="p">:</span>latest<span class="w">
-</span><span class="ln">2</span><span class="w">
-</span><span class="ln">3</span><span class="w"></span><span class="c"># use private certificate when pull the GO package in project</span><span class="w">
-</span><span class="ln">4</span><span class="w">
-</span><span class="ln">5</span><span class="w"></span>COPY<span class="w"> </span>./nginx-selfsigned.crt<span class="w"> </span>/usr/local/share/ca-certificates/nginx-selfsigned.crt<span class="w">
-</span><span class="ln">6</span><span class="w">
-</span><span class="ln">7</span><span class="w"></span>RUN<span class="w"> </span>update-ca-certificates<span class="w">
-</span></code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">1</span><span class="cl"><span class="l">FROM athens:latest</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w"></span><span class="c"># use private certificate when pull the GO package in project</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w"></span><span class="l">COPY ./nginx-selfsigned.crt /usr/local/share/ca-certificates/nginx-selfsigned.crt</span><span class="w">
+</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="w"></span><span class="l">RUN update-ca-certificates</span><span class="w">
+</span></span></span></code></pre></div><ul>
 <li>The launch docker container script</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span><span class="nb">export</span> <span class="nv">ATHENS_STORAGE</span><span class="o">=</span>/data/athens/storage
-<span class="ln"> 2</span>mkdir -p <span class="nv">$ATHENS_STORAGE</span>
-<span class="ln"> 3</span>docker run -d -v <span class="nv">$ATHENS_STORAGE</span>:/var/lib/athens <span class="se">\
-</span><span class="ln"> 4</span><span class="se"></span>    -v <span class="s2">&#34;/data/athens/.gitconfig:/root/.gitconfig&#34;</span> <span class="se">\
-</span><span class="ln"> 5</span><span class="se"></span>    -v <span class="s2">&#34;/data/athens/.ssh:/root/.ssh&#34;</span> <span class="se">\
-</span><span class="ln"> 6</span><span class="se"></span>    -v <span class="s2">&#34;/data/athens/.netrc:/root/.netrc&#34;</span> <span class="se">\
-</span><span class="ln"> 7</span><span class="se"></span>   -e <span class="nv">ATHENS_DISK_STORAGE_ROOT</span><span class="o">=</span>/var/lib/athens <span class="se">\
-</span><span class="ln"> 8</span><span class="se"></span>   -e <span class="nv">ATHENS_STORAGE_TYPE</span><span class="o">=</span>disk <span class="se">\
-</span><span class="ln"> 9</span><span class="se"></span>   -e <span class="nv">ATHENS_GO_BINARY_ENV_VARS</span><span class="o">=</span><span class="s2">&#34;GOPRIVATE=private.pack.com; GONOSUMDB=private.pack.com&#34;</span> <span class="se">\
-</span><span class="ln">10</span><span class="se"></span>   -e <span class="nv">ATHENS_GONOSUM_PATTERNS</span><span class="o">=</span>private.pack.com/* <span class="se">\
-</span><span class="ln">11</span><span class="se"></span>   --name athens-proxy <span class="se">\
-</span><span class="ln">12</span><span class="se"></span>   --add-host private.pack.com:10.10.0.10 <span class="se">\
-</span><span class="ln">13</span><span class="se"></span>   --restart always <span class="se">\
-</span><span class="ln">14</span><span class="se"></span>   -p 3000:3000 <span class="se">\
-</span><span class="ln">15</span><span class="se"></span>   athens:v1
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nb">export</span> <span class="nv">ATHENS_STORAGE</span><span class="o">=</span>/data/athens/storage
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">mkdir -p <span class="nv">$ATHENS_STORAGE</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">docker run -d -v <span class="nv">$ATHENS_STORAGE</span>:/var/lib/athens <span class="se">\
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="se"></span>    -v <span class="s2">&#34;/data/athens/.gitconfig:/root/.gitconfig&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="se"></span>    -v <span class="s2">&#34;/data/athens/.ssh:/root/.ssh&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="se"></span>    -v <span class="s2">&#34;/data/athens/.netrc:/root/.netrc&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="se"></span>   -e <span class="nv">ATHENS_DISK_STORAGE_ROOT</span><span class="o">=</span>/var/lib/athens <span class="se">\
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="se"></span>   -e <span class="nv">ATHENS_STORAGE_TYPE</span><span class="o">=</span>disk <span class="se">\
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="se"></span>   -e <span class="nv">ATHENS_GO_BINARY_ENV_VARS</span><span class="o">=</span><span class="s2">&#34;GOPRIVATE=private.pack.com; GONOSUMDB=private.pack.com&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="se"></span>   -e <span class="nv">ATHENS_GONOSUM_PATTERNS</span><span class="o">=</span>private.pack.com/* <span class="se">\
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="se"></span>   --name athens-proxy <span class="se">\
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="se"></span>   --add-host private.pack.com:10.10.0.10 <span class="se">\
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="se"></span>   --restart always <span class="se">\
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="se"></span>   -p 3000:3000 <span class="se">\
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="se"></span>   athens:v1
+</span></span></code></pre></div><ul>
 <li>The private gitlab repo config <code>.gitconfig</code></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln">1</span><span class="p">[</span>url<span class="w"> </span><span class="s2">&#34;https://git@code.test.com&#34;</span><span class="p">]</span><span class="w">
-</span><span class="ln">2</span><span class="w">        </span>insteadOf<span class="w"> </span>=<span class="w"> </span>http<span class="p">:</span>//private.pack.com<span class="w">
-</span></code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">1</span><span class="cl"><span class="p">[</span><span class="l">url &#34;https://git@code.test.com&#34;]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w">        </span><span class="l">insteadOf = http://private.pack.com</span><span class="w">
+</span></span></span></code></pre></div><ul>
 <li>The <code>.netrc</code></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>machine private.pack.com
-<span class="ln">2</span>login username
-<span class="ln">3</span>password xxxxxx
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">machine private.pack.com
+</span></span><span class="line"><span class="ln">2</span><span class="cl">login username
+</span></span><span class="line"><span class="ln">3</span><span class="cl">password xxxxxx
+</span></span></code></pre></div><ul>
 <li>The nginx recusive proxy</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span>listen: <span class="s2">&#34;443 ssl&#34;</span>
-<span class="ln"> 2</span>  server_name: <span class="s2">&#34;private.pack.com&#34;</span>
-<span class="ln"> 3</span>  filename: <span class="s2">&#34;private.pack.conf&#34;</span>
-<span class="ln"> 4</span>  state: <span class="s2">&#34;present&#34;</span>
-<span class="ln"> 5</span>  extra_parameters: <span class="p">|</span>
-<span class="ln"> 6</span>    ssl_certificate /etc/nginx/nginx-selfsigned.crt<span class="p">;</span>
-<span class="ln"> 7</span>    ssl_certificate_key /etc/nginx/nginx-selfsigned.key<span class="p">;</span>
-<span class="ln"> 8</span>    <span class="k">if</span> <span class="o">(</span><span class="nv">$args</span> ~* <span class="s2">&#34;^go-get=1&#34;</span><span class="o">)</span> <span class="o">{</span>
-<span class="ln"> 9</span>            <span class="nb">set</span> <span class="nv">$condition</span> goget<span class="p">;</span>
-<span class="ln">10</span>    <span class="o">}</span>
-<span class="ln">11</span>    <span class="k">if</span> <span class="o">(</span><span class="nv">$condition</span> <span class="o">=</span> goget<span class="o">)</span> <span class="o">{</span>
-<span class="ln">12</span>        <span class="k">return</span> <span class="m">200</span> <span class="s2">&#34;&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta content=&#39;private.pack.com git https://private.pack.com/proj/level/sub.git&#39; name=&#39;go-import&#39;&gt;&lt;/head&gt;&lt;/html&gt;&#34;</span><span class="p">;</span>
-<span class="ln">13</span>    <span class="o">}</span>
-<span class="ln">14</span>    location / <span class="o">{</span>
-<span class="ln">15</span>      proxy_pass http://code.test.com/<span class="p">;</span>
-<span class="ln">16</span> 
-<span class="ln">17</span>      proxy_set_header X-Real-IP <span class="nv">$remote_addr</span><span class="p">;</span>
-<span class="ln">18</span>      proxy_set_header X-Forwarded-For <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
-<span class="ln">19</span>    <span class="o">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">listen: <span class="s2">&#34;443 ssl&#34;</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  server_name: <span class="s2">&#34;private.pack.com&#34;</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  filename: <span class="s2">&#34;private.pack.conf&#34;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  state: <span class="s2">&#34;present&#34;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  extra_parameters: <span class="p">|</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    ssl_certificate /etc/nginx/nginx-selfsigned.crt<span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    ssl_certificate_key /etc/nginx/nginx-selfsigned.key<span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="nv">$args</span> ~* <span class="s2">&#34;^go-get=1&#34;</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">            <span class="nb">set</span> <span class="nv">$condition</span> goget<span class="p">;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="nv">$condition</span> <span class="o">=</span> goget<span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">        <span class="k">return</span> <span class="m">200</span> <span class="s2">&#34;&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta content=&#39;private.pack.com git https://private.pack.com/proj/level/sub.git&#39; name=&#39;go-import&#39;&gt;&lt;/head&gt;&lt;/html&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">    location / <span class="o">{</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">      proxy_pass http://code.test.com/<span class="p">;</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl"> 
+</span></span><span class="line"><span class="ln">17</span><span class="cl">      proxy_set_header X-Real-IP <span class="nv">$remote_addr</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">      proxy_set_header X-Forwarded-For <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></div><ul>
 <li>use <code>export GOPROXY=http://internal.pack.com/goproxy</code></li>
 </ul>
 

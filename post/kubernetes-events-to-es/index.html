@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>Kubernetes events collect to elasticsearch | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.74.3" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -141,134 +141,134 @@
     
     <p>We what collect and storage kubernetes events to elasticsearch, easy to query and analyze alerts. we use this github repo component<a href="https://github.com/opsgenie/kubernetes-event-exporter">kubernetes-event-exporter</a></p>
 <h4 id="the-maintf-include-kubernetes-deployment-object">The <code>main.tf</code> include kubernetes &lsquo;deployment&rsquo; object</h4>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span>resource<span class="w"> </span><span class="s2">&#34;kubernetes_deployment&#34;</span><span class="w"> </span><span class="s2">&#34;event_export&#34;</span><span class="w"> </span>{<span class="w">
-</span><span class="ln"> 2</span><span class="w">  </span>metadata<span class="w"> </span>{<span class="w">
-</span><span class="ln"> 3</span><span class="w">    </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;event-export&#34;</span><span class="w">
-</span><span class="ln"> 4</span><span class="w">    </span>namespace<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;kube-system&#34;</span><span class="w">
-</span><span class="ln"> 5</span><span class="w">    </span>labels<span class="w"> </span>=<span class="w"> </span>{<span class="w">
-</span><span class="ln"> 6</span><span class="w">      </span>app<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;event-export&#34;</span><span class="w">
-</span><span class="ln"> 7</span><span class="w">    </span>}<span class="w">
-</span><span class="ln"> 8</span><span class="w">  </span>}<span class="w">
-</span><span class="ln"> 9</span><span class="w">
-</span><span class="ln">10</span><span class="w">  </span>spec<span class="w"> </span>{<span class="w">
-</span><span class="ln">11</span><span class="w">    </span>replicas<span class="w"> </span>=<span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="ln">12</span><span class="w">
-</span><span class="ln">13</span><span class="w">    </span>selector<span class="w"> </span>{<span class="w">
-</span><span class="ln">14</span><span class="w">      </span>match_labels<span class="w"> </span>=<span class="w"> </span>{<span class="w">
-</span><span class="ln">15</span><span class="w">        </span>app<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;event-export&#34;</span><span class="w">
-</span><span class="ln">16</span><span class="w">      </span>}<span class="w">
-</span><span class="ln">17</span><span class="w">    </span>}<span class="w">
-</span><span class="ln">18</span><span class="w">
-</span><span class="ln">19</span><span class="w">    </span>template<span class="w"> </span>{<span class="w">
-</span><span class="ln">20</span><span class="w">      </span>metadata<span class="w"> </span>{<span class="w">
-</span><span class="ln">21</span><span class="w">        </span>labels<span class="w"> </span>=<span class="w"> </span>{<span class="w">
-</span><span class="ln">22</span><span class="w">          </span>app<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;event-export&#34;</span><span class="w">
-</span><span class="ln">23</span><span class="w">          </span>version<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;v1&#34;</span><span class="w">
-</span><span class="ln">24</span><span class="w">        </span>}<span class="w">
-</span><span class="ln">25</span><span class="w">      </span>}<span class="w">
-</span><span class="ln">26</span><span class="w">
-</span><span class="ln">27</span><span class="w">      </span>spec<span class="w"> </span>{<span class="w">
-</span><span class="ln">28</span><span class="w">        </span>service_account_name<span class="w"> </span>=<span class="w"> </span>kubernetes_service_account.event_export.metadata<span class="p">[</span><span class="m">0</span><span class="p">]</span>.name<span class="w">
-</span><span class="ln">29</span><span class="w">        </span>automount_service_account_token<span class="w"> </span>=<span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">30</span><span class="w">        </span>container<span class="w"> </span>{<span class="w">
-</span><span class="ln">31</span><span class="w">          </span>image<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;opsgenie/kubernetes-event-exporter:0.9&#34;</span><span class="w">
-</span><span class="ln">32</span><span class="w">          </span>args<span class="w"> </span>=<span class="w"> </span><span class="p">[</span><span class="w">
-</span><span class="ln">33</span><span class="w">            </span><span class="s2">&#34;-conf=/data/config.yaml&#34;</span><span class="p">,</span><span class="w">
-</span><span class="ln">34</span><span class="w">          </span><span class="p">]</span><span class="w">
-</span><span class="ln">35</span><span class="w">          </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;event-export&#34;</span><span class="w">
-</span><span class="ln">36</span><span class="w">          </span>resources<span class="w"> </span>{<span class="w">
-</span><span class="ln">37</span><span class="w">              </span>requests<span class="w"> </span>{<span class="w">
-</span><span class="ln">38</span><span class="w">                </span>memory<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;50Mi&#34;</span><span class="w">
-</span><span class="ln">39</span><span class="w">              </span>}<span class="w">
-</span><span class="ln">40</span><span class="w">              </span>limits<span class="w"> </span>{<span class="w">
-</span><span class="ln">41</span><span class="w">                </span>memory<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;100Mi&#34;</span><span class="w">
-</span><span class="ln">42</span><span class="w">              </span>}<span class="w">
-</span><span class="ln">43</span><span class="w">          </span>}<span class="w">
-</span><span class="ln">44</span><span class="w">          </span>volume_mount<span class="w"> </span>{<span class="w">
-</span><span class="ln">45</span><span class="w">              </span>name<span class="w">       </span>=<span class="w"> </span><span class="s2">&#34;cfg&#34;</span><span class="w">
-</span><span class="ln">46</span><span class="w">              </span>mount_path<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;/data&#34;</span><span class="w">
-</span><span class="ln">47</span><span class="w">          </span>}<span class="w">
-</span><span class="ln">48</span><span class="w">          </span>image_pull_policy<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;IfNotPresent&#34;</span><span class="w">
-</span><span class="ln">49</span><span class="w">        </span>}<span class="w">
-</span><span class="ln">50</span><span class="w">        </span>volume<span class="w"> </span>{<span class="w">
-</span><span class="ln">51</span><span class="w">          </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;cfg&#34;</span><span class="w">
-</span><span class="ln">52</span><span class="w">          </span>config_map<span class="w"> </span>{<span class="w">
-</span><span class="ln">53</span><span class="w">            </span>name<span class="w"> </span>=<span class="w"> </span>kubernetes_config_map.event_export_config.metadata<span class="p">[</span><span class="m">0</span><span class="p">]</span>.name<span class="w">
-</span><span class="ln">54</span><span class="w">          </span>}<span class="w">
-</span><span class="ln">55</span><span class="w">        </span>}<span class="w">
-</span><span class="ln">56</span><span class="w">      </span>}<span class="w">
-</span><span class="ln">57</span><span class="w">    </span>}<span class="w">
-</span><span class="ln">58</span><span class="w">  </span>}<span class="w">
-</span><span class="ln">59</span><span class="w">
-</span><span class="ln">60</span><span class="w">  </span>depends_on<span class="w"> </span>=<span class="w"> </span><span class="p">[</span><span class="w">
-</span><span class="ln">61</span><span class="w">    </span>kubernetes_service_account.event_export<span class="w">
-</span><span class="ln">62</span><span class="w">  </span><span class="p">]</span><span class="w">
-</span><span class="ln">63</span><span class="w">
-</span><span class="ln">64</span><span class="w"></span>}<span class="w">
-</span></code></pre></div><h4 id="the-configmaptf-indlude-the-kubernetes-configmap-object-storage-event-exporters-config-as-volume-mount-to-previous-deployments-pod-container">The <code>configmap.tf</code> indlude the kubernetes <code>configMap</code> object storage event-exporter&rsquo;s config as volume mount to previous deployment&rsquo;s pod container</h4>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span>resource<span class="w"> </span><span class="s2">&#34;kubernetes_config_map&#34;</span><span class="w"> </span><span class="s2">&#34;event_export_config&#34;</span><span class="w"> </span>{<span class="w">
-</span><span class="ln"> 2</span><span class="w">  </span>metadata<span class="w"> </span>{<span class="w">
-</span><span class="ln"> 3</span><span class="w">    </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;event-export-config&#34;</span><span class="w">
-</span><span class="ln"> 4</span><span class="w">    </span>namespace<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;kube-system&#34;</span><span class="w">
-</span><span class="ln"> 5</span><span class="w">  </span>}<span class="w">
-</span><span class="ln"> 6</span><span class="w">  </span>data<span class="w"> </span>=<span class="w"> </span>{<span class="w">
-</span><span class="ln"> 7</span><span class="w">    </span><span class="s2">&#34;config.yaml&#34;</span><span class="w"> </span>=&lt;&lt;-EOF<span class="w">
-</span><span class="ln"> 8</span><span class="w">    </span><span class="k">logLevel</span><span class="p">:</span><span class="w"> </span>error<span class="w">
-</span><span class="ln"> 9</span><span class="w">    </span><span class="k">logFormat</span><span class="p">:</span><span class="w"> </span>json<span class="w">
-</span><span class="ln">10</span><span class="w">    </span><span class="k">route</span><span class="p">:</span><span class="w">
-</span><span class="ln">11</span><span class="w">      </span><span class="k">routes</span><span class="p">:</span><span class="w">
-</span><span class="ln">12</span><span class="w">        </span>- <span class="k">match</span><span class="p">:</span><span class="w">     
-</span><span class="ln">13</span><span class="w">          </span>- <span class="k">type</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Warning&#34;</span><span class="w">  
-</span><span class="ln">14</span><span class="w">            </span><span class="k">receiver</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;dump&#34;</span><span class="w">
-</span><span class="ln">15</span><span class="w">        </span>- <span class="k">match</span><span class="p">:</span><span class="w">
-</span><span class="ln">16</span><span class="w">          </span>- <span class="k">type</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Error&#34;</span><span class="w">
-</span><span class="ln">17</span><span class="w">            </span><span class="k">receiver</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;dump&#34;</span><span class="w">
-</span><span class="ln">18</span><span class="w">    </span><span class="k">receivers</span><span class="p">:</span><span class="w">
-</span><span class="ln">19</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;dump&#34;</span><span class="w">
-</span><span class="ln">20</span><span class="w">        </span><span class="k">file</span><span class="p">:</span><span class="w">
-</span><span class="ln">21</span><span class="w">          </span><span class="k">path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;dev/stderr&#34;</span><span class="w">
-</span><span class="ln">22</span><span class="w">    </span>EOF<span class="w">
-</span><span class="ln">23</span><span class="w">  </span>}<span class="w">
-</span><span class="ln">24</span><span class="w">
-</span><span class="ln">25</span><span class="w"></span>}<span class="w">
-</span></code></pre></div><p>In this config section, we decides collect the <code>Error</code> and <code>Warning</code> events only. And this component support for AWS ElasticSearch is not good, we output events directly to the Console, after which the ES are collected through Fluentd<a href="/post/terraform-helm-fluentd/">fluentd service</a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="l">resource &#34;kubernetes_deployment&#34; &#34;event_export&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">  </span><span class="l">metadata {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">    </span><span class="l">name = &#34;event-export&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">    </span><span class="l">namespace = &#34;kube-system&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">    </span><span class="l">labels = {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">      </span><span class="l">app = &#34;event-export&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">    </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">  </span><span class="l">spec {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">    </span><span class="l">replicas = 1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">    </span><span class="l">selector {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">      </span><span class="l">match_labels = {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">        </span><span class="l">app = &#34;event-export&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">      </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">    </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">    </span><span class="l">template {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">      </span><span class="l">metadata {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">        </span><span class="l">labels = {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">          </span><span class="l">app = &#34;event-export&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">          </span><span class="l">version = &#34;v1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">        </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">      </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">      </span><span class="l">spec {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">        </span><span class="l">service_account_name = kubernetes_service_account.event_export.metadata[0].name</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">        </span><span class="l">automount_service_account_token = true</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">        </span><span class="l">container {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">          </span><span class="l">image = &#34;opsgenie/kubernetes-event-exporter:0.9&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">          </span><span class="l">args = [</span><span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">            </span><span class="s2">&#34;-conf=/data/config.yaml&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w">          </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w">          </span><span class="l">name = &#34;event-export&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w">          </span><span class="l">resources {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w">              </span><span class="l">requests {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w">                </span><span class="l">memory = &#34;50Mi&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w">              </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w">              </span><span class="l">limits {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="w">                </span><span class="l">memory = &#34;100Mi&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="w">              </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="w">          </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="w">          </span><span class="l">volume_mount {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="w">              </span><span class="l">name       = &#34;cfg&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">46</span><span class="cl"><span class="w">              </span><span class="l">mount_path = &#34;/data&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">47</span><span class="cl"><span class="w">          </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">48</span><span class="cl"><span class="w">          </span><span class="l">image_pull_policy = &#34;IfNotPresent&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">49</span><span class="cl"><span class="w">        </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">50</span><span class="cl"><span class="w">        </span><span class="l">volume {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">51</span><span class="cl"><span class="w">          </span><span class="l">name = &#34;cfg&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">52</span><span class="cl"><span class="w">          </span><span class="l">config_map {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">53</span><span class="cl"><span class="w">            </span><span class="l">name = kubernetes_config_map.event_export_config.metadata[0].name</span><span class="w">
+</span></span></span><span class="line"><span class="ln">54</span><span class="cl"><span class="w">          </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">55</span><span class="cl"><span class="w">        </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">56</span><span class="cl"><span class="w">      </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">57</span><span class="cl"><span class="w">    </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">58</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">59</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">60</span><span class="cl"><span class="w">  </span><span class="l">depends_on = [</span><span class="w">
+</span></span></span><span class="line"><span class="ln">61</span><span class="cl"><span class="w">    </span><span class="l">kubernetes_service_account.event_export</span><span class="w">
+</span></span></span><span class="line"><span class="ln">62</span><span class="cl"><span class="w">  </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">63</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">64</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span></code></pre></div><h4 id="the-configmaptf-indlude-the-kubernetes-configmap-object-storage-event-exporters-config-as-volume-mount-to-previous-deployments-pod-container">The <code>configmap.tf</code> indlude the kubernetes <code>configMap</code> object storage event-exporter&rsquo;s config as volume mount to previous deployment&rsquo;s pod container</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="l">resource &#34;kubernetes_config_map&#34; &#34;event_export_config&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">  </span><span class="l">metadata {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">    </span><span class="l">name = &#34;event-export-config&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">    </span><span class="l">namespace = &#34;kube-system&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">  </span><span class="l">data = {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">    </span><span class="s2">&#34;config.yaml&#34;</span><span class="w"> </span><span class="l">=&lt;&lt;-EOF</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">    </span><span class="nt">logLevel</span><span class="p">:</span><span class="w"> </span><span class="l">error</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">    </span><span class="nt">logFormat</span><span class="p">:</span><span class="w"> </span><span class="l">json</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">    </span><span class="nt">route</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">      </span><span class="nt">routes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">        </span>- <span class="nt">match</span><span class="p">:</span><span class="w">     
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">          </span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Warning&#34;</span><span class="w">  
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">            </span><span class="nt">receiver</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;dump&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">        </span>- <span class="nt">match</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">          </span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Error&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">            </span><span class="nt">receiver</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;dump&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">    </span><span class="nt">receivers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;dump&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">        </span><span class="nt">file</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;dev/stderr&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">    </span><span class="l">EOF</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span></code></pre></div><p>In this config section, we decides collect the <code>Error</code> and <code>Warning</code> events only. And this component support for AWS ElasticSearch is not good, we output events directly to the Console, after which the ES are collected through Fluentd<a href="/post/terraform-helm-fluentd/">fluentd service</a></p>
 <h4 id="the-roletfinclude-the-kubernetes-rbac-config-used-by-deployments">The <code>Role.tf</code>include the kubernetes RBAC config, used by deployments</h4>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span>resource<span class="w"> </span><span class="s2">&#34;kubernetes_cluster_role_binding&#34;</span><span class="w"> </span><span class="s2">&#34;event_export&#34;</span><span class="w"> </span>{<span class="w">
-</span><span class="ln"> 2</span><span class="w">  </span>metadata<span class="w"> </span>{<span class="w">
-</span><span class="ln"> 3</span><span class="w">    </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;event-export&#34;</span><span class="w">
-</span><span class="ln"> 4</span><span class="w">    </span>labels<span class="w"> </span>=<span class="w"> </span>{<span class="w">
-</span><span class="ln"> 5</span><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/name&#34;</span><span class="w">       </span>=<span class="w"> </span><span class="s2">&#34;event-export&#34;</span><span class="w">
-</span><span class="ln"> 6</span><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/managed-by&#34;</span><span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;terraform&#34;</span><span class="w">
-</span><span class="ln"> 7</span><span class="w">    </span>}<span class="w">
-</span><span class="ln"> 8</span><span class="w">  </span>}<span class="w">
-</span><span class="ln"> 9</span><span class="w">  </span>role_ref<span class="w"> </span>{<span class="w">
-</span><span class="ln">10</span><span class="w">    </span>api_group<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;rbac.authorization.k8s.io&#34;</span><span class="w">
-</span><span class="ln">11</span><span class="w">    </span>kind<span class="w">      </span>=<span class="w"> </span><span class="s2">&#34;ClusterRole&#34;</span><span class="w">
-</span><span class="ln">12</span><span class="w">    </span>name<span class="w">      </span>=<span class="w"> </span><span class="s2">&#34;view&#34;</span><span class="w">
-</span><span class="ln">13</span><span class="w">  </span>}<span class="w">
-</span><span class="ln">14</span><span class="w">  </span>subject<span class="w"> </span>{<span class="w">
-</span><span class="ln">15</span><span class="w">    </span>kind<span class="w">      </span>=<span class="w"> </span><span class="s2">&#34;ServiceAccount&#34;</span><span class="w">
-</span><span class="ln">16</span><span class="w">    </span>name<span class="w">      </span>=<span class="w"> </span>kubernetes_service_account.event_export.metadata<span class="p">[</span><span class="m">0</span><span class="p">]</span>.name<span class="w">
-</span><span class="ln">17</span><span class="w">    </span>namespace<span class="w"> </span>=<span class="w"> </span>kubernetes_service_account.event_export.metadata<span class="p">[</span><span class="m">0</span><span class="p">]</span>.namespace<span class="w">
-</span><span class="ln">18</span><span class="w">  </span>}<span class="w">
-</span><span class="ln">19</span><span class="w">
-</span><span class="ln">20</span><span class="w">  </span>depends_on<span class="w"> </span>=<span class="w"> </span><span class="p">[</span><span class="w">    
-</span><span class="ln">21</span><span class="w">    </span>kubernetes_service_account.event_export<span class="w">
-</span><span class="ln">22</span><span class="w">  </span><span class="p">]</span><span class="w">
-</span><span class="ln">23</span><span class="w"></span>}<span class="w">
-</span><span class="ln">24</span><span class="w">
-</span><span class="ln">25</span><span class="w"></span>resource<span class="w"> </span><span class="s2">&#34;kubernetes_service_account&#34;</span><span class="w"> </span><span class="s2">&#34;event_export&#34;</span><span class="w"> </span>{<span class="w">
-</span><span class="ln">26</span><span class="w">  </span>automount_service_account_token<span class="w"> </span>=<span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="ln">27</span><span class="w">  </span>metadata<span class="w"> </span>{<span class="w">
-</span><span class="ln">28</span><span class="w">    </span>name<span class="w">      </span>=<span class="w"> </span><span class="s2">&#34;event-export&#34;</span><span class="w">
-</span><span class="ln">29</span><span class="w">    </span>namespace<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;kube-system&#34;</span><span class="w">
-</span><span class="ln">30</span><span class="w">    </span>labels<span class="w"> </span>=<span class="w"> </span>{<span class="w">
-</span><span class="ln">31</span><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/name&#34;</span><span class="w">       </span>=<span class="w"> </span><span class="s2">&#34;event-export&#34;</span><span class="w">
-</span><span class="ln">32</span><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/managed-by&#34;</span><span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;terraform&#34;</span><span class="w">
-</span><span class="ln">33</span><span class="w">    </span>}<span class="w">
-</span><span class="ln">34</span><span class="w">  </span>}<span class="w">
-</span><span class="ln">35</span><span class="w"></span>}<span class="w">
-</span></code></pre></div><p>Next search in kibana the search keyword is: <code>kubernetes.labels.app:&quot;event-export&quot; AND log:&quot;Warning&quot; OR log:&quot;Error&quot;</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="l">resource &#34;kubernetes_cluster_role_binding&#34; &#34;event_export&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">  </span><span class="l">metadata {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">    </span><span class="l">name = &#34;event-export&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">    </span><span class="l">labels = {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/name&#34;</span><span class="w">       </span><span class="l">= &#34;event-export&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/managed-by&#34;</span><span class="w"> </span><span class="l">= &#34;terraform&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">    </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">  </span><span class="l">role_ref {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">    </span><span class="l">api_group = &#34;rbac.authorization.k8s.io&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">    </span><span class="l">kind      = &#34;ClusterRole&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">    </span><span class="l">name      = &#34;view&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">  </span><span class="l">subject {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">    </span><span class="l">kind      = &#34;ServiceAccount&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">    </span><span class="l">name      = kubernetes_service_account.event_export.metadata[0].name</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">    </span><span class="l">namespace = kubernetes_service_account.event_export.metadata[0].namespace</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">  </span><span class="l">depends_on = [    </span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">    </span><span class="l">kubernetes_service_account.event_export</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">  </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w"></span><span class="l">resource &#34;kubernetes_service_account&#34; &#34;event_export&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">  </span><span class="l">automount_service_account_token = true</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">  </span><span class="l">metadata {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">    </span><span class="l">name      = &#34;event-export&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">    </span><span class="l">namespace = &#34;kube-system&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">    </span><span class="l">labels = {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/name&#34;</span><span class="w">       </span><span class="l">= &#34;event-export&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">      </span><span class="s2">&#34;app.kubernetes.io/managed-by&#34;</span><span class="w"> </span><span class="l">= &#34;terraform&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">    </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span></code></pre></div><p>Next search in kibana the search keyword is: <code>kubernetes.labels.app:&quot;event-export&quot; AND log:&quot;Warning&quot; OR log:&quot;Error&quot;</code></p>
 
   </article>
 <aside class="sidebar">

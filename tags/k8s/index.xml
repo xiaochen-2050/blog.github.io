@@ -6,11 +6,7 @@
     <description>Recent content in K8s on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Thu, 10 Mar 2022 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://blog.wisekee.com/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 10 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>K8S app source code and runtime separate in pod</title>
       <link>https://blog.wisekee.com/post/k8s-app-runtime-sparate/</link>
@@ -28,7 +24,8 @@ Smallest source code build image use a smallest base image to build docker image
       <pubDate>Mon, 15 Nov 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/k8s-cluster-offline-setup/</guid>
-      <description>Sometimes enterprise is ineternal network not has internet network in production The offline installing and setup k8s environment and resources is necessery  Prepare the terraform environment  Download the Terraform binary terraform You can also download the HELM binary to operate the k8s cluster.  1wget https://releases.hashicorp.com/terraform/0.15.4/terraform_0.15.4_linux_amd64.zip 2unzip terraform_0.15.4_linux_amd64.zip 3mv terraform /usr/local/bin/ 4chmod +x /usr/local/bin/terraform 5terraform version   Prepare the Terraform syntax tips plugins in idea IDE https://plugins.jetbrains.com/plugin/7808-hashicorp-terraform--hcl-language-support</description>
+      <description>Sometimes enterprise is ineternal network not has internet network in production The offline installing and setup k8s environment and resources is necessery Prepare the terraform environment Download the Terraform binary terraform You can also download the HELM binary to operate the k8s cluster. 1wget https://releases.hashicorp.com/terraform/0.15.4/terraform_0.15.4_linux_amd64.zip 2unzip terraform_0.15.4_linux_amd64.zip 3mv terraform /usr/local/bin/ 4chmod +x /usr/local/bin/terraform 5terraform version Prepare the Terraform syntax tips plugins in idea IDE https://plugins.jetbrains.com/plugin/7808-hashicorp-terraform--hcl-language-support
+Because the Terraform plugins and providers Offline to local directory and push to CVS repo so needs to install git lfs plugins</description>
     </item>
     
     <item>
@@ -38,7 +35,7 @@ Smallest source code build image use a smallest base image to build docker image
       
       <guid>https://blog.wisekee.com/post/kubernetes-events-to-es/</guid>
       <description>We what collect and storage kubernetes events to elasticsearch, easy to query and analyze alerts. we use this github repo componentkubernetes-event-exporter
-The main.tf include kubernetes &amp;lsquo;deployment&amp;rsquo; object 1resource&amp;#34;kubernetes_deployment&amp;#34;&amp;#34;event_export&amp;#34;{2metadata{3name=&amp;#34;event-export&amp;#34;4namespace=&amp;#34;kube-system&amp;#34;5labels={6app=&amp;#34;event-export&amp;#34;7}8}910spec{11replicas=11213selector{14match_labels={15app=&amp;#34;event-export&amp;#34;16}17}1819template{20metadata{21labels={22app=&amp;#34;event-export&amp;#34;23version=&amp;#34;v1&amp;#34;24}25}2627spec{28service_account_name=kubernetes_service_account.event_export.metadata[0].name29automount_service_account_token=true30container{31image=&amp;#34;opsgenie/kubernetes-event-exporter:0.9&amp;#34;32args=[33&amp;#34;-conf=/data/config.yaml&amp;#34;,34]35name=&amp;#34;event-export&amp;#34;36resources{37requests{38memory=&amp;#34;50Mi&amp;#34;39}40limits{41memory=&amp;#34;100Mi&amp;#34;42}43}44volume_mount{45name=&amp;#34;cfg&amp;#34;46mount_path=&amp;#34;/data&amp;#34;47}48image_pull_policy=&amp;#34;IfNotPresent&amp;#34;49}50volume{51name=&amp;#34;cfg&amp;#34;52config_map{53name=kubernetes_config_map.event_export_config.metadata[0].name54}55}56}57}58}5960depends_on=[61kubernetes_service_account.event_export62]6364}The configmap.tf indlude the kubernetes configMap object storage event-exporter&amp;rsquo;s config as volume mount to previous deployment&amp;rsquo;s pod container 1resource&amp;#34;kubernetes_config_map&amp;#34;&amp;#34;event_export_config&amp;#34;{2metadata{3name=&amp;#34;event-export-config&amp;#34;4namespace=&amp;#34;kube-system&amp;#34;5}6data={7&amp;#34;config.yaml&amp;#34;=&amp;lt;&amp;lt;-EOF8logLevel:error9logFormat:json10route:11routes:12- match:13- type:&amp;#34;Warning&amp;#34;14receiver:&amp;#34;dump&amp;#34;15- match:16- type:&amp;#34;Error&amp;#34;17receiver:&amp;#34;dump&amp;#34;18receivers:19- name:&amp;#34;dump&amp;#34;20file:21path:&amp;#34;dev/stderr&amp;#34;22EOF23}2425}In this config section, we decides collect the Error and Warning events only. And this component support for AWS ElasticSearch is not good, we output events directly to the Console, after which the ES are collected through Fluentdfluentd service</description>
+The main.tf include kubernetes &amp;lsquo;deployment&amp;rsquo; object 1resource &amp;#34;kubernetes_deployment&amp;#34; &amp;#34;event_export&amp;#34; { 2 metadata { 3 name = &amp;#34;event-export&amp;#34; 4 namespace = &amp;#34;kube-system&amp;#34; 5 labels = { 6 app = &amp;#34;event-export&amp;#34; 7 } 8 } 9 10 spec { 11 replicas = 1 12 13 selector { 14 match_labels = { 15 app = &amp;#34;event-export&amp;#34; 16 } 17 } 18 19 template { 20 metadata { 21 labels = { 22 app = &amp;#34;event-export&amp;#34; 23 version = &amp;#34;v1&amp;#34; 24 } 25 } 26 27 spec { 28 service_account_name = kubernetes_service_account.</description>
     </item>
     
     <item>
@@ -47,7 +44,7 @@ The main.tf include kubernetes &amp;lsquo;deployment&amp;rsquo; object 1resource
       <pubDate>Wed, 02 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/terraform-helm-fluentd/</guid>
-      <description>step1 the main.tf include following contents: 1resource&amp;#34;helm_release&amp;#34;&amp;#34;fluentd_server&amp;#34;{2name=&amp;#34;fluentd-server&amp;#34;3repository=&amp;#34;https://charts.bitnami.com/bitnami&amp;#34;4# chart = &amp;#34;${path.module}/../../../../../charts/fluentd&amp;#34;5version=&amp;#34;3.1.0&amp;#34;6namespace=&amp;#34;kube-system&amp;#34;78values=[9&amp;lt;&amp;lt;-EOF10forwarder:11configMap:&amp;#34;fluentd-forwarder-config&amp;#34;12rbac:13pspEnabled:true14resources:15limits:16memory:1Gi17requests:18memory:512Mi19aggregator:20replicaCount:121configMap:&amp;#34;fluentd-elasticsearch-config&amp;#34;22resources:23limits:24memory:1Gi25requests:26memory:512Mi27extraEnv:28- name:ELASTICSEARCH_HOST29value:&amp;#34;${var.es_url}&amp;#34;30- name:ELASTICSEARCH_PORT31value:&amp;#34;80&amp;#34;32- name:ELASTICSEARCH_SCHEME33value:&amp;#34;http&amp;#34;34persistence:35enabled:true36storageClass:gp237EOF38]3940depends_on=[41kubernetes_config_map.fluentd_elasticsearch_output,42kubernetes_config_map.fluentd_forwarder_config43]4445}step2 the fluentd aggegator configmap config aggregator_configmap.tf 1resource&amp;#34;kubernetes_config_map&amp;#34;&amp;#34;fluentd_elasticsearch_output&amp;#34;{2metadata{3name=&amp;#34;fluentd-elasticsearch-config&amp;#34;4namespace=&amp;#34;kube-system&amp;#34;5}6data={7&amp;#34;fluentd.conf&amp;#34;=&amp;lt;&amp;lt;-EOF8# Prometheus Exporter Plugin9# input plugin that exports metrics10&amp;lt;source&amp;gt; 11@type prometheus12port2423113&amp;lt;/source&amp;gt; 1415# input plugin that collects metrics from MonitorAgent16&amp;lt;source&amp;gt; 17@type prometheus_monitor18&amp;lt;labels&amp;gt; 19host $${hostname}20&amp;lt;/labels&amp;gt; 21&amp;lt;/source&amp;gt;2223# input plugin that collects metrics for output plugin24&amp;lt;source&amp;gt; 25@type prometheus_output_monitor26&amp;lt;labels&amp;gt; 27host $${hostname}28&amp;lt;/labels&amp;gt; 29&amp;lt;/source&amp;gt;3031# Ignore fluentd own events32&amp;lt;matchfluent.**&amp;gt;33@typenull34&amp;lt;/match&amp;gt; 3536# TCP input to receive logs from the forwarders37&amp;lt;source&amp;gt; 38@type forward39bind0.</description>
+      <description>step1 the main.tf include following contents: 1resource &amp;#34;helm_release&amp;#34; &amp;#34;fluentd_server&amp;#34; { 2 name = &amp;#34;fluentd-server&amp;#34; 3 repository = &amp;#34;https://charts.bitnami.com/bitnami&amp;#34; 4 # chart = &amp;#34;${path.module}/../../../../../charts/fluentd&amp;#34; 5 version = &amp;#34;3.1.0&amp;#34; 6 namespace = &amp;#34;kube-system&amp;#34; 7 8 values = [ 9 &amp;lt;&amp;lt;-EOF 10 forwarder: 11 configMap: &amp;#34;fluentd-forwarder-config&amp;#34; 12 rbac: 13 pspEnabled: true 14 resources: 15 limits: 16 memory: 1Gi 17 requests: 18 memory: 512Mi 19 aggregator: 20 replicaCount: 1 21 configMap: &amp;#34;fluentd-elasticsearch-config&amp;#34; 22 resources: 23 limits: 24 memory: 1Gi 25 requests: 26 memory: 512Mi 27 extraEnv: 28 - name: ELASTICSEARCH_HOST 29 value: &amp;#34;${var.</description>
     </item>
     
     <item>
@@ -56,8 +53,8 @@ The main.tf include kubernetes &amp;lsquo;deployment&amp;rsquo; object 1resource
       <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/k8s-metrics-server/</guid>
-      <description>When we repeatedly install the Metrics-Server, because we use helm to install it, deleting one of them will cause the following error when executing the command related to kubectl top nodes:  Error from server (NotFound): the server could not find the requested resource (get services http:heapster:)
-  A large part of this is due to the removal of the Apiservice Resources from Metics, when you execute the following command to ensure that the Apiservice exists  kubectl get apiservice | grep metrics   v1beta1.</description>
+      <description>When we repeatedly install the Metrics-Server, because we use helm to install it, deleting one of them will cause the following error when executing the command related to kubectl top nodes: Error from server (NotFound): the server could not find the requested resource (get services http:heapster:)
+A large part of this is due to the removal of the Apiservice Resources from Metics, when you execute the following command to ensure that the Apiservice exists kubectl get apiservice | grep metrics v1beta1.</description>
     </item>
     
     <item>
@@ -66,9 +63,8 @@ The main.tf include kubernetes &amp;lsquo;deployment&amp;rsquo; object 1resource
       <pubDate>Sun, 11 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/airflow-kuberntes-logs-config/</guid>
-      <description>Problem description When use kubernetes executor in airflow, the dags not use the podOperator but that use PythonOperator, the console logs end of Running %s on host %s &amp;lt;TaskInstance:, then the task logs don&amp;rsquo;t redirect to stdout According to the Airflow descript need config the logging class: custom_log_settings 
-Change the custom log settings comment relative code and enable to console the tee_file_task_handler.py edit the following code snippet.
- comment the following content.</description>
+      <description>Problem description When use kubernetes executor in airflow, the dags not use the podOperator but that use PythonOperator, the console logs end of Running %s on host %s &amp;lt;TaskInstance:, then the task logs don&amp;rsquo;t redirect to stdout According to the Airflow descript need config the logging class: custom_log_settings Change the custom log settings comment relative code and enable to console the tee_file_task_handler.py edit the following code snippet.
+comment the following content.</description>
     </item>
     
     <item>
@@ -77,7 +73,7 @@ Change the custom log settings comment relative code and enable to console the t
       <pubDate>Sat, 10 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/terraform-helm-issues/</guid>
-      <description>The Metrics-Server helm chart as Terraform HCL 1resource&amp;#34;helm_release&amp;#34;&amp;#34;metrics-server&amp;#34;{2name=&amp;#34;metrics-server&amp;#34;3repository=&amp;#34;https://charts.bitnami.com/bitnami&amp;#34;4chart=&amp;#34;metrics-server&amp;#34;5version=&amp;#34;4.1.4&amp;#34;6namespace=&amp;#34;kube-system&amp;#34;78set{9name=&amp;#34;extraArgs.kubelet-preferred-address-types&amp;#34;10value=&amp;#34;InternalIP\\,ExternalIP\\,Hostname&amp;#34;11}1213set{14name=&amp;#34;resources.requests.memory&amp;#34;15value=&amp;#34;500Mi&amp;#34;16}1718set{19name=&amp;#34;resources.limits.memory&amp;#34;20value=&amp;#34;1Gi&amp;#34;21}2223set{24name=&amp;#34;apiService.create&amp;#34;25value=&amp;#34;true&amp;#34;26}2728} The apiService.create always assign to true when in AWS EKS or other kubernetes distribution The values include comma , muste be use escape in terraform Any resources should be specific quota, like resource requests and limits  When Name includes dot annotations also escaped 1# set {2# type = &amp;#34;string&amp;#34;3# name = &amp;#34;ingress.web.annotations.alb\\.ingress\\.kubernetes\\.io/security-groups&amp;#34;4# value = &amp;#34;${var.office_sg_id}\\,${var.internal_sg_id}\\,${var.cluster_sg_id}&amp;#34;5# }terraform helm release use local charts 1resource&amp;#34;helm_release&amp;#34;&amp;#34;fluentd_server&amp;#34;{2name=&amp;#34;fluentd-server&amp;#34;3# repository = &amp;#34;https://charts.</description>
+      <description>The Metrics-Server helm chart as Terraform HCL 1resource &amp;#34;helm_release&amp;#34; &amp;#34;metrics-server&amp;#34; { 2 name = &amp;#34;metrics-server&amp;#34; 3 repository = &amp;#34;https://charts.bitnami.com/bitnami&amp;#34; 4 chart = &amp;#34;metrics-server&amp;#34; 5 version = &amp;#34;4.1.4&amp;#34; 6 namespace = &amp;#34;kube-system&amp;#34; 7 8 set { 9 name = &amp;#34;extraArgs.kubelet-preferred-address-types&amp;#34; 10 value = &amp;#34;InternalIP\\,ExternalIP\\,Hostname&amp;#34; 11 } 12 13 set { 14 name = &amp;#34;resources.requests.memory&amp;#34; 15 value = &amp;#34;500Mi&amp;#34; 16 } 17 18 set { 19 name = &amp;#34;resources.limits.memory&amp;#34; 20 value = &amp;#34;1Gi&amp;#34; 21 } 22 23 set { 24 name = &amp;#34;apiService.</description>
     </item>
     
     <item>
@@ -88,7 +84,7 @@ Change the custom log settings comment relative code and enable to console the t
       <guid>https://blog.wisekee.com/post/k8s-backup-restore-using-velero/</guid>
       <description>Installing or Upgrade Velero client on Mac OS:
 1	brew install velero 2	HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade velero #upgrade to the latest version if maybe The Velero should use object store save the snapshot. so we use Minio as kubernetes object store.Minio launched as part of docker-compose.yaml
-1minio:2container_name:&amp;#34;minio&amp;#34;3image:minio/minio4command:&amp;#34;server /data&amp;#34;5ports:6- &amp;#34;9000:9000&amp;#34;7environment:8MINIO_ACCESS_KEY:“xxxxxxx”9MINIO_SECRET_KEY:“xxxxxxx”10volumes:11- &amp;#34;./minio/data:/data&amp;#34;12networks:13- easy-mockCreate a env file is named: velero-env. because the Velero need the similar aws credentials access to Minio service storage backup object.</description>
+1	minio: 2 container_name: &amp;#34;minio&amp;#34; 3 image: minio/minio 4 command: &amp;#34;server /data&amp;#34; 5 ports: 6 - &amp;#34;9000:9000&amp;#34; 7 environment: 8 MINIO_ACCESS_KEY: “xxxxxxx” 9 MINIO_SECRET_KEY: “xxxxxxx” 10 volumes: 11 - &amp;#34;.</description>
     </item>
     
     <item>
@@ -98,13 +94,15 @@ Change the custom log settings comment relative code and enable to console the t
       
       <guid>https://blog.wisekee.com/post/k8s-common-command-conclusion/</guid>
       <description>When we use the Kubernetes platform,has many commands is important:
- The k command is alias to kubectl
-   label for nodes kubectl label nodes host02 disktype=ssd
-  view local config for kubernetes context k config get-contexts
-  switch context&amp;rsquo;s namespaces kubectl config set-context my-vsphere-cluster --namespace=helm-test
-  force delete pod, sometimes the pod still terminating.
+The k command is alias to kubectl
+label for nodes kubectl label nodes host02 disktype=ssd
+view local config for kubernetes context k config get-contexts
+switch context&amp;rsquo;s namespaces kubectl config set-context my-vsphere-cluster --namespace=helm-test
+force delete pod, sometimes the pod still terminating.
 k delete pods &amp;lt;pod&amp;gt; -n &amp;lt;namespace&amp;gt; --grace-period=0 --force
-  get all resource in current kubernetes cluster</description>
+get all resource in current kubernetes cluster
+k get all --all-namespaces
+view job logs</description>
     </item>
     
   </channel>

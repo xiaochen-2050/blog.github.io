@@ -6,11 +6,7 @@
     <description>Recent content on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Thu, 10 Mar 2022 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://blog.wisekee.com/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 10 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>K8S app source code and runtime separate in pod</title>
       <link>https://blog.wisekee.com/post/k8s-app-runtime-sparate/</link>
@@ -29,7 +25,7 @@ Smallest source code build image use a smallest base image to build docker image
       
       <guid>https://blog.wisekee.com/post/awesome-open-source/</guid>
       <description>There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
-Cloud native and kubernetes  https://github.com/labring/sealos(kubernetes-kernel-based cloud os! Let&amp;rsquo;s sealos run kubernetes and applications.) https://github.com/kubevela/kubevela(The Modern Application Platform.) https://github.com/crossplane/crossplane(Cloud Native Control Planes multi cloud resoures) -https://promcat.io/(A resource catalog for enterprise-class Prometheus) () () () () () ()  The frontend and ui  https://github.</description>
+Cloud native and kubernetes https://github.com/labring/sealos(kubernetes-kernel-based cloud os! Let&amp;rsquo;s sealos run kubernetes and applications.) https://github.com/kubevela/kubevela(The Modern Application Platform.) https://github.com/crossplane/crossplane(Cloud Native Control Planes multi cloud resoures) https://promcat.io/(A resource catalog for enterprise-class Prometheus) https://hub.datree.io/(Prevent Kubernetes misconfigurations from reaching production) https://aws.github.io/aws-eks-best-practices/(EKS Best Practices Guides) https://github.com/koderover/zadig(Zadig is a cloud native, distributed, developer-oriented continuous delivery product) https://github.</description>
     </item>
     
     <item>
@@ -39,7 +35,7 @@ Cloud native and kubernetes  https://github.com/labring/sealos(kubernetes-kernel
       
       <guid>https://blog.wisekee.com/post/awesome-blog-resources/</guid>
       <description>There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
-The develop skill knowledge  https://www.baeldung.com/linux/ (linux,java,spring) https://www.howtogeek.com/(it news, product) https://brendanthompson.com/posts(terraform, Articles about Cloud Engineering, and Golang) https://learnk8s.io/(Develop the knowledge and skills to get the most out of Kubernetes with hands-on online courses and instructor-led classes.) https://www.baeldung.com/linux/linux-scripting-series(Linux Scripting Series) https://www.grymoire.com/Unix/Sed.html(Sed - An Introduction and Tutorial by Bruce Barnett) https://jaminzhang.</description>
+The develop skill knowledge https://www.baeldung.com/linux/ (linux,java,spring) https://www.howtogeek.com/(it news, product) https://brendanthompson.com/posts(terraform, Articles about Cloud Engineering, and Golang) https://learnk8s.io/(Develop the knowledge and skills to get the most out of Kubernetes with hands-on online courses and instructor-led classes.) https://www.baeldung.com/linux/linux-scripting-series(Linux Scripting Series) https://www.grymoire.com/Unix/Sed.html(Sed - An Introduction and Tutorial by Bruce Barnett) https://jaminzhang.</description>
     </item>
     
     <item>
@@ -49,7 +45,7 @@ The develop skill knowledge  https://www.baeldung.com/linux/ (linux,java,spring)
       
       <guid>https://blog.wisekee.com/post/go-private-package-registry-athens/</guid>
       <description>Setup GO private package repositry ATHENS for project development Use Nexus proxy access public go package and private repository repo
-1#The access workflow 2 3 |------&amp;gt; proxy-public internal 4internal.pack.com/goproxy---&amp;gt;nexus 5 |------&amp;gt;athens---&amp;gt;nginx---&amp;gt; private gitlab 6 7 The pull package workflow - set the environment variable `export GOPROXY=internal.pack.com/goproxy` - setup nexus proxy the internal athens and public go proxy repo - the athens access internal gitlab code repo needs nginx rewrite the some paths - because athens needs https access the code repo   Generate the private certificate  1openssl req -x509 -nodes -days 876000 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.</description>
+1#The access workflow 2 3 |------&amp;gt; proxy-public internal 4internal.pack.com/goproxy---&amp;gt;nexus 5 |------&amp;gt;athens---&amp;gt;nginx---&amp;gt; private gitlab The pull package workflow - set the environment variable `export GOPROXY=internal.pack.com/goproxy` - setup nexus proxy the internal athens and public go proxy repo - the athens access internal gitlab code repo needs nginx rewrite the some paths - because athens needs https access the code repo Generate the private certificate 1openssl req -x509 -nodes -days 876000 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.</description>
     </item>
     
     <item>
@@ -58,7 +54,8 @@ The develop skill knowledge  https://www.baeldung.com/linux/ (linux,java,spring)
       <pubDate>Mon, 15 Nov 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/k8s-cluster-offline-setup/</guid>
-      <description>Sometimes enterprise is ineternal network not has internet network in production The offline installing and setup k8s environment and resources is necessery  Prepare the terraform environment  Download the Terraform binary terraform You can also download the HELM binary to operate the k8s cluster.  1wget https://releases.hashicorp.com/terraform/0.15.4/terraform_0.15.4_linux_amd64.zip 2unzip terraform_0.15.4_linux_amd64.zip 3mv terraform /usr/local/bin/ 4chmod +x /usr/local/bin/terraform 5terraform version   Prepare the Terraform syntax tips plugins in idea IDE https://plugins.jetbrains.com/plugin/7808-hashicorp-terraform--hcl-language-support</description>
+      <description>Sometimes enterprise is ineternal network not has internet network in production The offline installing and setup k8s environment and resources is necessery Prepare the terraform environment Download the Terraform binary terraform You can also download the HELM binary to operate the k8s cluster. 1wget https://releases.hashicorp.com/terraform/0.15.4/terraform_0.15.4_linux_amd64.zip 2unzip terraform_0.15.4_linux_amd64.zip 3mv terraform /usr/local/bin/ 4chmod +x /usr/local/bin/terraform 5terraform version Prepare the Terraform syntax tips plugins in idea IDE https://plugins.jetbrains.com/plugin/7808-hashicorp-terraform--hcl-language-support
+Because the Terraform plugins and providers Offline to local directory and push to CVS repo so needs to install git lfs plugins</description>
     </item>
     
     <item>
@@ -69,7 +66,7 @@ The develop skill knowledge  https://www.baeldung.com/linux/ (linux,java,spring)
       <guid>https://blog.wisekee.com/post/launch-hashistack-through-ansible/</guid>
       <description>Sometimes we need to manage distributed task scheduling and secure clandestine transport, so introducing HashiStack is a good choice
 Prepare Ansible script and playbook I choice the following playbook roles for stacks,But I changed things to suit my own needs
- Consul: github url Nomad: github url Vault use both repo community-ansibleand MiteshSharma/AnsiblevaultRole  1# The playbook folder level 2├── site.yml 3├── nomad-dev.local 4├── ansible.cfg 5├── roles 6│ ├── consul 7│ └── nomad 8│ └── vault 9└── group_vars 10 ├── consul 11 └── nomad 12 └── vault  the ansible.</description>
+Consul: github url Nomad: github url Vault use both repo community-ansibleand MiteshSharma/AnsiblevaultRole 1# The playbook folder level 2├── site.yml 3├── nomad-dev.local 4├── ansible.cfg 5├── roles 6│ ├── consul 7│ └── nomad 8│ └── vault 9└── group_vars 10 ├── consul 11 └── nomad 12 └── vault the ansible.</description>
     </item>
     
     <item>
@@ -79,7 +76,7 @@ Prepare Ansible script and playbook I choice the following playbook roles for st
       
       <guid>https://blog.wisekee.com/post/deployment-promethues-grafana/</guid>
       <description>Deploymnet Prometheus+Grafana in single machine use docker-compose service Collect and report node status in grafana dashboard, through node-exporter and process-exporter to promethues tsdb
- Setup and install relative components  1#update the system and install docker component 2yum update -y 3yum install -y yum-utils 4yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo 5yum install -y docker-ce docker-ce-cli containerd.io 6systemctl enable docker 7systemctl start docker 8mkdir -p /data/monitor/{alertmanager,prometheus/{config,data},consul/data,grafana/data} 9chmown -R 1000:1000 /data/monitor 10chmod -R 777 /data/monitor/grafana  Download the monitoring relative docker images  1docker pull prom/prometheus:latest 2docker pull grafana/grafana:latest 3docker pull prom/alertmanager:latest 4docker pull prom/pushgateway:latest 5docker pull consul:latest  Prepare docker-compose.</description>
+Setup and install relative components 1#update the system and install docker component 2yum update -y 3yum install -y yum-utils 4yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo 5yum install -y docker-ce docker-ce-cli containerd.io 6systemctl enable docker 7systemctl start docker 8mkdir -p /data/monitor/{alertmanager,prometheus/{config,data},consul/data,grafana/data} 9chmown -R 1000:1000 /data/monitor 10chmod -R 777 /data/monitor/grafana Download the monitoring relative docker images 1docker pull prom/prometheus:latest 2docker pull grafana/grafana:latest 3docker pull prom/alertmanager:latest 4docker pull prom/pushgateway:latest 5docker pull consul:latest Prepare docker-compose.</description>
     </item>
     
     <item>
@@ -89,7 +86,7 @@ Prepare Ansible script and playbook I choice the following playbook roles for st
       
       <guid>https://blog.wisekee.com/post/make-ansible-docker-image/</guid>
       <description>Make Ansible docker image for CI/CD workfolws Sometimes need connect to the remote host use publickey and jump server,copy the ssh key to docker image is necessary
- The Dockerfile  1FROMcentos:723ARGSSH_PRIVATE_KEY4ARGSSH_HOST_CONFIG56RUNcurl-o/etc/yum.repos.d/CentOS-Base.repohttps://mirrors.aliyun.com/repo/Centos-7.repo&amp;amp;&amp;amp;\7yumcleanall&amp;amp;&amp;amp;yummakecachefast&amp;amp;&amp;amp;\8yuminstall-yepel-releasegcclibffi-developenssh-clientsgitwget&amp;amp;&amp;amp;\9yuminstall-ypythonpython2-pipansible1011RUNpython-mpipinstall&amp;#34;pysocks&amp;#34;&amp;#34;pyspnego==0.1.6&amp;#34;&amp;#34;pywinrm==0.4.1&amp;#34;&amp;#39;pypsrp==0.5.0&amp;#39;&amp;amp;&amp;amp;\12yumcleanall1314WORKDIR/var/app15COPYentrypoint.sh/var/app/entrypoint.sh1617RUNansible-galaxycollectioninstallcommunity.general&amp;amp;&amp;amp;\18mkdir~/.ssh/&amp;amp;&amp;amp;\19echo&amp;#34;${SSH_PRIVATE_KEY}&amp;#34;&amp;gt;~/.ssh/id_rsa&amp;amp;&amp;amp;\20echo&amp;#34;${SSH_HOST_CONFIG}&amp;#34;&amp;gt;&amp;gt;~/.ssh/config&amp;amp;&amp;amp;\21chmod600~/.ssh/id_rsa&amp;amp;&amp;amp;\22sed-i&amp;#39;/\[defaults\]/ a host_key_checking = False&amp;#39;/etc/ansible/ansible.cfg&amp;amp;&amp;amp;\23echo-e&amp;#34;\tServerAliveCountMax 5\n\tServerAliveInterval 5\n\tTCPKeepAlive yes&amp;#34;&amp;gt;&amp;gt;/etc/ssh/ssh_config&amp;amp;&amp;amp;\24chmod+x/var/app/entrypoint.sh2526ENTRYPOINT[]27CMD/var/app/entrypoint.sh When make the docker image needs pass the build arguments to context  1# docker build --network=host --build-arg SSH_PRIVATE_KEY=&amp;#34;$(cat ~/.ssh/id_rsa)&amp;#34; --build-arg SSH_HOST_CONFIG=&amp;#34;$(cat ~/.ssh/config)&amp;#34; -t registry.me/public/ansible:test .  The entrypoint.sh  1#!/usr/bin/env bash 2 3 4while true; do 5 6 echo `date +&amp;#34;[%Y-%m-%d %H:%M:%S]&amp;#34;` I\&amp;#39;m healthily 7 sleep 30; 8 9done  The hosts mode config ~/.</description>
+The Dockerfile 1FROM centos:7 2 3ARG SSH_PRIVATE_KEY 4ARG SSH_HOST_CONFIG 5 6RUN curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo &amp;amp;&amp;amp; \ 7 yum clean all &amp;amp;&amp;amp; yum makecache fast &amp;amp;&amp;amp; \ 8 yum install -y epel-release gcc libffi-devel openssh-clients git wget &amp;amp;&amp;amp; \ 9 yum install -y python python2-pip ansible 10 11RUN python -m pip install &amp;#34;pysocks&amp;#34; &amp;#34;pyspnego==0.</description>
     </item>
     
     <item>
@@ -99,7 +96,7 @@ Prepare Ansible script and playbook I choice the following playbook roles for st
       
       <guid>https://blog.wisekee.com/post/docker-compose-elk/</guid>
       <description>install ELK stack use docker-compose Install and setup ELK stack in single machine use docker compose service. and uesfilebeat ship the logs
- settings the centos system  1sudo yum install -y yum-utils 2sudo yum-config-manager \ 3 --add-repo \ 4 https://download.docker.com/linux/centos/docker-ce.repo 5sudo yum install docker-ce docker-ce-cli containerd.io 6systemctl enable docker 7systemctl start docker 8# install the docker-compose 9sudo curl -L &amp;#34;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&amp;#34; -o /usr/local/bin/docker-compose 10chmod +x /usr/local/bin/docker-compose 11 12# adjust the system parmeters 13echo &amp;#34;vm.</description>
+settings the centos system 1sudo yum install -y yum-utils 2sudo yum-config-manager \ 3 --add-repo \ 4 https://download.docker.com/linux/centos/docker-ce.repo 5sudo yum install docker-ce docker-ce-cli containerd.io 6systemctl enable docker 7systemctl start docker 8# install the docker-compose 9sudo curl -L &amp;#34;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&amp;#34; -o /usr/local/bin/docker-compose 10chmod +x /usr/local/bin/docker-compose 11 12# adjust the system parmeters 13echo &amp;#34;vm.</description>
     </item>
     
     <item>
@@ -108,7 +105,7 @@ Prepare Ansible script and playbook I choice the following playbook roles for st
       <pubDate>Sun, 18 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/ansible-encrypt-secure/</guid>
-      <description>Wrap the ansible vault scripts 1#!/usr/bin/env bash 2 3[ &amp;#34;$#&amp;#34; -gt 2 ] || { 4 echo &amp;#34;Usage $0encrypt|decrypt option...&amp;#34; 5 echo &amp;#34;Must be least three argumeents required&amp;#34; 6 exit 1 7} 8 9#the decrypt key file path, also can put the aws ssm 10vault_id=&amp;#39;/opt/ansible_pass&amp;#39; 11 12 13function encrypt() { 14 ansible-vault encrypt_string --vault-password-file $1 $2 --name $3 15} 16 17function decrypt() { 18 ansible -i $1 $2 -m ansible.builtin.debug -a var=&amp;#34;${3}&amp;#34; -e $4 --vault-id $5 19} 20 21case &amp;#34;$1&amp;#34; in 22 encrypt) 23 shift 1 24 [ &amp;#34;$#&amp;#34; -eq 2 ] || { 25 echo &amp;#34;Usage $0encrypt &amp;#39;plain string&amp;#39; &amp;#39;field name&amp;#39;&amp;#34; 26 exit 1 27 } 28 encrypt $vault_id $1 $2 29	;; 30 decrypt) 31 shift 1 32 [ &amp;#34;$#&amp;#34; -eq 4 ] || { 33 echo &amp;#34;Usage $0decrypt &amp;#39;inventory&amp;#39; &amp;#39;host&amp;#39; &amp;#39;field name&amp;#39; &amp;#39;var file name&amp;#39; to decrypt content&amp;#34; 34 exit 1 35 } 36 inventory_path=$1 37 host=$2 38 field_name=$3 39 var_file=$4 40 decrypt $inventory_path $host $field_name var_file $vault_id 41	;; 42 *) 43 echo &amp;#34;Arguments is error.</description>
+      <description>Wrap the ansible vault scripts 1#!/usr/bin/env bash 2 3[ &amp;#34;$#&amp;#34; -gt 2 ] || { 4 echo &amp;#34;Usage $0 encrypt|decrypt option...&amp;#34; 5 echo &amp;#34;Must be least three argumeents required&amp;#34; 6 exit 1 7} 8 9#the decrypt key file path, also can put the aws ssm 10vault_id=&amp;#39;/opt/ansible_pass&amp;#39; 11 12 13function encrypt() { 14 ansible-vault encrypt_string --vault-password-file $1 $2 --name $3 15} 16 17function decrypt() { 18 ansible -i $1 $2 -m ansible.</description>
     </item>
     
     <item>
@@ -118,7 +115,7 @@ Prepare Ansible script and playbook I choice the following playbook roles for st
       
       <guid>https://blog.wisekee.com/post/elastic-cloud-ingest-pipeline/</guid>
       <description>The syntax ingest pipeline template convenient for search
-1[2{3&amp;#34;grok&amp;#34;: {4&amp;#34;field&amp;#34;: &amp;#34;message&amp;#34;,5&amp;#34;patterns&amp;#34;: [6&amp;#34;%{IPORHOST:remote_addr} - %{USERNAME:remote_user} \\[%{HTTPDATE:time_local}\\] \\\&amp;#34;%{DATA:request}\\\&amp;#34; %{INT:status} %{NUMBER:bytes_sent} \\\&amp;#34;%{DATA:http_referer}\\\&amp;#34; \\\&amp;#34;%{DATA:http_user_agent}\\\&amp;#34; \\\&amp;#34;%{DATA:http_x_forwarded_for}\\\&amp;#34; rt=\\\&amp;#34;(?:%{NUMBER:request_time}|-)\\\&amp;#34; uct=\\\&amp;#34;(?:%{NUMBER:upstream_connect_time}|-)\\\&amp;#34; uht=\\\&amp;#34;(?:%{NUMBER:upstream_header_time}|-)\\\&amp;#34; urt=\\\&amp;#34;(?:%{NUMBER:upstream_response_time}|-)\\\&amp;#34;&amp;#34;7],8&amp;#34;ignore_missing&amp;#34;: true,9&amp;#34;if&amp;#34;: &amp;#34;ctx.source.toLowerCase().contains(&amp;#39;nginx&amp;#39;)&amp;#34;,10&amp;#34;ignore_failure&amp;#34;: true,11&amp;#34;description&amp;#34;: &amp;#34;nginx&amp;#34;12}13},14{15&amp;#34;grok&amp;#34;: {16&amp;#34;field&amp;#34;: &amp;#34;source&amp;#34;,17&amp;#34;patterns&amp;#34;: [18&amp;#34;^/var/www/webapp/logs/(?&amp;lt;app_id&amp;gt;[^/]+)&amp;#34;19],20&amp;#34;ignore_missing&amp;#34;: true,21&amp;#34;if&amp;#34;: &amp;#34;ctx.source =~ /^\\/var\\/www\\/webapp\\//&amp;#34;,22&amp;#34;ignore_failure&amp;#34;: true,23&amp;#34;description&amp;#34;: &amp;#34;java app_id&amp;#34;24}25},26{27&amp;#34;grok&amp;#34;: {28&amp;#34;field&amp;#34;: &amp;#34;source&amp;#34;,29&amp;#34;patterns&amp;#34;: [30&amp;#34;^/var/applog/(?&amp;lt;app_id&amp;gt;[^/]+)&amp;#34;31],32&amp;#34;ignore_missing&amp;#34;: true,33&amp;#34;if&amp;#34;: &amp;#34;ctx.source =~ /^\\/var\\/applog\\//&amp;#34;,34&amp;#34;ignore_failure&amp;#34;: true,35&amp;#34;description&amp;#34;: &amp;#34;php app_id&amp;#34;36}37},38{39&amp;#34;grok&amp;#34;: {40&amp;#34;field&amp;#34;: &amp;#34;message&amp;#34;,41&amp;#34;patterns&amp;#34;: [42&amp;#34;^%{TIMESTAMP_ISO8601:Timestamp} (\\[)(?&amp;lt;IP&amp;gt;(?:[0-9\\.\\-]+))(\\])(\\[)(?&amp;lt;UserID&amp;gt;(?:[0-9\\-]+))(\\])(\\[)(?&amp;lt;SessionID&amp;gt;(?:[0-9a-zA-Z\\-]+))(\\])(\\[)(?&amp;lt;RequestID&amp;gt;(?:[0-9a-zA-Z\\-]+))(\\])(\\[)(?&amp;lt;SeverityLevel&amp;gt;(?:[a-zA-Z\\s]+))(\\])(\\[)(?&amp;lt;Category&amp;gt;(?:[0-9a-zA-Z\\\\_:]+))(\\])\\s+(?&amp;lt;Message&amp;gt;(?m:.*))$&amp;#34;43],44&amp;#34;ignore_missing&amp;#34;: true,45&amp;#34;if&amp;#34;: &amp;#34;ctx.source =~ /^\\/var\\/applog\\//&amp;#34;,46&amp;#34;ignore_failure&amp;#34;: true,47&amp;#34;description&amp;#34;: &amp;#34;php message&amp;#34;48}49},50{51&amp;#34;grok&amp;#34;: {52&amp;#34;field&amp;#34;: &amp;#34;message&amp;#34;,53&amp;#34;patterns&amp;#34;: [54&amp;#34;%{TIMESTAMP_ISO8601:log_time} (?&amp;lt;log_level&amp;gt;[^\\s]+)\\s+\\[(?&amp;lt;ecs_cluster&amp;gt;[^\\s]+)\\](.*)?&amp;#34;55],56&amp;#34;ignore_missing&amp;#34;: true,57&amp;#34;if&amp;#34;: &amp;#34;ctx.source =~ /^\\/var\\/www\\/webapp\\//&amp;#34;,58&amp;#34;ignore_failure&amp;#34;: true,59&amp;#34;description&amp;#34;: &amp;#34;java message body extract&amp;#34;60}61},62{63&amp;#34;date&amp;#34;: {64&amp;#34;field&amp;#34;: &amp;#34;log_time&amp;#34;,65&amp;#34;formats&amp;#34;: [66&amp;#34;ISO8601&amp;#34;67],68&amp;#34;target_field&amp;#34;: &amp;#34;log_timestamp&amp;#34;,69&amp;#34;timezone&amp;#34;: &amp;#34;Atlantic/Stanley&amp;#34;,70&amp;#34;locale&amp;#34;: &amp;#34;en&amp;#34;,71&amp;#34;if&amp;#34;: &amp;#34;ctx.</description>
+1[ 2 { 3 &amp;#34;grok&amp;#34;: { 4 &amp;#34;field&amp;#34;: &amp;#34;message&amp;#34;, 5 &amp;#34;patterns&amp;#34;: [ 6 &amp;#34;%{IPORHOST:remote_addr} - %{USERNAME:remote_user} \\[%{HTTPDATE:time_local}\\] \\\&amp;#34;%{DATA:request}\\\&amp;#34; %{INT:status} %{NUMBER:bytes_sent} \\\&amp;#34;%{DATA:http_referer}\\\&amp;#34; \\\&amp;#34;%{DATA:http_user_agent}\\\&amp;#34; \\\&amp;#34;%{DATA:http_x_forwarded_for}\\\&amp;#34; rt=\\\&amp;#34;(?:%{NUMBER:request_time}|-)\\\&amp;#34; uct=\\\&amp;#34;(?:%{NUMBER:upstream_connect_time}|-)\\\&amp;#34; uht=\\\&amp;#34;(?:%{NUMBER:upstream_header_time}|-)\\\&amp;#34; urt=\\\&amp;#34;(?:%{NUMBER:upstream_response_time}|-)\\\&amp;#34;&amp;#34; 7 ], 8 &amp;#34;ignore_missing&amp;#34;: true, 9 &amp;#34;if&amp;#34;: &amp;#34;ctx.source.toLowerCase().contains(&amp;#39;nginx&amp;#39;)&amp;#34;, 10 &amp;#34;ignore_failure&amp;#34;: true, 11 &amp;#34;description&amp;#34;: &amp;#34;nginx&amp;#34; 12 } 13 }, 14 { 15 &amp;#34;grok&amp;#34;: { 16 &amp;#34;field&amp;#34;: &amp;#34;source&amp;#34;, 17 &amp;#34;patterns&amp;#34;: [ 18 &amp;#34;^/var/www/webapp/logs/(?&amp;lt;app_id&amp;gt;[^/]+)&amp;#34; 19 ], 20 &amp;#34;ignore_missing&amp;#34;: true, 21 &amp;#34;if&amp;#34;: &amp;#34;ctx.</description>
     </item>
     
     <item>
@@ -129,7 +126,7 @@ Prepare Ansible script and playbook I choice the following playbook roles for st
       <guid>https://blog.wisekee.com/post/eck-vs-flutd-collect-logs/</guid>
       <description>Use the Elasticsearch cloud on k8s component as logs and apm platform. the Fluentd collect the kubernetes container logs to Elasticsearch and kibana represent and search
 The ECK operator configure The ECK operator custom resources use kubectl providers.
-1terraform{2required_providers{3kubectl={4source=&amp;#34;gavinbunney/kubectl&amp;#34;5version=&amp;#34;1.11.1&amp;#34;6}7}8}910resource&amp;#34;helm_release&amp;#34;&amp;#34;eck-operator&amp;#34;{11chart=&amp;#34;${path.module}/../../../../../charts/eck-operator&amp;#34;12name=&amp;#34;eck-operator&amp;#34;13namespace=&amp;#34;kube-monitor&amp;#34;1415values=[16&amp;lt;&amp;lt;-EOF17image:18repository:&amp;#34;${var.repository_prefix}/public/eck-operator&amp;#34;19config:20containerRegistry:&amp;#34;${var.repository_prefix}/public&amp;#34;21internal:22kubeVersion:1.21.123EOF24]25}2627locals{28template_vars={29namespace=&amp;#34;kube-monitor&amp;#34;30elasticsearch_version=&amp;#34;7.12.1&amp;#34;31elasticsearch_image=&amp;#34;${var.repository_prefix}/public/elasticsearch:7.12.1&amp;#34;32master_node_count=var.node_count.master33storage_size=var.es_storage_size34default_storage_class=var.default_storage_class_name35data_node_count=var.node_count.data36}37}3839resource&amp;#34;kubectl_manifest&amp;#34;&amp;#34;elasticsearch&amp;#34;{40yaml_body=templatefile(&amp;#34;${path.module}/elastic_cluster.yaml&amp;#34;,local.template_vars)41}The elasticsearch custom resource definiations 1apiVersion:elasticsearch.k8s.elastic.co/v12kind:Elasticsearch3metadata:4name:elasticsearch-cluster5namespace:${namespace}6spec:7version:${elasticsearch_version}8volumeClaimDeletePolicy:DeleteOnScaledownOnly9nodeSets:10- name:masters11count:${master_node_count}12config:13node.roles:[&amp;#34;master&amp;#34;]14podTemplate:15metadata:16labels:17name:elasticsearch18spec:19containers:20- name:elasticsearch21image:${elasticsearch_image}22resources:23requests:24memory:1Gi25cpu:126limits:27memory:4Gi28cpu:229volumeClaimTemplates:30- metadata:31name:elasticsearch-data32spec:33accessModes:34- ReadWriteMany35resources:36requests:37storage:${storage_size}38storageClassName:${default_storage_class}39- name:data40count:${data_node_count}41config:42node.roles:[&amp;#34;data&amp;#34;,&amp;#34;ingest&amp;#34;,&amp;#34;ml&amp;#34;,&amp;#34;transform&amp;#34;]43podTemplate:44metadata:45labels:46name:elasticsearch47spec:48containers:49- name:elasticsearch50image:${elasticsearch_image}51resources:52requests:53memory:1Gi54cpu:155limits:56memory:4Gi57cpu:258volumeClaimTemplates:59- metadata:60name:elasticsearch-data61spec:62accessModes:63- ReadWriteMany64resources:65requests:66storage:${storage_size}67storageClassName:${default_storage_class}The kibana terraform code 1locals{2kibana_template_vars={3namespace=&amp;#34;kube-monitor&amp;#34;4version=&amp;#34;7.12.1&amp;#34;5image=&amp;#34;${var.repository_prefix}/public/kibana:7.12.1&amp;#34;6node_count=var.node_count.kibana7}8}910resource&amp;#34;kubectl_manifest&amp;#34;&amp;#34;kibana&amp;#34;{11yaml_body=templatefile(&amp;#34;${path.module}/kibana.yaml&amp;#34;,local.kibana_template_vars)12}1314resource&amp;#34;kubernetes_ingress&amp;#34;&amp;#34;kibana&amp;#34;{15metadata{16name=&amp;#34;kibana-ingress&amp;#34;17namespace=&amp;#34;kube-monitor&amp;#34;18labels={19app=&amp;#34;kibana-ingress&amp;#34;20}21}22spec{23rule{24host=var.kibana_domain25http{26path{27path=&amp;#34;/&amp;#34;28backend{29service_name=&amp;#34;kibana-kb-http&amp;#34;30service_port=560131}32}33}34}35}36}The kibana custom resource 1apiVersion:kibana.k8s.elastic.co/v12kind:Kibana3metadata:4name:kibana5namespace:${namespace}6spec:7version:${version}8count:${node_count}9image:${image}10elasticsearchRef:11name:elasticsearch-cluster12podTemplate:13metadata:14labels:15name:kibana16spec:17containers:18- name:kibana19resources:20requests:21memory:1Gi22cpu:0.523limits:24memory:2Gi25cpu:226http:27tls:28selfSignedCertificate:29disabled:trueThe fluentd terraform configure Use tcp inputs and scrap kuberntes containers log forward to aggregate fluentd and send to elasticsearch</description>
+1terraform { 2 required_providers { 3 kubectl = { 4 source = &amp;#34;gavinbunney/kubectl&amp;#34; 5 version = &amp;#34;1.11.1&amp;#34; 6 } 7 } 8} 9 10resource &amp;#34;helm_release&amp;#34; &amp;#34;eck-operator&amp;#34; { 11 chart = &amp;#34;${path.module}/../../../../../charts/eck-operator&amp;#34; 12 name = &amp;#34;eck-operator&amp;#34; 13 namespace = &amp;#34;kube-monitor&amp;#34; 14 15 values = [ 16 &amp;lt;&amp;lt;-EOF 17 image: 18 repository: &amp;#34;${var.</description>
     </item>
     
     <item>
@@ -140,7 +137,7 @@ The ECK operator configure The ECK operator custom resources use kubectl provide
       <guid>https://blog.wisekee.com/post/omnidb-installing/</guid>
       <description>OmniDB is tool for unify the multiple type DataBase management,appropriate deploy in enterprise internal proxy access to other environment.
 fetch the Dockerfile in this url: OminDB Dockerfile Build the docker image docker build . -t dev.com/library/omnidb:latest then push the image to registry:docker push dev.com/library/omnidb:latest
-create the kubernetes deployment manifest file 1apiVersion:v12kind:PersistentVolumeClaim3metadata:4name:omnidb-pvc5spec:6accessModes:7- ReadWriteOnce8storageClassName:nfs-client9resources:10requests:11storage:5Gi12---13apiVersion:apps/v114kind:Deployment15metadata:16name:omnidb-deployment17labels:18app:omnidb19spec:20replicas:121selector:22matchLabels:23app:omnidb24template:25metadata:26labels:27app:omnidb28spec:29containers:30- name:omnidb31image:dev.com/library/omnidb:latest32ports:33- containerPort:800034volumeMounts:35- mountPath:/home/omnidb/.omnidb36name:omnidb-data37volumes:38- name:omnidb-data39persistentVolumeClaim:40claimName:omnidb-pvc41---42apiVersion:v143kind:Service44metadata:45name:omnidb46spec:47ports:48- name:server49port:808050targetPort:800051selector:52app:omnidb53Add the ingress in order to access to OmniDB 1kind:Ingress2apiVersion:extensions/v1beta13metadata:4name:omnidb-ingress5namespace:default6labels:7app:omnidb8annotations:9ingress.kubernetes.io/proxy-body-size:&amp;#39;0&amp;#39;10nginx.ingress.kubernetes.io/proxy-body-size:&amp;#39;0&amp;#39;11nginx.ingress.kubernetes.io/ssl-redirect:&amp;#39;true&amp;#39;12spec:13rules:14- host:omnidb.dev.com15http:16paths:17- path:/18backend:19serviceName:omnidb20servicePort:8080</description>
+create the kubernetes deployment manifest file 1apiVersion: v1 2kind: PersistentVolumeClaim 3metadata: 4 name: omnidb-pvc 5spec: 6 accessModes: 7 - ReadWriteOnce 8 storageClassName: nfs-client 9 resources: 10 requests: 11 storage: 5Gi 12--- 13apiVersion: apps/v1 14kind: Deployment 15metadata: 16 name: omnidb-deployment 17 labels: 18 app: omnidb 19spec: 20 replicas: 1 21 selector: 22 matchLabels: 23 app: omnidb 24 template: 25 metadata: 26 labels: 27 app: omnidb 28 spec: 29 containers: 30 - name: omnidb 31 image: dev.</description>
     </item>
     
     <item>
@@ -151,7 +148,7 @@ create the kubernetes deployment manifest file 1apiVersion:v12kind:PersistentVol
       <guid>https://blog.wisekee.com/post/installing-eclipse-che-in-kubernetes/</guid>
       <description>At first installing OLM Requirement: kubectl configred and connect to Kubernetes cluster correct.
 1curl -L https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.17.0/install.sh -o install.sh 2chmod +x install.sh 3./install.sh v0.17.0 Installing Eclipse-Che Operator According to: eclipse-che operator
-1kubectl create -f https://operatorhub.io/install/eclipse-che.yaml 2# view the Operator resources 3kubectl get pods --all-namespaces | grep olm 4# and the CluseterServiceVersion 5kubectl get csv -n my-eclipse-che Install Eclipse-che instance use CheCluster resource 1#The partial configure need to change2k8s:3ingressClass:&amp;#39;nginx&amp;#39;4ingressDomain:&amp;#39;che.dev.com&amp;#39;5ingressStrategy:&amp;#39;single-host&amp;#39;6securityContextFsGroup:&amp;#39;&amp;#39;7securityContextRunAsUser:&amp;#39;&amp;#39;8singleHostExposureType:&amp;#39;&amp;#39;9tlsSecretName:&amp;#39;self-domain-cert&amp;#39;10server:11cheHost:&amp;#39;che.dev.com&amp;#39;12cheHostTLSSecret:&amp;#39;self-domain-cert&amp;#39;13#You can add more custom properties refer to this url: https://www.</description>
+1kubectl create -f https://operatorhub.io/install/eclipse-che.yaml 2# view the Operator resources 3kubectl get pods --all-namespaces | grep olm 4# and the CluseterServiceVersion 5kubectl get csv -n my-eclipse-che Install Eclipse-che instance use CheCluster resource 1#The partial configure need to change 2 k8s: 3 ingressClass: &amp;#39;nginx&amp;#39; 4 ingressDomain: &amp;#39;che.</description>
     </item>
     
     <item>
@@ -161,7 +158,7 @@ create the kubernetes deployment manifest file 1apiVersion:v12kind:PersistentVol
       
       <guid>https://blog.wisekee.com/post/kubernetes-events-to-es/</guid>
       <description>We what collect and storage kubernetes events to elasticsearch, easy to query and analyze alerts. we use this github repo componentkubernetes-event-exporter
-The main.tf include kubernetes &amp;lsquo;deployment&amp;rsquo; object 1resource&amp;#34;kubernetes_deployment&amp;#34;&amp;#34;event_export&amp;#34;{2metadata{3name=&amp;#34;event-export&amp;#34;4namespace=&amp;#34;kube-system&amp;#34;5labels={6app=&amp;#34;event-export&amp;#34;7}8}910spec{11replicas=11213selector{14match_labels={15app=&amp;#34;event-export&amp;#34;16}17}1819template{20metadata{21labels={22app=&amp;#34;event-export&amp;#34;23version=&amp;#34;v1&amp;#34;24}25}2627spec{28service_account_name=kubernetes_service_account.event_export.metadata[0].name29automount_service_account_token=true30container{31image=&amp;#34;opsgenie/kubernetes-event-exporter:0.9&amp;#34;32args=[33&amp;#34;-conf=/data/config.yaml&amp;#34;,34]35name=&amp;#34;event-export&amp;#34;36resources{37requests{38memory=&amp;#34;50Mi&amp;#34;39}40limits{41memory=&amp;#34;100Mi&amp;#34;42}43}44volume_mount{45name=&amp;#34;cfg&amp;#34;46mount_path=&amp;#34;/data&amp;#34;47}48image_pull_policy=&amp;#34;IfNotPresent&amp;#34;49}50volume{51name=&amp;#34;cfg&amp;#34;52config_map{53name=kubernetes_config_map.event_export_config.metadata[0].name54}55}56}57}58}5960depends_on=[61kubernetes_service_account.event_export62]6364}The configmap.tf indlude the kubernetes configMap object storage event-exporter&amp;rsquo;s config as volume mount to previous deployment&amp;rsquo;s pod container 1resource&amp;#34;kubernetes_config_map&amp;#34;&amp;#34;event_export_config&amp;#34;{2metadata{3name=&amp;#34;event-export-config&amp;#34;4namespace=&amp;#34;kube-system&amp;#34;5}6data={7&amp;#34;config.yaml&amp;#34;=&amp;lt;&amp;lt;-EOF8logLevel:error9logFormat:json10route:11routes:12- match:13- type:&amp;#34;Warning&amp;#34;14receiver:&amp;#34;dump&amp;#34;15- match:16- type:&amp;#34;Error&amp;#34;17receiver:&amp;#34;dump&amp;#34;18receivers:19- name:&amp;#34;dump&amp;#34;20file:21path:&amp;#34;dev/stderr&amp;#34;22EOF23}2425}In this config section, we decides collect the Error and Warning events only. And this component support for AWS ElasticSearch is not good, we output events directly to the Console, after which the ES are collected through Fluentdfluentd service</description>
+The main.tf include kubernetes &amp;lsquo;deployment&amp;rsquo; object 1resource &amp;#34;kubernetes_deployment&amp;#34; &amp;#34;event_export&amp;#34; { 2 metadata { 3 name = &amp;#34;event-export&amp;#34; 4 namespace = &amp;#34;kube-system&amp;#34; 5 labels = { 6 app = &amp;#34;event-export&amp;#34; 7 } 8 } 9 10 spec { 11 replicas = 1 12 13 selector { 14 match_labels = { 15 app = &amp;#34;event-export&amp;#34; 16 } 17 } 18 19 template { 20 metadata { 21 labels = { 22 app = &amp;#34;event-export&amp;#34; 23 version = &amp;#34;v1&amp;#34; 24 } 25 } 26 27 spec { 28 service_account_name = kubernetes_service_account.</description>
     </item>
     
     <item>
@@ -170,7 +167,7 @@ The main.tf include kubernetes &amp;lsquo;deployment&amp;rsquo; object 1resource
       <pubDate>Wed, 02 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/terraform-helm-fluentd/</guid>
-      <description>step1 the main.tf include following contents: 1resource&amp;#34;helm_release&amp;#34;&amp;#34;fluentd_server&amp;#34;{2name=&amp;#34;fluentd-server&amp;#34;3repository=&amp;#34;https://charts.bitnami.com/bitnami&amp;#34;4# chart = &amp;#34;${path.module}/../../../../../charts/fluentd&amp;#34;5version=&amp;#34;3.1.0&amp;#34;6namespace=&amp;#34;kube-system&amp;#34;78values=[9&amp;lt;&amp;lt;-EOF10forwarder:11configMap:&amp;#34;fluentd-forwarder-config&amp;#34;12rbac:13pspEnabled:true14resources:15limits:16memory:1Gi17requests:18memory:512Mi19aggregator:20replicaCount:121configMap:&amp;#34;fluentd-elasticsearch-config&amp;#34;22resources:23limits:24memory:1Gi25requests:26memory:512Mi27extraEnv:28- name:ELASTICSEARCH_HOST29value:&amp;#34;${var.es_url}&amp;#34;30- name:ELASTICSEARCH_PORT31value:&amp;#34;80&amp;#34;32- name:ELASTICSEARCH_SCHEME33value:&amp;#34;http&amp;#34;34persistence:35enabled:true36storageClass:gp237EOF38]3940depends_on=[41kubernetes_config_map.fluentd_elasticsearch_output,42kubernetes_config_map.fluentd_forwarder_config43]4445}step2 the fluentd aggegator configmap config aggregator_configmap.tf 1resource&amp;#34;kubernetes_config_map&amp;#34;&amp;#34;fluentd_elasticsearch_output&amp;#34;{2metadata{3name=&amp;#34;fluentd-elasticsearch-config&amp;#34;4namespace=&amp;#34;kube-system&amp;#34;5}6data={7&amp;#34;fluentd.conf&amp;#34;=&amp;lt;&amp;lt;-EOF8# Prometheus Exporter Plugin9# input plugin that exports metrics10&amp;lt;source&amp;gt; 11@type prometheus12port2423113&amp;lt;/source&amp;gt; 1415# input plugin that collects metrics from MonitorAgent16&amp;lt;source&amp;gt; 17@type prometheus_monitor18&amp;lt;labels&amp;gt; 19host $${hostname}20&amp;lt;/labels&amp;gt; 21&amp;lt;/source&amp;gt;2223# input plugin that collects metrics for output plugin24&amp;lt;source&amp;gt; 25@type prometheus_output_monitor26&amp;lt;labels&amp;gt; 27host $${hostname}28&amp;lt;/labels&amp;gt; 29&amp;lt;/source&amp;gt;3031# Ignore fluentd own events32&amp;lt;matchfluent.**&amp;gt;33@typenull34&amp;lt;/match&amp;gt; 3536# TCP input to receive logs from the forwarders37&amp;lt;source&amp;gt; 38@type forward39bind0.</description>
+      <description>step1 the main.tf include following contents: 1resource &amp;#34;helm_release&amp;#34; &amp;#34;fluentd_server&amp;#34; { 2 name = &amp;#34;fluentd-server&amp;#34; 3 repository = &amp;#34;https://charts.bitnami.com/bitnami&amp;#34; 4 # chart = &amp;#34;${path.module}/../../../../../charts/fluentd&amp;#34; 5 version = &amp;#34;3.1.0&amp;#34; 6 namespace = &amp;#34;kube-system&amp;#34; 7 8 values = [ 9 &amp;lt;&amp;lt;-EOF 10 forwarder: 11 configMap: &amp;#34;fluentd-forwarder-config&amp;#34; 12 rbac: 13 pspEnabled: true 14 resources: 15 limits: 16 memory: 1Gi 17 requests: 18 memory: 512Mi 19 aggregator: 20 replicaCount: 1 21 configMap: &amp;#34;fluentd-elasticsearch-config&amp;#34; 22 resources: 23 limits: 24 memory: 1Gi 25 requests: 26 memory: 512Mi 27 extraEnv: 28 - name: ELASTICSEARCH_HOST 29 value: &amp;#34;${var.</description>
     </item>
     
     <item>
@@ -179,7 +176,7 @@ The main.tf include kubernetes &amp;lsquo;deployment&amp;rsquo; object 1resource
       <pubDate>Sun, 15 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/getting-stared-nucalio/</guid>
-      <description>use Helm charts: Github  1	helm repo add nuclio https://nuclio.github.io/nuclio/charts 2	kubectl create namespace nuclio  copy registry to nuclio namespace from existing namespace  1kubectl get secret repo-registry -n dev-ns -o yaml \ 2| sed s/&amp;#34;namespace: dev-ns&amp;#34;/&amp;#34;namespace: nuclio&amp;#34;/ \ 3| kubectl apply -f -  install nuclio  1	helm install nuclio \ 2 --set registry.secretName=repo-registry \ 3 --set registry.pushPullUrl=localhost/nucalio \ 4 nuclio/nuclio -n nuclio  visit dashboard  1	kubectl -n nuclio port-forward $(kubectl get pods -n nuclio -l nuclio.</description>
+      <description>use Helm charts: Github 1	helm repo add nuclio https://nuclio.github.io/nuclio/charts 2	kubectl create namespace nuclio copy registry to nuclio namespace from existing namespace 1kubectl get secret repo-registry -n dev-ns -o yaml \ 2| sed s/&amp;#34;namespace: dev-ns&amp;#34;/&amp;#34;namespace: nuclio&amp;#34;/ \ 3| kubectl apply -f - install nuclio 1	helm install nuclio \ 2 --set registry.secretName=repo-registry \ 3 --set registry.pushPullUrl=localhost/nucalio \ 4 nuclio/nuclio -n nuclio visit dashboard 1	kubectl -n nuclio port-forward $(kubectl get pods -n nuclio -l nuclio.</description>
     </item>
     
     <item>
@@ -189,7 +186,7 @@ The main.tf include kubernetes &amp;lsquo;deployment&amp;rsquo; object 1resource
       
       <guid>https://blog.wisekee.com/post/schedule-cleanup-k8s-resources/</guid>
       <description>Prepare Golang program code use clean up unused pods and replicaset resources in kubernetes we can clean up not running status pods and deactive replicasets
- initialization Go lanugage project evnironment  1	mkdir k8s_res_cleanup &amp;amp;&amp;amp; cd k8s_res_cleanup 2	go mod init example.com/cleanup/resources 3	go get -v -u k8s.io/client-go@v0.18.2 # install packages 4	go get -v -u github.com/prometheus/common@v0.1.0  create sub packageconfig/k8s.go indicate how can connect to kubernetes cluster  1package config 2 3import ( 4	&amp;#34;flag&amp;#34; 5	logs &amp;#34;github.</description>
+initialization Go lanugage project evnironment 1	mkdir k8s_res_cleanup &amp;amp;&amp;amp; cd k8s_res_cleanup 2	go mod init example.com/cleanup/resources 3	go get -v -u k8s.io/client-go@v0.18.2 # install packages 4	go get -v -u github.com/prometheus/common@v0.1.0 create sub packageconfig/k8s.go indicate how can connect to kubernetes cluster 1package config 2 3import ( 4	&amp;#34;flag&amp;#34; 5	logs &amp;#34;github.</description>
     </item>
     
     <item>
@@ -198,8 +195,8 @@ The main.tf include kubernetes &amp;lsquo;deployment&amp;rsquo; object 1resource
       <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/k8s-metrics-server/</guid>
-      <description>When we repeatedly install the Metrics-Server, because we use helm to install it, deleting one of them will cause the following error when executing the command related to kubectl top nodes:  Error from server (NotFound): the server could not find the requested resource (get services http:heapster:)
-  A large part of this is due to the removal of the Apiservice Resources from Metics, when you execute the following command to ensure that the Apiservice exists  kubectl get apiservice | grep metrics   v1beta1.</description>
+      <description>When we repeatedly install the Metrics-Server, because we use helm to install it, deleting one of them will cause the following error when executing the command related to kubectl top nodes: Error from server (NotFound): the server could not find the requested resource (get services http:heapster:)
+A large part of this is due to the removal of the Apiservice Resources from Metics, when you execute the following command to ensure that the Apiservice exists kubectl get apiservice | grep metrics v1beta1.</description>
     </item>
     
     <item>
@@ -208,7 +205,7 @@ The main.tf include kubernetes &amp;lsquo;deployment&amp;rsquo; object 1resource
       <pubDate>Thu, 15 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/kubernetes-ingress-guides/</guid>
-      <description>Using Nginx-Ingress Controller in AWS Eks environment  Need manually enable the Proxy protocol V2 in NLB target group just only TCP https 443 listener Rather than TCP http 80 listener Multiple SSL certificate need manually add to NLB The http redirect to https, need to change some paramets  1# use http-snippet and open proxy protocol2use-proxy-protocol:&amp;#39;true&amp;#39;3use-forwarded-headers:&amp;#39;true&amp;#39;4server-tokens:&amp;#39;false&amp;#39;5http-snippet:| 6server {7listen8000;8return308https://$host$request_uri;9}10proxy-real-ip-cidr:${join(&amp;#34;,&amp;#34;,var.internal_cidr)}11# Add special port in controller container12set{13type=&amp;#34;string&amp;#34;14name=&amp;#34;controller.containerPort.special&amp;#34;15value=&amp;#34;8000&amp;#34;16}17# Let https redirect to http port and http port redirect to special port , the special port listener in `http-snippet` section18set{19type=&amp;#34;string&amp;#34;20name=&amp;#34;controller.</description>
+      <description>Using Nginx-Ingress Controller in AWS Eks environment Need manually enable the Proxy protocol V2 in NLB target group just only TCP https 443 listener Rather than TCP http 80 listener Multiple SSL certificate need manually add to NLB The http redirect to https, need to change some paramets 1	# use http-snippet and open proxy protocol 2 use-proxy-protocol: &amp;#39;true&amp;#39; 3 use-forwarded-headers: &amp;#39;true&amp;#39; 4 server-tokens: &amp;#39;false&amp;#39; 5 http-snippet: | 6 server { 7 listen 8000; 8 return 308 https://$host$request_uri; 9 } 10 proxy-real-ip-cidr: ${join(&amp;#34;,&amp;#34;, var.</description>
     </item>
     
     <item>
@@ -217,9 +214,8 @@ The main.tf include kubernetes &amp;lsquo;deployment&amp;rsquo; object 1resource
       <pubDate>Sun, 11 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/airflow-kuberntes-logs-config/</guid>
-      <description>Problem description When use kubernetes executor in airflow, the dags not use the podOperator but that use PythonOperator, the console logs end of Running %s on host %s &amp;lt;TaskInstance:, then the task logs don&amp;rsquo;t redirect to stdout According to the Airflow descript need config the logging class: custom_log_settings 
-Change the custom log settings comment relative code and enable to console the tee_file_task_handler.py edit the following code snippet.
- comment the following content.</description>
+      <description>Problem description When use kubernetes executor in airflow, the dags not use the podOperator but that use PythonOperator, the console logs end of Running %s on host %s &amp;lt;TaskInstance:, then the task logs don&amp;rsquo;t redirect to stdout According to the Airflow descript need config the logging class: custom_log_settings Change the custom log settings comment relative code and enable to console the tee_file_task_handler.py edit the following code snippet.
+comment the following content.</description>
     </item>
     
     <item>
@@ -228,7 +224,7 @@ Change the custom log settings comment relative code and enable to console the t
       <pubDate>Sat, 10 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/terraform-helm-issues/</guid>
-      <description>The Metrics-Server helm chart as Terraform HCL 1resource&amp;#34;helm_release&amp;#34;&amp;#34;metrics-server&amp;#34;{2name=&amp;#34;metrics-server&amp;#34;3repository=&amp;#34;https://charts.bitnami.com/bitnami&amp;#34;4chart=&amp;#34;metrics-server&amp;#34;5version=&amp;#34;4.1.4&amp;#34;6namespace=&amp;#34;kube-system&amp;#34;78set{9name=&amp;#34;extraArgs.kubelet-preferred-address-types&amp;#34;10value=&amp;#34;InternalIP\\,ExternalIP\\,Hostname&amp;#34;11}1213set{14name=&amp;#34;resources.requests.memory&amp;#34;15value=&amp;#34;500Mi&amp;#34;16}1718set{19name=&amp;#34;resources.limits.memory&amp;#34;20value=&amp;#34;1Gi&amp;#34;21}2223set{24name=&amp;#34;apiService.create&amp;#34;25value=&amp;#34;true&amp;#34;26}2728} The apiService.create always assign to true when in AWS EKS or other kubernetes distribution The values include comma , muste be use escape in terraform Any resources should be specific quota, like resource requests and limits  When Name includes dot annotations also escaped 1# set {2# type = &amp;#34;string&amp;#34;3# name = &amp;#34;ingress.web.annotations.alb\\.ingress\\.kubernetes\\.io/security-groups&amp;#34;4# value = &amp;#34;${var.office_sg_id}\\,${var.internal_sg_id}\\,${var.cluster_sg_id}&amp;#34;5# }terraform helm release use local charts 1resource&amp;#34;helm_release&amp;#34;&amp;#34;fluentd_server&amp;#34;{2name=&amp;#34;fluentd-server&amp;#34;3# repository = &amp;#34;https://charts.</description>
+      <description>The Metrics-Server helm chart as Terraform HCL 1resource &amp;#34;helm_release&amp;#34; &amp;#34;metrics-server&amp;#34; { 2 name = &amp;#34;metrics-server&amp;#34; 3 repository = &amp;#34;https://charts.bitnami.com/bitnami&amp;#34; 4 chart = &amp;#34;metrics-server&amp;#34; 5 version = &amp;#34;4.1.4&amp;#34; 6 namespace = &amp;#34;kube-system&amp;#34; 7 8 set { 9 name = &amp;#34;extraArgs.kubelet-preferred-address-types&amp;#34; 10 value = &amp;#34;InternalIP\\,ExternalIP\\,Hostname&amp;#34; 11 } 12 13 set { 14 name = &amp;#34;resources.requests.memory&amp;#34; 15 value = &amp;#34;500Mi&amp;#34; 16 } 17 18 set { 19 name = &amp;#34;resources.limits.memory&amp;#34; 20 value = &amp;#34;1Gi&amp;#34; 21 } 22 23 set { 24 name = &amp;#34;apiService.</description>
     </item>
     
     <item>
@@ -239,7 +235,7 @@ Change the custom log settings comment relative code and enable to console the t
       <guid>https://blog.wisekee.com/post/k8s-backup-restore-using-velero/</guid>
       <description>Installing or Upgrade Velero client on Mac OS:
 1	brew install velero 2	HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade velero #upgrade to the latest version if maybe The Velero should use object store save the snapshot. so we use Minio as kubernetes object store.Minio launched as part of docker-compose.yaml
-1minio:2container_name:&amp;#34;minio&amp;#34;3image:minio/minio4command:&amp;#34;server /data&amp;#34;5ports:6- &amp;#34;9000:9000&amp;#34;7environment:8MINIO_ACCESS_KEY:“xxxxxxx”9MINIO_SECRET_KEY:“xxxxxxx”10volumes:11- &amp;#34;./minio/data:/data&amp;#34;12networks:13- easy-mockCreate a env file is named: velero-env. because the Velero need the similar aws credentials access to Minio service storage backup object.</description>
+1	minio: 2 container_name: &amp;#34;minio&amp;#34; 3 image: minio/minio 4 command: &amp;#34;server /data&amp;#34; 5 ports: 6 - &amp;#34;9000:9000&amp;#34; 7 environment: 8 MINIO_ACCESS_KEY: “xxxxxxx” 9 MINIO_SECRET_KEY: “xxxxxxx” 10 volumes: 11 - &amp;#34;.</description>
     </item>
     
     <item>
@@ -250,7 +246,7 @@ Change the custom log settings comment relative code and enable to console the t
       <guid>https://blog.wisekee.com/post/custom-domain-name-in-k8s/</guid>
       <description>We use default service domain name ${servicename}.${namespace}.svc.cluster.localin kubernetes cluster, however the custom private domain name in private k8s networks frequently used. we can use coredns component reparse the private domain name to default CNAME.
 change coredns configmap add custom domain name config to yaml kubectl edit cm coredns -n kube-system
-1data:2Corefile:| 3.:53 {4errors5health{6lameduck5s7}8ready9kubernetescluster.localin-addr.arpaip6.arpa{10podsinsecure11fallthroughin-addr.arpaip6.arpa12ttl3013}14file/etc/coredns/uat-env.dbuat-env.com15prometheus:915316forward./etc/resolv.conf17cache3018loop19reload20loadbalance21}22uat-env.db:&amp;gt;- 23uat-env.com. IN SOA ns.dns.cluster.local. 24hostmaster.cluster.local.15923622027200180086400302526uat-env.com.INNS27kube-dns.kube-system.svc.cluster.local.2829db.uat-env.com.INCNAME30mysql.db.svc.cluster.local.3132private-services.uat-env.com.INCNAME33internal-gateway.default.svc.cluster.local.add file /etc/coredns/uat-env.db uat-env.com line to Corefile section add new section uat-env.db and add relative recordset</description>
+1data: 2 Corefile: | 3 .:53 { 4 errors 5 health { 6 lameduck 5s 7 } 8 ready 9 kubernetes cluster.</description>
     </item>
     
     <item>
@@ -260,7 +256,7 @@ change coredns configmap add custom domain name config to yaml kubectl edit cm c
       
       <guid>https://blog.wisekee.com/post/aws-local-development/</guid>
       <description>When you develop components locally that rely on AWS, it can be cumbersome to configure authentication information, and sometimes network latency. It is important to mock with a native AWS component, which can:localstack I&amp;rsquo;m using Docker-Compose here to start a set of tools that local development depends on：
-The docker-compose.yml looks like this following 1version:&amp;#39;3&amp;#39;23services:4mongodb:5image:mongo:3.4.16volumes:7- &amp;#39;./easymock/data/db:/data/db&amp;#39;8networks:9- easy-mock10ports:11- &amp;#34;27017:27017&amp;#34;12restart:always13container_name:mongodb1415redis:16image:redis:4.0.617command:redis-server--appendonlyyes18volumes:19- &amp;#39;./easymock/data/redis:/data&amp;#39;20networks:21- easy-mock22restart:always23container_name:redis2425localstack:26container_name:&amp;#34;${LOCALSTACK_DOCKER_NAME-localstack}&amp;#34;27image:localstack/localstack28ports:29- &amp;#34;4567-4597:4567-4597&amp;#34;30environment:31- DEBUG=${DEBUG-true}32- DATA_DIR=${DATA_DIR-/tmp/localstack/data}33- PORT_WEB_UI=${PORT_WEB_UI-8080}34- LAMBDA_EXECUTOR=${LAMBDA_EXECUTOR-docker-reuse}35- DOCKER_HOST=unix:///var/run/docker.sock36- HOSTNAME_EXTERNAL=awsmock.local-dev.com37volumes:38- &amp;#34;./localstack/data:/tmp/localstack&amp;#34;39- &amp;#34;/var/run/docker.sock:/var/run/docker.sock&amp;#34;40networks:41- easy-mock4243mysql:44container_name:&amp;#34;mysql&amp;#34;45image:mysql46command:&amp;#34;--default-authentication-plugin=mysql_native_password --skip-mysqlx&amp;#34;47ports:48- &amp;#34;3306:3306&amp;#34;49environment:50MYSQL_ROOT_PASSWORD:&amp;#34;xxxxx&amp;#34;51MYSQL_DATABASE:&amp;#34;awsmock&amp;#34;52MYSQL_PASSWORD:&amp;#34;xxxxx&amp;#34;53MYSQL_USER:&amp;#34;user&amp;#34;54volumes:55- &amp;#34;.</description>
+The docker-compose.yml looks like this following 1version: &amp;#39;3&amp;#39; 2 3services: 4 mongodb: 5 image: mongo:3.4.1 6 volumes: 7 - &amp;#39;./easymock/data/db:/data/db&amp;#39; 8 networks: 9 - easy-mock 10 ports: 11 - &amp;#34;27017:27017&amp;#34; 12 restart: always 13 container_name: mongodb 14 15 redis: 16 image: redis:4.</description>
     </item>
     
     <item>
@@ -270,13 +266,15 @@ The docker-compose.yml looks like this following 1version:&amp;#39;3&amp;#39;23s
       
       <guid>https://blog.wisekee.com/post/k8s-common-command-conclusion/</guid>
       <description>When we use the Kubernetes platform,has many commands is important:
- The k command is alias to kubectl
-   label for nodes kubectl label nodes host02 disktype=ssd
-  view local config for kubernetes context k config get-contexts
-  switch context&amp;rsquo;s namespaces kubectl config set-context my-vsphere-cluster --namespace=helm-test
-  force delete pod, sometimes the pod still terminating.
+The k command is alias to kubectl
+label for nodes kubectl label nodes host02 disktype=ssd
+view local config for kubernetes context k config get-contexts
+switch context&amp;rsquo;s namespaces kubectl config set-context my-vsphere-cluster --namespace=helm-test
+force delete pod, sometimes the pod still terminating.
 k delete pods &amp;lt;pod&amp;gt; -n &amp;lt;namespace&amp;gt; --grace-period=0 --force
-  get all resource in current kubernetes cluster</description>
+get all resource in current kubernetes cluster
+k get all --all-namespaces
+view job logs</description>
     </item>
     
     <item>
@@ -295,7 +293,7 @@ k delete pods &amp;lt;pod&amp;gt; -n &amp;lt;namespace&amp;gt; --grace-period=0 
       
       <guid>https://blog.wisekee.com/post/generate-crds-api-k8s/</guid>
       <description>Why does this article exist because when we use Kubesphere. the go client code need to use the client objects of K8s but dosen&amp;rsquo;t provider the s2ibinary object client code. https://github.com/kubesphere/s2ioperator/tree/master/pkg/client/clientset/versioned/typed/devops/v1alpha1
-  Prepare directory structure and resource defination files    The doc.go include content:  1// +k8s:deepcopy-gen=package,register 2// +k8s:defaulter-gen=TypeMeta 3// +groupName=devops.kubesphere.io 4package v1alpha1  The register.go main defination custom resources GroupName and GroupVersion  1package v1alpha1 2 3import ( 4 &amp;#34;k8s.</description>
+Prepare directory structure and resource defination files The doc.go include content: 1// +k8s:deepcopy-gen=package,register 2// +k8s:defaulter-gen=TypeMeta 3// +groupName=devops.kubesphere.io 4package v1alpha1 The register.go main defination custom resources GroupName and GroupVersion 1package v1alpha1 2 3import ( 4 &amp;#34;k8s.io/apimachinery/pkg/runtime/schema&amp;#34; 5 &amp;#34;sigs.k8s.io/controller-runtime/pkg/scheme&amp;#34; 6) 7 8type CodeFramework string 9 10const ( 11 Ruby CodeFramework = &amp;#34;ruby&amp;#34; 12 Go CodeFramework = &amp;#34;go&amp;#34; 13 Java CodeFramework = &amp;#34;Java&amp;#34; 14 JavaTomcat CodeFramework = &amp;#34;JavaTomcat&amp;#34; 15 Nodejs CodeFramework = &amp;#34;Nodejs&amp;#34; 16 Python CodeFramework = &amp;#34;python&amp;#34; 17 GroupName string = &amp;#34;devops.</description>
     </item>
     
     <item>
@@ -304,8 +302,8 @@ k delete pods &amp;lt;pod&amp;gt; -n &amp;lt;namespace&amp;gt; --grace-period=0 
       <pubDate>Thu, 20 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/setup-cloudfoundry-in-k8s/</guid>
-      <description>First prepare the tools installation in host:  Kind: https://kind.sigs.k8s.io/docs/user/quick-start/ Cf command: https://docs.cloudfoundry.org/cf-cli/install-go-cli.html  HOMEBREW_NO_AUTO_UPDATE=1 brew install cloudfoundry/tap/cf-cli@6 or HOMEBREW_NO_AUTO_UPDATE=1 brew install cloudfoundry/tap/cf-cli@7   Kubectl command: https://kubernetes.io/docs/tasks/tools/install-kubectl/ Helm: https://helm.sh/docs/intro/install/  The Kind must definiation config.yml, refer to expose http(80) and https(443) ports to host machine, because the k8s cluster node ip is internal-ip created by Kind such as: 172.18.0.2
-1kind:Cluster2apiVersion:kind.x-k8s.io/v1alpha43networking:4# WARNING: It is _strongly_ recommended that you keep this the default5# (127.</description>
+      <description>First prepare the tools installation in host: Kind: https://kind.sigs.k8s.io/docs/user/quick-start/ Cf command: https://docs.cloudfoundry.org/cf-cli/install-go-cli.html HOMEBREW_NO_AUTO_UPDATE=1 brew install cloudfoundry/tap/cf-cli@6 or HOMEBREW_NO_AUTO_UPDATE=1 brew install cloudfoundry/tap/cf-cli@7 Kubectl command: https://kubernetes.io/docs/tasks/tools/install-kubectl/ Helm: https://helm.sh/docs/intro/install/ The Kind must definiation config.yml, refer to expose http(80) and https(443) ports to host machine, because the k8s cluster node ip is internal-ip created by Kind such as: 172.18.0.2
+1kind: Cluster 2apiVersion: kind.x-k8s.io/v1alpha4 3networking: 4 # WARNING: It is _strongly_ recommended that you keep this the default 5 # (127.</description>
     </item>
     
     <item>
@@ -314,7 +312,7 @@ k delete pods &amp;lt;pod&amp;gt; -n &amp;lt;namespace&amp;gt; --grace-period=0 
       <pubDate>Sat, 15 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/laravel-php-snippets/</guid>
-      <description>Temporary ip allow list in PHP framework Laravel 1&amp;lt;?php 2 3namespace App\Http\Middleware; 4 5use Closure; 6use Illuminate\Http\Request; 7use Illuminate\Support\Facades\Cache; 8use Illuminate\Support\Facades\Log; 9use Symfony\Component\HttpFoundation\IpUtils; 10 11class IpAllowMiddleware 12{ 13 /** 14* Handle an incoming request. 15* 16* @param \Illuminate\Http\Request $request 17* @param \Closure $next 18* @return mixed 19*/ 20 public function handle($request, Closure $next) 21 { 22 $this-&amp;gt;setTrustProxy(); 23 $clientIp = $request-&amp;gt;getClientIp(); 24 if (!$this-&amp;gt;compareOrigin($clientIp)) { 25 Log::warning(&amp;#34;The client ip is forbidden: &amp;#34; .</description>
+      <description>Temporary ip allow list in PHP framework Laravel 1&amp;lt;?php 2 3namespace App\Http\Middleware; 4 5use Closure; 6use Illuminate\Http\Request; 7use Illuminate\Support\Facades\Cache; 8use Illuminate\Support\Facades\Log; 9use Symfony\Component\HttpFoundation\IpUtils; 10 11class IpAllowMiddleware 12{ 13 /** 14 * Handle an incoming request. 15 * 16 * @param \Illuminate\Http\Request $request 17 * @param \Closure $next 18 * @return mixed 19 */ 20 public function handle($request, Closure $next) 21 { 22 $this-&amp;gt;setTrustProxy(); 23 $clientIp = $request-&amp;gt;getClientIp(); 24 if (!$this-&amp;gt;compareOrigin($clientIp)) { 25 Log::warning(&amp;#34;The client ip is forbidden: &amp;#34; .</description>
     </item>
     
     <item>
@@ -323,7 +321,7 @@ k delete pods &amp;lt;pod&amp;gt; -n &amp;lt;namespace&amp;gt; --grace-period=0 
       <pubDate>Wed, 11 Sep 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/go-usually-commands/</guid>
-      <description>Global install go program(go version &amp;gt;=1.16.0)  go install sigs.k8s.io/kind@v0.9.0  when go version is higher 1.12 should install godoc command  go get golang.org/x/tools/cmd/godoc  launch go docs services in local  godoc -http=:6060  view go environment variables,inlude GO ROOT path  go env  fmt package Println docs  go doc fmt Println  initialization go modules, when reference sub directory straightway example.com/module/sub1/sub2  go mod init example.</description>
+      <description>Global install go program(go version &amp;gt;=1.16.0) go install sigs.k8s.io/kind@v0.9.0 when go version is higher 1.12 should install godoc command go get golang.org/x/tools/cmd/godoc launch go docs services in local godoc -http=:6060 view go environment variables,inlude GO ROOT path go env fmt package Println docs go doc fmt Println initialization go modules, when reference sub directory straightway example.com/module/sub1/sub2 go mod init example.com/module delete packages go clean -i -v -x github.com/somepkg/go/simpleGitHub Add modules to current packages go mod edit -require github.</description>
     </item>
     
     <item>
@@ -352,7 +350,7 @@ Configuration file param.json 1{ 2 &amp;#34;dev&amp;#34;: { 3 &amp;#34;public_co
       <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/aws-network-secrutiy-enhance/</guid>
-      <description>Vpc network division According to the requirements of the product and the customer, the two services of the two types of subnets are isolated. For example, DBsubnet01 and DBsubnet02 are both internal private subnets and belong to different product segments. ​	 The two major subnet types are the intranet and the extranet. The internal network goes to the NAT Gateway, and the external network goes to the Internet Gateway. Like: RDS, Redis, background services, etc.</description>
+      <description>Vpc network division According to the requirements of the product and the customer, the two services of the two types of subnets are isolated. For example, DBsubnet01 and DBsubnet02 are both internal private subnets and belong to different product segments. ​	The two major subnet types are the intranet and the extranet. The internal network goes to the NAT Gateway, and the external network goes to the Internet Gateway. Like: RDS, Redis, background services, etc.</description>
     </item>
     
     <item>
@@ -371,7 +369,7 @@ Around 2011, as Java becomes more and more powerful in the web development space
       <pubDate>Fri, 10 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/logstash_configure/</guid>
-      <description>The logs collect workflow  Filebeat gather the file path log files then send to Logstash 5044 port The logstash receive and transform extract fields and send to Elasticsearch  The Filebeat config file is: /etc/filebeat.yml  installing the Filebeat script:  1#!/bin/bash 2FILEBEAT_NAME=filebeat-6.7.2-x86_64.rpm 3# install filebeat 4curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/${FILEBEAT_NAME} 5sudo rpm -vi ${FILEBEAT_NAME} &amp;amp;&amp;amp; sudo rm ${FILEBEAT_NAME} 6sudo chkconfig --add filebeat 7sudo chkconfig filebeat on 8sudo mv -f filebeat.</description>
+      <description>The logs collect workflow Filebeat gather the file path log files then send to Logstash 5044 port The logstash receive and transform extract fields and send to Elasticsearch The Filebeat config file is: /etc/filebeat.yml installing the Filebeat script: 1#!/bin/bash 2FILEBEAT_NAME=filebeat-6.7.2-x86_64.rpm 3# install filebeat 4curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/${FILEBEAT_NAME} 5sudo rpm -vi ${FILEBEAT_NAME} &amp;amp;&amp;amp; sudo rm ${FILEBEAT_NAME} 6sudo chkconfig --add filebeat 7sudo chkconfig filebeat on 8sudo mv -f filebeat.yml /etc/filebeat/filebeat.yml 9sudo chown root:root /etc/filebeat/filebeat.</description>
     </item>
     
     <item>
@@ -390,9 +388,9 @@ Around 2011, as Java becomes more and more powerful in the web development space
       
       <guid>https://blog.wisekee.com/post/hugo-usage-issues/</guid>
       <description>Update: 2021/10 when pull at other location or machine, the submodule settings is lost, need reinitialization the submodule, only exec following this command:
-1git submodule update --init --recursive Usage scene   In my github repo initialize two repos
- One to storage Hugo sourcecode and markdown files And other one use release finaly site resources    Has two folders themes and public as github submodes
-1 git submodule add https://github.</description>
+1git submodule update --init --recursive Usage scene In my github repo initialize two repos
+One to storage Hugo sourcecode and markdown files And other one use release finaly site resources Has two folders themes and public as github submodes
+1 git submodule add https://github.com/don.chen/blog.github.io public 2 git submodule update --init and every time wited markdown article and execute</description>
     </item>
     
   </channel>

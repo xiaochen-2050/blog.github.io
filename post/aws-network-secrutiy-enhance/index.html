@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>AWS networking security enhance | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.74.3" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -173,30 +173,30 @@
 <li>Bastion&rsquo;s ssh keys should be separate and timed to rotate</li>
 <li>Locally, you can establish a connection from the ssh tunnel to Bastion, and then the browser can use this tunnel to connect to related tools and services through the socket proxy.</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>  ssh -D <span class="m">1234</span> -i ~/.ssh/bastion.pem userName@bastion-internal.ip -N -f
-</code></pre></div><p><em>Local browsers can access resources to aws via port 1234</em></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">  ssh -D <span class="m">1234</span> -i ~/.ssh/bastion.pem userName@bastion-internal.ip -N -f
+</span></span></code></pre></div><p><em>Local browsers can access resources to aws via port 1234</em></p>
 <ul>
 <li>For application debugging, we can install Nginx as a forwarding rule on Bastion.</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-nginx" data-lang="nginx"><span class="ln"> 1</span>  <span class="k">server</span> <span class="p">{</span>
-<span class="ln"> 2</span>    <span class="kn">server_name</span> <span class="s">agent-office.exmaple.com</span><span class="p">;</span>
-<span class="ln"> 3</span>    <span class="kn">if</span> <span class="s">(</span><span class="nv">$uri</span> <span class="p">~</span><span class="sr">*</span> <span class="s">&#34;^/internal-app.com/&#34;)</span> <span class="p">{</span>
-<span class="ln"> 4</span>      <span class="kn">set</span> <span class="nv">$schemex</span> <span class="s">https</span><span class="p">;</span>
-<span class="ln"> 5</span>      <span class="kn">set</span> <span class="nv">$domainx</span> <span class="s">internal-app.com</span><span class="p">;</span>
-<span class="ln"> 6</span>      <span class="kn">rewrite</span> <span class="s">^/[^/]+/(?&lt;path&gt;.*)</span> <span class="s">/</span><span class="nv">$path</span> <span class="s">last</span><span class="p">;</span>
-<span class="ln"> 7</span>  	<span class="p">}</span>
-<span class="ln"> 8</span>
-<span class="ln"> 9</span>  <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
-<span class="ln">10</span>    <span class="kn">add_header</span> <span class="s">&#39;Access-Control-Allow-Origin&#39;</span> <span class="s">&#39;*&#39;</span> <span class="s">always</span><span class="p">;</span>
-<span class="ln">11</span>    <span class="kn">add_header</span> <span class="s">&#39;Access-Control-Allow-Methods&#39;</span> <span class="s">&#39;HEAD,</span> <span class="s">PUT,</span> <span class="s">DELETE,</span> <span class="s">PATCH,</span> <span class="s">GET,</span> <span class="s">POST,</span> <span class="s">OPTIONS&#39;</span> <span class="s">always</span><span class="p">;</span>
-<span class="ln">12</span>    <span class="kn">proxy_pass</span>         <span class="nv">$schemex://$domainx</span><span class="p">;</span>
-<span class="ln">13</span>    <span class="kn">proxy_set_header</span>  <span class="s">Origin</span> <span class="nv">$domainx</span><span class="p">;</span>
-<span class="ln">14</span>    <span class="kn">proxy_redirect</span>     <span class="no">off</span><span class="p">;</span>
-<span class="ln">15</span>    <span class="kn">proxy_set_header</span>   <span class="s">X-Real-IP</span>   <span class="nv">$remote_addr</span><span class="p">;</span>
-<span class="ln">16</span>    <span class="kn">proxy_set_header</span>   <span class="s">X-Forwarded-For</span>  <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
-<span class="ln">17</span>    <span class="p">}</span>
-<span class="ln">18</span>  <span class="p">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="ln"> 1</span><span class="cl">  <span class="k">server</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="kn">server_name</span> <span class="s">agent-office.exmaple.com</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="kn">if</span> <span class="s">(</span><span class="nv">$uri</span> <span class="p">~</span><span class="sr">*</span> <span class="s">&#34;^/internal-app.com/&#34;)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">      <span class="kn">set</span> <span class="nv">$schemex</span> <span class="s">https</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">      <span class="kn">set</span> <span class="nv">$domainx</span> <span class="s">internal-app.com</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">      <span class="kn">rewrite</span> <span class="s">^/[^/]+/(?&lt;path&gt;.*)</span> <span class="s">/</span><span class="nv">$path</span> <span class="s">last</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  	<span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="kn">add_header</span> <span class="s">&#39;Access-Control-Allow-Origin&#39;</span> <span class="s">&#39;*&#39;</span> <span class="s">always</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="kn">add_header</span> <span class="s">&#39;Access-Control-Allow-Methods&#39;</span> <span class="s">&#39;HEAD,</span> <span class="s">PUT,</span> <span class="s">DELETE,</span> <span class="s">PATCH,</span> <span class="s">GET,</span> <span class="s">POST,</span> <span class="s">OPTIONS&#39;</span> <span class="s">always</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    <span class="kn">proxy_pass</span>         <span class="nv">$schemex://$domainx</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">    <span class="kn">proxy_set_header</span>  <span class="s">Origin</span> <span class="nv">$domainx</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">    <span class="kn">proxy_redirect</span>     <span class="no">off</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">    <span class="kn">proxy_set_header</span>   <span class="s">X-Real-IP</span>   <span class="nv">$remote_addr</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">    <span class="kn">proxy_set_header</span>   <span class="s">X-Forwarded-For</span>  <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></div><ul>
 <li>Try not to open too many endpoints to Bastion to access resources in vpc, which will bring security risks</li>
 </ul>
 <h4 id="use-site-to-site-vpn">Use Site-to-Site vpn</h4>

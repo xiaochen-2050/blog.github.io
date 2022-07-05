@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>Use Ansible docker container in daily development | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.74.3" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -146,94 +146,92 @@
 <ul>
 <li>The <code>Dockerfile</code></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span>FROM<span class="w"> </span>centos<span class="p">:</span><span class="m">7</span><span class="w">
-</span><span class="ln"> 2</span><span class="w">
-</span><span class="ln"> 3</span><span class="w"></span>ARG<span class="w"> </span>SSH_PRIVATE_KEY<span class="w">
-</span><span class="ln"> 4</span><span class="w"></span>ARG<span class="w"> </span>SSH_HOST_CONFIG<span class="w">
-</span><span class="ln"> 5</span><span class="w">
-</span><span class="ln"> 6</span><span class="w"></span>RUN<span class="w"> </span>curl<span class="w"> </span>-o<span class="w"> </span>/etc/yum.repos.d/CentOS-Base.repo<span class="w"> </span>https<span class="p">:</span>//mirrors.aliyun.com/repo/Centos<span class="m">-7.</span>repo<span class="w"> </span><span class="cp">&amp;&amp;</span><span class="w"> </span>\<span class="w">
-</span><span class="ln"> 7</span><span class="w">    </span>yum<span class="w"> </span>clean<span class="w"> </span>all<span class="w"> </span><span class="cp">&amp;&amp;</span><span class="w"> </span>yum<span class="w"> </span>makecache<span class="w"> </span>fast<span class="w"> </span><span class="cp">&amp;&amp;</span><span class="w"> </span>\<span class="w">
-</span><span class="ln"> 8</span><span class="w">    </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>epel-release<span class="w"> </span>gcc<span class="w"> </span>libffi-devel<span class="w"> </span>openssh-clients<span class="w"> </span>git<span class="w"> </span>wget<span class="w"> </span><span class="cp">&amp;&amp;</span><span class="w"> </span>\<span class="w">
-</span><span class="ln"> 9</span><span class="w">    </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python<span class="w"> </span>python2-pip<span class="w"> </span>ansible<span class="w">
-</span><span class="ln">10</span><span class="w">
-</span><span class="ln">11</span><span class="w"></span>RUN<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&#34;pysocks&#34;</span><span class="w"> </span><span class="s2">&#34;pyspnego==0.1.6&#34;</span><span class="w"> </span><span class="s2">&#34;pywinrm==0.4.1&#34;</span><span class="w"> </span><span class="s1">&#39;pypsrp==0.5.0&#39;</span><span class="w"> </span><span class="cp">&amp;&amp;</span><span class="w"> </span>\<span class="w">
-</span><span class="ln">12</span><span class="w">    </span>yum<span class="w"> </span>clean<span class="w"> </span>all<span class="w">
-</span><span class="ln">13</span><span class="w">
-</span><span class="ln">14</span><span class="w"></span>WORKDIR<span class="w"> </span>/var/app<span class="w">
-</span><span class="ln">15</span><span class="w"></span>COPY<span class="w"> </span>entrypoint.sh<span class="w"> </span>/var/app/entrypoint.sh<span class="w">
-</span><span class="ln">16</span><span class="w">
-</span><span class="ln">17</span><span class="w"></span>RUN<span class="w"> </span>ansible-galaxy<span class="w"> </span>collection<span class="w"> </span>install<span class="w"> </span>community.general<span class="w"> </span><span class="cp">&amp;&amp;</span><span class="w"> </span>\<span class="w">
-</span><span class="ln">18</span><span class="w">    </span>mkdir<span class="w"> </span>~/.ssh/<span class="w"> </span><span class="cp">&amp;&amp;</span><span class="w"> </span>\<span class="w">
-</span><span class="ln">19</span><span class="w">    </span>echo<span class="w"> </span><span class="s2">&#34;${SSH_PRIVATE_KEY}&#34;</span><span class="w"> </span>&gt;<span class="w"> </span>~/.ssh/id_rsa<span class="w"> </span><span class="cp">&amp;&amp;</span><span class="w"> </span>\<span class="w">
-</span><span class="ln">20</span><span class="w">    </span>echo<span class="w"> </span><span class="s2">&#34;${SSH_HOST_CONFIG}&#34;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.ssh/config<span class="w"> </span><span class="cp">&amp;&amp;</span><span class="w"> </span>\<span class="w">
-</span><span class="ln">21</span><span class="w">    </span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/.ssh/id_rsa<span class="w"> </span><span class="cp">&amp;&amp;</span><span class="w"> </span>\<span class="w">
-</span><span class="ln">22</span><span class="w">    </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;/\[defaults\]/ a  host_key_checking = False&#39;</span><span class="w"> </span>/etc/ansible/ansible.cfg<span class="w"> </span><span class="cp">&amp;&amp;</span><span class="w"> </span>\<span class="w">
-</span><span class="ln">23</span><span class="w">    </span>echo<span class="w"> </span>-e<span class="w"> </span><span class="s2">&#34;\tServerAliveCountMax 5\n\tServerAliveInterval 5\n\tTCPKeepAlive yes&#34;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/ssh/ssh_config<span class="w"> </span><span class="cp">&amp;&amp;</span><span class="w"> </span>\<span class="w">
-</span><span class="ln">24</span><span class="w">    </span>chmod<span class="w"> </span>+x<span class="w"> </span>/var/app/entrypoint.sh<span class="w">
-</span><span class="ln">25</span><span class="w">
-</span><span class="ln">26</span><span class="w"></span>ENTRYPOINT<span class="w"> </span><span class="p">[]</span><span class="w">
-</span><span class="ln">27</span><span class="w"></span>CMD<span class="w"> </span>/var/app/entrypoint.sh<span class="w">
-</span></code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="l">FROM centos:7</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="l">ARG SSH_PRIVATE_KEY</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w"></span><span class="l">ARG SSH_HOST_CONFIG</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="l">RUN curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo &amp;&amp; \</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">    </span><span class="l">yum clean all &amp;&amp; yum makecache fast &amp;&amp; \</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">    </span><span class="l">yum install -y epel-release gcc libffi-devel openssh-clients git wget &amp;&amp; \</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">    </span><span class="l">yum install -y python python2-pip ansible</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w"></span><span class="l">RUN python -m pip install &#34;pysocks&#34; &#34;pyspnego==0.1.6&#34; &#34;pywinrm==0.4.1&#34; &#39;pypsrp==0.5.0&#39; &amp;&amp; \</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">    </span><span class="l">yum clean all</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w"></span><span class="l">WORKDIR /var/app</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w"></span><span class="l">COPY entrypoint.sh /var/app/entrypoint.sh</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w"></span><span class="l">RUN ansible-galaxy collection install community.general &amp;&amp; \</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">    </span><span class="l">mkdir ~/.ssh/ &amp;&amp; \</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">    </span><span class="l">echo &#34;${SSH_PRIVATE_KEY}&#34; &gt; ~/.ssh/id_rsa &amp;&amp; \</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">    </span><span class="l">echo &#34;${SSH_HOST_CONFIG}&#34; &gt;&gt; ~/.ssh/config &amp;&amp; \</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">    </span><span class="l">chmod 600 ~/.ssh/id_rsa &amp;&amp; \</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">    </span><span class="l">sed -i &#39;/\[defaults\]/ a  host_key_checking = False&#39; /etc/ansible/ansible.cfg &amp;&amp; \</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">    </span><span class="l">echo -e &#34;\tServerAliveCountMax 5\n\tServerAliveInterval 5\n\tTCPKeepAlive yes&#34; &gt;&gt; /etc/ssh/ssh_config &amp;&amp; \</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">    </span><span class="l">chmod +x /var/app/entrypoint.sh</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w"></span><span class="l">ENTRYPOINT []</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w"></span><span class="l">CMD /var/app/entrypoint.sh</span><span class="w">
+</span></span></span></code></pre></div><ul>
 <li>When make the docker image needs pass the build arguments to context</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span><span class="c1"># docker build  --network=host --build-arg SSH_PRIVATE_KEY=&#34;$(cat ~/.ssh/id_rsa)&#34; --build-arg SSH_HOST_CONFIG=&#34;$(cat ~/.ssh/config)&#34; -t  registry.me/public/ansible:test .</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># docker build  --network=host --build-arg SSH_PRIVATE_KEY=&#34;$(cat ~/.ssh/id_rsa)&#34; --build-arg SSH_HOST_CONFIG=&#34;$(cat ~/.ssh/config)&#34; -t  registry.me/public/ansible:test .</span>
+</span></span></code></pre></div><ul>
 <li>The <code>entrypoint.sh</code></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span><span class="cp">#!/usr/bin/env bash
-</span><span class="ln">2</span><span class="cp"></span>
-<span class="ln">3</span>
-<span class="ln">4</span><span class="k">while</span> true<span class="p">;</span> <span class="k">do</span>
-<span class="ln">5</span>
-<span class="ln">6</span>  <span class="nb">echo</span> <span class="sb">`</span>date +<span class="s2">&#34;[%Y-%m-%d %H:%M:%S]&#34;</span><span class="sb">`</span> I<span class="se">\&#39;</span>m healthily
-<span class="ln">7</span>  sleep 30<span class="p">;</span>
-<span class="ln">8</span>
-<span class="ln">9</span><span class="k">done</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl"><span class="cp">#!/usr/bin/env bash
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="k">while</span> true<span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">
+</span></span><span class="line"><span class="ln">6</span><span class="cl">  <span class="nb">echo</span> <span class="sb">`</span>date +<span class="s2">&#34;[%Y-%m-%d %H:%M:%S]&#34;</span><span class="sb">`</span> I<span class="se">\&#39;</span>m healthily
+</span></span><span class="line"><span class="ln">7</span><span class="cl">  sleep 30<span class="p">;</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl">
+</span></span><span class="line"><span class="ln">9</span><span class="cl"><span class="k">done</span>
+</span></span></code></pre></div><ul>
 <li>The hosts mode config <code>~/.ssh/config</code></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span>Host *
-<span class="ln"> 2</span>        StrictHostKeyChecking no
-<span class="ln"> 3</span>        UserKnownHostsFile /dev/null
-<span class="ln"> 4</span>Host nu1.proxy
-<span class="ln"> 5</span>        Hostname 1.1.1.2
-<span class="ln"> 6</span>        Port <span class="m">2233</span>  
-<span class="ln"> 7</span>Host nu2.proxy
-<span class="ln"> 8</span>        Hostname 1.1.1.3
-<span class="ln"> 9</span>        Port <span class="m">2244</span>
-<span class="ln">10</span>Host 10.10.19.*
-<span class="ln">11</span>        Proxycommand ssh -W %h:%p nu1.proxy
-<span class="ln">12</span>Host 10.20.19.*
-<span class="ln">13</span>        Proxycommand ssh -W %h:%p nu2.proxy
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">Host *
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">        StrictHostKeyChecking no
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">        UserKnownHostsFile /dev/null
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">Host nu1.proxy
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">        Hostname 1.1.1.2
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">        Port <span class="m">2233</span>  
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">Host nu2.proxy
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">        Hostname 1.1.1.3
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">        Port <span class="m">2244</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">Host 10.10.19.*
+</span></span><span class="line"><span class="ln">11</span><span class="cl">        Proxycommand ssh -W %h:%p nu1.proxy
+</span></span><span class="line"><span class="ln">12</span><span class="cl">Host 10.20.19.*
+</span></span><span class="line"><span class="ln">13</span><span class="cl">        Proxycommand ssh -W %h:%p nu2.proxy
+</span></span></code></pre></div><ul>
 <li>And the ansible <code>host.ini</code> look like following</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span>pg_xl_01 <span class="nv">ansible_host</span><span class="o">=</span>10.20.19.14
-<span class="ln"> 2</span>pg_xl_02 <span class="nv">ansible_host</span><span class="o">=</span>10.20.19.15
-<span class="ln"> 3</span>pg_xl_03 <span class="nv">ansible_host</span><span class="o">=</span>10.20.19.16
-<span class="ln"> 4</span>
-<span class="ln"> 5</span>win_server_2008r2 <span class="nv">ansible_host</span><span class="o">=</span>10.20.19.11 <span class="nv">ansible_user</span><span class="o">=</span>Administrator <span class="nv">ansible_password</span><span class="o">=</span>xxxxxx <span class="nv">ansible_connection</span><span class="o">=</span>psrp <span class="nv">ansible_psrp_protocol</span><span class="o">=</span>http <span class="nv">ansible_psrp_proxy</span><span class="o">=</span>socks5h://127.0.0.1:5985
-<span class="ln"> 6</span>
-<span class="ln"> 7</span><span class="o">[</span>pg_cluster<span class="o">]</span>
-<span class="ln"> 8</span>pg_xl_0<span class="o">[</span>1:3<span class="o">]</span>
-<span class="ln"> 9</span>
-<span class="ln">10</span><span class="o">[</span>win_server<span class="o">]</span>
-<span class="ln">11</span>win_server_2008r2
-<span class="ln">12</span>
-<span class="ln">13</span><span class="o">[</span>pg_cluster:vars<span class="o">]</span>
-<span class="ln">14</span><span class="nv">ansible_ssh_common_args</span><span class="o">=</span><span class="s1">&#39;-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand=&#34;ssh -W %h:%p -q nu01.proxy&#34;&#39;</span>
-<span class="ln">15</span>
-<span class="ln">16</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">pg_xl_01 <span class="nv">ansible_host</span><span class="o">=</span>10.20.19.14
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">pg_xl_02 <span class="nv">ansible_host</span><span class="o">=</span>10.20.19.15
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">pg_xl_03 <span class="nv">ansible_host</span><span class="o">=</span>10.20.19.16
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">win_server_2008r2 <span class="nv">ansible_host</span><span class="o">=</span>10.20.19.11 <span class="nv">ansible_user</span><span class="o">=</span>Administrator <span class="nv">ansible_password</span><span class="o">=</span>xxxxxx <span class="nv">ansible_connection</span><span class="o">=</span>psrp <span class="nv">ansible_psrp_protocol</span><span class="o">=</span>http <span class="nv">ansible_psrp_proxy</span><span class="o">=</span>socks5h://127.0.0.1:5985
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="o">[</span>pg_cluster<span class="o">]</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">pg_xl_0<span class="o">[</span>1:3<span class="o">]</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="o">[</span>win_server<span class="o">]</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">win_server_2008r2
+</span></span><span class="line"><span class="ln">12</span><span class="cl">
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="o">[</span>pg_cluster:vars<span class="o">]</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="nv">ansible_ssh_common_args</span><span class="o">=</span><span class="s1">&#39;-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand=&#34;ssh -W %h:%p -q nu01.proxy&#34;&#39;</span>
+</span></span></code></pre></div><ul>
 <li>When execute the ansible commands before must be launch the ssh sock proxy for windows machine</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>ssh -o <span class="s2">&#34;ControlMaster=auto&#34;</span> -o <span class="s2">&#34;ControlPersist=no&#34;</span> -o <span class="s2">&#34;ControlPath=~/.ssh/proxy-%r@%h:%p&#34;</span> -CfNq -D 127.0.0.1:5985  root@nu01.proxy
-<span class="ln">2</span>
-<span class="ln">3</span>ansible-playbook -i dev.local playbook.yml -e <span class="s2">&#34;target_server=pg_cluster&#34;</span>  --tags ping
-<span class="ln">4</span>
-<span class="ln">5</span><span class="c1">#to win server</span> 
-<span class="ln">6</span>ansible -i dev.local win_server -m win_ping
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">ssh -o <span class="s2">&#34;ControlMaster=auto&#34;</span> -o <span class="s2">&#34;ControlPersist=no&#34;</span> -o <span class="s2">&#34;ControlPath=~/.ssh/proxy-%r@%h:%p&#34;</span> -CfNq -D 127.0.0.1:5985  root@nu01.proxy
+</span></span><span class="line"><span class="ln">2</span><span class="cl">
+</span></span><span class="line"><span class="ln">3</span><span class="cl">ansible-playbook -i dev.local playbook.yml -e <span class="s2">&#34;target_server=pg_cluster&#34;</span>  --tags ping
+</span></span><span class="line"><span class="ln">4</span><span class="cl">
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="c1">#to win server </span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">ansible -i dev.local win_server -m win_ping
+</span></span></code></pre></div>
   </article>
 <aside class="sidebar">
   <section class="sidebar_inner">

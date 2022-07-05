@@ -2,7 +2,7 @@
 <html lang="en" data-figures="">
   <head>  <title>Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.74.3" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -123,7 +123,7 @@
       <div class = 'excerpt_footer'>
         <div>
           <p class = 'pale'>The syntax ingest pipeline template convenient for search
-1[2{3&#34;grok&#34;: {4&#34;field&#34;: &#34;message&#34;,5&#34;patterns&#34;: [6&#34;%{IPORHOST:remote_addr} - %{USERNAME:remote_user} \\[%{HTTPDATE:time_local}\\] \\\&#34;%{DATA:request}\\\&#34; %{INT:status} %{NUMBER:bytes_sent} …</p>
+1[ 2 { 3 &#34;grok&#34;: { 4 &#34;field&#34;: &#34;message&#34;, 5 &#34;patterns&#34;: [ 6 &#34;%{IPORHOST:remote_addr} - %{USERNAME:remote_user} \\[%{HTTPDATE:time_local}\\] \\\&#34;%{DATA:request}\\\&#34; %{INT:status} %{NUMBER:bytes_sent} …</p>
           <a href='https://blog.wisekee.com/post/elastic-cloud-ingest-pipeline/' class='excerpt_more button'>Read More</a>
         </div>
       </div>
@@ -155,7 +155,8 @@
       <div class = 'excerpt_footer'>
         <div>
           <p class = 'pale'>Use the Elasticsearch cloud on k8s component as logs and apm platform. the Fluentd collect the kubernetes container logs to Elasticsearch and kibana represent and search
-The ECK operator configure The ECK operator custom resources use kubectl providers. …</p>
+The ECK operator configure The ECK operator custom resources use kubectl providers.
+1terraform { 2 required_providers { 3 kubectl = { 4 source = …</p>
           <a href='https://blog.wisekee.com/post/eck-vs-flutd-collect-logs/' class='excerpt_more button'>Read More</a>
         </div>
       </div>
@@ -247,7 +248,7 @@ fetch the Dockerfile in this url: OminDB Dockerfile Build the docker image docke
       <div class = 'excerpt_footer'>
         <div>
           <p class = 'pale'>We what collect and storage kubernetes events to elasticsearch, easy to query and analyze alerts. we use this github repo componentkubernetes-event-exporter
-The main.tf include kubernetes &lsquo;deployment&rsquo; object …</p>
+The main.tf include kubernetes &lsquo;deployment&rsquo; object 1resource &#34;kubernetes_deployment&#34; &#34;event_export&#34; { 2 metadata { 3 name = …</p>
           <a href='https://blog.wisekee.com/post/kubernetes-events-to-es/' class='excerpt_more button'>Read More</a>
         </div>
       </div>
@@ -255,40 +256,35 @@ The main.tf include kubernetes &lsquo;deployment&rsquo; object …</p>
   </li>
   
     <li>
-<ul class="pagination">
-  <li class="page-item">
-    <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
-  </li>
-  <li class="page-item">
-    <a href="/page/2/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/">1</a>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/page/2/">2</a>
-  </li>
-  <li class="page-item active">
-    <a class="page-link" href="/page/3/">3</a>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/page/4/">4</a>
-  </li>
-  <li class="page-item disabled">
-    <span aria-hidden="true">&nbsp;&hellip;&nbsp;</span>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/page/8/">8</a>
-  </li>
-  <li class="page-item">
-    <a href="/page/4/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-  </li>
-  <li class="page-item">
-    <a href="/page/8/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
-  </li>
-</ul>
-
-
+    <ul class="pagination pagination-default">
+      <li class="page-item">
+        <a href="/" aria-label="First" class="page-link" role="button"><span aria-hidden="true">&laquo;&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/page/2/" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/" aria-label="Page 1" class="page-link" role="button">1</a>
+      </li>
+      <li class="page-item">
+        <a href="/page/2/" aria-label="Page 2" class="page-link" role="button">2</a>
+      </li>
+      <li class="page-item active">
+        <a aria-current="page" aria-label="Page 3" class="page-link" role="button">3</a>
+      </li>
+      <li class="page-item">
+        <a href="/page/4/" aria-label="Page 4" class="page-link" role="button">4</a>
+      </li>
+      <li class="page-item">
+        <a href="/page/5/" aria-label="Page 5" class="page-link" role="button">5</a>
+      </li>
+      <li class="page-item">
+        <a href="/page/4/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/page/8/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+      </li>
+    </ul>
     </li>
   </ul>
 <aside class="sidebar">

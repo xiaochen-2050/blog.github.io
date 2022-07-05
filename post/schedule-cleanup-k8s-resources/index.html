@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>Scheduler clean up kubernetes unuseful resources | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.74.3" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -144,380 +144,374 @@
 <ul>
 <li>initialization Go lanugage project evnironment</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>	mkdir k8s_res_cleanup <span class="o">&amp;&amp;</span> <span class="nb">cd</span> k8s_res_cleanup
-<span class="ln">2</span>	go mod init  example.com/cleanup/resources
-<span class="ln">3</span>	go get -v -u k8s.io/client-go@v0.18.2 <span class="c1"># install packages</span>
-<span class="ln">4</span>	go get -v -u github.com/prometheus/common@v0.1.0
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">	mkdir k8s_res_cleanup <span class="o">&amp;&amp;</span> <span class="nb">cd</span> k8s_res_cleanup
+</span></span><span class="line"><span class="ln">2</span><span class="cl">	go mod init  example.com/cleanup/resources
+</span></span><span class="line"><span class="ln">3</span><span class="cl">	go get -v -u k8s.io/client-go@v0.18.2 <span class="c1"># install packages</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">	go get -v -u github.com/prometheus/common@v0.1.0
+</span></span></code></pre></div><ul>
 <li>create sub package<code>config/k8s.go</code> indicate how can connect to kubernetes cluster</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="ln"> 1</span><span class="kn">package</span> <span class="nx">config</span>
-<span class="ln"> 2</span>
-<span class="ln"> 3</span><span class="kn">import</span> <span class="p">(</span>
-<span class="ln"> 4</span>	<span class="s">&#34;flag&#34;</span>
-<span class="ln"> 5</span>	<span class="nx">logs</span> <span class="s">&#34;github.com/prometheus/common/log&#34;</span>
-<span class="ln"> 6</span>	<span class="s">&#34;k8s.io/client-go/kubernetes&#34;</span>
-<span class="ln"> 7</span>	<span class="s">&#34;k8s.io/client-go/rest&#34;</span>
-<span class="ln"> 8</span>	<span class="s">&#34;k8s.io/client-go/tools/clientcmd&#34;</span>
-<span class="ln"> 9</span>	<span class="s">&#34;os&#34;</span>
-<span class="ln">10</span>	<span class="s">&#34;path/filepath&#34;</span>
-<span class="ln">11</span><span class="p">)</span>
-<span class="ln">12</span>
-<span class="ln">13</span><span class="kd">type</span> <span class="nx">K8s</span> <span class="kd">struct</span> <span class="p">{</span>
-<span class="ln">14</span>	<span class="nx">Client</span> <span class="nx">kubernetes</span><span class="p">.</span><span class="nx">Interface</span>
-<span class="ln">15</span>	<span class="nx">Config</span> <span class="o">*</span><span class="nx">rest</span><span class="p">.</span><span class="nx">Config</span>
-<span class="ln">16</span><span class="p">}</span>
-<span class="ln">17</span>
-<span class="ln">18</span><span class="c1">// NewK8s will provide a new k8s client interface
-</span><span class="ln">19</span><span class="c1">// resolves where it is running whether inside the kubernetes cluster or outside
-</span><span class="ln">20</span><span class="c1">// While running outside of the cluster, tries to make use of the kubeconfig file
-</span><span class="ln">21</span><span class="c1">// While running inside the cluster resolved via pod environment uses the in-cluster config
-</span><span class="ln">22</span><span class="c1"></span><span class="kd">func</span> <span class="nf">NewK8s</span><span class="p">()</span> <span class="p">(</span><span class="o">*</span><span class="nx">K8s</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-<span class="ln">23</span>	<span class="nx">client</span> <span class="o">:=</span> <span class="nx">K8s</span><span class="p">{}</span>
-<span class="ln">24</span>	<span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">inCluster</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">LookupEnv</span><span class="p">(</span><span class="s">&#34;KUBERNETES_SERVICE_HOST&#34;</span><span class="p">);</span> <span class="nx">inCluster</span> <span class="o">==</span> <span class="kc">true</span> <span class="p">{</span>
-<span class="ln">25</span>		<span class="nx">logs</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;Program running inside the cluster, picking the in-cluster configuration&#34;</span><span class="p">)</span>
-<span class="ln">26</span>
-<span class="ln">27</span>		<span class="nx">config</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">rest</span><span class="p">.</span><span class="nf">InClusterConfig</span><span class="p">()</span>
-<span class="ln">28</span>		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-<span class="ln">29</span>			<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
-<span class="ln">30</span>		<span class="p">}</span>
-<span class="ln">31</span>		<span class="nx">client</span><span class="p">.</span><span class="nx">Client</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">kubernetes</span><span class="p">.</span><span class="nf">NewForConfig</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span>
-<span class="ln">32</span>		<span class="nx">client</span><span class="p">.</span><span class="nx">Config</span> <span class="p">=</span> <span class="nx">config</span>
-<span class="ln">33</span>		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-<span class="ln">34</span>			<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
-<span class="ln">35</span>		<span class="p">}</span>
-<span class="ln">36</span>		<span class="k">return</span> <span class="o">&amp;</span><span class="nx">client</span><span class="p">,</span> <span class="kc">nil</span>
-<span class="ln">37</span>	<span class="p">}</span>
-<span class="ln">38</span>
-<span class="ln">39</span>	<span class="nx">logs</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;Program running from outside of the cluster&#34;</span><span class="p">)</span>
-<span class="ln">40</span>	<span class="kd">var</span> <span class="nx">kubeconfig</span> <span class="o">*</span><span class="kt">string</span>
-<span class="ln">41</span>	<span class="k">if</span> <span class="nx">home</span> <span class="o">:=</span> <span class="nf">homeDir</span><span class="p">();</span> <span class="nx">home</span> <span class="o">!=</span> <span class="s">&#34;&#34;</span> <span class="p">{</span>
-<span class="ln">42</span>		<span class="nx">kubeconfig</span> <span class="p">=</span> <span class="nx">flag</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="s">&#34;kubeconfig&#34;</span><span class="p">,</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">home</span><span class="p">,</span> <span class="s">&#34;.kube&#34;</span><span class="p">,</span> <span class="s">&#34;config&#34;</span><span class="p">),</span> <span class="s">&#34;(optional) absolute path to the kubeconfig file&#34;</span><span class="p">)</span>
-<span class="ln">43</span>	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-<span class="ln">44</span>		<span class="nx">kubeconfig</span> <span class="p">=</span> <span class="nx">flag</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="s">&#34;kubeconfig&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="s">&#34;absolute path to the kubeconfig file&#34;</span><span class="p">)</span>
-<span class="ln">45</span>	<span class="p">}</span>
-<span class="ln">46</span>	<span class="nx">flag</span><span class="p">.</span><span class="nf">Parse</span><span class="p">()</span>
-<span class="ln">47</span>	<span class="nx">config</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">clientcmd</span><span class="p">.</span><span class="nf">BuildConfigFromFlags</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">,</span> <span class="o">*</span><span class="nx">kubeconfig</span><span class="p">)</span>
-<span class="ln">48</span>	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-<span class="ln">49</span>		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
-<span class="ln">50</span>	<span class="p">}</span>
-<span class="ln">51</span>	<span class="nx">client</span><span class="p">.</span><span class="nx">Client</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">kubernetes</span><span class="p">.</span><span class="nf">NewForConfig</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span>
-<span class="ln">52</span>	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-<span class="ln">53</span>		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
-<span class="ln">54</span>	<span class="p">}</span>
-<span class="ln">55</span>	<span class="nx">client</span><span class="p">.</span><span class="nx">Config</span> <span class="p">=</span> <span class="nx">config</span>
-<span class="ln">56</span>	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">client</span><span class="p">,</span> <span class="kc">nil</span>
-<span class="ln">57</span><span class="p">}</span>
-<span class="ln">58</span>
-<span class="ln">59</span><span class="kd">func</span> <span class="nf">homeDir</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
-<span class="ln">60</span>	<span class="k">if</span> <span class="nx">h</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Getenv</span><span class="p">(</span><span class="s">&#34;HOME&#34;</span><span class="p">);</span> <span class="nx">h</span> <span class="o">!=</span> <span class="s">&#34;&#34;</span> <span class="p">{</span>
-<span class="ln">61</span>		<span class="k">return</span> <span class="nx">h</span>
-<span class="ln">62</span>	<span class="p">}</span>
-<span class="ln">63</span>	<span class="k">return</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Getenv</span><span class="p">(</span><span class="s">&#34;USERPROFILE&#34;</span><span class="p">)</span>
-<span class="ln">64</span><span class="p">}</span>
-<span class="ln">65</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kn">package</span> <span class="nx">config</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">	<span class="s">&#34;flag&#34;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">	<span class="nx">logs</span> <span class="s">&#34;github.com/prometheus/common/log&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">	<span class="s">&#34;k8s.io/client-go/kubernetes&#34;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">	<span class="s">&#34;k8s.io/client-go/rest&#34;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">	<span class="s">&#34;k8s.io/client-go/tools/clientcmd&#34;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">	<span class="s">&#34;os&#34;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">	<span class="s">&#34;path/filepath&#34;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="kd">type</span> <span class="nx">K8s</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">	<span class="nx">Client</span> <span class="nx">kubernetes</span><span class="p">.</span><span class="nx">Interface</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">	<span class="nx">Config</span> <span class="o">*</span><span class="nx">rest</span><span class="p">.</span><span class="nx">Config</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">
+</span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="c1">// NewK8s will provide a new k8s client interface
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="c1">// resolves where it is running whether inside the kubernetes cluster or outside
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="c1">// While running outside of the cluster, tries to make use of the kubeconfig file
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="c1">// While running inside the cluster resolved via pod environment uses the in-cluster config
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">NewK8s</span><span class="p">()</span> <span class="p">(</span><span class="o">*</span><span class="nx">K8s</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">	<span class="nx">client</span> <span class="o">:=</span> <span class="nx">K8s</span><span class="p">{}</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">	<span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">inCluster</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">LookupEnv</span><span class="p">(</span><span class="s">&#34;KUBERNETES_SERVICE_HOST&#34;</span><span class="p">);</span> <span class="nx">inCluster</span> <span class="o">==</span> <span class="kc">true</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">		<span class="nx">logs</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;Program running inside the cluster, picking the in-cluster configuration&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">
+</span></span><span class="line"><span class="ln">27</span><span class="cl">		<span class="nx">config</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">rest</span><span class="p">.</span><span class="nf">InClusterConfig</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">			<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">		<span class="nx">client</span><span class="p">.</span><span class="nx">Client</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">kubernetes</span><span class="p">.</span><span class="nf">NewForConfig</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">		<span class="nx">client</span><span class="p">.</span><span class="nx">Config</span> <span class="p">=</span> <span class="nx">config</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl">			<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="ln">36</span><span class="cl">		<span class="k">return</span> <span class="o">&amp;</span><span class="nx">client</span><span class="p">,</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="ln">37</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">38</span><span class="cl">
+</span></span><span class="line"><span class="ln">39</span><span class="cl">	<span class="nx">logs</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;Program running from outside of the cluster&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">40</span><span class="cl">	<span class="kd">var</span> <span class="nx">kubeconfig</span> <span class="o">*</span><span class="kt">string</span>
+</span></span><span class="line"><span class="ln">41</span><span class="cl">	<span class="k">if</span> <span class="nx">home</span> <span class="o">:=</span> <span class="nf">homeDir</span><span class="p">();</span> <span class="nx">home</span> <span class="o">!=</span> <span class="s">&#34;&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">42</span><span class="cl">		<span class="nx">kubeconfig</span> <span class="p">=</span> <span class="nx">flag</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="s">&#34;kubeconfig&#34;</span><span class="p">,</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">home</span><span class="p">,</span> <span class="s">&#34;.kube&#34;</span><span class="p">,</span> <span class="s">&#34;config&#34;</span><span class="p">),</span> <span class="s">&#34;(optional) absolute path to the kubeconfig file&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">43</span><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">44</span><span class="cl">		<span class="nx">kubeconfig</span> <span class="p">=</span> <span class="nx">flag</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="s">&#34;kubeconfig&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="s">&#34;absolute path to the kubeconfig file&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">45</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">46</span><span class="cl">	<span class="nx">flag</span><span class="p">.</span><span class="nf">Parse</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">47</span><span class="cl">	<span class="nx">config</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">clientcmd</span><span class="p">.</span><span class="nf">BuildConfigFromFlags</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">,</span> <span class="o">*</span><span class="nx">kubeconfig</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">48</span><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">49</span><span class="cl">		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="ln">50</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">51</span><span class="cl">	<span class="nx">client</span><span class="p">.</span><span class="nx">Client</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">kubernetes</span><span class="p">.</span><span class="nf">NewForConfig</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">52</span><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">53</span><span class="cl">		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="ln">54</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">55</span><span class="cl">	<span class="nx">client</span><span class="p">.</span><span class="nx">Config</span> <span class="p">=</span> <span class="nx">config</span>
+</span></span><span class="line"><span class="ln">56</span><span class="cl">	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">client</span><span class="p">,</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="ln">57</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">58</span><span class="cl">
+</span></span><span class="line"><span class="ln">59</span><span class="cl"><span class="kd">func</span> <span class="nf">homeDir</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">60</span><span class="cl">	<span class="k">if</span> <span class="nx">h</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Getenv</span><span class="p">(</span><span class="s">&#34;HOME&#34;</span><span class="p">);</span> <span class="nx">h</span> <span class="o">!=</span> <span class="s">&#34;&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">61</span><span class="cl">		<span class="k">return</span> <span class="nx">h</span>
+</span></span><span class="line"><span class="ln">62</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">63</span><span class="cl">	<span class="k">return</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Getenv</span><span class="p">(</span><span class="s">&#34;USERPROFILE&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">64</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><ul>
 <li>create and fill code to <code>main.go</code></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="ln"> 1</span><span class="kn">package</span> <span class="nx">main</span>
-<span class="ln"> 2</span>
-<span class="ln"> 3</span><span class="kn">import</span> <span class="p">(</span>
-<span class="ln"> 4</span>	<span class="s">&#34;flag&#34;</span>
-<span class="ln"> 5</span>	<span class="nx">logs</span> <span class="s">&#34;github.com/prometheus/common/log&#34;</span>
-<span class="ln"> 6</span>	<span class="s">&#34;snc.com/cleanup/resources/resources&#34;</span>
-<span class="ln"> 7</span>	<span class="s">&#34;strings&#34;</span>
-<span class="ln"> 8</span><span class="p">)</span>
-<span class="ln"> 9</span>
-<span class="ln">10</span><span class="kd">var</span> <span class="p">(</span>
-<span class="ln">11</span>	<span class="nx">namespace</span>      <span class="kt">string</span>
-<span class="ln">12</span>	<span class="nx">dryRun</span>         <span class="kt">bool</span>
-<span class="ln">13</span>	<span class="nx">expirationDays</span> <span class="kt">int</span>
-<span class="ln">14</span>	<span class="nx">resourceType</span>   <span class="kt">string</span>
-<span class="ln">15</span><span class="p">)</span>
-<span class="ln">16</span>
-<span class="ln">17</span><span class="kd">func</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
-<span class="ln">18</span>	<span class="kd">const</span> <span class="p">(</span>
-<span class="ln">19</span>		<span class="nx">DefaultNamespace</span>      <span class="p">=</span> <span class="s">&#34;&#34;</span>
-<span class="ln">20</span>		<span class="nx">DefaultDryRun</span>         <span class="p">=</span> <span class="kc">false</span>
-<span class="ln">21</span>		<span class="nx">DefaultExpirationDays</span> <span class="p">=</span> <span class="mi">100</span>
-<span class="ln">22</span>		<span class="nx">DefaultResourceType</span>   <span class="p">=</span> <span class="s">&#34;pod&#34;</span>
-<span class="ln">23</span>	<span class="p">)</span>
-<span class="ln">24</span>	<span class="nx">flag</span><span class="p">.</span><span class="nf">StringVar</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">namespace</span><span class="p">,</span> <span class="s">&#34;namespace&#34;</span><span class="p">,</span> <span class="nx">DefaultNamespace</span><span class="p">,</span> <span class="s">&#34;the namespace for cleanup resources&#34;</span><span class="p">)</span>
-<span class="ln">25</span>	<span class="nx">flag</span><span class="p">.</span><span class="nf">BoolVar</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">dryRun</span><span class="p">,</span> <span class="s">&#34;dry_run&#34;</span><span class="p">,</span> <span class="nx">DefaultDryRun</span><span class="p">,</span> <span class="s">&#34;indicate whether dry run&#34;</span><span class="p">)</span>
-<span class="ln">26</span>	<span class="nx">flag</span><span class="p">.</span><span class="nf">IntVar</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">expirationDays</span><span class="p">,</span> <span class="s">&#34;expire_day&#34;</span><span class="p">,</span> <span class="nx">DefaultExpirationDays</span><span class="p">,</span> <span class="s">&#34;the expiration days to be cleanup resources&#34;</span><span class="p">)</span>
-<span class="ln">27</span>	<span class="nx">flag</span><span class="p">.</span><span class="nf">StringVar</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">resourceType</span><span class="p">,</span> <span class="s">&#34;resource_type&#34;</span><span class="p">,</span> <span class="nx">DefaultResourceType</span><span class="p">,</span> <span class="s">&#34;Which resource cleanup enabled&#34;</span><span class="p">)</span>
-<span class="ln">28</span><span class="p">}</span>
-<span class="ln">29</span>
-<span class="ln">30</span><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-<span class="ln">31</span>	<span class="nx">flag</span><span class="p">.</span><span class="nf">Parse</span><span class="p">()</span>
-<span class="ln">32</span>	<span class="nx">resources</span><span class="p">.</span><span class="nf">InitClient</span><span class="p">(</span><span class="nx">dryRun</span><span class="p">,</span> <span class="nx">expirationDays</span><span class="p">,</span> <span class="nx">namespace</span><span class="p">)</span>
-<span class="ln">33</span>	<span class="nx">logs</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;The pass arguments is namespace: &#34;</span><span class="p">,</span> <span class="nx">namespace</span><span class="p">,</span> <span class="s">&#34; dry_run: &#34;</span><span class="p">,</span> <span class="nx">dryRun</span><span class="p">,</span> <span class="s">&#34; expire_day:&#34;</span><span class="p">,</span> <span class="nx">expirationDays</span><span class="p">,</span>
-<span class="ln">34</span>		<span class="s">&#34; resource_type: &#34;</span><span class="p">,</span> <span class="nx">resourceType</span><span class="p">)</span>
-<span class="ln">35</span>	<span class="nx">logs</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;Start delete expire resources:&#34;</span><span class="p">)</span>
-<span class="ln">36</span>	<span class="nx">resourceType</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">ToLower</span><span class="p">(</span><span class="nx">resourceType</span><span class="p">)</span>
-<span class="ln">37</span>	<span class="nx">resources</span><span class="p">.</span><span class="nf">CleanUp</span><span class="p">(</span><span class="nx">resourceType</span><span class="p">)</span>
-<span class="ln">38</span><span class="p">}</span>
-<span class="ln">39</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">	<span class="s">&#34;flag&#34;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">	<span class="nx">logs</span> <span class="s">&#34;github.com/prometheus/common/log&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">	<span class="s">&#34;snc.com/cleanup/resources/resources&#34;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">	<span class="s">&#34;strings&#34;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="kd">var</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">	<span class="nx">namespace</span>      <span class="kt">string</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">	<span class="nx">dryRun</span>         <span class="kt">bool</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">	<span class="nx">expirationDays</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">	<span class="nx">resourceType</span>   <span class="kt">string</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">
+</span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="kd">func</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">	<span class="kd">const</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">		<span class="nx">DefaultNamespace</span>      <span class="p">=</span> <span class="s">&#34;&#34;</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">		<span class="nx">DefaultDryRun</span>         <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">		<span class="nx">DefaultExpirationDays</span> <span class="p">=</span> <span class="mi">100</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">		<span class="nx">DefaultResourceType</span>   <span class="p">=</span> <span class="s">&#34;pod&#34;</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">	<span class="p">)</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">	<span class="nx">flag</span><span class="p">.</span><span class="nf">StringVar</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">namespace</span><span class="p">,</span> <span class="s">&#34;namespace&#34;</span><span class="p">,</span> <span class="nx">DefaultNamespace</span><span class="p">,</span> <span class="s">&#34;the namespace for cleanup resources&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">	<span class="nx">flag</span><span class="p">.</span><span class="nf">BoolVar</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">dryRun</span><span class="p">,</span> <span class="s">&#34;dry_run&#34;</span><span class="p">,</span> <span class="nx">DefaultDryRun</span><span class="p">,</span> <span class="s">&#34;indicate whether dry run&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">	<span class="nx">flag</span><span class="p">.</span><span class="nf">IntVar</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">expirationDays</span><span class="p">,</span> <span class="s">&#34;expire_day&#34;</span><span class="p">,</span> <span class="nx">DefaultExpirationDays</span><span class="p">,</span> <span class="s">&#34;the expiration days to be cleanup resources&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">	<span class="nx">flag</span><span class="p">.</span><span class="nf">StringVar</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">resourceType</span><span class="p">,</span> <span class="s">&#34;resource_type&#34;</span><span class="p">,</span> <span class="nx">DefaultResourceType</span><span class="p">,</span> <span class="s">&#34;Which resource cleanup enabled&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">
+</span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">	<span class="nx">flag</span><span class="p">.</span><span class="nf">Parse</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">	<span class="nx">resources</span><span class="p">.</span><span class="nf">InitClient</span><span class="p">(</span><span class="nx">dryRun</span><span class="p">,</span> <span class="nx">expirationDays</span><span class="p">,</span> <span class="nx">namespace</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">	<span class="nx">logs</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;The pass arguments is namespace: &#34;</span><span class="p">,</span> <span class="nx">namespace</span><span class="p">,</span> <span class="s">&#34; dry_run: &#34;</span><span class="p">,</span> <span class="nx">dryRun</span><span class="p">,</span> <span class="s">&#34; expire_day:&#34;</span><span class="p">,</span> <span class="nx">expirationDays</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl">		<span class="s">&#34; resource_type: &#34;</span><span class="p">,</span> <span class="nx">resourceType</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl">	<span class="nx">logs</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;Start delete expire resources:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">36</span><span class="cl">	<span class="nx">resourceType</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">ToLower</span><span class="p">(</span><span class="nx">resourceType</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">37</span><span class="cl">	<span class="nx">resources</span><span class="p">.</span><span class="nf">CleanUp</span><span class="p">(</span><span class="nx">resourceType</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><ul>
 <li>create <code>resources/init.go</code> sub packages the contents  like following</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="ln"> 1</span><span class="kn">package</span> <span class="nx">resources</span>
-<span class="ln"> 2</span>
-<span class="ln"> 3</span><span class="kn">import</span> <span class="p">(</span>
-<span class="ln"> 4</span>	<span class="nx">logs</span> <span class="s">&#34;github.com/prometheus/common/log&#34;</span>
-<span class="ln"> 5</span>	<span class="s">&#34;k8s.io/client-go/kubernetes&#34;</span>
-<span class="ln"> 6</span>	<span class="s">&#34;snc.com/cleanup/resources/config&#34;</span>
-<span class="ln"> 7</span>	<span class="s">&#34;strings&#34;</span>
-<span class="ln"> 8</span>	<span class="s">&#34;sync&#34;</span>
-<span class="ln"> 9</span>	<span class="s">&#34;time&#34;</span>
-<span class="ln">10</span><span class="p">)</span>
-<span class="ln">11</span>
-<span class="ln">12</span><span class="kd">var</span> <span class="p">(</span>
-<span class="ln">13</span>	<span class="nx">client</span>     <span class="nx">kubernetes</span><span class="p">.</span><span class="nx">Interface</span>
-<span class="ln">14</span>	<span class="nx">listLimit</span>  <span class="kt">int64</span> <span class="p">=</span> <span class="mi">50</span>
-<span class="ln">15</span>	<span class="nx">dryRun</span>     <span class="p">[]</span><span class="kt">string</span>
-<span class="ln">16</span>	<span class="nx">expireDays</span> <span class="kt">int</span>
-<span class="ln">17</span>	<span class="nx">namespace</span>  <span class="kt">string</span>
-<span class="ln">18</span>	<span class="nx">wg</span>         <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
-<span class="ln">19</span>	<span class="nx">cleanMap</span>   <span class="p">=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">){</span>
-<span class="ln">20</span>		<span class="s">&#34;pod&#34;</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">)</span> <span class="p">{</span>
-<span class="ln">21</span>			<span class="nx">logs</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;====== Start clean up pods ======= &#34;</span><span class="p">)</span>
-<span class="ln">22</span>			<span class="k">defer</span> <span class="nx">w</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
-<span class="ln">23</span>			<span class="nf">cleanUpExpiredPods</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">)</span>
-<span class="ln">24</span>		<span class="p">},</span>
-<span class="ln">25</span>		<span class="s">&#34;replicaset&#34;</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">)</span> <span class="p">{</span>
-<span class="ln">26</span>			<span class="nx">logs</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;====== Start clean up replicaset ======= &#34;</span><span class="p">)</span>
-<span class="ln">27</span>			<span class="k">defer</span> <span class="nx">w</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
-<span class="ln">28</span>			<span class="nf">cleanUpExpiredRS</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">)</span>
-<span class="ln">29</span>		<span class="p">},</span>
-<span class="ln">30</span>		<span class="s">&#34;airflow&#34;</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">)</span> <span class="p">{</span>
-<span class="ln">31</span>			<span class="nx">logs</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;====== Start clean up airflow logs ======= &#34;</span><span class="p">)</span>
-<span class="ln">32</span>		<span class="p">},</span>
-<span class="ln">33</span>	<span class="p">}</span>
-<span class="ln">34</span><span class="p">)</span>
-<span class="ln">35</span>
-<span class="ln">36</span><span class="kd">func</span> <span class="nf">InitClient</span><span class="p">(</span><span class="nx">testing</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">expires</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">ns</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-<span class="ln">37</span>	<span class="nx">k8sClient</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">config</span><span class="p">.</span><span class="nf">NewK8s</span><span class="p">()</span>
-<span class="ln">38</span>	<span class="nx">expireDays</span> <span class="p">=</span> <span class="nx">expires</span>
-<span class="ln">39</span>	<span class="nx">namespace</span> <span class="p">=</span> <span class="nx">ns</span>
-<span class="ln">40</span>	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-<span class="ln">41</span>		<span class="nx">logs</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="s">&#34;Init kubernetes error.&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-<span class="ln">42</span>	<span class="p">}</span>
-<span class="ln">43</span>	<span class="nx">client</span> <span class="p">=</span> <span class="nx">k8sClient</span><span class="p">.</span><span class="nx">Client</span>
-<span class="ln">44</span>	<span class="k">if</span> <span class="nx">testing</span> <span class="p">{</span>
-<span class="ln">45</span>		<span class="nx">dryRun</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;All&#34;</span><span class="p">}</span>
-<span class="ln">46</span>	<span class="p">}</span>
-<span class="ln">47</span><span class="p">}</span>
-<span class="ln">48</span>
-<span class="ln">49</span><span class="kd">func</span> <span class="nf">CleanUp</span><span class="p">(</span><span class="nx">resourceType</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-<span class="ln">50</span>	<span class="nx">rt</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Split</span><span class="p">(</span><span class="nx">resourceType</span><span class="p">,</span> <span class="s">&#34;,&#34;</span><span class="p">)</span>
-<span class="ln">51</span>	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">rt</span> <span class="p">{</span>
-<span class="ln">52</span>		<span class="nx">v</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">TrimSpace</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span>
-<span class="ln">53</span>		<span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">cleanMap</span><span class="p">[</span><span class="nx">v</span><span class="p">];</span> <span class="nx">ok</span> <span class="p">{</span>
-<span class="ln">54</span>			<span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="ln">55</span>			<span class="k">go</span> <span class="nx">cleanMap</span><span class="p">[</span><span class="nx">v</span><span class="p">](</span><span class="o">&amp;</span><span class="nx">wg</span><span class="p">)</span>
-<span class="ln">56</span>		<span class="p">}</span>
-<span class="ln">57</span>	<span class="p">}</span>
-<span class="ln">58</span>	<span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
-<span class="ln">59</span>	<span class="nx">logs</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;CleanUp Done!&#34;</span><span class="p">)</span>
-<span class="ln">60</span><span class="p">}</span>
-<span class="ln">61</span>
-<span class="ln">62</span><span class="kd">func</span> <span class="nf">daysAgo</span><span class="p">(</span><span class="nx">sourceTime</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-<span class="ln">63</span>	<span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">UTC</span><span class="p">().</span><span class="nf">Sub</span><span class="p">(</span><span class="nx">sourceTime</span><span class="p">).</span><span class="nf">Hours</span><span class="p">()</span> <span class="o">/</span> <span class="mi">24</span><span class="p">)</span>
-<span class="ln">64</span><span class="p">}</span>
-<span class="ln">65</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kn">package</span> <span class="nx">resources</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">	<span class="nx">logs</span> <span class="s">&#34;github.com/prometheus/common/log&#34;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">	<span class="s">&#34;k8s.io/client-go/kubernetes&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">	<span class="s">&#34;snc.com/cleanup/resources/config&#34;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">	<span class="s">&#34;strings&#34;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">	<span class="s">&#34;sync&#34;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">	<span class="s">&#34;time&#34;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="kd">var</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">	<span class="nx">client</span>     <span class="nx">kubernetes</span><span class="p">.</span><span class="nx">Interface</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">	<span class="nx">listLimit</span>  <span class="kt">int64</span> <span class="p">=</span> <span class="mi">50</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">	<span class="nx">dryRun</span>     <span class="p">[]</span><span class="kt">string</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">	<span class="nx">expireDays</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">	<span class="nx">namespace</span>  <span class="kt">string</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">	<span class="nx">wg</span>         <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">	<span class="nx">cleanMap</span>   <span class="p">=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">){</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">		<span class="s">&#34;pod&#34;</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">			<span class="nx">logs</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;====== Start clean up pods ======= &#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">			<span class="k">defer</span> <span class="nx">w</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">			<span class="nf">cleanUpExpiredPods</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">		<span class="p">},</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">		<span class="s">&#34;replicaset&#34;</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">			<span class="nx">logs</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;====== Start clean up replicaset ======= &#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">			<span class="k">defer</span> <span class="nx">w</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">			<span class="nf">cleanUpExpiredRS</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">		<span class="p">},</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">		<span class="s">&#34;airflow&#34;</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">			<span class="nx">logs</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;====== Start clean up airflow logs ======= &#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">		<span class="p">},</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl">
+</span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="kd">func</span> <span class="nf">InitClient</span><span class="p">(</span><span class="nx">testing</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">expires</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">ns</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">37</span><span class="cl">	<span class="nx">k8sClient</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">config</span><span class="p">.</span><span class="nf">NewK8s</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">38</span><span class="cl">	<span class="nx">expireDays</span> <span class="p">=</span> <span class="nx">expires</span>
+</span></span><span class="line"><span class="ln">39</span><span class="cl">	<span class="nx">namespace</span> <span class="p">=</span> <span class="nx">ns</span>
+</span></span><span class="line"><span class="ln">40</span><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">41</span><span class="cl">		<span class="nx">logs</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="s">&#34;Init kubernetes error.&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">42</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">43</span><span class="cl">	<span class="nx">client</span> <span class="p">=</span> <span class="nx">k8sClient</span><span class="p">.</span><span class="nx">Client</span>
+</span></span><span class="line"><span class="ln">44</span><span class="cl">	<span class="k">if</span> <span class="nx">testing</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">45</span><span class="cl">		<span class="nx">dryRun</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;All&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="ln">46</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">47</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">48</span><span class="cl">
+</span></span><span class="line"><span class="ln">49</span><span class="cl"><span class="kd">func</span> <span class="nf">CleanUp</span><span class="p">(</span><span class="nx">resourceType</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">50</span><span class="cl">	<span class="nx">rt</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Split</span><span class="p">(</span><span class="nx">resourceType</span><span class="p">,</span> <span class="s">&#34;,&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">51</span><span class="cl">	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">rt</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">52</span><span class="cl">		<span class="nx">v</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">TrimSpace</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">53</span><span class="cl">		<span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">cleanMap</span><span class="p">[</span><span class="nx">v</span><span class="p">];</span> <span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">54</span><span class="cl">			<span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">55</span><span class="cl">			<span class="k">go</span> <span class="nx">cleanMap</span><span class="p">[</span><span class="nx">v</span><span class="p">](</span><span class="o">&amp;</span><span class="nx">wg</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">56</span><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="ln">57</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">58</span><span class="cl">	<span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">59</span><span class="cl">	<span class="nx">logs</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;CleanUp Done!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">60</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">61</span><span class="cl">
+</span></span><span class="line"><span class="ln">62</span><span class="cl"><span class="kd">func</span> <span class="nf">daysAgo</span><span class="p">(</span><span class="nx">sourceTime</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">63</span><span class="cl">	<span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">UTC</span><span class="p">().</span><span class="nf">Sub</span><span class="p">(</span><span class="nx">sourceTime</span><span class="p">).</span><span class="nf">Hours</span><span class="p">()</span> <span class="o">/</span> <span class="mi">24</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">64</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><ul>
 <li>the <code>resources/pods.go</code> like following this</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="ln"> 1</span><span class="kn">package</span> <span class="nx">resources</span>
-<span class="ln"> 2</span>
-<span class="ln"> 3</span><span class="kn">import</span> <span class="p">(</span>
-<span class="ln"> 4</span>	<span class="s">&#34;context&#34;</span>
-<span class="ln"> 5</span>	<span class="nx">logs</span> <span class="s">&#34;github.com/prometheus/common/log&#34;</span>
-<span class="ln"> 6</span>	<span class="nx">v1</span> <span class="s">&#34;k8s.io/apimachinery/pkg/apis/meta/v1&#34;</span>
-<span class="ln"> 7</span><span class="p">)</span>
-<span class="ln"> 8</span>
-<span class="ln"> 9</span><span class="kd">var</span> <span class="nx">podsFieldsOpts</span> <span class="p">=</span> <span class="s">&#34;status.phase!=Running&#34;</span>
-<span class="ln">10</span>
-<span class="ln">11</span><span class="kd">func</span> <span class="nf">cleanUpExpiredPods</span><span class="p">(</span><span class="nx">goOn</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-<span class="ln">12</span>	<span class="nx">lst</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">client</span><span class="p">.</span><span class="nf">CoreV1</span><span class="p">().</span><span class="nf">Pods</span><span class="p">(</span><span class="nx">namespace</span><span class="p">).</span><span class="nf">List</span><span class="p">(</span>
-<span class="ln">13</span>		<span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">(),</span>
-<span class="ln">14</span>		<span class="nx">v1</span><span class="p">.</span><span class="nx">ListOptions</span><span class="p">{</span>
-<span class="ln">15</span>			<span class="nx">FieldSelector</span><span class="p">:</span> <span class="nx">podsFieldsOpts</span><span class="p">,</span>
-<span class="ln">16</span>			<span class="nx">Limit</span><span class="p">:</span>         <span class="nx">listLimit</span><span class="p">,</span>
-<span class="ln">17</span>			<span class="nx">Continue</span><span class="p">:</span>      <span class="nx">goOn</span><span class="p">,</span>
-<span class="ln">18</span>		<span class="p">},</span>
-<span class="ln">19</span>	<span class="p">)</span>
-<span class="ln">20</span>	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-<span class="ln">21</span>		<span class="nx">logs</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;has error list pods:&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">())</span>
-<span class="ln">22</span>	<span class="p">}</span>
-<span class="ln">23</span>	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">item</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">lst</span><span class="p">.</span><span class="nx">Items</span> <span class="p">{</span>
-<span class="ln">24</span>		<span class="nx">days</span> <span class="o">:=</span> <span class="nf">daysAgo</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">CreationTimestamp</span><span class="p">.</span><span class="nf">UTC</span><span class="p">())</span>
-<span class="ln">25</span>		<span class="k">if</span> <span class="nx">days</span> <span class="o">&gt;=</span> <span class="nx">expireDays</span> <span class="p">{</span>
-<span class="ln">26</span>			<span class="nx">err</span> <span class="o">:=</span> <span class="nf">deletePodByName</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Namespace</span><span class="p">)</span>
-<span class="ln">27</span>			<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-<span class="ln">28</span>				<span class="nx">logs</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;Delete Pod&#34;</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span> <span class="s">&#34; has error: &#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">())</span>
-<span class="ln">29</span>			<span class="p">}</span>
-<span class="ln">30</span>			<span class="nx">logs</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;Delete Pod The Name: &#34;</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span> <span class="s">&#34; NameSpace: &#34;</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Namespace</span><span class="p">,</span> <span class="s">&#34; Status: &#34;</span><span class="p">,</span>
-<span class="ln">31</span>				<span class="nx">item</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">Phase</span><span class="p">,</span> <span class="s">&#34; Age:&#34;</span><span class="p">,</span> <span class="nx">days</span><span class="p">,</span> <span class="s">&#34;d&#34;</span><span class="p">)</span>
-<span class="ln">32</span>		<span class="p">}</span>
-<span class="ln">33</span>	<span class="p">}</span>
-<span class="ln">34</span>	<span class="k">if</span> <span class="nx">lst</span><span class="p">.</span><span class="nx">Continue</span> <span class="o">!=</span> <span class="s">&#34;&#34;</span> <span class="p">{</span>
-<span class="ln">35</span>		<span class="nf">cleanUpExpiredPods</span><span class="p">(</span><span class="nx">lst</span><span class="p">.</span><span class="nx">Continue</span><span class="p">)</span>
-<span class="ln">36</span>	<span class="p">}</span>
-<span class="ln">37</span><span class="p">}</span>
-<span class="ln">38</span>
-<span class="ln">39</span><span class="kd">func</span> <span class="nf">deletePodByName</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">ns</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-<span class="ln">40</span>	<span class="nx">deletePolicy</span> <span class="o">:=</span> <span class="nx">v1</span><span class="p">.</span><span class="nx">DeletePropagationForeground</span>
-<span class="ln">41</span>	<span class="k">return</span> <span class="nx">client</span><span class="p">.</span><span class="nf">CoreV1</span><span class="p">().</span><span class="nf">Pods</span><span class="p">(</span><span class="nx">ns</span><span class="p">).</span><span class="nf">Delete</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">(),</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">v1</span><span class="p">.</span><span class="nx">DeleteOptions</span><span class="p">{</span>
-<span class="ln">42</span>		<span class="nx">PropagationPolicy</span><span class="p">:</span> <span class="o">&amp;</span><span class="nx">deletePolicy</span><span class="p">,</span>
-<span class="ln">43</span>		<span class="nx">DryRun</span><span class="p">:</span>            <span class="nx">dryRun</span><span class="p">,</span>
-<span class="ln">44</span>	<span class="p">})</span>
-<span class="ln">45</span><span class="p">}</span>
-<span class="ln">46</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kn">package</span> <span class="nx">resources</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">	<span class="s">&#34;context&#34;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">	<span class="nx">logs</span> <span class="s">&#34;github.com/prometheus/common/log&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">	<span class="nx">v1</span> <span class="s">&#34;k8s.io/apimachinery/pkg/apis/meta/v1&#34;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="kd">var</span> <span class="nx">podsFieldsOpts</span> <span class="p">=</span> <span class="s">&#34;status.phase!=Running&#34;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="kd">func</span> <span class="nf">cleanUpExpiredPods</span><span class="p">(</span><span class="nx">goOn</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">	<span class="nx">lst</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">client</span><span class="p">.</span><span class="nf">CoreV1</span><span class="p">().</span><span class="nf">Pods</span><span class="p">(</span><span class="nx">namespace</span><span class="p">).</span><span class="nf">List</span><span class="p">(</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">		<span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">(),</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">		<span class="nx">v1</span><span class="p">.</span><span class="nx">ListOptions</span><span class="p">{</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">			<span class="nx">FieldSelector</span><span class="p">:</span> <span class="nx">podsFieldsOpts</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">			<span class="nx">Limit</span><span class="p">:</span>         <span class="nx">listLimit</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">			<span class="nx">Continue</span><span class="p">:</span>      <span class="nx">goOn</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">		<span class="p">},</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">	<span class="p">)</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">		<span class="nx">logs</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;has error list pods:&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">())</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">item</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">lst</span><span class="p">.</span><span class="nx">Items</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">		<span class="nx">days</span> <span class="o">:=</span> <span class="nf">daysAgo</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">CreationTimestamp</span><span class="p">.</span><span class="nf">UTC</span><span class="p">())</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">		<span class="k">if</span> <span class="nx">days</span> <span class="o">&gt;=</span> <span class="nx">expireDays</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">			<span class="nx">err</span> <span class="o">:=</span> <span class="nf">deletePodByName</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Namespace</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">			<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">				<span class="nx">logs</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;Delete Pod&#34;</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span> <span class="s">&#34; has error: &#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">())</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">			<span class="nx">logs</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;Delete Pod The Name: &#34;</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span> <span class="s">&#34; NameSpace: &#34;</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Namespace</span><span class="p">,</span> <span class="s">&#34; Status: &#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">				<span class="nx">item</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">Phase</span><span class="p">,</span> <span class="s">&#34; Age:&#34;</span><span class="p">,</span> <span class="nx">days</span><span class="p">,</span> <span class="s">&#34;d&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl">	<span class="k">if</span> <span class="nx">lst</span><span class="p">.</span><span class="nx">Continue</span> <span class="o">!=</span> <span class="s">&#34;&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl">		<span class="nf">cleanUpExpiredPods</span><span class="p">(</span><span class="nx">lst</span><span class="p">.</span><span class="nx">Continue</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">36</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">38</span><span class="cl">
+</span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="kd">func</span> <span class="nf">deletePodByName</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">ns</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">40</span><span class="cl">	<span class="nx">deletePolicy</span> <span class="o">:=</span> <span class="nx">v1</span><span class="p">.</span><span class="nx">DeletePropagationForeground</span>
+</span></span><span class="line"><span class="ln">41</span><span class="cl">	<span class="k">return</span> <span class="nx">client</span><span class="p">.</span><span class="nf">CoreV1</span><span class="p">().</span><span class="nf">Pods</span><span class="p">(</span><span class="nx">ns</span><span class="p">).</span><span class="nf">Delete</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">(),</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">v1</span><span class="p">.</span><span class="nx">DeleteOptions</span><span class="p">{</span>
+</span></span><span class="line"><span class="ln">42</span><span class="cl">		<span class="nx">PropagationPolicy</span><span class="p">:</span> <span class="o">&amp;</span><span class="nx">deletePolicy</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">43</span><span class="cl">		<span class="nx">DryRun</span><span class="p">:</span>            <span class="nx">dryRun</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">44</span><span class="cl">	<span class="p">})</span>
+</span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><ul>
 <li>And <code>resources/replicasets.go</code> clean up the unuse replicasets resource</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="ln"> 1</span><span class="kn">package</span> <span class="nx">resources</span>
-<span class="ln"> 2</span>
-<span class="ln"> 3</span><span class="kn">import</span> <span class="p">(</span>
-<span class="ln"> 4</span>	<span class="s">&#34;context&#34;</span>
-<span class="ln"> 5</span>	<span class="nx">logs</span> <span class="s">&#34;github.com/prometheus/common/log&#34;</span>
-<span class="ln"> 6</span>	<span class="nx">v12</span> <span class="s">&#34;k8s.io/api/apps/v1&#34;</span>
-<span class="ln"> 7</span>	<span class="nx">v1</span> <span class="s">&#34;k8s.io/apimachinery/pkg/apis/meta/v1&#34;</span>
-<span class="ln"> 8</span><span class="p">)</span>
-<span class="ln"> 9</span>
-<span class="ln">10</span><span class="kd">func</span> <span class="nf">cleanUpExpiredRS</span><span class="p">(</span><span class="nx">goOn</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-<span class="ln">11</span>	<span class="nx">lstOps</span> <span class="o">:=</span> <span class="nx">v1</span><span class="p">.</span><span class="nx">ListOptions</span><span class="p">{</span>
-<span class="ln">12</span>		<span class="nx">Limit</span><span class="p">:</span>    <span class="nx">listLimit</span><span class="p">,</span>
-<span class="ln">13</span>		<span class="nx">Continue</span><span class="p">:</span> <span class="nx">goOn</span><span class="p">,</span>
-<span class="ln">14</span>	<span class="p">}</span>
-<span class="ln">15</span>	<span class="nx">lstRs</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">client</span><span class="p">.</span><span class="nf">AppsV1</span><span class="p">().</span><span class="nf">ReplicaSets</span><span class="p">(</span><span class="nx">namespace</span><span class="p">).</span><span class="nf">List</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">(),</span> <span class="nx">lstOps</span><span class="p">)</span>
-<span class="ln">16</span>	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-<span class="ln">17</span>		<span class="nx">logs</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="s">&#34;Get Resource has error: &#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">())</span>
-<span class="ln">18</span>	<span class="p">}</span>
-<span class="ln">19</span>	<span class="k">if</span> <span class="nx">lstRs</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-<span class="ln">20</span>		<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">item</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">lstRs</span><span class="p">.</span><span class="nx">Items</span> <span class="p">{</span>
-<span class="ln">21</span>			<span class="nx">days</span> <span class="o">:=</span> <span class="nf">daysAgo</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">CreationTimestamp</span><span class="p">.</span><span class="nf">UTC</span><span class="p">())</span>
-<span class="ln">22</span>			<span class="k">if</span> <span class="nf">matchCondition</span><span class="p">(</span><span class="nx">days</span><span class="p">,</span> <span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
-<span class="ln">23</span>				<span class="nx">err</span> <span class="o">:=</span> <span class="nf">deleteRSByName</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Namespace</span><span class="p">)</span>
-<span class="ln">24</span>				<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-<span class="ln">25</span>					<span class="nx">logs</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;Delete replicaset&#34;</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span> <span class="s">&#34; has error&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-<span class="ln">26</span>				<span class="p">}</span>
-<span class="ln">27</span>				<span class="nx">logs</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;Delete the replicaset Name: &#34;</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span> <span class="s">&#34; Namespace: &#34;</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Namespace</span><span class="p">,</span> <span class="s">&#34; Replicas: &#34;</span><span class="p">,</span>
-<span class="ln">28</span>					<span class="nx">item</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">Replicas</span><span class="p">,</span> <span class="s">&#34; Ready: &#34;</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">ReadyReplicas</span><span class="p">,</span> <span class="s">&#34; Available: &#34;</span><span class="p">,</span>
-<span class="ln">29</span>					<span class="nx">item</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">AvailableReplicas</span><span class="p">,</span> <span class="s">&#34; Age: &#34;</span><span class="p">,</span> <span class="nx">days</span><span class="p">,</span> <span class="s">&#34;d&#34;</span><span class="p">)</span>
-<span class="ln">30</span>			<span class="p">}</span>
-<span class="ln">31</span>		<span class="p">}</span>
-<span class="ln">32</span>		<span class="k">if</span> <span class="nx">lstRs</span><span class="p">.</span><span class="nx">Continue</span> <span class="o">!=</span> <span class="s">&#34;&#34;</span> <span class="p">{</span>
-<span class="ln">33</span>			<span class="nf">cleanUpExpiredRS</span><span class="p">(</span><span class="nx">lstRs</span><span class="p">.</span><span class="nx">Continue</span><span class="p">)</span>
-<span class="ln">34</span>		<span class="p">}</span>
-<span class="ln">35</span>	<span class="p">}</span>
-<span class="ln">36</span><span class="p">}</span>
-<span class="ln">37</span>
-<span class="ln">38</span><span class="kd">func</span> <span class="nf">matchCondition</span><span class="p">(</span><span class="nx">days</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">item</span> <span class="nx">v12</span><span class="p">.</span><span class="nx">ReplicaSet</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-<span class="ln">39</span>	<span class="k">if</span> <span class="nx">days</span> <span class="o">&gt;=</span> <span class="nx">expireDays</span> <span class="o">&amp;&amp;</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">Replicas</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span>
-<span class="ln">40</span>		<span class="nx">item</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">ReadyReplicas</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">AvailableReplicas</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-<span class="ln">41</span>		<span class="k">return</span> <span class="kc">true</span>
-<span class="ln">42</span>	<span class="p">}</span>
-<span class="ln">43</span>	<span class="k">return</span> <span class="kc">false</span>
-<span class="ln">44</span><span class="p">}</span>
-<span class="ln">45</span>
-<span class="ln">46</span><span class="kd">func</span> <span class="nf">deleteRSByName</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">ns</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-<span class="ln">47</span>	<span class="nx">deletePolicy</span> <span class="o">:=</span> <span class="nx">v1</span><span class="p">.</span><span class="nx">DeletePropagationForeground</span>
-<span class="ln">48</span>	<span class="k">return</span> <span class="nx">client</span><span class="p">.</span><span class="nf">AppsV1</span><span class="p">().</span><span class="nf">ReplicaSets</span><span class="p">(</span><span class="nx">ns</span><span class="p">).</span><span class="nf">Delete</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">(),</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">v1</span><span class="p">.</span><span class="nx">DeleteOptions</span><span class="p">{</span>
-<span class="ln">49</span>		<span class="nx">DryRun</span><span class="p">:</span>            <span class="nx">dryRun</span><span class="p">,</span>
-<span class="ln">50</span>		<span class="nx">PropagationPolicy</span><span class="p">:</span> <span class="o">&amp;</span><span class="nx">deletePolicy</span><span class="p">,</span>
-<span class="ln">51</span>	<span class="p">})</span>
-<span class="ln">52</span><span class="p">}</span>
-<span class="ln">53</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kn">package</span> <span class="nx">resources</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">	<span class="s">&#34;context&#34;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">	<span class="nx">logs</span> <span class="s">&#34;github.com/prometheus/common/log&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">	<span class="nx">v12</span> <span class="s">&#34;k8s.io/api/apps/v1&#34;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">	<span class="nx">v1</span> <span class="s">&#34;k8s.io/apimachinery/pkg/apis/meta/v1&#34;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="kd">func</span> <span class="nf">cleanUpExpiredRS</span><span class="p">(</span><span class="nx">goOn</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">	<span class="nx">lstOps</span> <span class="o">:=</span> <span class="nx">v1</span><span class="p">.</span><span class="nx">ListOptions</span><span class="p">{</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">		<span class="nx">Limit</span><span class="p">:</span>    <span class="nx">listLimit</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">		<span class="nx">Continue</span><span class="p">:</span> <span class="nx">goOn</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">	<span class="nx">lstRs</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">client</span><span class="p">.</span><span class="nf">AppsV1</span><span class="p">().</span><span class="nf">ReplicaSets</span><span class="p">(</span><span class="nx">namespace</span><span class="p">).</span><span class="nf">List</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">(),</span> <span class="nx">lstOps</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">		<span class="nx">logs</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="s">&#34;Get Resource has error: &#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">())</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">	<span class="k">if</span> <span class="nx">lstRs</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">		<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">item</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">lstRs</span><span class="p">.</span><span class="nx">Items</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">			<span class="nx">days</span> <span class="o">:=</span> <span class="nf">daysAgo</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">CreationTimestamp</span><span class="p">.</span><span class="nf">UTC</span><span class="p">())</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">			<span class="k">if</span> <span class="nf">matchCondition</span><span class="p">(</span><span class="nx">days</span><span class="p">,</span> <span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">				<span class="nx">err</span> <span class="o">:=</span> <span class="nf">deleteRSByName</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Namespace</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">				<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">					<span class="nx">logs</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;Delete replicaset&#34;</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span> <span class="s">&#34; has error&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">				<span class="p">}</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">				<span class="nx">logs</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">&#34;Delete the replicaset Name: &#34;</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span> <span class="s">&#34; Namespace: &#34;</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Namespace</span><span class="p">,</span> <span class="s">&#34; Replicas: &#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">					<span class="nx">item</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">Replicas</span><span class="p">,</span> <span class="s">&#34; Ready: &#34;</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">ReadyReplicas</span><span class="p">,</span> <span class="s">&#34; Available: &#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">					<span class="nx">item</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">AvailableReplicas</span><span class="p">,</span> <span class="s">&#34; Age: &#34;</span><span class="p">,</span> <span class="nx">days</span><span class="p">,</span> <span class="s">&#34;d&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">		<span class="k">if</span> <span class="nx">lstRs</span><span class="p">.</span><span class="nx">Continue</span> <span class="o">!=</span> <span class="s">&#34;&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">			<span class="nf">cleanUpExpiredRS</span><span class="p">(</span><span class="nx">lstRs</span><span class="p">.</span><span class="nx">Continue</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">37</span><span class="cl">
+</span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="kd">func</span> <span class="nf">matchCondition</span><span class="p">(</span><span class="nx">days</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">item</span> <span class="nx">v12</span><span class="p">.</span><span class="nx">ReplicaSet</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">39</span><span class="cl">	<span class="k">if</span> <span class="nx">days</span> <span class="o">&gt;=</span> <span class="nx">expireDays</span> <span class="o">&amp;&amp;</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">Replicas</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="ln">40</span><span class="cl">		<span class="nx">item</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">ReadyReplicas</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">AvailableReplicas</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">41</span><span class="cl">		<span class="k">return</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="ln">42</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">43</span><span class="cl">	<span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">45</span><span class="cl">
+</span></span><span class="line"><span class="ln">46</span><span class="cl"><span class="kd">func</span> <span class="nf">deleteRSByName</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">ns</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">47</span><span class="cl">	<span class="nx">deletePolicy</span> <span class="o">:=</span> <span class="nx">v1</span><span class="p">.</span><span class="nx">DeletePropagationForeground</span>
+</span></span><span class="line"><span class="ln">48</span><span class="cl">	<span class="k">return</span> <span class="nx">client</span><span class="p">.</span><span class="nf">AppsV1</span><span class="p">().</span><span class="nf">ReplicaSets</span><span class="p">(</span><span class="nx">ns</span><span class="p">).</span><span class="nf">Delete</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">TODO</span><span class="p">(),</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">v1</span><span class="p">.</span><span class="nx">DeleteOptions</span><span class="p">{</span>
+</span></span><span class="line"><span class="ln">49</span><span class="cl">		<span class="nx">DryRun</span><span class="p">:</span>            <span class="nx">dryRun</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">50</span><span class="cl">		<span class="nx">PropagationPolicy</span><span class="p">:</span> <span class="o">&amp;</span><span class="nx">deletePolicy</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">51</span><span class="cl">	<span class="p">})</span>
+</span></span><span class="line"><span class="ln">52</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><ul>
 <li>Then create <code>Dockerfile</code> build and construct the docker image, use to kubernetes cronjob task scheduler</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span>FROM<span class="w"> </span>golang<span class="p">:</span>alpine<span class="w"> </span>AS<span class="w"> </span>build-env<span class="w">
-</span><span class="ln"> 2</span><span class="w"></span>RUN<span class="w"> </span>mkdir<span class="w"> </span>/go/src/app<span class="w"> </span><span class="cp">&amp;&amp;</span><span class="w"> </span>apk<span class="w"> </span>update<span class="w"> </span><span class="cp">&amp;&amp;</span><span class="w"> </span>apk<span class="w"> </span>add<span class="w"> </span>git<span class="w">
-</span><span class="ln"> 3</span><span class="w"></span>ADD<span class="w"> </span>.<span class="w"> </span>/go/src/app/<span class="w">
-</span><span class="ln"> 4</span><span class="w"></span>WORKDIR<span class="w"> </span>/go/src/app<span class="w">
-</span><span class="ln"> 5</span><span class="w"></span>RUN<span class="w"> </span>CGO_ENABLED=<span class="m">0</span><span class="w"> </span>GOOS=linux<span class="w"> </span>go<span class="w"> </span>build<span class="w"> </span>-a<span class="w"> </span>-installsuffix<span class="w"> </span>cgo<span class="w"> </span>-ldflags<span class="w"> </span><span class="s1">&#39;-extldflags &#34;-static&#34;&#39;</span><span class="w"> </span>-o<span class="w"> </span>cleanup<span class="w"> </span>.<span class="w">
-</span><span class="ln"> 6</span><span class="w">
-</span><span class="ln"> 7</span><span class="w"></span>FROM<span class="w"> </span>scratch<span class="w">
-</span><span class="ln"> 8</span><span class="w"></span>WORKDIR<span class="w"> </span>/app<span class="w">
-</span><span class="ln"> 9</span><span class="w"></span>COPY<span class="w"> </span>--from=build-env<span class="w"> </span>/go/src/app/cleanup<span class="w"> </span>.<span class="w">
-</span><span class="ln">10</span><span class="w"></span>CMD<span class="w"> </span><span class="p">[</span><span class="s2">&#34;./cleanup&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;--dry_run&#34;</span><span class="p">]</span><span class="w">
-</span></code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="l">FROM golang:alpine AS build-env</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="l">RUN mkdir /go/src/app &amp;&amp; apk update &amp;&amp; apk add git</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="l">ADD . /go/src/app/</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w"></span><span class="l">WORKDIR /go/src/app</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w"></span><span class="l">RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags &#39;-extldflags &#34;-static&#34;&#39; -o cleanup .</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w"></span><span class="l">FROM scratch</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w"></span><span class="l">WORKDIR /app</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w"></span><span class="l">COPY --from=build-env /go/src/app/cleanup .</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w"></span><span class="l">CMD [&#34;./cleanup&#34;, &#34;--dry_run&#34;]</span><span class="w">
+</span></span></span></code></pre></div><ul>
 <li>At end create kubernetes resource yaml file to definition cronjob resource, schedule the clean up job</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span>---<span class="w">
-</span><span class="ln"> 2</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io/v1<span class="w">
-</span><span class="ln"> 3</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ClusterRole<span class="w">
-</span><span class="ln"> 4</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 5</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>k8s-cleanup-resource<span class="w">
-</span><span class="ln"> 6</span><span class="w"></span><span class="k">rules</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 7</span><span class="w">  </span>- <span class="k">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;extension&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;apps&#34;</span><span class="p">]</span><span class="w">
-</span><span class="ln"> 8</span><span class="w">    </span><span class="k">resources</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;pods&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;replicasets&#34;</span><span class="p">]</span><span class="w">
-</span><span class="ln"> 9</span><span class="w">    </span><span class="k">verbs</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;get&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;list&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;delete&#34;</span><span class="p">]</span><span class="w">
-</span><span class="ln">10</span><span class="w"></span>---<span class="w">
-</span><span class="ln">11</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
-</span><span class="ln">12</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ServiceAccount<span class="w">
-</span><span class="ln">13</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="ln">14</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>k8s-cleanup-resource<span class="w">
-</span><span class="ln">15</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>kube-system<span class="w">
-</span><span class="ln">16</span><span class="w"></span>---<span class="w">
-</span><span class="ln">17</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io/v1<span class="w">
-</span><span class="ln">18</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ClusterRoleBinding<span class="w">
-</span><span class="ln">19</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="ln">20</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>k8s-cleanup-resource<span class="w">
-</span><span class="ln">21</span><span class="w"></span><span class="k">roleRef</span><span class="p">:</span><span class="w">
-</span><span class="ln">22</span><span class="w">  </span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ClusterRole<span class="w">
-</span><span class="ln">23</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>k8s-cleanup-resource<span class="w">
-</span><span class="ln">24</span><span class="w">  </span><span class="k">apiGroup</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io<span class="w">
-</span><span class="ln">25</span><span class="w"></span><span class="k">subjects</span><span class="p">:</span><span class="w">
-</span><span class="ln">26</span><span class="w">  </span>- <span class="k">kind</span><span class="p">:</span><span class="w"> </span>ServiceAccount<span class="w">
-</span><span class="ln">27</span><span class="w">    </span><span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;k8s-cleanup-resource&#34;</span><span class="w">
-</span><span class="ln">28</span><span class="w">    </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>kube-system<span class="w">
-</span><span class="ln">29</span><span class="w">
-</span><span class="ln">30</span><span class="w"></span>---<span class="w">
-</span><span class="ln">31</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>batch/v1beta1<span class="w">
-</span><span class="ln">32</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>CronJob<span class="w">
-</span><span class="ln">33</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="ln">34</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>cleanup-resources<span class="w">
-</span><span class="ln">35</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>kube-system<span class="w">
-</span><span class="ln">36</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="ln">37</span><span class="w">  </span><span class="k">schedule</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0 15 * * *&#34;</span><span class="w">
-</span><span class="ln">38</span><span class="w">  </span><span class="k">concurrencyPolicy</span><span class="p">:</span><span class="w"> </span>Allow<span class="w">
-</span><span class="ln">39</span><span class="w">  </span><span class="k">startingDeadlineSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
-</span><span class="ln">40</span><span class="w">  </span><span class="k">successfulJobsHistoryLimit</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="ln">41</span><span class="w">  </span><span class="k">failedJobsHistoryLimit</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="ln">42</span><span class="w">  </span><span class="k">suspend</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="ln">43</span><span class="w">  </span><span class="k">jobTemplate</span><span class="p">:</span><span class="w">
-</span><span class="ln">44</span><span class="w">    </span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="ln">45</span><span class="w">      </span><span class="k">template</span><span class="p">:</span><span class="w">
-</span><span class="ln">46</span><span class="w">         </span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="ln">47</span><span class="w">            </span><span class="k">securityContext</span><span class="p">:</span><span class="w">
-</span><span class="ln">48</span><span class="w">              </span><span class="k">runAsUser</span><span class="p">:</span><span class="w"> </span><span class="m">50000</span><span class="w">
-</span><span class="ln">49</span><span class="w">              </span><span class="k">runAsgGroup</span><span class="p">:</span><span class="w"> </span><span class="m">50000</span><span class="w">
-</span><span class="ln">50</span><span class="w">              </span><span class="k">fsGroup</span><span class="p">:</span><span class="w"> </span><span class="m">65534</span><span class="w">
-</span><span class="ln">51</span><span class="w">          </span><span class="k">containers</span><span class="p">:</span><span class="w">
-</span><span class="ln">52</span><span class="w">            </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>cleanup-resources<span class="w">
-</span><span class="ln">53</span><span class="w">              </span><span class="k">image</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;localhost.reg/library/cleanup-resource:latest&#39;</span><span class="w">
-</span><span class="ln">54</span><span class="w">              </span><span class="k">command</span><span class="p">:</span><span class="w">
-</span><span class="ln">55</span><span class="w">                </span>- <span class="s2">&#34;./cleanup&#34;</span><span class="w">
-</span><span class="ln">56</span><span class="w">              </span><span class="k">args</span><span class="p">:</span><span class="w">
-</span><span class="ln">57</span><span class="w">                </span>- <span class="s2">&#34;--expire_day&#34;</span><span class="w">
-</span><span class="ln">58</span><span class="w">                </span>- <span class="s2">&#34;5&#34;</span><span class="w">
-</span><span class="ln">59</span><span class="w">                </span>- <span class="s2">&#34;--resource_type&#34;</span><span class="w">
-</span><span class="ln">60</span><span class="w">                </span>- <span class="s2">&#34;pod,replicaset&#34;</span><span class="w">
-</span><span class="ln">61</span><span class="w">              </span><span class="k">resources</span><span class="p">:</span><span class="w">
-</span><span class="ln">62</span><span class="w">                </span><span class="k">limits</span><span class="p">:</span><span class="w">
-</span><span class="ln">63</span><span class="w">                  </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>200Mi<span class="w">
-</span><span class="ln">64</span><span class="w">                </span><span class="k">requests</span><span class="p">:</span><span class="w">
-</span><span class="ln">65</span><span class="w">                  </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>50Mi<span class="w">
-</span><span class="ln">66</span><span class="w">          </span><span class="k">restartPolicy</span><span class="p">:</span><span class="w"> </span>OnFailure<span class="w">
-</span><span class="ln">67</span><span class="w">          </span><span class="k">serviceAccountName</span><span class="p">:</span><span class="w"> </span>k8s-cleanup-resource<span class="w">
-</span><span class="ln">68</span><span class="w">          </span><span class="k">imagePullSecrets</span><span class="p">:</span><span class="w">
-</span><span class="ln">69</span><span class="w">            </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>k8s-registry<span class="w">
-</span><span class="ln">70</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">rbac.authorization.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ClusterRole</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">k8s-cleanup-resource</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="nt">rules</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">  </span>- <span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;extension&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;apps&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;pods&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;replicasets&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">    </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;get&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;list&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;delete&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ServiceAccount</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">k8s-cleanup-resource</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">kube-system</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">rbac.authorization.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ClusterRoleBinding</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">k8s-cleanup-resource</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w"></span><span class="nt">roleRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">  </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ClusterRole</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">k8s-cleanup-resource</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">  </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l">rbac.authorization.k8s.io</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w"></span><span class="nt">subjects</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">  </span>- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ServiceAccount</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;k8s-cleanup-resource&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">kube-system</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">batch/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CronJob</span><span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">cleanup-resources</span><span class="w">
+</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">kube-system</span><span class="w">
+</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w">  </span><span class="nt">schedule</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0 15 * * *&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w">  </span><span class="nt">concurrencyPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">Allow</span><span class="w">
+</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w">  </span><span class="nt">startingDeadlineSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w">  </span><span class="nt">successfulJobsHistoryLimit</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="w">  </span><span class="nt">failedJobsHistoryLimit</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span></span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="w">  </span><span class="nt">suspend</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="w">  </span><span class="nt">jobTemplate</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="w">      </span><span class="nt">template</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">46</span><span class="cl"><span class="w">         </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">47</span><span class="cl"><span class="w">            </span><span class="nt">securityContext</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">48</span><span class="cl"><span class="w">              </span><span class="nt">runAsUser</span><span class="p">:</span><span class="w"> </span><span class="m">50000</span><span class="w">
+</span></span></span><span class="line"><span class="ln">49</span><span class="cl"><span class="w">              </span><span class="nt">runAsgGroup</span><span class="p">:</span><span class="w"> </span><span class="m">50000</span><span class="w">
+</span></span></span><span class="line"><span class="ln">50</span><span class="cl"><span class="w">              </span><span class="nt">fsGroup</span><span class="p">:</span><span class="w"> </span><span class="m">65534</span><span class="w">
+</span></span></span><span class="line"><span class="ln">51</span><span class="cl"><span class="w">          </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">52</span><span class="cl"><span class="w">            </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">cleanup-resources</span><span class="w">
+</span></span></span><span class="line"><span class="ln">53</span><span class="cl"><span class="w">              </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;localhost.reg/library/cleanup-resource:latest&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">54</span><span class="cl"><span class="w">              </span><span class="nt">command</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">55</span><span class="cl"><span class="w">                </span>- <span class="s2">&#34;./cleanup&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">56</span><span class="cl"><span class="w">              </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">57</span><span class="cl"><span class="w">                </span>- <span class="s2">&#34;--expire_day&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">58</span><span class="cl"><span class="w">                </span>- <span class="s2">&#34;5&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">59</span><span class="cl"><span class="w">                </span>- <span class="s2">&#34;--resource_type&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">60</span><span class="cl"><span class="w">                </span>- <span class="s2">&#34;pod,replicaset&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">61</span><span class="cl"><span class="w">              </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">62</span><span class="cl"><span class="w">                </span><span class="nt">limits</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">63</span><span class="cl"><span class="w">                  </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">200Mi</span><span class="w">
+</span></span></span><span class="line"><span class="ln">64</span><span class="cl"><span class="w">                </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">65</span><span class="cl"><span class="w">                  </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">50Mi</span><span class="w">
+</span></span></span><span class="line"><span class="ln">66</span><span class="cl"><span class="w">          </span><span class="nt">restartPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">OnFailure</span><span class="w">
+</span></span></span><span class="line"><span class="ln">67</span><span class="cl"><span class="w">          </span><span class="nt">serviceAccountName</span><span class="p">:</span><span class="w"> </span><span class="l">k8s-cleanup-resource</span><span class="w">
+</span></span></span><span class="line"><span class="ln">68</span><span class="cl"><span class="w">          </span><span class="nt">imagePullSecrets</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">69</span><span class="cl"><span class="w">            </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">k8s-registry</span><span class="w">
+</span></span></span></code></pre></div>
   </article>
 <aside class="sidebar">
   <section class="sidebar_inner">

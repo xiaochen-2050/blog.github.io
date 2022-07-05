@@ -2,7 +2,7 @@
 <html lang="en" data-figures="" class="page">
   <head>  <title>Custom private domain name in kubernetes cluster | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.74.3" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -142,54 +142,54 @@
     <p>We use default service domain name <code>${servicename}.${namespace}.svc.cluster.local</code>in kubernetes cluster, however the custom private domain name in private k8s networks frequently used. we can use coredns component reparse the private domain name to default CNAME.</p>
 <h4 id="change-coredns-configmap-add-custom-domain-name-config-to--yaml">change coredns configmap add custom domain name config to  yaml</h4>
 <p><code>kubectl edit cm coredns -n kube-system</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span><span class="k">data</span><span class="p">:</span><span class="w">
-</span><span class="ln"> 2</span><span class="w">    </span><span class="k">Corefile</span><span class="p">:</span><span class="w"> </span><span class="sd">|
-</span><span class="ln"> 3</span><span class="sd">      .:53 {</span><span class="w">
-</span><span class="ln"> 4</span><span class="w">          </span>errors<span class="w">
-</span><span class="ln"> 5</span><span class="w">          </span>health<span class="w"> </span>{<span class="w">
-</span><span class="ln"> 6</span><span class="w">             </span>lameduck<span class="w"> </span>5s<span class="w">
-</span><span class="ln"> 7</span><span class="w">          </span>}<span class="w">
-</span><span class="ln"> 8</span><span class="w">          </span>ready<span class="w">
-</span><span class="ln"> 9</span><span class="w">          </span>kubernetes<span class="w"> </span>cluster.local<span class="w"> </span>in-addr.arpa<span class="w"> </span>ip6.arpa<span class="w"> </span>{<span class="w">
-</span><span class="ln">10</span><span class="w">             </span>pods<span class="w"> </span>insecure<span class="w">
-</span><span class="ln">11</span><span class="w">             </span>fallthrough<span class="w"> </span>in-addr.arpa<span class="w"> </span>ip6.arpa<span class="w">
-</span><span class="ln">12</span><span class="w">             </span>ttl<span class="w"> </span><span class="m">30</span><span class="w">
-</span><span class="ln">13</span><span class="w">          </span>}<span class="w">
-</span><span class="ln">14</span><span class="w">          </span>file<span class="w"> </span>/etc/coredns/uat-env.db<span class="w"> </span>uat-env.com<span class="w">
-</span><span class="ln">15</span><span class="w">          </span>prometheus<span class="w"> </span><span class="p">:</span><span class="m">9153</span><span class="w">
-</span><span class="ln">16</span><span class="w">          </span>forward<span class="w"> </span>.<span class="w"> </span>/etc/resolv.conf<span class="w">
-</span><span class="ln">17</span><span class="w">          </span>cache<span class="w"> </span><span class="m">30</span><span class="w">
-</span><span class="ln">18</span><span class="w">          </span>loop<span class="w">
-</span><span class="ln">19</span><span class="w">          </span>reload<span class="w">
-</span><span class="ln">20</span><span class="w">          </span>loadbalance<span class="w">
-</span><span class="ln">21</span><span class="w">      </span>}<span class="w">
-</span><span class="ln">22</span><span class="w">    </span><span class="k">uat-env.db</span><span class="p">:</span><span class="w"> </span>&gt;<span class="sd">-
-</span><span class="ln">23</span><span class="sd">      uat-env.com.      IN      SOA     ns.dns.cluster.local. </span><span class="w">
-</span><span class="ln">24</span><span class="w">      </span>hostmaster.cluster.local.<span class="w"> </span><span class="m">1592362202</span><span class="w"> </span><span class="m">7200</span><span class="w"> </span><span class="m">1800</span><span class="w"> </span><span class="m">86400</span><span class="w"> </span><span class="m">30</span><span class="w">
-</span><span class="ln">25</span><span class="w">
-</span><span class="ln">26</span><span class="w">      </span>uat-env.com.<span class="w">      </span>IN<span class="w">    </span>NS<span class="w">   
-</span><span class="ln">27</span><span class="w">      </span>kube-dns.kube-system.svc.cluster.local.<span class="w">
-</span><span class="ln">28</span><span class="w">
-</span><span class="ln">29</span><span class="w">      </span>db.uat-env.com.<span class="w">  </span>IN<span class="w">  </span>CNAME<span class="w">  
-</span><span class="ln">30</span><span class="w">      </span>mysql.db.svc.cluster.local.<span class="w">
-</span><span class="ln">31</span><span class="w">
-</span><span class="ln">32</span><span class="w">      </span>private-services.uat-env.com.<span class="w">  </span>IN<span class="w"> </span>CNAME<span class="w">
-</span><span class="ln">33</span><span class="w">      </span>internal-gateway.default.svc.cluster.local.<span class="w">
-</span></code></pre></div><p>add <code>file /etc/coredns/uat-env.db uat-env.com</code> line to Corefile section
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">data</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">    </span><span class="nt">Corefile</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="sd">      .:53 {
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="sd">          errors
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="sd">          health {
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="sd">             lameduck 5s
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="sd">          }
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="sd">          ready
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="sd">          kubernetes cluster.local in-addr.arpa ip6.arpa {
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="sd">             pods insecure
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="sd">             fallthrough in-addr.arpa ip6.arpa
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="sd">             ttl 30
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="sd">          }
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="sd">          file /etc/coredns/uat-env.db uat-env.com
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="sd">          prometheus :9153
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="sd">          forward . /etc/resolv.conf
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="sd">          cache 30
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="sd">          loop
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="sd">          reload
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="sd">          loadbalance
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="sd">      }</span><span class="w">      
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">    </span><span class="nt">uat-env.db</span><span class="p">:</span><span class="w"> </span><span class="p">&gt;-</span><span class="sd">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="sd">      uat-env.com.      IN      SOA     ns.dns.cluster.local. 
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="sd">      hostmaster.cluster.local. 1592362202 7200 1800 86400 30
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="sd">      uat-env.com.      IN    NS   
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="sd">      kube-dns.kube-system.svc.cluster.local.
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="sd">      db.uat-env.com.  IN  CNAME  
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="sd">      mysql.db.svc.cluster.local.
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="sd">      private-services.uat-env.com.  IN CNAME
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="sd">      internal-gateway.default.svc.cluster.local.</span><span class="w">      
+</span></span></span></code></pre></div><p>add <code>file /etc/coredns/uat-env.db uat-env.com</code> line to Corefile section
 add new section <code>uat-env.db</code> and add relative recordset</p>
 <h4 id="change-coredns-deployment-configure-in-kube-system-namespace">Change <code>coredns</code> deployment configure in <code>kube-system</code> namespace</h4>
 <p><code>kubectl edit deployment coredns -n kube-system</code>
 under <code>config-volume</code> section in <code>volumes</code> section add an item, looks like this</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln">1</span><span class="k">items</span><span class="p">:</span><span class="w">
-</span><span class="ln">2</span><span class="w">    </span>- <span class="k">key</span><span class="p">:</span><span class="w"> </span>Corefile<span class="w">
-</span><span class="ln">3</span><span class="w">      </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>Corefile<span class="w">
-</span><span class="ln">4</span><span class="w">    </span>- <span class="k">key</span><span class="p">:</span><span class="w"> </span>uat-env.db<span class="w">
-</span><span class="ln">5</span><span class="w">      </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>uat-env.db<span class="w">
-</span></code></pre></div><p>that&rsquo;s all, enjoy it.</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln">1</span><span class="c1"># test it</span>
-<span class="ln">2</span>dig db.uat-env.com
-<span class="ln">3</span>curl http://private-services.uat-env.com
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">1</span><span class="cl"><span class="nt">items</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w">    </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">Corefile</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">Corefile</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w">    </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">uat-env.db</span><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">uat-env.db</span><span class="w">
+</span></span></span></code></pre></div><p>that&rsquo;s all, enjoy it.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># test it</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">dig db.uat-env.com
+</span></span><span class="line"><span class="ln">3</span><span class="cl">curl http://private-services.uat-env.com
+</span></span></code></pre></div>
   </article>
 <aside class="sidebar">
   <section class="sidebar_inner">

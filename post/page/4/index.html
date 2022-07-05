@@ -2,7 +2,7 @@
 <html lang="en" data-figures="">
   <head>  <title>Posts | Xiao.chen</title>
   <meta charset='utf-8'>
-  <meta name="generator" content="Hugo 0.74.3" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
   <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YV2D58JX2Y"></script>
@@ -120,7 +120,7 @@
     </div>
       <div class = 'excerpt_footer'>
         <div>
-          <p class = 'pale'>step1 the main.tf include following contents: 1resource&#34;helm_release&#34;&#34;fluentd_server&#34;{2name=&#34;fluentd-server&#34;3repository=&#34;https://charts.bitnami.com/bitnami&#34;4# chart = …</p>
+          <p class = 'pale'>step1 the main.tf include following contents: 1resource &#34;helm_release&#34; &#34;fluentd_server&#34; { 2 name = &#34;fluentd-server&#34; 3 repository = &#34;https://charts.bitnami.com/bitnami&#34; 4 # chart = &#34;${path.module}/../../../../../charts/fluentd&#34; 5 version = &#34;3.1.0&#34; 6 namespace = …</p>
           <a href='https://blog.wisekee.com/post/terraform-helm-fluentd/' class='excerpt_more button'>Read More</a>
         </div>
       </div>
@@ -151,7 +151,7 @@
     </div>
       <div class = 'excerpt_footer'>
         <div>
-          <p class = 'pale'>use Helm charts: Github  1	helm repo add nuclio https://nuclio.github.io/nuclio/charts 2	kubectl create namespace nuclio  copy registry to nuclio namespace from existing namespace  1kubectl get secret repo-registry -n dev-ns -o yaml \ 2| sed s/&#34;namespace: dev-ns&#34;/&#34;namespace: nuclio&#34;/ \ 3| kubectl apply …</p>
+          <p class = 'pale'>use Helm charts: Github 1	helm repo add nuclio https://nuclio.github.io/nuclio/charts 2	kubectl create namespace nuclio copy registry to nuclio namespace from existing namespace 1kubectl get secret repo-registry -n dev-ns -o yaml \ 2| sed s/&#34;namespace: dev-ns&#34;/&#34;namespace: nuclio&#34;/ \ 3| kubectl apply -f …</p>
           <a href='https://blog.wisekee.com/post/getting-stared-nucalio/' class='excerpt_more button'>Read More</a>
         </div>
       </div>
@@ -181,7 +181,7 @@
       <div class = 'excerpt_footer'>
         <div>
           <p class = 'pale'>Prepare Golang program code use clean up unused pods and replicaset resources in kubernetes we can clean up not running status pods and deactive replicasets
- initialization Go lanugage project evnironment  1	mkdir k8s_res_cleanup &amp;&amp; cd k8s_res_cleanup 2	go mod init example.com/cleanup/resources 3	go get -v -u …</p>
+initialization Go lanugage project evnironment 1	mkdir k8s_res_cleanup &amp;&amp; cd k8s_res_cleanup 2	go mod init example.com/cleanup/resources 3	go get -v -u …</p>
           <a href='https://blog.wisekee.com/post/schedule-cleanup-k8s-resources/' class='excerpt_more button'>Read More</a>
         </div>
       </div>
@@ -214,8 +214,8 @@
     </div>
       <div class = 'excerpt_footer'>
         <div>
-          <p class = 'pale'>When we repeatedly install the Metrics-Server, because we use helm to install it, deleting one of them will cause the following error when executing the command related to kubectl top nodes:  Error from server (NotFound): the server could not find the requested resource (get services http:heapster:)
-  A large part of …</p>
+          <p class = 'pale'>When we repeatedly install the Metrics-Server, because we use helm to install it, deleting one of them will cause the following error when executing the command related to kubectl top nodes: Error from server (NotFound): the server could not find the requested resource (get services http:heapster:)
+A large part of this …</p>
           <a href='https://blog.wisekee.com/post/k8s-metrics-server/' class='excerpt_more button'>Read More</a>
         </div>
       </div>
@@ -246,7 +246,7 @@
     </div>
       <div class = 'excerpt_footer'>
         <div>
-          <p class = 'pale'>Using Nginx-Ingress Controller in AWS Eks environment  Need manually enable the Proxy protocol V2 in NLB target group just only TCP https 443 listener Rather than TCP http 80 listener Multiple SSL certificate need manually add to NLB The http redirect to https, need to change some paramets  1# use http-snippet and open …</p>
+          <p class = 'pale'>Using Nginx-Ingress Controller in AWS Eks environment Need manually enable the Proxy protocol V2 in NLB target group just only TCP https 443 listener Rather than TCP http 80 listener Multiple SSL certificate need manually add to NLB The http redirect to https, need to change some paramets 1	# use http-snippet and open …</p>
           <a href='https://blog.wisekee.com/post/kubernetes-ingress-guides/' class='excerpt_more button'>Read More</a>
         </div>
       </div>
@@ -254,43 +254,35 @@
   </li>
   
     <li>
-<ul class="pagination">
-  <li class="page-item">
-    <a href="/post/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
-  </li>
-  <li class="page-item">
-    <a href="/post/page/3/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/post/">1</a>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/post/page/2/">2</a>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/post/page/3/">3</a>
-  </li>
-  <li class="page-item active">
-    <a class="page-link" href="/post/page/4/">4</a>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/post/page/5/">5</a>
-  </li>
-  <li class="page-item disabled">
-    <span aria-hidden="true">&nbsp;&hellip;&nbsp;</span>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/post/page/8/">8</a>
-  </li>
-  <li class="page-item">
-    <a href="/post/page/5/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-  </li>
-  <li class="page-item">
-    <a href="/post/page/8/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
-  </li>
-</ul>
-
-
+    <ul class="pagination pagination-default">
+      <li class="page-item">
+        <a href="/post/" aria-label="First" class="page-link" role="button"><span aria-hidden="true">&laquo;&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/post/page/3/" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/post/page/2/" aria-label="Page 2" class="page-link" role="button">2</a>
+      </li>
+      <li class="page-item">
+        <a href="/post/page/3/" aria-label="Page 3" class="page-link" role="button">3</a>
+      </li>
+      <li class="page-item active">
+        <a aria-current="page" aria-label="Page 4" class="page-link" role="button">4</a>
+      </li>
+      <li class="page-item">
+        <a href="/post/page/5/" aria-label="Page 5" class="page-link" role="button">5</a>
+      </li>
+      <li class="page-item">
+        <a href="/post/page/6/" aria-label="Page 6" class="page-link" role="button">6</a>
+      </li>
+      <li class="page-item">
+        <a href="/post/page/5/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/post/page/8/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+      </li>
+    </ul>
     </li>
   </ul>
 <aside class="sidebar">
