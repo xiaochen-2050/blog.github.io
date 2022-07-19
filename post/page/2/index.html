@@ -101,6 +101,69 @@
   <div class = 'excerpt'>
     <div class = 'excerpt_header'>
       <h3 class = 'post_link'>
+        <a href='https://blog.wisekee.com/post/go-private-package-registry-athens/'>Go language private registry glance</a>
+      </h3>
+      <div class = 'post_meta'>
+  <svg class="icon">
+    <use xlink:href="#calendar"></use>
+  </svg>
+  <span class="post_date">
+    Dec 9, 2021</span>
+  <a href = 'https://blog.wisekee.com/tags/go' class = 'post_tag button button_translucent'>Go
+  </a>
+  <a href = 'https://blog.wisekee.com/tags/athens' class = 'post_tag button button_translucent'>athens
+  </a>
+  <a href = 'https://blog.wisekee.com/tags/nginx' class = 'post_tag button button_translucent'>nginx
+  </a>
+</div>
+
+    </div>
+      <div class = 'excerpt_footer'>
+        <div>
+          <p class = 'pale'>Setup GO private package repositry ATHENS for project development Use Nexus proxy access public go package and private repository repo
+1#The access workflow 2 3 |------&gt; proxy-public internal 4internal.pack.com/goproxy---&gt;nexus 5 |------&gt;athens---&gt;nginx---&gt; private gitlab The pull package workflow - set …</p>
+          <a href='https://blog.wisekee.com/post/go-private-package-registry-athens/' class='excerpt_more button'>Read More</a>
+        </div>
+      </div>
+    </div>
+  </li>
+  
+      
+<li class = 'post_item'>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_header'>
+      <h3 class = 'post_link'>
+        <a href='https://blog.wisekee.com/post/k8s-cluster-offline-setup/'>Offline install and setup kubernetes cluster in internal network</a>
+      </h3>
+      <div class = 'post_meta'>
+  <svg class="icon">
+    <use xlink:href="#calendar"></use>
+  </svg>
+  <span class="post_date">
+    Nov 15, 2021</span>
+  <a href = 'https://blog.wisekee.com/tags/terraform' class = 'post_tag button button_translucent'>terraform
+  </a>
+  <a href = 'https://blog.wisekee.com/tags/k8s' class = 'post_tag button button_translucent'>k8s
+  </a>
+  <a href = 'https://blog.wisekee.com/tags/kubernetes' class = 'post_tag button button_translucent'>kubernetes
+  </a>
+</div>
+
+    </div>
+      <div class = 'excerpt_footer'>
+        <div>
+          <p class = 'pale'>Sometimes enterprise is ineternal network not has internet network in production The offline installing and setup k8s environment and resources is necessery Prepare the terraform environment Download the Terraform binary terraform You can also download the HELM binary to operate the k8s cluster. 1wget …</p>
+          <a href='https://blog.wisekee.com/post/k8s-cluster-offline-setup/' class='excerpt_more button'>Read More</a>
+        </div>
+      </div>
+    </div>
+  </li>
+  
+      
+<li class = 'post_item'>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_header'>
+      <h3 class = 'post_link'>
         <a href='https://blog.wisekee.com/post/launch-hashistack-through-ansible/'>Launch Consul&#43;Nomad&#43;Vault through Ansible Role</a>
       </h3>
       <div class = 'post_meta'>
@@ -195,69 +258,6 @@ The Dockerfile 1FROM centos:7 2 3ARG SSH_PRIVATE_KEY 4ARG SSH_HOST_CONFIG 5 6RUN
     </div>
   </li>
   
-      
-<li class = 'post_item'>
-  <div class = 'excerpt'>
-    <div class = 'excerpt_header'>
-      <h3 class = 'post_link'>
-        <a href='https://blog.wisekee.com/post/docker-compose-elk/'>Launch and setup the ELK stack use docker compose service</a>
-      </h3>
-      <div class = 'post_meta'>
-  <svg class="icon">
-    <use xlink:href="#calendar"></use>
-  </svg>
-  <span class="post_date">
-    Sep 10, 2021</span>
-  <a href = 'https://blog.wisekee.com/tags/elk' class = 'post_tag button button_translucent'>elk
-  </a>
-  <a href = 'https://blog.wisekee.com/tags/docker' class = 'post_tag button button_translucent'>docker
-  </a>
-  <a href = 'https://blog.wisekee.com/tags/docker-compose' class = 'post_tag button button_translucent'>docker-compose
-  </a>
-</div>
-
-    </div>
-      <div class = 'excerpt_footer'>
-        <div>
-          <p class = 'pale'>install ELK stack use docker-compose Install and setup ELK stack in single machine use docker compose service. and uesfilebeat ship the logs
-settings the centos system 1sudo yum install -y yum-utils 2sudo yum-config-manager \ 3 --add-repo \ 4 https://download.docker.com/linux/centos/docker-ce.repo 5sudo yum install …</p>
-          <a href='https://blog.wisekee.com/post/docker-compose-elk/' class='excerpt_more button'>Read More</a>
-        </div>
-      </div>
-    </div>
-  </li>
-  
-      
-<li class = 'post_item'>
-  <div class = 'excerpt'>
-    <div class = 'excerpt_header'>
-      <h3 class = 'post_link'>
-        <a href='https://blog.wisekee.com/post/ansible-encrypt-secure/'>Ansible encrypt and decrypt the secure fields</a>
-      </h3>
-      <div class = 'post_meta'>
-  <svg class="icon">
-    <use xlink:href="#calendar"></use>
-  </svg>
-  <span class="post_date">
-    Jul 18, 2021</span>
-  <a href = 'https://blog.wisekee.com/tags/ansible' class = 'post_tag button button_translucent'>Ansible
-  </a>
-  <a href = 'https://blog.wisekee.com/tags/aes-encrypt' class = 'post_tag button button_translucent'>Aes encrypt
-  </a>
-  <a href = 'https://blog.wisekee.com/tags/vault' class = 'post_tag button button_translucent'>vault
-  </a>
-</div>
-
-    </div>
-      <div class = 'excerpt_footer'>
-        <div>
-          <p class = 'pale'>Wrap the ansible vault scripts 1#!/usr/bin/env bash 2 3[ &#34;$#&#34; -gt 2 ] || { 4 echo &#34;Usage $0 encrypt|decrypt option...&#34; 5 echo &#34;Must be least three argumeents required&#34; 6 exit 1 7} 8 9#the decrypt key file path, also can put the aws ssm 10vault_id=&#39;/opt/ansible_pass&#39; 11 12 13function …</p>
-          <a href='https://blog.wisekee.com/post/ansible-encrypt-secure/' class='excerpt_more button'>Read More</a>
-        </div>
-      </div>
-    </div>
-  </li>
-  
     <li>
     <ul class="pagination pagination-default">
       <li class="page-item">
@@ -339,6 +339,12 @@ settings the centos system 1sudo yum install -y yum-utils 2sudo yum-config-manag
     <ul class="flex-column">
       
       <li>
+        <a href="https://blog.wisekee.com/post/falco-reverse-shell-rules/" class="nav-link">Falco reverse shell detecting</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/kubernetes-security-checklist/" class="nav-link">Kubernetes and Cloud native security checklist</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
       </li>
       <li>
@@ -355,12 +361,6 @@ settings the centos system 1sudo yum install -y yum-utils 2sudo yum-config-manag
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/launch-hashistack-through-ansible/" class="nav-link">Launch Consul&#43;Nomad&#43;Vault through Ansible Role</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/deployment-promethues-grafana/" class="nav-link">Deploymnet Prometheus&#43;Grafana in single machine use docker-compose service</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/make-ansible-docker-image/" class="nav-link">Use Ansible docker container in daily development</a>
       </li>
     </ul> 
     
@@ -399,6 +399,11 @@ settings the centos system 1sudo yum install -y yum-utils 2sudo yum-config-manag
           <span class='button_tally'>3</span>
         </a>
         
+        <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent">
+          CNCF
+          <span class='button_tally'>3</span>
+        </a>
+        
         <a href='https://blog.wisekee.com/tags/docker/' class=" post_tag button button_translucent">
           DOCKER
           <span class='button_tally'>3</span>
@@ -411,6 +416,11 @@ settings the centos system 1sudo yum install -y yum-utils 2sudo yum-config-manag
         
         <a href='https://blog.wisekee.com/tags/go/' class=" post_tag button button_translucent">
           GO
+          <span class='button_tally'>3</span>
+        </a>
+        
+        <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent">
+          SECURITY
           <span class='button_tally'>3</span>
         </a>
         
@@ -431,16 +441,6 @@ settings the centos system 1sudo yum install -y yum-utils 2sudo yum-config-manag
         
         <a href='https://blog.wisekee.com/tags/elasticsearch/' class=" post_tag button button_translucent">
           ELASTICSEARCH
-          <span class='button_tally'>2</span>
-        </a>
-        
-        <a href='https://blog.wisekee.com/tags/fluentd/' class=" post_tag button button_translucent">
-          FLUENTD
-          <span class='button_tally'>2</span>
-        </a>
-        
-        <a href='https://blog.wisekee.com/tags/kubectl/' class=" post_tag button button_translucent">
-          KUBECTL
           <span class='button_tally'>2</span>
         </a>
         
@@ -482,6 +482,10 @@ settings the centos system 1sudo yum install -y yum-utils 2sudo yum-config-manag
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/checklist/' class=" post_tag button button_translucent" data-position=1>CHECKLIST<span class='button_tally'>1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/cloud/' class=" post_tag button button_translucent" data-position=2>CLOUD<span class='button_tally'>2</span>
             </a>
             
@@ -490,7 +494,7 @@ settings the centos system 1sudo yum install -y yum-utils 2sudo yum-config-manag
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=1>CNCF<span class='button_tally'>1</span>
+            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=3>CNCF<span class='button_tally'>3</span>
             </a>
             
             
@@ -539,6 +543,10 @@ settings the centos system 1sudo yum install -y yum-utils 2sudo yum-config-manag
             
             
             <a href='https://blog.wisekee.com/tags/elk/' class=" post_tag button button_translucent" data-position=3>ELK<span class='button_tally'>3</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/falco/' class=" post_tag button button_translucent" data-position=1>FALCO<span class='button_tally'>1</span>
             </a>
             
             
@@ -662,7 +670,7 @@ settings the centos system 1sudo yum install -y yum-utils 2sudo yum-config-manag
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent" data-position=1>SECURITY<span class='button_tally'>1</span>
+            <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent" data-position=3>SECURITY<span class='button_tally'>3</span>
             </a>
             
             

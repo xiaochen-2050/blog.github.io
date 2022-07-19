@@ -103,6 +103,68 @@
   <div class = 'excerpt'>
     <div class = 'excerpt_header'>
       <h3 class = 'post_link'>
+        <a href='https://blog.wisekee.com/post/installing-eclipse-che-in-kubernetes/'>Installing eclipse-che in native kubernetes platform</a>
+      </h3>
+      <div class = 'post_meta'>
+  <svg class="icon">
+    <use xlink:href="#calendar"></use>
+  </svg>
+  <span class="post_date">
+    Jan 15, 2021</span>
+  <a href = 'https://blog.wisekee.com/tags/kubernetes' class = 'post_tag button button_translucent'>Kubernetes
+  </a>
+  <a href = 'https://blog.wisekee.com/tags/eclipse-che' class = 'post_tag button button_translucent'>Eclipse-Che
+  </a>
+  <a href = 'https://blog.wisekee.com/tags/operator' class = 'post_tag button button_translucent'>Operator
+  </a>
+</div>
+
+    </div>
+      <div class = 'excerpt_footer'>
+        <div>
+          <p class = 'pale'>At first installing OLM Requirement: kubectl configred and connect to Kubernetes cluster correct.
+1curl -L https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.17.0/install.sh -o install.sh 2chmod +x install.sh 3./install.sh v0.17.0 Installing Eclipse-Che Operator According to: …</p>
+          <a href='https://blog.wisekee.com/post/installing-eclipse-che-in-kubernetes/' class='excerpt_more button'>Read More</a>
+        </div>
+      </div>
+    </div>
+  </li>
+  
+      
+<li class = 'post_item'>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_header'>
+      <h3 class = 'post_link'>
+        <a href='https://blog.wisekee.com/post/kubernetes-events-to-es/'>Kubernetes events collect to elasticsearch</a>
+      </h3>
+      <div class = 'post_meta'>
+  <svg class="icon">
+    <use xlink:href="#calendar"></use>
+  </svg>
+  <span class="post_date">
+    Dec 16, 2020</span>
+  <a href = 'https://blog.wisekee.com/tags/terraform' class = 'post_tag button button_translucent'>Terraform
+  </a>
+  <a href = 'https://blog.wisekee.com/tags/k8s' class = 'post_tag button button_translucent'>K8s
+  </a>
+</div>
+
+    </div>
+      <div class = 'excerpt_footer'>
+        <div>
+          <p class = 'pale'>We what collect and storage kubernetes events to elasticsearch, easy to query and analyze alerts. we use this github repo componentkubernetes-event-exporter
+The main.tf include kubernetes &lsquo;deployment&rsquo; object 1resource &#34;kubernetes_deployment&#34; &#34;event_export&#34; { 2 metadata { 3 name = …</p>
+          <a href='https://blog.wisekee.com/post/kubernetes-events-to-es/' class='excerpt_more button'>Read More</a>
+        </div>
+      </div>
+    </div>
+  </li>
+  
+      
+<li class = 'post_item'>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_header'>
+      <h3 class = 'post_link'>
         <a href='https://blog.wisekee.com/post/terraform-helm-fluentd/'>Terraform&#43;Helm release&#43;fluentd in kubernetes</a>
       </h3>
       <div class = 'post_meta'>
@@ -190,71 +252,6 @@ initialization Go lanugage project evnironment 1	mkdir k8s_res_cleanup &amp;&amp
     </div>
   </li>
   
-      
-<li class = 'post_item'>
-  <div class = 'excerpt'>
-    <div class = 'excerpt_header'>
-      <h3 class = 'post_link'>
-        <a href='https://blog.wisekee.com/post/k8s-metrics-server/'>Solve the problem of Metrics - Server</a>
-      </h3>
-      <div class = 'post_meta'>
-  <svg class="icon">
-    <use xlink:href="#calendar"></use>
-  </svg>
-  <span class="post_date">
-    Oct 25, 2020</span>
-  <a href = 'https://blog.wisekee.com/tags/k8s' class = 'post_tag button button_translucent'>k8s
-  </a>
-  <a href = 'https://blog.wisekee.com/tags/kubectl' class = 'post_tag button button_translucent'>kubectl
-  </a>
-  <a href = 'https://blog.wisekee.com/tags/kubernetes' class = 'post_tag button button_translucent'>kubernetes
-  </a>
-  <a href = 'https://blog.wisekee.com/tags/featured' class = 'post_tag button button_translucent'>featured
-  </a>
-</div>
-
-    </div>
-      <div class = 'excerpt_footer'>
-        <div>
-          <p class = 'pale'>When we repeatedly install the Metrics-Server, because we use helm to install it, deleting one of them will cause the following error when executing the command related to kubectl top nodes: Error from server (NotFound): the server could not find the requested resource (get services http:heapster:)
-A large part of this …</p>
-          <a href='https://blog.wisekee.com/post/k8s-metrics-server/' class='excerpt_more button'>Read More</a>
-        </div>
-      </div>
-    </div>
-  </li>
-  
-      
-<li class = 'post_item'>
-  <div class = 'excerpt'>
-    <div class = 'excerpt_header'>
-      <h3 class = 'post_link'>
-        <a href='https://blog.wisekee.com/post/kubernetes-ingress-guides/'>Notes for using Kubernetes Ingress Controller</a>
-      </h3>
-      <div class = 'post_meta'>
-  <svg class="icon">
-    <use xlink:href="#calendar"></use>
-  </svg>
-  <span class="post_date">
-    Oct 15, 2020</span>
-  <a href = 'https://blog.wisekee.com/tags/terraform' class = 'post_tag button button_translucent'>Terraform
-  </a>
-  <a href = 'https://blog.wisekee.com/tags/kubernetes' class = 'post_tag button button_translucent'>Kubernetes
-  </a>
-  <a href = 'https://blog.wisekee.com/tags/featured' class = 'post_tag button button_translucent'>Featured
-  </a>
-</div>
-
-    </div>
-      <div class = 'excerpt_footer'>
-        <div>
-          <p class = 'pale'>Using Nginx-Ingress Controller in AWS Eks environment Need manually enable the Proxy protocol V2 in NLB target group just only TCP https 443 listener Rather than TCP http 80 listener Multiple SSL certificate need manually add to NLB The http redirect to https, need to change some paramets 1	# use http-snippet and open …</p>
-          <a href='https://blog.wisekee.com/post/kubernetes-ingress-guides/' class='excerpt_more button'>Read More</a>
-        </div>
-      </div>
-    </div>
-  </li>
-  
     <li>
     <ul class="pagination pagination-default">
       <li class="page-item">
@@ -331,6 +328,12 @@ A large part of this …</p>
     <ul class="flex-column">
       
       <li>
+        <a href="https://blog.wisekee.com/post/falco-reverse-shell-rules/" class="nav-link">Falco reverse shell detecting</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/kubernetes-security-checklist/" class="nav-link">Kubernetes and Cloud native security checklist</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
       </li>
       <li>
@@ -347,12 +350,6 @@ A large part of this …</p>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/launch-hashistack-through-ansible/" class="nav-link">Launch Consul&#43;Nomad&#43;Vault through Ansible Role</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/deployment-promethues-grafana/" class="nav-link">Deploymnet Prometheus&#43;Grafana in single machine use docker-compose service</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/make-ansible-docker-image/" class="nav-link">Use Ansible docker container in daily development</a>
       </li>
     </ul> 
     
@@ -391,6 +388,11 @@ A large part of this …</p>
           <span class='button_tally'>3</span>
         </a>
         
+        <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent">
+          CNCF
+          <span class='button_tally'>3</span>
+        </a>
+        
         <a href='https://blog.wisekee.com/tags/docker/' class=" post_tag button button_translucent">
           DOCKER
           <span class='button_tally'>3</span>
@@ -403,6 +405,11 @@ A large part of this …</p>
         
         <a href='https://blog.wisekee.com/tags/go/' class=" post_tag button button_translucent">
           GO
+          <span class='button_tally'>3</span>
+        </a>
+        
+        <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent">
+          SECURITY
           <span class='button_tally'>3</span>
         </a>
         
@@ -423,16 +430,6 @@ A large part of this …</p>
         
         <a href='https://blog.wisekee.com/tags/elasticsearch/' class=" post_tag button button_translucent">
           ELASTICSEARCH
-          <span class='button_tally'>2</span>
-        </a>
-        
-        <a href='https://blog.wisekee.com/tags/fluentd/' class=" post_tag button button_translucent">
-          FLUENTD
-          <span class='button_tally'>2</span>
-        </a>
-        
-        <a href='https://blog.wisekee.com/tags/kubectl/' class=" post_tag button button_translucent">
-          KUBECTL
           <span class='button_tally'>2</span>
         </a>
         
@@ -474,6 +471,10 @@ A large part of this …</p>
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/checklist/' class=" post_tag button button_translucent" data-position=1>CHECKLIST<span class='button_tally'>1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/cloud/' class=" post_tag button button_translucent" data-position=2>CLOUD<span class='button_tally'>2</span>
             </a>
             
@@ -482,7 +483,7 @@ A large part of this …</p>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=1>CNCF<span class='button_tally'>1</span>
+            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=3>CNCF<span class='button_tally'>3</span>
             </a>
             
             
@@ -531,6 +532,10 @@ A large part of this …</p>
             
             
             <a href='https://blog.wisekee.com/tags/elk/' class=" post_tag button button_translucent" data-position=3>ELK<span class='button_tally'>3</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/falco/' class=" post_tag button button_translucent" data-position=1>FALCO<span class='button_tally'>1</span>
             </a>
             
             
@@ -654,7 +659,7 @@ A large part of this …</p>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent" data-position=1>SECURITY<span class='button_tally'>1</span>
+            <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent" data-position=3>SECURITY<span class='button_tally'>3</span>
             </a>
             
             

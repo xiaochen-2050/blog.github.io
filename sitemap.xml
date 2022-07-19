@@ -3,7 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.wisekee.com/</loc>
-    <lastmod>2022-03-10T00:00:00+00:00</lastmod>
+    <lastmod>2022-05-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/cncf/</loc>
+    <lastmod>2022-05-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/falco/</loc>
+    <lastmod>2022-05-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/falco-reverse-shell-rules/</loc>
+    <lastmod>2022-05-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/</loc>
+    <lastmod>2022-05-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/security/</loc>
+    <lastmod>2022-05-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/</loc>
+    <lastmod>2022-05-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/checklist/</loc>
+    <lastmod>2022-04-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/kubernetes-security-checklist/</loc>
+    <lastmod>2022-04-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/k8s/</loc>
     <lastmod>2022-03-10T00:00:00+00:00</lastmod>
@@ -14,16 +38,7 @@
     <loc>https://blog.wisekee.com/tags/pod/</loc>
     <lastmod>2022-03-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wisekee.com/post/</loc>
-    <lastmod>2022-03-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/</loc>
-    <lastmod>2022-03-10T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.wisekee.com/post/awesome-open-source/</loc>
-    <lastmod>2022-03-05T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/cncf/</loc>
     <lastmod>2022-03-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/featured/</loc>
@@ -267,9 +282,6 @@
     <lastmod>2019-05-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/network/</loc>
-    <lastmod>2019-05-05T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/security/</loc>
     <lastmod>2019-05-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/about/</loc>

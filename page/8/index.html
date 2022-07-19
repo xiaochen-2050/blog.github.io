@@ -103,6 +103,66 @@
   <div class = 'excerpt'>
     <div class = 'excerpt_header'>
       <h3 class = 'post_link'>
+        <a href='https://blog.wisekee.com/post/logstash_configure/'>Filebeat and Logstash config</a>
+      </h3>
+      <div class = 'post_meta'>
+  <svg class="icon">
+    <use xlink:href="#calendar"></use>
+  </svg>
+  <span class="post_date">
+    Aug 10, 2018</span>
+  <a href = 'https://blog.wisekee.com/tags/elk' class = 'post_tag button button_translucent'>ELK
+  </a>
+  <a href = 'https://blog.wisekee.com/tags/logstash' class = 'post_tag button button_translucent'>Logstash
+  </a>
+  <a href = 'https://blog.wisekee.com/tags/filebeat' class = 'post_tag button button_translucent'>Filebeat
+  </a>
+</div>
+
+    </div>
+      <div class = 'excerpt_footer'>
+        <div>
+          <p class = 'pale'>The logs collect workflow Filebeat gather the file path log files then send to Logstash 5044 port The logstash receive and transform extract fields and send to Elasticsearch The Filebeat config file is: /etc/filebeat.yml installing the Filebeat script: 1#!/bin/bash 2FILEBEAT_NAME=filebeat-6.7.2-x86_64.rpm 3# install …</p>
+          <a href='https://blog.wisekee.com/post/logstash_configure/' class='excerpt_more button'>Read More</a>
+        </div>
+      </div>
+    </div>
+  </li>
+  
+      
+<li class = 'post_item'>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_header'>
+      <h3 class = 'post_link'>
+        <a href='https://blog.wisekee.com/post/ubuntu-install-nfs/'>Configuration and Installing NFS on ubuntu</a>
+      </h3>
+      <div class = 'post_meta'>
+  <svg class="icon">
+    <use xlink:href="#calendar"></use>
+  </svg>
+  <span class="post_date">
+    Mar 2, 2018</span>
+  <a href = 'https://blog.wisekee.com/tags/nfs' class = 'post_tag button button_translucent'>NFS
+  </a>
+  <a href = 'https://blog.wisekee.com/tags/file-system' class = 'post_tag button button_translucent'>File system
+  </a>
+</div>
+
+    </div>
+      <div class = 'excerpt_footer'>
+        <div>
+          <p class = 'pale'>1#updating the system and install nfs daemon 2sudo apt-get update 3sudo apt install nfs-kernel-server 4 5#view the relative info about NFS 6sudo cat /proc/fs/nfsd/versions 7cat /etc/default/nfs-kernel-server 8cat /etc/default/nfs-common 9 10#create and bind the NFS directory in host hard disk 11sudo mkdir -p …</p>
+          <a href='https://blog.wisekee.com/post/ubuntu-install-nfs/' class='excerpt_more button'>Read More</a>
+        </div>
+      </div>
+    </div>
+  </li>
+  
+      
+<li class = 'post_item'>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_header'>
+      <h3 class = 'post_link'>
         <a href='https://blog.wisekee.com/post/hugo-usage-issues/'>Hugo usage issues summary</a>
       </h3>
       <div class = 'post_meta'>
@@ -205,6 +265,12 @@ One to storage Hugo sourcecode and markdown files And other one use …</p>
     <ul class="flex-column">
       
       <li>
+        <a href="https://blog.wisekee.com/post/falco-reverse-shell-rules/" class="nav-link">Falco reverse shell detecting</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/kubernetes-security-checklist/" class="nav-link">Kubernetes and Cloud native security checklist</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
       </li>
       <li>
@@ -221,12 +287,6 @@ One to storage Hugo sourcecode and markdown files And other one use …</p>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/launch-hashistack-through-ansible/" class="nav-link">Launch Consul&#43;Nomad&#43;Vault through Ansible Role</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/deployment-promethues-grafana/" class="nav-link">Deploymnet Prometheus&#43;Grafana in single machine use docker-compose service</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/make-ansible-docker-image/" class="nav-link">Use Ansible docker container in daily development</a>
       </li>
     </ul> 
     
@@ -265,6 +325,11 @@ One to storage Hugo sourcecode and markdown files And other one use …</p>
           <span class='button_tally'>3</span>
         </a>
         
+        <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent">
+          CNCF
+          <span class='button_tally'>3</span>
+        </a>
+        
         <a href='https://blog.wisekee.com/tags/docker/' class=" post_tag button button_translucent">
           DOCKER
           <span class='button_tally'>3</span>
@@ -277,6 +342,11 @@ One to storage Hugo sourcecode and markdown files And other one use …</p>
         
         <a href='https://blog.wisekee.com/tags/go/' class=" post_tag button button_translucent">
           GO
+          <span class='button_tally'>3</span>
+        </a>
+        
+        <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent">
+          SECURITY
           <span class='button_tally'>3</span>
         </a>
         
@@ -297,16 +367,6 @@ One to storage Hugo sourcecode and markdown files And other one use …</p>
         
         <a href='https://blog.wisekee.com/tags/elasticsearch/' class=" post_tag button button_translucent">
           ELASTICSEARCH
-          <span class='button_tally'>2</span>
-        </a>
-        
-        <a href='https://blog.wisekee.com/tags/fluentd/' class=" post_tag button button_translucent">
-          FLUENTD
-          <span class='button_tally'>2</span>
-        </a>
-        
-        <a href='https://blog.wisekee.com/tags/kubectl/' class=" post_tag button button_translucent">
-          KUBECTL
           <span class='button_tally'>2</span>
         </a>
         
@@ -348,6 +408,10 @@ One to storage Hugo sourcecode and markdown files And other one use …</p>
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/checklist/' class=" post_tag button button_translucent" data-position=1>CHECKLIST<span class='button_tally'>1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/cloud/' class=" post_tag button button_translucent" data-position=2>CLOUD<span class='button_tally'>2</span>
             </a>
             
@@ -356,7 +420,7 @@ One to storage Hugo sourcecode and markdown files And other one use …</p>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=1>CNCF<span class='button_tally'>1</span>
+            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=3>CNCF<span class='button_tally'>3</span>
             </a>
             
             
@@ -405,6 +469,10 @@ One to storage Hugo sourcecode and markdown files And other one use …</p>
             
             
             <a href='https://blog.wisekee.com/tags/elk/' class=" post_tag button button_translucent" data-position=3>ELK<span class='button_tally'>3</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/falco/' class=" post_tag button button_translucent" data-position=1>FALCO<span class='button_tally'>1</span>
             </a>
             
             
@@ -528,7 +596,7 @@ One to storage Hugo sourcecode and markdown files And other one use …</p>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent" data-position=1>SECURITY<span class='button_tally'>1</span>
+            <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent" data-position=3>SECURITY<span class='button_tally'>3</span>
             </a>
             
             

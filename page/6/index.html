@@ -103,6 +103,68 @@
   <div class = 'excerpt'>
     <div class = 'excerpt_header'>
       <h3 class = 'post_link'>
+        <a href='https://blog.wisekee.com/post/custom-domain-name-in-k8s/'>Custom private domain name in kubernetes cluster</a>
+      </h3>
+      <div class = 'post_meta'>
+  <svg class="icon">
+    <use xlink:href="#calendar"></use>
+  </svg>
+  <span class="post_date">
+    Sep 3, 2020</span>
+  <a href = 'https://blog.wisekee.com/tags/kubernetes' class = 'post_tag button button_translucent'>kubernetes
+  </a>
+  <a href = 'https://blog.wisekee.com/tags/coredons' class = 'post_tag button button_translucent'>Coredons
+  </a>
+</div>
+
+    </div>
+      <div class = 'excerpt_footer'>
+        <div>
+          <p class = 'pale'>We use default service domain name ${servicename}.${namespace}.svc.cluster.localin kubernetes cluster, however the custom private domain name in private k8s networks frequently used. we can use coredns component reparse the private domain name to default CNAME.
+change coredns configmap add custom domain name config to …</p>
+          <a href='https://blog.wisekee.com/post/custom-domain-name-in-k8s/' class='excerpt_more button'>Read More</a>
+        </div>
+      </div>
+    </div>
+  </li>
+  
+      
+<li class = 'post_item'>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_header'>
+      <h3 class = 'post_link'>
+        <a href='https://blog.wisekee.com/post/aws-local-development/'>Quickly debug AWS App locally use Localstack(AWS Mock in local)</a>
+      </h3>
+      <div class = 'post_meta'>
+  <svg class="icon">
+    <use xlink:href="#calendar"></use>
+  </svg>
+  <span class="post_date">
+    Sep 1, 2020</span>
+  <a href = 'https://blog.wisekee.com/tags/aws' class = 'post_tag button button_translucent'>AWS
+  </a>
+  <a href = 'https://blog.wisekee.com/tags/localstack' class = 'post_tag button button_translucent'>LocalStack
+  </a>
+  <a href = 'https://blog.wisekee.com/tags/cloud' class = 'post_tag button button_translucent'>Cloud
+  </a>
+</div>
+
+    </div>
+      <div class = 'excerpt_footer'>
+        <div>
+          <p class = 'pale'>When you develop components locally that rely on AWS, it can be cumbersome to configure authentication information, and sometimes network latency. It is important to mock with a native AWS component, which can:localstack I&rsquo;m using Docker-Compose here to start a set of tools that local development depends on：
+The …</p>
+          <a href='https://blog.wisekee.com/post/aws-local-development/' class='excerpt_more button'>Read More</a>
+        </div>
+      </div>
+    </div>
+  </li>
+  
+      
+<li class = 'post_item'>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_header'>
+      <h3 class = 'post_link'>
         <a href='https://blog.wisekee.com/post/k8s-common-command-conclusion/'>kubernetes operations command summary</a>
       </h3>
       <div class = 'post_meta'>
@@ -196,64 +258,6 @@ Prepare directory structure and …</p>
     </div>
   </li>
   
-      
-<li class = 'post_item'>
-  <div class = 'excerpt'>
-    <div class = 'excerpt_header'>
-      <h3 class = 'post_link'>
-        <a href='https://blog.wisekee.com/post/setup-cloudfoundry-in-k8s/'>Install and setup cloud foundry in kubernetes cluster</a>
-      </h3>
-      <div class = 'post_meta'>
-  <svg class="icon">
-    <use xlink:href="#calendar"></use>
-  </svg>
-  <span class="post_date">
-    Aug 20, 2020</span>
-  <a href = 'https://blog.wisekee.com/tags/kubernetes' class = 'post_tag button button_translucent'>Kubernetes
-  </a>
-  <a href = 'https://blog.wisekee.com/tags/cloud-foundry' class = 'post_tag button button_translucent'>Cloud foundry
-  </a>
-</div>
-
-    </div>
-      <div class = 'excerpt_footer'>
-        <div>
-          <p class = 'pale'>First prepare the tools installation in host: Kind: https://kind.sigs.k8s.io/docs/user/quick-start/ Cf command: https://docs.cloudfoundry.org/cf-cli/install-go-cli.html HOMEBREW_NO_AUTO_UPDATE=1 brew install cloudfoundry/tap/cf-cli@6 or HOMEBREW_NO_AUTO_UPDATE=1 brew install cloudfoundry/tap/cf-cli@7 Kubectl command: …</p>
-          <a href='https://blog.wisekee.com/post/setup-cloudfoundry-in-k8s/' class='excerpt_more button'>Read More</a>
-        </div>
-      </div>
-    </div>
-  </li>
-  
-      
-<li class = 'post_item'>
-  <div class = 'excerpt'>
-    <div class = 'excerpt_header'>
-      <h3 class = 'post_link'>
-        <a href='https://blog.wisekee.com/post/laravel-php-snippets/'>Laravel ip allowlist request filter middleware</a>
-      </h3>
-      <div class = 'post_meta'>
-  <svg class="icon">
-    <use xlink:href="#calendar"></use>
-  </svg>
-  <span class="post_date">
-    Aug 15, 2020</span>
-  <a href = 'https://blog.wisekee.com/tags/php' class = 'post_tag button button_translucent'>PHP
-  </a>
-  <a href = 'https://blog.wisekee.com/tags/ip-whitelist' class = 'post_tag button button_translucent'>Ip whitelist
-  </a>
-</div>
-
-    </div>
-      <div class = 'excerpt_footer'>
-        <div>
-          <p class = 'pale'>Temporary ip allow list in PHP framework Laravel 1&lt;?php 2 3namespace App\Http\Middleware; 4 5use Closure; 6use Illuminate\Http\Request; 7use Illuminate\Support\Facades\Cache; 8use Illuminate\Support\Facades\Log; 9use Symfony\Component\HttpFoundation\IpUtils; 10 11class IpAllowMiddleware 12{ 13 /** 14 * Handle an …</p>
-          <a href='https://blog.wisekee.com/post/laravel-php-snippets/' class='excerpt_more button'>Read More</a>
-        </div>
-      </div>
-    </div>
-  </li>
-  
     <li>
     <ul class="pagination pagination-default">
       <li class="page-item">
@@ -330,6 +334,12 @@ Prepare directory structure and …</p>
     <ul class="flex-column">
       
       <li>
+        <a href="https://blog.wisekee.com/post/falco-reverse-shell-rules/" class="nav-link">Falco reverse shell detecting</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/kubernetes-security-checklist/" class="nav-link">Kubernetes and Cloud native security checklist</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/k8s-app-runtime-sparate/" class="nav-link">K8S app source code and runtime separate in pod</a>
       </li>
       <li>
@@ -346,12 +356,6 @@ Prepare directory structure and …</p>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/launch-hashistack-through-ansible/" class="nav-link">Launch Consul&#43;Nomad&#43;Vault through Ansible Role</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/deployment-promethues-grafana/" class="nav-link">Deploymnet Prometheus&#43;Grafana in single machine use docker-compose service</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/make-ansible-docker-image/" class="nav-link">Use Ansible docker container in daily development</a>
       </li>
     </ul> 
     
@@ -390,6 +394,11 @@ Prepare directory structure and …</p>
           <span class='button_tally'>3</span>
         </a>
         
+        <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent">
+          CNCF
+          <span class='button_tally'>3</span>
+        </a>
+        
         <a href='https://blog.wisekee.com/tags/docker/' class=" post_tag button button_translucent">
           DOCKER
           <span class='button_tally'>3</span>
@@ -402,6 +411,11 @@ Prepare directory structure and …</p>
         
         <a href='https://blog.wisekee.com/tags/go/' class=" post_tag button button_translucent">
           GO
+          <span class='button_tally'>3</span>
+        </a>
+        
+        <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent">
+          SECURITY
           <span class='button_tally'>3</span>
         </a>
         
@@ -422,16 +436,6 @@ Prepare directory structure and …</p>
         
         <a href='https://blog.wisekee.com/tags/elasticsearch/' class=" post_tag button button_translucent">
           ELASTICSEARCH
-          <span class='button_tally'>2</span>
-        </a>
-        
-        <a href='https://blog.wisekee.com/tags/fluentd/' class=" post_tag button button_translucent">
-          FLUENTD
-          <span class='button_tally'>2</span>
-        </a>
-        
-        <a href='https://blog.wisekee.com/tags/kubectl/' class=" post_tag button button_translucent">
-          KUBECTL
           <span class='button_tally'>2</span>
         </a>
         
@@ -473,6 +477,10 @@ Prepare directory structure and …</p>
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/checklist/' class=" post_tag button button_translucent" data-position=1>CHECKLIST<span class='button_tally'>1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/cloud/' class=" post_tag button button_translucent" data-position=2>CLOUD<span class='button_tally'>2</span>
             </a>
             
@@ -481,7 +489,7 @@ Prepare directory structure and …</p>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=1>CNCF<span class='button_tally'>1</span>
+            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=3>CNCF<span class='button_tally'>3</span>
             </a>
             
             
@@ -530,6 +538,10 @@ Prepare directory structure and …</p>
             
             
             <a href='https://blog.wisekee.com/tags/elk/' class=" post_tag button button_translucent" data-position=3>ELK<span class='button_tally'>3</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/falco/' class=" post_tag button button_translucent" data-position=1>FALCO<span class='button_tally'>1</span>
             </a>
             
             
@@ -653,7 +665,7 @@ Prepare directory structure and …</p>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent" data-position=1>SECURITY<span class='button_tally'>1</span>
+            <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent" data-position=3>SECURITY<span class='button_tally'>3</span>
             </a>
             
             
