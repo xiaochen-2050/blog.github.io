@@ -13,8 +13,15 @@
       <pubDate>Mon, 15 Nov 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/k8s-cluster-offline-setup/</guid>
-      <description>Sometimes enterprise is ineternal network not has internet network in production The offline installing and setup k8s environment and resources is necessery Prepare the terraform environment Download the Terraform binary terraform You can also download the HELM binary to operate the k8s cluster. 1wget https://releases.hashicorp.com/terraform/0.15.4/terraform_0.15.4_linux_amd64.zip 2unzip terraform_0.15.4_linux_amd64.zip 3mv terraform /usr/local/bin/ 4chmod +x /usr/local/bin/terraform 5terraform version Prepare the Terraform syntax tips plugins in idea IDE https://plugins.jetbrains.com/plugin/7808-hashicorp-terraform--hcl-language-support
-Because the Terraform plugins and providers Offline to local directory and push to CVS repo so needs to install git lfs plugins</description>
+      <description>
+        
+          
+            Sometimes enterprise is ineternal network not has internet network in production The offline installing and setup k8s environment and resources is necessery Prepare the terraform environment Download the Terraform binary terraform You can also download the HELM binary to operate the k8s cluster. 1wget https://releases.hashicorp.com/terraform/0.15.4/terraform_0.15.4_linux_amd64.zip 2unzip terraform_0.15.4_linux_amd64.zip 3mv terraform /usr/local/bin/ 4chmod +x /usr/local/bin/terraform 5terraform version Prepare the Terraform syntax tips plugins in idea IDE https://plugins.jetbrains.com/plugin/7808-hashicorp-terraform--hcl-language-support
+Because the Terraform plugins and providers Offline to local directory and push to CVS repo so needs to install git lfs plugins
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -23,9 +30,16 @@ Because the Terraform plugins and providers Offline to local directory and push 
       <pubDate>Fri, 15 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/installing-eclipse-che-in-kubernetes/</guid>
-      <description>At first installing OLM Requirement: kubectl configred and connect to Kubernetes cluster correct.
+      <description>
+        
+          
+            At first installing OLM Requirement: kubectl configred and connect to Kubernetes cluster correct.
 1curl -L https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.17.0/install.sh -o install.sh 2chmod +x install.sh 3./install.sh v0.17.0 Installing Eclipse-Che Operator According to: eclipse-che operator
-1kubectl create -f https://operatorhub.io/install/eclipse-che.yaml 2# view the Operator resources 3kubectl get pods --all-namespaces | grep olm 4# and the CluseterServiceVersion 5kubectl get csv -n my-eclipse-che Install Eclipse-che instance use CheCluster resource 1#The partial configure need to change 2 k8s: 3 ingressClass: &amp;#39;nginx&amp;#39; 4 ingressDomain: &amp;#39;che.</description>
+1kubectl create -f https://operatorhub.io/install/eclipse-che.yaml 2# view the Operator resources 3kubectl get pods --all-namespaces | grep olm 4# and the CluseterServiceVersion 5kubectl get csv -n my-eclipse-che Install Eclipse-che instance use CheCluster resource 1#The partial configure need to change 2 k8s: 3 ingressClass: &amp;#39;nginx&amp;#39; 4 ingressDomain: &amp;#39;che.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -34,7 +48,14 @@ Because the Terraform plugins and providers Offline to local directory and push 
       <pubDate>Sun, 15 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/getting-stared-nucalio/</guid>
-      <description>use Helm charts: Github 1	helm repo add nuclio https://nuclio.github.io/nuclio/charts 2	kubectl create namespace nuclio copy registry to nuclio namespace from existing namespace 1kubectl get secret repo-registry -n dev-ns -o yaml \ 2| sed s/&amp;#34;namespace: dev-ns&amp;#34;/&amp;#34;namespace: nuclio&amp;#34;/ \ 3| kubectl apply -f - install nuclio 1	helm install nuclio \ 2 --set registry.secretName=repo-registry \ 3 --set registry.pushPullUrl=localhost/nucalio \ 4 nuclio/nuclio -n nuclio visit dashboard 1	kubectl -n nuclio port-forward $(kubectl get pods -n nuclio -l nuclio.</description>
+      <description>
+        
+          
+            use Helm charts: Github 1	helm repo add nuclio https://nuclio.github.io/nuclio/charts 2	kubectl create namespace nuclio copy registry to nuclio namespace from existing namespace 1kubectl get secret repo-registry -n dev-ns -o yaml \ 2| sed s/&amp;#34;namespace: dev-ns&amp;#34;/&amp;#34;namespace: nuclio&amp;#34;/ \ 3| kubectl apply -f - install nuclio 1	helm install nuclio \ 2 --set registry.secretName=repo-registry \ 3 --set registry.pushPullUrl=localhost/nucalio \ 4 nuclio/nuclio -n nuclio visit dashboard 1	kubectl -n nuclio port-forward $(kubectl get pods -n nuclio -l nuclio.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -43,8 +64,15 @@ Because the Terraform plugins and providers Offline to local directory and push 
       <pubDate>Mon, 02 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/schedule-cleanup-k8s-resources/</guid>
-      <description>Prepare Golang program code use clean up unused pods and replicaset resources in kubernetes we can clean up not running status pods and deactive replicasets
-initialization Go lanugage project evnironment 1	mkdir k8s_res_cleanup &amp;amp;&amp;amp; cd k8s_res_cleanup 2	go mod init example.com/cleanup/resources 3	go get -v -u k8s.io/client-go@v0.18.2 # install packages 4	go get -v -u github.com/prometheus/common@v0.1.0 create sub packageconfig/k8s.go indicate how can connect to kubernetes cluster 1package config 2 3import ( 4	&amp;#34;flag&amp;#34; 5	logs &amp;#34;github.</description>
+      <description>
+        
+          
+            Prepare Golang program code use clean up unused pods and replicaset resources in kubernetes we can clean up not running status pods and deactive replicasets
+initialization Go lanugage project evnironment 1	mkdir k8s_res_cleanup &amp;amp;&amp;amp; cd k8s_res_cleanup 2	go mod init example.com/cleanup/resources 3	go get -v -u k8s.io/client-go@v0.18.2 # install packages 4	go get -v -u github.com/prometheus/common@v0.1.0 create sub packageconfig/k8s.go indicate how can connect to kubernetes cluster 1package config 2 3import ( 4	&amp;#34;flag&amp;#34; 5	logs &amp;#34;github.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -53,8 +81,15 @@ initialization Go lanugage project evnironment 1	mkdir k8s_res_cleanup &amp;amp;
       <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/k8s-metrics-server/</guid>
-      <description>When we repeatedly install the Metrics-Server, because we use helm to install it, deleting one of them will cause the following error when executing the command related to kubectl top nodes: Error from server (NotFound): the server could not find the requested resource (get services http:heapster:)
-A large part of this is due to the removal of the Apiservice Resources from Metics, when you execute the following command to ensure that the Apiservice exists kubectl get apiservice | grep metrics v1beta1.</description>
+      <description>
+        
+          
+            When we repeatedly install the Metrics-Server, because we use helm to install it, deleting one of them will cause the following error when executing the command related to kubectl top nodes: Error from server (NotFound): the server could not find the requested resource (get services http:heapster:)
+A large part of this is due to the removal of the Apiservice Resources from Metics, when you execute the following command to ensure that the Apiservice exists kubectl get apiservice | grep metrics v1beta1.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -63,7 +98,14 @@ A large part of this is due to the removal of the Apiservice Resources from Meti
       <pubDate>Thu, 15 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/kubernetes-ingress-guides/</guid>
-      <description>Using Nginx-Ingress Controller in AWS Eks environment Need manually enable the Proxy protocol V2 in NLB target group just only TCP https 443 listener Rather than TCP http 80 listener Multiple SSL certificate need manually add to NLB The http redirect to https, need to change some paramets 1	# use http-snippet and open proxy protocol 2 use-proxy-protocol: &amp;#39;true&amp;#39; 3 use-forwarded-headers: &amp;#39;true&amp;#39; 4 server-tokens: &amp;#39;false&amp;#39; 5 http-snippet: | 6 server { 7 listen 8000; 8 return 308 https://$host$request_uri; 9 } 10 proxy-real-ip-cidr: ${join(&amp;#34;,&amp;#34;, var.</description>
+      <description>
+        
+          
+            Using Nginx-Ingress Controller in AWS Eks environment Need manually enable the Proxy protocol V2 in NLB target group just only TCP https 443 listener Rather than TCP http 80 listener Multiple SSL certificate need manually add to NLB The http redirect to https, need to change some paramets 1	# use http-snippet and open proxy protocol 2 use-proxy-protocol: &amp;#39;true&amp;#39; 3 use-forwarded-headers: &amp;#39;true&amp;#39; 4 server-tokens: &amp;#39;false&amp;#39; 5 http-snippet: | 6 server { 7 listen 8000; 8 return 308 https://$host$request_uri; 9 } 10 proxy-real-ip-cidr: ${join(&amp;#34;,&amp;#34;, var.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -72,9 +114,16 @@ A large part of this is due to the removal of the Apiservice Resources from Meti
       <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/k8s-backup-restore-using-velero/</guid>
-      <description>Installing or Upgrade Velero client on Mac OS:
+      <description>
+        
+          
+            Installing or Upgrade Velero client on Mac OS:
 1	brew install velero 2	HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade velero #upgrade to the latest version if maybe The Velero should use object store save the snapshot. so we use Minio as kubernetes object store.Minio launched as part of docker-compose.yaml
-1	minio: 2 container_name: &amp;#34;minio&amp;#34; 3 image: minio/minio 4 command: &amp;#34;server /data&amp;#34; 5 ports: 6 - &amp;#34;9000:9000&amp;#34; 7 environment: 8 MINIO_ACCESS_KEY: “xxxxxxx” 9 MINIO_SECRET_KEY: “xxxxxxx” 10 volumes: 11 - &amp;#34;.</description>
+1	minio: 2 container_name: &amp;#34;minio&amp;#34; 3 image: minio/minio 4 command: &amp;#34;server /data&amp;#34; 5 ports: 6 - &amp;#34;9000:9000&amp;#34; 7 environment: 8 MINIO_ACCESS_KEY: “xxxxxxx” 9 MINIO_SECRET_KEY: “xxxxxxx” 10 volumes: 11 - &amp;#34;.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -83,9 +132,16 @@ A large part of this is due to the removal of the Apiservice Resources from Meti
       <pubDate>Thu, 03 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/custom-domain-name-in-k8s/</guid>
-      <description>We use default service domain name ${servicename}.${namespace}.svc.cluster.localin kubernetes cluster, however the custom private domain name in private k8s networks frequently used. we can use coredns component reparse the private domain name to default CNAME.
+      <description>
+        
+          
+            We use default service domain name ${servicename}.${namespace}.svc.cluster.localin kubernetes cluster, however the custom private domain name in private k8s networks frequently used. we can use coredns component reparse the private domain name to default CNAME.
 change coredns configmap add custom domain name config to yaml kubectl edit cm coredns -n kube-system
-1data: 2 Corefile: | 3 .:53 { 4 errors 5 health { 6 lameduck 5s 7 } 8 ready 9 kubernetes cluster.</description>
+1data: 2 Corefile: | 3 .:53 { 4 errors 5 health { 6 lameduck 5s 7 } 8 ready 9 kubernetes cluster.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -94,7 +150,10 @@ change coredns configmap add custom domain name config to yaml kubectl edit cm c
       <pubDate>Tue, 25 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/k8s-common-command-conclusion/</guid>
-      <description>When we use the Kubernetes platform,has many commands is important:
+      <description>
+        
+          
+            When we use the Kubernetes platform,has many commands is important:
 The k command is alias to kubectl
 label for nodes kubectl label nodes host02 disktype=ssd
 view local config for kubernetes context k config get-contexts
@@ -103,7 +162,11 @@ force delete pod, sometimes the pod still terminating.
 k delete pods &amp;lt;pod&amp;gt; -n &amp;lt;namespace&amp;gt; --grace-period=0 --force
 get all resource in current kubernetes cluster
 k get all --all-namespaces
-view job logs</description>
+view job logs
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -112,8 +175,15 @@ view job logs</description>
       <pubDate>Sat, 22 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/generate-crds-api-k8s/</guid>
-      <description>Why does this article exist because when we use Kubesphere. the go client code need to use the client objects of K8s but dosen&amp;rsquo;t provider the s2ibinary object client code. https://github.com/kubesphere/s2ioperator/tree/master/pkg/client/clientset/versioned/typed/devops/v1alpha1
-Prepare directory structure and resource defination files The doc.go include content: 1// +k8s:deepcopy-gen=package,register 2// +k8s:defaulter-gen=TypeMeta 3// +groupName=devops.kubesphere.io 4package v1alpha1 The register.go main defination custom resources GroupName and GroupVersion 1package v1alpha1 2 3import ( 4 &amp;#34;k8s.io/apimachinery/pkg/runtime/schema&amp;#34; 5 &amp;#34;sigs.k8s.io/controller-runtime/pkg/scheme&amp;#34; 6) 7 8type CodeFramework string 9 10const ( 11 Ruby CodeFramework = &amp;#34;ruby&amp;#34; 12 Go CodeFramework = &amp;#34;go&amp;#34; 13 Java CodeFramework = &amp;#34;Java&amp;#34; 14 JavaTomcat CodeFramework = &amp;#34;JavaTomcat&amp;#34; 15 Nodejs CodeFramework = &amp;#34;Nodejs&amp;#34; 16 Python CodeFramework = &amp;#34;python&amp;#34; 17 GroupName string = &amp;#34;devops.</description>
+      <description>
+        
+          
+            Why does this article exist because when we use Kubesphere. the go client code need to use the client objects of K8s but dosen&amp;rsquo;t provider the s2ibinary object client code. https://github.com/kubesphere/s2ioperator/tree/master/pkg/client/clientset/versioned/typed/devops/v1alpha1
+Prepare directory structure and resource defination files The doc.go include content: 1// +k8s:deepcopy-gen=package,register 2// +k8s:defaulter-gen=TypeMeta 3// +groupName=devops.kubesphere.io 4package v1alpha1 The register.go main defination custom resources GroupName and GroupVersion 1package v1alpha1 2 3import ( 4 &amp;#34;k8s.io/apimachinery/pkg/runtime/schema&amp;#34; 5 &amp;#34;sigs.k8s.io/controller-runtime/pkg/scheme&amp;#34; 6) 7 8type CodeFramework string 9 10const ( 11 Ruby CodeFramework = &amp;#34;ruby&amp;#34; 12 Go CodeFramework = &amp;#34;go&amp;#34; 13 Java CodeFramework = &amp;#34;Java&amp;#34; 14 JavaTomcat CodeFramework = &amp;#34;JavaTomcat&amp;#34; 15 Nodejs CodeFramework = &amp;#34;Nodejs&amp;#34; 16 Python CodeFramework = &amp;#34;python&amp;#34; 17 GroupName string = &amp;#34;devops.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -122,8 +192,15 @@ Prepare directory structure and resource defination files The doc.go include con
       <pubDate>Thu, 20 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/setup-cloudfoundry-in-k8s/</guid>
-      <description>First prepare the tools installation in host: Kind: https://kind.sigs.k8s.io/docs/user/quick-start/ Cf command: https://docs.cloudfoundry.org/cf-cli/install-go-cli.html HOMEBREW_NO_AUTO_UPDATE=1 brew install cloudfoundry/tap/cf-cli@6 or HOMEBREW_NO_AUTO_UPDATE=1 brew install cloudfoundry/tap/cf-cli@7 Kubectl command: https://kubernetes.io/docs/tasks/tools/install-kubectl/ Helm: https://helm.sh/docs/intro/install/ The Kind must definiation config.yml, refer to expose http(80) and https(443) ports to host machine, because the k8s cluster node ip is internal-ip created by Kind such as: 172.18.0.2
-1kind: Cluster 2apiVersion: kind.x-k8s.io/v1alpha4 3networking: 4 # WARNING: It is _strongly_ recommended that you keep this the default 5 # (127.</description>
+      <description>
+        
+          
+            First prepare the tools installation in host: Kind: https://kind.sigs.k8s.io/docs/user/quick-start/ Cf command: https://docs.cloudfoundry.org/cf-cli/install-go-cli.html HOMEBREW_NO_AUTO_UPDATE=1 brew install cloudfoundry/tap/cf-cli@6 or HOMEBREW_NO_AUTO_UPDATE=1 brew install cloudfoundry/tap/cf-cli@7 Kubectl command: https://kubernetes.io/docs/tasks/tools/install-kubectl/ Helm: https://helm.sh/docs/intro/install/ The Kind must definiation config.yml, refer to expose http(80) and https(443) ports to host machine, because the k8s cluster node ip is internal-ip created by Kind such as: 172.18.0.2
+1kind: Cluster 2apiVersion: kind.x-k8s.io/v1alpha4 3networking: 4 # WARNING: It is _strongly_ recommended that you keep this the default 5 # (127.
+          
+          
+        
+      </description>
     </item>
     
   </channel>

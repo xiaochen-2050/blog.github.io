@@ -13,8 +13,15 @@
       <pubDate>Mon, 10 Jan 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/awesome-blog-resources/</guid>
-      <description>There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
-Recommend getting stared study resources https://docs.microsoft.com/en-us/learn/browse/(Microsoft products with step-by-step guidance) https://developer.mozilla.org/en-US/docs/Learn(Mizzla learn guides about web development) https://programming.guide/go/(Articles on Programming Guide) https://gobyexample.com/(hands-on introduction to Go using annotated example programs) https://roadmap.sh/(Step by step guides and paths to learn different tools or technologies) https://zetcode.com/(provides accessible tutorials for Go, C#, Python, Java, and JavaScript programming languages.</description>
+      <description>
+        
+          
+            There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
+Recommend getting stared study resources https://docs.microsoft.com/en-us/learn/browse/(Microsoft products with step-by-step guidance) https://developer.mozilla.org/en-US/docs/Learn(Mizzla learn guides about web development) https://programming.guide/go/(Articles on Programming Guide) https://gobyexample.com/(hands-on introduction to Go using annotated example programs) https://roadmap.sh/(Step by step guides and paths to learn different tools or technologies) https://zetcode.com/(provides accessible tutorials for Go, C#, Python, Java, and JavaScript programming languages.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -23,10 +30,17 @@ Recommend getting stared study resources https://docs.microsoft.com/en-us/learn/
       <pubDate>Wed, 16 Aug 2017 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/hugo-usage-issues/</guid>
-      <description>Update: 2021/10 when pull at other location or machine, the submodule settings is lost, need reinitialization the submodule, only exec following this command:
+      <description>
+        
+          
+            Update: 2021/10 when pull at other location or machine, the submodule settings is lost, need reinitialization the submodule, only exec following this command:
 1git submodule update --init --recursive Usage scene In my github repo initialize two repos
 One to storage Hugo sourcecode and markdown files And other one use release finaly site resources Has two folders themes and public as github submodes
-1 git submodule add https://github.com/don.chen/blog.github.io public 2 git submodule update --init and every time wited markdown article and execute</description>
+1 git submodule add https://github.com/don.chen/blog.github.io public 2 git submodule update --init and every time wited markdown article and execute
+          
+          
+        
+      </description>
     </item>
     
   </channel>

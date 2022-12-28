@@ -13,9 +13,16 @@
       <pubDate>Wed, 20 Oct 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/launch-hashistack-through-ansible/</guid>
-      <description>Sometimes we need to manage distributed task scheduling and secure clandestine transport, so introducing HashiStack is a good choice
+      <description>
+        
+          
+            Sometimes we need to manage distributed task scheduling and secure clandestine transport, so introducing HashiStack is a good choice
 Prepare Ansible script and playbook I choice the following playbook roles for stacks,But I changed things to suit my own needs
-Consul: github url Nomad: github url Vault use both repo community-ansibleand MiteshSharma/AnsiblevaultRole 1# The playbook folder level 2├── site.yml 3├── nomad-dev.local 4├── ansible.cfg 5├── roles 6│ ├── consul 7│ └── nomad 8│ └── vault 9└── group_vars 10 ├── consul 11 └── nomad 12 └── vault the ansible.</description>
+Consul: github url Nomad: github url Vault use both repo community-ansibleand MiteshSharma/AnsiblevaultRole 1# The playbook folder level 2├── site.yml 3├── nomad-dev.local 4├── ansible.cfg 5├── roles 6│ ├── consul 7│ └── nomad 8│ └── vault 9└── group_vars 10 ├── consul 11 └── nomad 12 └── vault the ansible.
+          
+          
+        
+      </description>
     </item>
     
   </channel>

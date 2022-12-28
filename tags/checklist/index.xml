@@ -13,12 +13,19 @@
       <pubDate>Wed, 06 Apr 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/kubernetes-security-checklist/</guid>
-      <description>Cloud native workflow security checklist
+      <description>
+        
+          
+            Cloud native workflow security checklist
 Development security Integrate Code Scanning at the CI/CD Process
 SAST (Static Application Security Testing) tools sonarqube, gosec various language lint itegration the IDE plugins Enabled the gitlab ci security or github action scan Reduce external vulnerabilities via dependency scanning
 various language dependency check(npm, maven, go.mod, reqirements.txt) dependency-check plugin Use image scanning to analyze container images
 Avoid unnecessary privileges
-Rootless containers Make sure the user specified in the USER instruction exists inside the container.</description>
+Rootless containers Make sure the user specified in the USER instruction exists inside the container.
+          
+          
+        
+      </description>
     </item>
     
   </channel>

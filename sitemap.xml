@@ -323,5 +323,7 @@
     <loc>https://blog.wisekee.com/categories/</loc>
   </url><url>
     <loc>https://blog.wisekee.com/tags/index/</loc>
+  </url><url>
+    <loc>https://blog.wisekee.com/search/</loc>
   </url>
 </urlset>

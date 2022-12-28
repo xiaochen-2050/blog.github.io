@@ -13,10 +13,17 @@
       <pubDate>Wed, 16 Aug 2017 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/hugo-usage-issues/</guid>
-      <description>Update: 2021/10 when pull at other location or machine, the submodule settings is lost, need reinitialization the submodule, only exec following this command:
+      <description>
+        
+          
+            Update: 2021/10 when pull at other location or machine, the submodule settings is lost, need reinitialization the submodule, only exec following this command:
 1git submodule update --init --recursive Usage scene In my github repo initialize two repos
 One to storage Hugo sourcecode and markdown files And other one use release finaly site resources Has two folders themes and public as github submodes
-1 git submodule add https://github.com/don.chen/blog.github.io public 2 git submodule update --init and every time wited markdown article and execute</description>
+1 git submodule add https://github.com/don.chen/blog.github.io public 2 git submodule update --init and every time wited markdown article and execute
+          
+          
+        
+      </description>
     </item>
     
   </channel>

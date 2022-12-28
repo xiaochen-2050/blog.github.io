@@ -13,7 +13,14 @@
       <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/aws-network-secrutiy-enhance/</guid>
-      <description>Vpc network division According to the requirements of the product and the customer, the two services of the two types of subnets are isolated. For example, DBsubnet01 and DBsubnet02 are both internal private subnets and belong to different product segments. ​	The two major subnet types are the intranet and the extranet. The internal network goes to the NAT Gateway, and the external network goes to the Internet Gateway. Like: RDS, Redis, background services, etc.</description>
+      <description>
+        
+          
+            Vpc network division According to the requirements of the product and the customer, the two services of the two types of subnets are isolated. For example, DBsubnet01 and DBsubnet02 are both internal private subnets and belong to different product segments. ​	The two major subnet types are the intranet and the extranet. The internal network goes to the NAT Gateway, and the external network goes to the Internet Gateway. Like: RDS, Redis, background services, etc.
+          
+          
+        
+      </description>
     </item>
     
   </channel>

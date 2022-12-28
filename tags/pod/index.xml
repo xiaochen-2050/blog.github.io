@@ -13,9 +13,16 @@
       <pubDate>Thu, 10 Mar 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/k8s-app-runtime-sparate/</guid>
-      <description>In a k8s environment, it is a good choice to have the application runtime and source code build packages separated in separate containers
+      <description>
+        
+          
+            In a k8s environment, it is a good choice to have the application runtime and source code build packages separated in separate containers
 Smallest source code build image use a smallest base image to build docker image store source code build result package
-1FROM alpine:latest 2WORKDIR /var/www 3COPY app /var/www/app Use different images of the runtime environment according to different programming languages 1FROM python:3.6.15-slim 2 3RUN pip install boto3 Build app image and runtime image 1# build the app image 2docker build .</description>
+1FROM alpine:latest 2WORKDIR /var/www 3COPY app /var/www/app Use different images of the runtime environment according to different programming languages 1FROM python:3.6.15-slim 2 3RUN pip install boto3 Build app image and runtime image 1# build the app image 2docker build .
+          
+          
+        
+      </description>
     </item>
     
   </channel>

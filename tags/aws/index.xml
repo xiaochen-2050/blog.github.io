@@ -13,8 +13,15 @@
       <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/aws-local-development/</guid>
-      <description>When you develop components locally that rely on AWS, it can be cumbersome to configure authentication information, and sometimes network latency. It is important to mock with a native AWS component, which can:localstack I&amp;rsquo;m using Docker-Compose here to start a set of tools that local development depends on：
-The docker-compose.yml looks like this following 1version: &amp;#39;3&amp;#39; 2 3services: 4 mongodb: 5 image: mongo:3.4.1 6 volumes: 7 - &amp;#39;./easymock/data/db:/data/db&amp;#39; 8 networks: 9 - easy-mock 10 ports: 11 - &amp;#34;27017:27017&amp;#34; 12 restart: always 13 container_name: mongodb 14 15 redis: 16 image: redis:4.</description>
+      <description>
+        
+          
+            When you develop components locally that rely on AWS, it can be cumbersome to configure authentication information, and sometimes network latency. It is important to mock with a native AWS component, which can:localstack I&amp;rsquo;m using Docker-Compose here to start a set of tools that local development depends on：
+The docker-compose.yml looks like this following 1version: &amp;#39;3&amp;#39; 2 3services: 4 mongodb: 5 image: mongo:3.4.1 6 volumes: 7 - &amp;#39;./easymock/data/db:/data/db&amp;#39; 8 networks: 9 - easy-mock 10 ports: 11 - &amp;#34;27017:27017&amp;#34; 12 restart: always 13 container_name: mongodb 14 15 redis: 16 image: redis:4.
+          
+          
+        
+      </description>
     </item>
     
     <item>
@@ -23,7 +30,14 @@ The docker-compose.yml looks like this following 1version: &amp;#39;3&amp;#39; 2
       <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/aws-network-secrutiy-enhance/</guid>
-      <description>Vpc network division According to the requirements of the product and the customer, the two services of the two types of subnets are isolated. For example, DBsubnet01 and DBsubnet02 are both internal private subnets and belong to different product segments. ​	The two major subnet types are the intranet and the extranet. The internal network goes to the NAT Gateway, and the external network goes to the Internet Gateway. Like: RDS, Redis, background services, etc.</description>
+      <description>
+        
+          
+            Vpc network division According to the requirements of the product and the customer, the two services of the two types of subnets are isolated. For example, DBsubnet01 and DBsubnet02 are both internal private subnets and belong to different product segments. ​	The two major subnet types are the intranet and the extranet. The internal network goes to the NAT Gateway, and the external network goes to the Internet Gateway. Like: RDS, Redis, background services, etc.
+          
+          
+        
+      </description>
     </item>
     
   </channel>

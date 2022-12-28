@@ -13,9 +13,16 @@
       <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/k8s-backup-restore-using-velero/</guid>
-      <description>Installing or Upgrade Velero client on Mac OS:
+      <description>
+        
+          
+            Installing or Upgrade Velero client on Mac OS:
 1	brew install velero 2	HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade velero #upgrade to the latest version if maybe The Velero should use object store save the snapshot. so we use Minio as kubernetes object store.Minio launched as part of docker-compose.yaml
-1	minio: 2 container_name: &amp;#34;minio&amp;#34; 3 image: minio/minio 4 command: &amp;#34;server /data&amp;#34; 5 ports: 6 - &amp;#34;9000:9000&amp;#34; 7 environment: 8 MINIO_ACCESS_KEY: “xxxxxxx” 9 MINIO_SECRET_KEY: “xxxxxxx” 10 volumes: 11 - &amp;#34;.</description>
+1	minio: 2 container_name: &amp;#34;minio&amp;#34; 3 image: minio/minio 4 command: &amp;#34;server /data&amp;#34; 5 ports: 6 - &amp;#34;9000:9000&amp;#34; 7 environment: 8 MINIO_ACCESS_KEY: “xxxxxxx” 9 MINIO_SECRET_KEY: “xxxxxxx” 10 volumes: 11 - &amp;#34;.
+          
+          
+        
+      </description>
     </item>
     
   </channel>

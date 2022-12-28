@@ -13,8 +13,15 @@
       <pubDate>Fri, 10 Sep 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wisekee.com/post/docker-compose-elk/</guid>
-      <description>install ELK stack use docker-compose Install and setup ELK stack in single machine use docker compose service. and uesfilebeat ship the logs
-settings the centos system 1sudo yum install -y yum-utils 2sudo yum-config-manager \ 3 --add-repo \ 4 https://download.docker.com/linux/centos/docker-ce.repo 5sudo yum install docker-ce docker-ce-cli containerd.io 6systemctl enable docker 7systemctl start docker 8# install the docker-compose 9sudo curl -L &amp;#34;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&amp;#34; -o /usr/local/bin/docker-compose 10chmod +x /usr/local/bin/docker-compose 11 12# adjust the system parmeters 13echo &amp;#34;vm.</description>
+      <description>
+        
+          
+            install ELK stack use docker-compose Install and setup ELK stack in single machine use docker compose service. and uesfilebeat ship the logs
+settings the centos system 1sudo yum install -y yum-utils 2sudo yum-config-manager \ 3 --add-repo \ 4 https://download.docker.com/linux/centos/docker-ce.repo 5sudo yum install docker-ce docker-ce-cli containerd.io 6systemctl enable docker 7systemctl start docker 8# install the docker-compose 9sudo curl -L &amp;#34;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&amp;#34; -o /usr/local/bin/docker-compose 10chmod +x /usr/local/bin/docker-compose 11 12# adjust the system parmeters 13echo &amp;#34;vm.
+          
+          
+        
+      </description>
     </item>
     
   </channel>
