@@ -295,23 +295,25 @@
 </span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">                </span><span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${local.velero.prefix}&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">            </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l">aws</span><span class="w">
 </span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">            </span><span class="nt">volumeSnapshotLocation</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">                </span><span class="nt">config</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">                </span><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${local.region}&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">        </span><span class="nt">credentials</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">            </span><span class="nt">useSecret</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">        </span><span class="nt">initContainers</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">velero-plugin-for-aws</span><span class="w">
-</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">velero/velero-plugin-for-aws:v1.2.0</span><span class="w">
-</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">          </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">          </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/target</span><span class="w">
-</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">plugins</span><span class="w">
-</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">        </span><span class="l">EOF</span><span class="w">
-</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w">    </span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w">    </span><span class="l">depends_on = [</span><span class="w">
-</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w">      </span><span class="l">kubernetes_namespace.velero-system</span><span class="w">
-</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w">    </span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">aws-volumesnapshot</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">                </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l">aws</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">                </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">                </span><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${local.region}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">        </span><span class="nt">credentials</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">            </span><span class="nt">useSecret</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">        </span><span class="nt">initContainers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">velero-plugin-for-aws</span><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">velero/velero-plugin-for-aws:v1.2.0</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">          </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">          </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/target</span><span class="w">
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">plugins</span><span class="w">
+</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w">        </span><span class="l">EOF</span><span class="w">
+</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w">    </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w">    </span><span class="l">depends_on = [</span><span class="w">
+</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w">      </span><span class="l">kubernetes_namespace.velero-system</span><span class="w">
+</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w">    </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="w"></span>}<span class="w">
 </span></span></span></code></pre></div><ul>
 <li>second use velero client command operation backup and restore
 because velero not have install default namespace, so need <code>-n</code> parameter refer to namespace</li>
@@ -328,6 +330,8 @@ because velero not have install default namespace, so need <code>-n</code> param
 </span></span><span class="line"><span class="ln">10</span><span class="cl">velero backup logs 2022-12-28-backup -n velero-system
 </span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="c1"># delete backup </span>
 </span></span><span class="line"><span class="ln">12</span><span class="cl">velero backup delete 2022-12-28-backup -n velero-system
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="c1"># backup full eks cluster and refer to snapshot :</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">velero backup create 2023-2-3-backup-02 -n backup-system --snapshot-volumes
 </span></span></code></pre></div>
     </div>
 <div class="post_comments">
@@ -371,6 +375,15 @@ because velero not have install default namespace, so need <code>-n</code> param
         <a href="https://blog.wisekee.com/post/local-proxychain-tools/" class="nav-link" title="Local fast proxy chain access tool">Local fast proxy chain access tool</a>
       </li>
       <li>
+        <a href="https://blog.wisekee.com/post/macos-docker-notworking/" class="nav-link" title="Docker can&#39;t start in mac os">Docker can&rsquo;t start in mac os</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/istio-getting-started/" class="nav-link" title="istio getting started">istio getting started</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/kong-and-konga-deployment/" class="nav-link" title="Kong and Konga deployment">Kong and Konga deployment</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/falco-reverse-shell-rules/" class="nav-link" title="Falco reverse shell detecting">Falco reverse shell detecting</a>
       </li>
       <li>
@@ -382,22 +395,13 @@ because velero not have install default namespace, so need <code>-n</code> param
       <li>
         <a href="https://blog.wisekee.com/post/awesome-open-source/" class="nav-link" title="Awesome open resoure tools and project">Awesome open resoure tools and project</a>
       </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/awesome-blog-resources/" class="nav-link" title="Awesome blog&#39;s resoures">Awesome blog&rsquo;s resoures</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/software-deployment-security-terminology/" class="nav-link" title="Software development security lifecycle terminology">Software development security lifecycle terminology</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/go-private-package-registry-athens/" class="nav-link" title="Go language private registry glance">Go language private registry glance</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="tags-section"></h2>
       <nav class="tags_nav">
         <a href='https://blog.wisekee.com/tags/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">11</span>
+          <span class="button_tally">12</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/k8s/' class="post_tag button button_translucent" title="k8s">
@@ -410,6 +414,11 @@ because velero not have install default namespace, so need <code>-n</code> param
           <span class="button_tally">8</span>
         </a>
         
+        <a href='https://blog.wisekee.com/tags/cncf/' class="post_tag button button_translucent" title="cncf">
+          CNCF
+          <span class="button_tally">6</span>
+        </a>
+        
         <a href='https://blog.wisekee.com/tags/terraform/' class="post_tag button button_translucent" title="terraform">
           TERRAFORM
           <span class="button_tally">6</span>
@@ -420,18 +429,13 @@ because velero not have install default namespace, so need <code>-n</code> param
           <span class="button_tally">5</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/ansible/' class="post_tag button button_translucent" title="ansible">
-          ANSIBLE
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://blog.wisekee.com/tags/cncf/' class="post_tag button button_translucent" title="cncf">
-          CNCF
-          <span class="button_tally">3</span>
-        </a>
-        
         <a href='https://blog.wisekee.com/tags/docker/' class="post_tag button button_translucent" title="docker">
           DOCKER
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='https://blog.wisekee.com/tags/ansible/' class="post_tag button button_translucent" title="ansible">
+          ANSIBLE
           <span class="button_tally">3</span>
         </a>
         
@@ -515,7 +519,7 @@ because velero not have install default namespace, so need <code>-n</code> param
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=3 title="cncf">CNCF<span class="button_tally">3</span>
+            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=6 title="cncf">CNCF<span class="button_tally">6</span>
             </a>
             
             
@@ -539,7 +543,7 @@ because velero not have install default namespace, so need <code>-n</code> param
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/docker/' class=" post_tag button button_translucent" data-position=3 title="docker">DOCKER<span class="button_tally">3</span>
+            <a href='https://blog.wisekee.com/tags/docker/' class=" post_tag button button_translucent" data-position=4 title="docker">DOCKER<span class="button_tally">4</span>
             </a>
             
             
@@ -615,7 +619,19 @@ because velero not have install default namespace, so need <code>-n</code> param
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/istio/' class=" post_tag button button_translucent" data-position=1 title="istio">ISTIO<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/k8s/' class=" post_tag button button_translucent" data-position=9 title="k8s">K8S<span class="button_tally">9</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/kong/' class=" post_tag button button_translucent" data-position=1 title="kong">KONG<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/konga/' class=" post_tag button button_translucent" data-position=1 title="konga">KONGA<span class="button_tally">1</span>
             </a>
             
             
@@ -623,7 +639,7 @@ because velero not have install default namespace, so need <code>-n</code> param
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/kubernetes/' class=" post_tag button button_translucent" data-position=11 title="kubernetes">KUBERNETES<span class="button_tally">11</span>
+            <a href='https://blog.wisekee.com/tags/kubernetes/' class=" post_tag button button_translucent" data-position=12 title="kubernetes">KUBERNETES<span class="button_tally">12</span>
             </a>
             
             
@@ -636,6 +652,10 @@ because velero not have install default namespace, so need <code>-n</code> param
             
             
             <a href='https://blog.wisekee.com/tags/logstash/' class=" post_tag button button_translucent" data-position=1 title="logstash">LOGSTASH<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/macos/' class=" post_tag button button_translucent" data-position=1 title="macos">MACOS<span class="button_tally">1</span>
             </a>
             
             

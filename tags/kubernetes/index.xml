@@ -6,7 +6,23 @@
     <description>Recent content in kubernetes on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Mon, 15 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 05 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>istio getting started</title>
+      <link>https://blog.wisekee.com/post/istio-getting-started/</link>
+      <pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/istio-getting-started/</guid>
+      <description>
+        
+          
+            installing the istio 1# downloading the istio compress archive and the script will auto uncompress 2curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.16.1 sh - 3# for easier usage 4export PATH=$PWD/bin:$PATH 5# check the version 6./bin/istioctl version 7# check the requirments 8./bin/istioctl x precheck 9# installing components to local k8s cluster 10./bin/istioctl install --set profile=demo -y 11# enable injection in the default namespace 12kubectl label namespace default istio-injection=enabled 13# verify the install result 14istioctl verify-install Deploy the Testing Apps 1kubectl apply -f samples/sleep/sleep.
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Offline install and setup kubernetes cluster in internal network</title>
       <link>https://blog.wisekee.com/post/k8s-cluster-offline-setup/</link>

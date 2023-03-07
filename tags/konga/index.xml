@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>konga on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/konga/</link>
+    <description>Recent content in konga on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sat, 05 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/konga/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kong and Konga deployment</title>
+      <link>https://blog.wisekee.com/post/kong-and-konga-deployment/</link>
+      <pubDate>Sat, 05 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/kong-and-konga-deployment/</guid>
+      <description>
+        
+          
+            Installing the Kong use docker compose 1git clone https://github.com/Kong/docker-kong 2cd docker-kong/compose/ 3KONG_DATABASE=postgres docker-compose --profile database up Running Kong admin use docker 1# refer to network name with kong docker compose resource same. 2# https://hub.docker.com/r/pantsel/konga/ 3docker run --platform=linux/amd64 -it --rm -p 1337:1337 --network compose_kong-net --name konga -e &amp;#34;NODE_ENV=production&amp;#34; -e &amp;#34;TOKEN_SECRET=xxxxxxx&amp;#34; pantsel/konga Setting Kong 1# add kong admin api to services 2curl --location --request POST &amp;#39;http://localhost:8001/services/&amp;#39; \ 3--header &amp;#39;Content-Type: application/json&amp;#39; \ 4--data-raw &amp;#39;{ 5 &amp;#34;name&amp;#34;: &amp;#34;admin-api&amp;#34;, 6 &amp;#34;host&amp;#34;: &amp;#34;localhost&amp;#34;, 7 &amp;#34;port&amp;#34;: 8001 8}&amp;#39; 9# add admin api route 10curl --location --request POST &amp;#39;http://localhost:8001/services/admin-api/routes&amp;#39; \ 11--header &amp;#39;Content-Type: application/json&amp;#39; \ 12--data-raw &amp;#39;{ 13 &amp;#34;paths&amp;#34;: [&amp;#34;/admin-api&amp;#34;] 14}&amp;#39; 15# testing admin api from kong gateway 16curl localhost:8000/admin-api/ 17# enable key auth plugin for admin api 18curl -X POST http://localhost:8001/services/admin-api/plugins \ 19 --data &amp;#34;name=key-auth&amp;#34; 20# add kong admin as consumer 21curl --location --request POST &amp;#39;http://localhost:8001/consumers/&amp;#39; \ 22--form &amp;#39;username=konga&amp;#39; \ 23--form &amp;#39;custom_id=cebd360d-3de6-4f8f-81b2-31575fe9846a&amp;#39; 24# create api key form konga 25curl --location --request POST &amp;#39;http://localhost:8001/consumers/e7b420e2-f200-40d0-9d1a-a0df359da56e/key-auth&amp;#39; https://dev.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>
