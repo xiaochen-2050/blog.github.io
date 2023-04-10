@@ -6,7 +6,40 @@
     <description>Recent content in AWS on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Tue, 01 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AWS EKS use farget nodes as pod runtime environments</title>
+      <link>https://blog.wisekee.com/post/aws-eks-farget-nodes/</link>
+      <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-eks-farget-nodes/</guid>
+      <description>
+        
+          
+            For greater isolation and convenience, we can use farget as the run time environment for eks.
+Create eks farget execute role named: AmazonEKSFargatePodExecutionRole the TrustPolicy statements like following 1# trust policy 2{ 3 &amp;#34;Version&amp;#34;: &amp;#34;2012-10-17&amp;#34;, 4 &amp;#34;Statement&amp;#34;: [ 5 { 6 &amp;#34;Effect&amp;#34;: &amp;#34;Allow&amp;#34;, 7 &amp;#34;Principal&amp;#34;: { 8 &amp;#34;Service&amp;#34;: [ 9 &amp;#34;ssm.amazonaws.com&amp;#34;, 10 &amp;#34;eks-fargate-pods.amazonaws.com&amp;#34; 11 ] 12 }, 13 &amp;#34;Action&amp;#34;: &amp;#34;sts:AssumeRole&amp;#34;, 14 &amp;#34;Condition&amp;#34;: { 15 &amp;#34;ArnLike&amp;#34;: { 16 &amp;#34;aws:SourceArn&amp;#34;: &amp;#34;arn:aws:eks:us-east-1:{accountId}:fargateprofile/{clusterName}/*&amp;#34; 17 } 18 } 19 } 20 ] 21} attach the AWS managed policy to farget execution Role AmazonEKSClusterPolicy AmazonEKSFargatePodExecutionRolePolicy Create EKS farget profile in eks console select eks cluster and navigate the compute tab.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>AWS vpc flow logs insight</title>
+      <link>https://blog.wisekee.com/post/aws-logs-insight/</link>
+      <pubDate>Sat, 10 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-logs-insight/</guid>
+      <description>
+        
+          
+            Define pattern for log groups in cloudwatch Create filter pattern filter pattern: [action, azid, bytes, dstaddr,dstport,instanceid,protocol,srcaddr,srcport,subnetid] Metric namespaces Name for metric namespace Metric name: bytes Metric value: $bytes Unit: Bytes Dimensions: Dimension Name: dst-addr, Dimension Value: $dstaddr Determine NAT gateway logs 1fields @timestamp 2| parse @message &amp;#34;* * * * * * * * * *&amp;#34; as action, azid, bytes, dstaddr,dstport,instanceid,protocol,srcaddr,srcport,subnetid 3| stats sum(bytes) as bytesTransferred by srcaddr, dstaddr 4| sort bytesTransferred desc VPC transit gateway flow logs Create filter pattern [version, resource_type, account_id,tgw_id, tgw_attachment_id, tgw_src_vpc_account_id, tgw_dst_vpc_account_id, tgw_src_vpc_id, tgw_dst_vpc_id, tgw_src_subnet_id, tgw_dst_subnet_id, tgw_src_eni, tgw_dst_eni, tgw_src_az_id, tgw_dst_az_id, tgw_pair_attachment_id, srcaddr, dstaddr, srcport, dstport, protocol, packets, bytes,start,end, log_status, type,packets_lost_no_route, packets_lost_blackhole, packets_lost_mtu_exceeded, packets_lost_ttl_expired, tcp_flags,region, flow_direction, pkt_src_aws_service, pkt_dst_aws_service] Metric namespaces Name for metric namespace Metric name: bytes Metric value: $bytes Unit: Bytes Dimensions: Dimension Name: account_id, Dimension Value: $account_id Determine VPC transit gateway logs 1filter @logStream = &amp;#39;tgw-attach-00000-all&amp;#39; 2 | fields @timestamp 3 | parse @message &amp;#34;* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *&amp;#34; as version, resource_type, account_id,tgw_id, tgw_attachment_id, tgw_src_vpc_account_id, tgw_dst_vpc_account_id, tgw_src_vpc_id, tgw_dst_vpc_id, tgw_src_subnet_id, tgw_dst_subnet_id, tgw_src_eni, tgw_dst_eni, tgw_src_az_id, tgw_dst_az_id, tgw_pair_attachment_id, srcaddr, dstaddr, srcport, dstport, protocol, packets, bytes,start,end, log_status, type,packets_lost_no_route, packets_lost_blackhole, packets_lost_mtu_exceeded, packets_lost_ttl_expired, tcp_flags,region, flow_direction, pkt_src_aws_service, pkt_dst_aws_service 
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Quickly debug AWS App locally use Localstack(AWS Mock in local)</title>
       <link>https://blog.wisekee.com/post/aws-local-development/</link>

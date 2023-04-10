@@ -6,7 +6,24 @@
     <description>Recent content in network on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Sun, 05 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/network/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 18 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/network/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Forward the traffic to internal server through iptables rule use bastion server</title>
+      <link>https://blog.wisekee.com/post/iptables-forward-traffic/</link>
+      <pubDate>Mon, 18 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/iptables-forward-traffic/</guid>
+      <description>
+        
+          
+            Sometimes we have access internal service or server in local network,needs through external bastion server bridge to.
+1# The traffic forward to internal environment through bastion iptables rule diagram 2 3# local or office ------&amp;gt; bastion machine ----------&amp;gt; internal server 4# local access bastion-public-ip:8888 -----&amp;gt; bastion iptables rules ----&amp;gt; internal server:80 5 6# display iptalbes nat rules 7iptables -t nat -L 8 9# add prepostrouting rule to chain 10iptables -t nat -A PREROUTING -p tcp -m tcp --dport 8899 -j DNAT --to-destination 192.
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>AWS networking security enhance</title>
       <link>https://blog.wisekee.com/post/aws-network-secrutiy-enhance/</link>

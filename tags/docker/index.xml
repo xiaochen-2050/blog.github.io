@@ -6,7 +6,23 @@
     <description>Recent content in docker on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Mon, 05 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 10 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Debug the docker container network use nsenter command</title>
+      <link>https://blog.wisekee.com/post/docker-nsenter-container-network/</link>
+      <pubDate>Tue, 10 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/docker-nsenter-container-network/</guid>
+      <description>
+        
+          
+            Login in kubernetes node use ssh Find out the container 1#find process id in specific container 2docker top `docker ps|grep &amp;#34;istio-proxy_productpage&amp;#34;|cut -d &amp;#34; &amp;#34; -f1` 3# find the pid and use nsenter to container network namespace 4nsenter -n --target PID 5# View the details of the rule configuration in the NAT table. 6iptables -t nat -L -v 
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Docker can&#39;t start in mac os</title>
       <link>https://blog.wisekee.com/post/macos-docker-notworking/</link>

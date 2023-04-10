@@ -6,7 +6,24 @@
     <description>Recent content in Terraform on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Mon, 15 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/terraform/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/terraform/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installation and configuration istio use helm chat and terraform</title>
+      <link>https://blog.wisekee.com/post/install_istio_helm_chat/</link>
+      <pubDate>Sat, 18 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/install_istio_helm_chat/</guid>
+      <description>
+        
+          
+            Installation and Configuration istio use terraform
+Pull helm chats to local 1# download latest helm chat packages 2helm pull istio/base 3helm pull istio/istiod 4helm pull istio/gateway 5 6# uncompress to relative directory 7tar -xzvf base-1.17.1.tgz 8tar -xzvf istiod-1.17.1.tgz 9tar -xzvf gateway-1.17.1.tgz 10 11# move the istio components to prefer directory 12mv base ~/code/chats/istio-base 13mv istiod ~/code/chats/istiod 14mv gateway ~/code/chats/istio-gateway Create the istio namespace and initialization the base resources 1resource &amp;#34;kubernetes_namespace&amp;#34; &amp;#34;istio_system&amp;#34; { 2 metadata { 3 annotations = { 4 name = &amp;#34;istio-system&amp;#34; 5 } 6 labels = { 7 &amp;#34;kubesphere.
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Offline install and setup kubernetes cluster in internal network</title>
       <link>https://blog.wisekee.com/post/k8s-cluster-offline-setup/</link>

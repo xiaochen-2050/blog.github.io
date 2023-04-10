@@ -3,42 +3,87 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.wisekee.com/</loc>
+    <lastmod>2023-02-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/aws/</loc>
+    <lastmod>2023-02-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/aws-eks-farget-nodes/</loc>
+    <lastmod>2023-02-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/eks/</loc>
+    <lastmod>2023-02-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/aws-eks-placeholde-nodes/</loc>
+    <lastmod>2023-02-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/farget/</loc>
+    <lastmod>2023-02-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/kubernetes/</loc>
+    <lastmod>2023-02-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/</loc>
+    <lastmod>2023-02-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/</loc>
+    <lastmod>2023-02-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/cloud-native/</loc>
+    <lastmod>2023-02-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/install_istio_helm_chat/</loc>
+    <lastmod>2023-02-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/istio/</loc>
+    <lastmod>2023-02-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/terraform/</loc>
+    <lastmod>2023-02-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/aws-traffic-analysis/</loc>
+    <lastmod>2023-01-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/intrusion-detection/</loc>
+    <lastmod>2023-01-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/security/</loc>
+    <lastmod>2023-01-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/traffic/</loc>
+    <lastmod>2023-01-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/docker-nsenter-container-network/</loc>
+    <lastmod>2023-01-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/docker/</loc>
+    <lastmod>2023-01-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/aws-logs-insight/</loc>
+    <lastmod>2022-12-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/insight/</loc>
     <lastmod>2022-12-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/post/local-proxychain-tools/</loc>
     <lastmod>2022-12-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wisekee.com/tags/networking/</loc>
+    <loc>https://blog.wisekee.com/tags/logs/</loc>
     <lastmod>2022-12-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wisekee.com/post/</loc>
+    <loc>https://blog.wisekee.com/tags/networking/</loc>
     <lastmod>2022-12-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/proxy/</loc>
     <lastmod>2022-12-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wisekee.com/tags/security/</loc>
-    <lastmod>2022-12-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/</loc>
-    <lastmod>2022-12-10T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.wisekee.com/tags/cncf/</loc>
-    <lastmod>2022-12-05T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/docker/</loc>
     <lastmod>2022-12-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/post/macos-docker-notworking/</loc>
     <lastmod>2022-12-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wisekee.com/tags/istio/</loc>
-    <lastmod>2022-12-05T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.wisekee.com/post/istio-getting-started/</loc>
-    <lastmod>2022-12-05T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/kubernetes/</loc>
     <lastmod>2022-12-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/macos/</loc>
@@ -52,6 +97,15 @@
   </url><url>
     <loc>https://blog.wisekee.com/tags/konga/</loc>
     <lastmod>2022-11-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/iptables-forward-traffic/</loc>
+    <lastmod>2022-07-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/iptables/</loc>
+    <lastmod>2022-07-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/network/</loc>
+    <lastmod>2022-07-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/falco/</loc>
     <lastmod>2022-05-20T00:00:00+00:00</lastmod>
@@ -114,9 +168,6 @@
     <lastmod>2021-12-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/post/k8s-cluster-offline-setup/</loc>
-    <lastmod>2021-11-15T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/terraform/</loc>
     <lastmod>2021-11-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/ansible/</loc>
@@ -251,9 +302,6 @@
     <loc>https://blog.wisekee.com/post/custom-domain-name-in-k8s/</loc>
     <lastmod>2020-09-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wisekee.com/tags/aws/</loc>
-    <lastmod>2020-09-01T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.wisekee.com/tags/localstack/</loc>
     <lastmod>2020-09-01T00:00:00+00:00</lastmod>
   </url><url>
@@ -305,9 +353,6 @@
     <loc>https://blog.wisekee.com/post/elastalert-usage/</loc>
     <lastmod>2019-07-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wisekee.com/tags/logs/</loc>
-    <lastmod>2019-07-02T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.wisekee.com/tags/monitoring/</loc>
     <lastmod>2019-07-02T00:00:00+00:00</lastmod>
   </url><url>
@@ -318,9 +363,6 @@
     <lastmod>2019-05-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/bastion/</loc>
-    <lastmod>2019-05-05T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/network/</loc>
     <lastmod>2019-05-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/about/</loc>
@@ -349,6 +391,8 @@
   </url><url>
     <loc>https://blog.wisekee.com/post/hugo-usage-issues/</loc>
     <lastmod>2017-08-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/up_and_running_opentelmetry/</loc>
   </url><url>
     <loc>https://blog.wisekee.com/categories/</loc>
   </url><url>
