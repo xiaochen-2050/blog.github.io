@@ -181,20 +181,22 @@
 
     <div class="post_body"><p>Installation and Configuration istio use terraform</p>
 <h4 id="pull-helm-chats-to-local">Pull helm chats to local</h4>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1"># download latest helm chat packages </span>
-</span></span><span class="line"><span class="ln"> 2</span><span class="cl">helm pull istio/base
-</span></span><span class="line"><span class="ln"> 3</span><span class="cl">helm pull istio/istiod
-</span></span><span class="line"><span class="ln"> 4</span><span class="cl">helm pull istio/gateway
-</span></span><span class="line"><span class="ln"> 5</span><span class="cl">
-</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="c1"># uncompress to relative directory</span>
-</span></span><span class="line"><span class="ln"> 7</span><span class="cl">tar -xzvf base-1.17.1.tgz
-</span></span><span class="line"><span class="ln"> 8</span><span class="cl">tar -xzvf istiod-1.17.1.tgz
-</span></span><span class="line"><span class="ln"> 9</span><span class="cl">tar -xzvf gateway-1.17.1.tgz
-</span></span><span class="line"><span class="ln">10</span><span class="cl">
-</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="c1"># move the istio components to prefer directory</span>
-</span></span><span class="line"><span class="ln">12</span><span class="cl">mv base ~/code/chats/istio-base
-</span></span><span class="line"><span class="ln">13</span><span class="cl">mv istiod ~/code/chats/istiod
-</span></span><span class="line"><span class="ln">14</span><span class="cl">mv gateway ~/code/chats/istio-gateway
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1"># add istio helm chat repo url</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">helm repo add istio https://istio-release.storage.googleapis.com/charts
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="c1"># download latest helm chat packages </span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">helm pull istio/base
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">helm pull istio/istiod
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">helm pull istio/gateway
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="c1"># uncompress to relative directory</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">tar -xzvf base-1.17.1.tgz
+</span></span><span class="line"><span class="ln">10</span><span class="cl">tar -xzvf istiod-1.17.1.tgz
+</span></span><span class="line"><span class="ln">11</span><span class="cl">tar -xzvf gateway-1.17.1.tgz
+</span></span><span class="line"><span class="ln">12</span><span class="cl">
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="c1"># move the istio components to prefer directory</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">mv base ~/code/chats/istio-base
+</span></span><span class="line"><span class="ln">15</span><span class="cl">mv istiod ~/code/chats/istiod
+</span></span><span class="line"><span class="ln">16</span><span class="cl">mv gateway ~/code/chats/istio-gateway
 </span></span></code></pre></div><h4 id="create-the-istio-namespace-and-initialization-the-base-resources">Create the istio namespace and initialization the base resources</h4>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">resource <span class="s2">&#34;kubernetes_namespace&#34;</span> <span class="s2">&#34;istio_system&#34;</span> <span class="o">{</span>
 </span></span><span class="line"><span class="ln"> 2</span><span class="cl">    metadata <span class="o">{</span>
@@ -290,7 +292,18 @@
 </span></span><span class="line"><span class="ln">4</span><span class="cl">istioctl proxy-config cluster -n istio-system istio-ingressgateway-7d6874b48f-qxhn5
 </span></span><span class="line"><span class="ln">5</span><span class="cl"> istioctl proxy-config bootstrap -n istio-system istio-ingressgateway-7d6874b48f-qxhn5
 </span></span><span class="line"><span class="ln">6</span><span class="cl">istioctl proxy-config listeners productpage-v1-6c886ff494-7vxhs
-</span></span></code></pre></div><h3 id="create-serviceentry-for-external-traffic">Create ServiceEntry for external traffic</h3>
+</span></span></code></pre></div><h3 id="istio-config">Istio config</h3>
+<ul>
+<li>default the ConfigMap  <code>istio-sidecar-injector</code></li>
+<li>Exactly proxy resource request and limit</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">1</span><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w">      </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w">        </span><span class="nt">sidecar.istio.io/proxyCPU</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;200m&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="w">        </span><span class="nt">sidecar.istio.io/proxyMemoryLimit</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;5Gi&#34;</span><span class="w">
+</span></span></span></code></pre></div><h3 id="create-serviceentry-for-external-traffic">Create ServiceEntry for external traffic</h3>
 <p>adds the ext-svc.example.com external dependency to Istio’s service registry</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">networking.istio.io/v1alpha3</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ServiceEntry</span><span class="w">
@@ -305,6 +318,73 @@
 </span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">HTTPS</span><span class="w">
 </span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">  </span><span class="nt">location</span><span class="p">:</span><span class="w"> </span><span class="l">MESH_EXTERNAL</span><span class="w">
 </span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">  </span><span class="nt">resolution</span><span class="p">:</span><span class="w"> </span><span class="l">DNS</span><span class="w">
+</span></span></span></code></pre></div><h3 id="create-destinationrule-resource">Create DestinationRule resource</h3>
+<p>DestinationRule main specific</p>
+<ul>
+<li>trafficPolicy</li>
+<li>mTLS</li>
+<li>versions to app</li>
+<li></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">networking.istio.io/v1alpha3</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">DestinationRule</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">my-destination-rule</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">my-svc</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">  </span><span class="nt">trafficPolicy</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">    </span><span class="nt">loadBalancer</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">      </span><span class="nt">simple</span><span class="p">:</span><span class="w"> </span><span class="l">RANDOM</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">  </span><span class="nt">subsets</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">  </span><span class="c">#### This will work only if we have defined version label in the deployment</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">      </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">v2</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">      </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l">v2</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">    </span><span class="nt">trafficPolicy</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">      </span><span class="nt">loadBalancer</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">        </span><span class="nt">simple</span><span class="p">:</span><span class="w"> </span><span class="l">ROUND_ROBIN</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">v3</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">      </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l">v3</span><span class="w">
+</span></span></span></code></pre></div><h3 id="create-virtualservice-resource">Create VirtualService resource</h3>
+<p>virtualService include some functional</p>
+<ul>
+<li>timeout</li>
+<li>url prefix match</li>
+<li>redirect</li>
+<li>directResponse</li>
+<li>delegate</li>
+<li>rewrite http url</li>
+<li>retries</li>
+<li>fault</li>
+<li>traffic mirror</li>
+<li>corsPolicy</li>
+<li>set request header and response header</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">networking.istio.io/v1alpha3</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">VirtualService</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">gateway-proxy</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">kong</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">  </span>- <span class="l">gateway-v2.homepartners.dev</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">  </span><span class="nt">gateways</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">  </span>- <span class="l">istio-system/istio-external-gateway</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">  </span><span class="nt">http</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">gateway-proxy</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">    </span><span class="c"># match:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">    </span><span class="c"># - uri:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">    </span><span class="c">#     prefix: &#34;/*&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">    </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l">5s</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">    </span><span class="nt">route</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">      </span>- <span class="nt">destination</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">          </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">gateway-proxy.kong.svc.cluster.local</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">          </span><span class="nt">port</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">            </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
 </span></span></span></code></pre></div><h3 id="more-case-learn-can-view-github-sampleshttpsgithubcomistioistiotreemastersamples">More case learn can view <a href="https://github.com/istio/istio/tree/master/samples">github samples</a></h3>
 
     </div>
@@ -346,28 +426,28 @@
     <h2 class="mt-4"></h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.wisekee.com/post/up_and_running_opentelmetry/" class="nav-link" title="Launch OpenTelemetry in eks and collect the metric, trace, logs">Launch OpenTelemetry in eks and collect the metric, trace, logs</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/opensource-security-tools/" class="nav-link" title="Open source security tools for beginners">Open source security tools for beginners</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/falco&#43;falcosidekick&#43;ui/" class="nav-link" title="Setting up falco&#43;falcosidekick&#43;ui in kubernetes cluster">Setting up falco+falcosidekick+ui in kubernetes cluster</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/aws-eks-farget-nodes/" class="nav-link" title="AWS EKS use farget nodes as pod runtime environments">AWS EKS use farget nodes as pod runtime environments</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/aws-eks-placeholde-nodes/" class="nav-link" title="EKS nodes speed workloads launch time use placeholde free one node">EKS nodes speed workloads launch time use placeholde free one node</a>
       </li>
       <li>
+        <a href="https://blog.wisekee.com/post/istio-intecept-particular-traffic/" class="nav-link" title="Istio intercept particular traffic">Istio intercept particular traffic</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/install_istio_helm_chat/" class="nav-link" title="Installation and configuration istio use helm chat and terraform">Installation and configuration istio use helm chat and terraform</a>
       </li>
       <li>
-        <a href="https://blog.wisekee.com/post/aws-traffic-analysis/" class="nav-link" title="AWS traffic security analysis and mirror">AWS traffic security analysis and mirror</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/docker-nsenter-container-network/" class="nav-link" title="Debug the docker container network use nsenter command">Debug the docker container network use nsenter command</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/aws-logs-insight/" class="nav-link" title="AWS vpc flow logs insight">AWS vpc flow logs insight</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/local-proxychain-tools/" class="nav-link" title="Local fast proxy chain access tool">Local fast proxy chain access tool</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/macos-docker-notworking/" class="nav-link" title="Docker can&#39;t start in mac os">Docker can&rsquo;t start in mac os</a>
+        <a href="https://blog.wisekee.com/post/excellent-shell-script/" class="nav-link" title="Getting started shell script in production from example">Getting started shell script in production from example</a>
       </li>
     </ul>
     <div>
@@ -388,19 +468,19 @@
           <span class="button_tally">8</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/terraform/' class="post_tag button button_translucent" title="terraform">
-          TERRAFORM
-          <span class="button_tally">7</span>
+        <a href='https://blog.wisekee.com/tags/security/' class="post_tag button button_translucent" title="security">
+          SECURITY
+          <span class="button_tally">8</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/cncf/' class="post_tag button button_translucent" title="cncf">
           CNCF
-          <span class="button_tally">6</span>
+          <span class="button_tally">7</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/security/' class="post_tag button button_translucent" title="security">
-          SECURITY
-          <span class="button_tally">6</span>
+        <a href='https://blog.wisekee.com/tags/terraform/' class="post_tag button button_translucent" title="terraform">
+          TERRAFORM
+          <span class="button_tally">7</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/docker/' class="post_tag button button_translucent" title="docker">
@@ -418,6 +498,11 @@
           <span class="button_tally">3</span>
         </a>
         
+        <a href='https://blog.wisekee.com/tags/cloud-native/' class="post_tag button button_translucent" title="cloud-native">
+          CLOUD-NATIVE
+          <span class="button_tally">3</span>
+        </a>
+        
         <a href='https://blog.wisekee.com/tags/elk/' class="post_tag button button_translucent" title="elk">
           ELK
           <span class="button_tally">3</span>
@@ -428,19 +513,14 @@
           <span class="button_tally">3</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/blog/' class="post_tag button button_translucent" title="blog">
-          BLOG
-          <span class="button_tally">2</span>
+        <a href='https://blog.wisekee.com/tags/istio/' class="post_tag button button_translucent" title="istio">
+          ISTIO
+          <span class="button_tally">3</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/cloud/' class="post_tag button button_translucent" title="cloud">
-          CLOUD
-          <span class="button_tally">2</span>
-        </a>
-        
-        <a href='https://blog.wisekee.com/tags/eks/' class="post_tag button button_translucent" title="eks">
-          EKS
-          <span class="button_tally">2</span>
+        <a href='https://blog.wisekee.com/tags/network/' class="post_tag button button_translucent" title="network">
+          NETWORK
+          <span class="button_tally">3</span>
         </a>
         
         
@@ -493,11 +573,11 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/cloud-native/' class=" post_tag button button_translucent" data-position=1 title="cloud-native">CLOUD-NATIVE<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/cloud-native/' class=" post_tag button button_translucent" data-position=3 title="cloud-native">CLOUD-NATIVE<span class="button_tally">3</span>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=6 title="cncf">CNCF<span class="button_tally">6</span>
+            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=7 title="cncf">CNCF<span class="button_tally">7</span>
             </a>
             
             
@@ -553,7 +633,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/falco/' class=" post_tag button button_translucent" data-position=1 title="falco">FALCO<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/falco/' class=" post_tag button button_translucent" data-position=2 title="falco">FALCO<span class="button_tally">2</span>
             </a>
             
             
@@ -617,7 +697,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/istio/' class=" post_tag button button_translucent" data-position=2 title="istio">ISTIO<span class="button_tally">2</span>
+            <a href='https://blog.wisekee.com/tags/istio/' class=" post_tag button button_translucent" data-position=3 title="istio">ISTIO<span class="button_tally">3</span>
             </a>
             
             
@@ -657,11 +737,15 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/metrics/' class=" post_tag button button_translucent" data-position=1 title="metrics">METRICS<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/monitoring/' class=" post_tag button button_translucent" data-position=1 title="monitoring">MONITORING<span class="button_tally">1</span>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/network/' class=" post_tag button button_translucent" data-position=2 title="network">NETWORK<span class="button_tally">2</span>
+            <a href='https://blog.wisekee.com/tags/network/' class=" post_tag button button_translucent" data-position=3 title="network">NETWORK<span class="button_tally">3</span>
             </a>
             
             
@@ -689,7 +773,11 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/open-source/' class=" post_tag button button_translucent" data-position=1 title="open-source">OPEN-SOURCE<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/open-source/' class=" post_tag button button_translucent" data-position=2 title="open-source">OPEN-SOURCE<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/opentelemetry/' class=" post_tag button button_translucent" data-position=1 title="opentelemetry">OPENTELEMETRY<span class="button_tally">1</span>
             </a>
             
             
@@ -717,15 +805,27 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/script/' class=" post_tag button button_translucent" data-position=1 title="script">SCRIPT<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/sdlc/' class=" post_tag button button_translucent" data-position=1 title="sdlc">SDLC<span class="button_tally">1</span>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent" data-position=6 title="security">SECURITY<span class="button_tally">6</span>
+            <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent" data-position=8 title="security">SECURITY<span class="button_tally">8</span>
             </a>
             
             
             <a href='https://blog.wisekee.com/tags/serverless/' class=" post_tag button button_translucent" data-position=1 title="serverless">SERVERLESS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/serviceentry/' class=" post_tag button button_translucent" data-position=1 title="serviceentry">SERVICEENTRY<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/shell/' class=" post_tag button button_translucent" data-position=1 title="shell">SHELL<span class="button_tally">1</span>
             </a>
             
             

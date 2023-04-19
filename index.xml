@@ -6,7 +6,57 @@
     <description>Recent content on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Mon, 20 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Launch OpenTelemetry in eks and collect the metric, trace, logs</title>
+      <link>https://blog.wisekee.com/post/up_and_running_opentelmetry/</link>
+      <pubDate>Sat, 18 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/up_and_running_opentelmetry/</guid>
+      <description>
+        
+          
+            Use Helm+Terraform to installing and initialization the OpenTelmetry and Enable auto instrumentation the workloads
+Dowload the OpenTelmetry Operator Helm package to local 1# add OpenTelemetry chat repo 2helm repo add open-telemetry https://open-telemetry.github.io/opentelemetry-helm-charts 3# pull the chat package 4helm pull open-telemetry/opentelemetry-operator 5# https://github.com/open-telemetry/opentelemetry-demo 6# Or download the opentelmetry-demo chat 7helm pull open-telemetry/opentelemetry-demo 8tar -xzvf opentelemetry-operator-0.24.1.tgz 9tar -xzvf opentelemetry-demo-0.19.1.tgz Create OpenTelmetry resources in Terraform code The namesapce resource named to opentelemetry 1resource &amp;#34;kubernetes_namespace&amp;#34; &amp;#34;opentelemetry&amp;#34; { 2 metadata { 3 annotations = { 4 name = &amp;#34;opentelemetry&amp;#34; 5 } 6 labels = { 7 &amp;#34;kubesphere.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Open source security tools for beginners</title>
+      <link>https://blog.wisekee.com/post/opensource-security-tools/</link>
+      <pubDate>Thu, 02 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/opensource-security-tools/</guid>
+      <description>
+        
+          
+             ossim tcpdump tshark wireshark Nmap skipfish security onion snort zeek openvas,Greenbone Community Edition backbox kali platform penetration testing and security assessmen 
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Setting up falco&#43;falcosidekick&#43;ui in kubernetes cluster</title>
+      <link>https://blog.wisekee.com/post/falco&#43;falcosidekick&#43;ui/</link>
+      <pubDate>Sat, 25 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/falco&#43;falcosidekick&#43;ui/</guid>
+      <description>
+        
+          
+            Today, Cloud Native Security is more and more important. the Falco is sysdig open source cloud security tools.
+We can install to independent host or kubernetes cluster Please reference previous post about basic and install falco: Change every independent machine hostname to a meaningful name 1hostnamectl set-hostname qa-performance-testing Change macro ignore the itself rules change the /etc/falco/falco_rules.yaml to exclude falco event when falco upgrade check the writable 1# add /etc/falco/._check_writable to not fd.
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>AWS EKS use farget nodes as pod runtime environments</title>
       <link>https://blog.wisekee.com/post/aws-eks-farget-nodes/</link>
@@ -33,7 +83,25 @@ Create eks farget execute role named: AmazonEKSFargatePodExecutionRole the Trust
       <description>
         
           
-            Create eks node group label and taint 1labels = { 2 &amp;#34;node-group&amp;#34; : &amp;#34;spotInstances&amp;#34; 3} 4taints = [ 5 { 6 effect = &amp;#34;NO_SCHEDULE&amp;#34; 7 key = &amp;#34;devops&amp;#34; 8 value = &amp;#34;cicdScan&amp;#34; 9 } 10] Create priorityClass one to placeholder other one to nornal schedule 1apiVersion: scheduling.k8s.io/v1 2kind: PriorityClass 3metadata: 4 name: placeholder 5value: 0 6preemptionPolicy: Never 7globalDefault: false 8description: &amp;#39;placeholder&amp;#39; 9--- 10apiVersion: scheduling.k8s.io/v1 11kind: PriorityClass 12metadata: 13 name: normal 14value: 1 15preemptionPolicy: Never 16globalDefault: true # default 17description: &amp;#39;normal&amp;#39; Use placeholde deployment 1apiVersion: apps/v1 2kind: Deployment 3metadata: 4 name: placeholder 5spec: 6 replicas: 1 # how many placeholder node should launch 7 selector: 8 matchLabels: 9 app: placeholder 10 template: 11 metadata: 12 labels: 13 app: placeholder 14 spec: 15 terminationGracePeriodSeconds: 0 # important 16 priorityClassName: placeholder # important 17 containers: 18 - image: nginx:1.
+            Create eks node group label and taint 1labels = { 2 &amp;#34;node-group&amp;#34; : &amp;#34;spotInstances&amp;#34; 3} 4taints = [ 5 { 6 effect = &amp;#34;NO_SCHEDULE&amp;#34; 7 key = &amp;#34;devops&amp;#34; 8 value = &amp;#34;forceSchedule&amp;#34; 9 } 10] Create priorityClass one to placeholder other one to nornal schedule 1apiVersion: scheduling.k8s.io/v1 2kind: PriorityClass 3metadata: 4 name: placeholder 5value: 0 6preemptionPolicy: Never 7globalDefault: false 8description: &amp;#39;placeholder&amp;#39; 9--- 10apiVersion: scheduling.k8s.io/v1 11kind: PriorityClass 12metadata: 13 name: normal 14value: 1 15preemptionPolicy: Never 16globalDefault: true # default 17description: &amp;#39;normal&amp;#39; Use placeholde deployment 1apiVersion: apps/v1 2kind: Deployment 3metadata: 4 name: placeholder 5spec: 6 replicas: 1 # how many placeholder node should launch 7 selector: 8 matchLabels: 9 app: placeholder 10 template: 11 metadata: 12 labels: 13 app: placeholder 14 spec: 15 terminationGracePeriodSeconds: 0 # important 16 priorityClassName: placeholder # important 17 containers: 18 - image: nginx:1.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Istio intercept particular traffic</title>
+      <link>https://blog.wisekee.com/post/istio-intecept-particular-traffic/</link>
+      <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/istio-intecept-particular-traffic/</guid>
+      <description>
+        
+          
+            Sometimes intercept external access traffic in mesh to internal service is needed
+Http to Internal service when access external domain in mesh network when access http://edition.cnn.com in mesh network then should redirect to hello.test-ns.svc.cluster.local internal service.
+Create a ServiceEntry resource to defination the external domain entry 1apiVersion: networking.istio.io/v1alpha3 2kind: ServiceEntry 3metadata: 4 name: redirect-cnn-to-internal 5 namespace: test-ns 6spec: 7 hosts: 8 - edition.cnn.com 9 ports: 10 - number: 80 11 name: http 12 protocol: HTTP 13 - number: 443 14 name: https 15 protocol: HTTPS 16 resolution: NONE Create a VirtualService to serve target traffic 1apiVersion: networking.
           
           
         
@@ -50,7 +118,23 @@ Create eks farget execute role named: AmazonEKSFargatePodExecutionRole the Trust
         
           
             Installation and Configuration istio use terraform
-Pull helm chats to local 1# download latest helm chat packages 2helm pull istio/base 3helm pull istio/istiod 4helm pull istio/gateway 5 6# uncompress to relative directory 7tar -xzvf base-1.17.1.tgz 8tar -xzvf istiod-1.17.1.tgz 9tar -xzvf gateway-1.17.1.tgz 10 11# move the istio components to prefer directory 12mv base ~/code/chats/istio-base 13mv istiod ~/code/chats/istiod 14mv gateway ~/code/chats/istio-gateway Create the istio namespace and initialization the base resources 1resource &amp;#34;kubernetes_namespace&amp;#34; &amp;#34;istio_system&amp;#34; { 2 metadata { 3 annotations = { 4 name = &amp;#34;istio-system&amp;#34; 5 } 6 labels = { 7 &amp;#34;kubesphere.
+Pull helm chats to local 1# add istio helm chat repo url 2helm repo add istio https://istio-release.storage.googleapis.com/charts 3# download latest helm chat packages 4helm pull istio/base 5helm pull istio/istiod 6helm pull istio/gateway 7 8# uncompress to relative directory 9tar -xzvf base-1.17.1.tgz 10tar -xzvf istiod-1.17.1.tgz 11tar -xzvf gateway-1.17.1.tgz 12 13# move the istio components to prefer directory 14mv base ~/code/chats/istio-base 15mv istiod ~/code/chats/istiod 16mv gateway ~/code/chats/istio-gateway Create the istio namespace and initialization the base resources 1resource &amp;#34;kubernetes_namespace&amp;#34; &amp;#34;istio_system&amp;#34; { 2 metadata { 3 annotations = { 4 name = &amp;#34;istio-system&amp;#34; 5 } 6 labels = { 7 &amp;#34;kubesphere.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Getting started shell script in production from example</title>
+      <link>https://blog.wisekee.com/post/excellent-shell-script/</link>
+      <pubDate>Fri, 20 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/excellent-shell-script/</guid>
+      <description>
+        
+          
+            The link list to learn shell script in production practice github-install-go-release-cmd falco-install-script 
           
           
         
@@ -865,12 +949,14 @@ One to storage Hugo sourcecode and markdown files And other one use release fina
     
     <item>
       <title></title>
-      <link>https://blog.wisekee.com/post/up_and_running_opentelmetry/</link>
+      <link>https://blog.wisekee.com/post/use-oauth2-proxy/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wisekee.com/post/up_and_running_opentelmetry/</guid>
+      <guid>https://blog.wisekee.com/post/use-oauth2-proxy/</guid>
       <description>
         
+          
+            https://github.com/oauth2-proxy/oauth2-proxy/blob/6cc7da8993cf81dc0aae475edfd1632fd74d7818/contrib/oauth2-proxy.cfg.example
           
           
         

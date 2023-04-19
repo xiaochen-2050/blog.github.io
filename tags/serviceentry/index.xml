@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ServiceEntry on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/serviceentry/</link>
+    <description>Recent content in ServiceEntry on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Mon, 20 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/serviceentry/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Istio intercept particular traffic</title>
+      <link>https://blog.wisekee.com/post/istio-intecept-particular-traffic/</link>
+      <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/istio-intecept-particular-traffic/</guid>
+      <description>
+        
+          
+            Sometimes intercept external access traffic in mesh to internal service is needed
+Http to Internal service when access external domain in mesh network when access http://edition.cnn.com in mesh network then should redirect to hello.test-ns.svc.cluster.local internal service.
+Create a ServiceEntry resource to defination the external domain entry 1apiVersion: networking.istio.io/v1alpha3 2kind: ServiceEntry 3metadata: 4 name: redirect-cnn-to-internal 5 namespace: test-ns 6spec: 7 hosts: 8 - edition.cnn.com 9 ports: 10 - number: 80 11 name: http 12 protocol: HTTP 13 - number: 443 14 name: https 15 protocol: HTTPS 16 resolution: NONE Create a VirtualService to serve target traffic 1apiVersion: networking.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

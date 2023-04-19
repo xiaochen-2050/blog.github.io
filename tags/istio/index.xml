@@ -6,7 +6,25 @@
     <description>Recent content in Istio on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Sat, 18 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/istio/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/istio/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Istio intercept particular traffic</title>
+      <link>https://blog.wisekee.com/post/istio-intecept-particular-traffic/</link>
+      <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/istio-intecept-particular-traffic/</guid>
+      <description>
+        
+          
+            Sometimes intercept external access traffic in mesh to internal service is needed
+Http to Internal service when access external domain in mesh network when access http://edition.cnn.com in mesh network then should redirect to hello.test-ns.svc.cluster.local internal service.
+Create a ServiceEntry resource to defination the external domain entry 1apiVersion: networking.istio.io/v1alpha3 2kind: ServiceEntry 3metadata: 4 name: redirect-cnn-to-internal 5 namespace: test-ns 6spec: 7 hosts: 8 - edition.cnn.com 9 ports: 10 - number: 80 11 name: http 12 protocol: HTTP 13 - number: 443 14 name: https 15 protocol: HTTPS 16 resolution: NONE Create a VirtualService to serve target traffic 1apiVersion: networking.
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Installation and configuration istio use helm chat and terraform</title>
       <link>https://blog.wisekee.com/post/install_istio_helm_chat/</link>
@@ -17,7 +35,7 @@
         
           
             Installation and Configuration istio use terraform
-Pull helm chats to local 1# download latest helm chat packages 2helm pull istio/base 3helm pull istio/istiod 4helm pull istio/gateway 5 6# uncompress to relative directory 7tar -xzvf base-1.17.1.tgz 8tar -xzvf istiod-1.17.1.tgz 9tar -xzvf gateway-1.17.1.tgz 10 11# move the istio components to prefer directory 12mv base ~/code/chats/istio-base 13mv istiod ~/code/chats/istiod 14mv gateway ~/code/chats/istio-gateway Create the istio namespace and initialization the base resources 1resource &amp;#34;kubernetes_namespace&amp;#34; &amp;#34;istio_system&amp;#34; { 2 metadata { 3 annotations = { 4 name = &amp;#34;istio-system&amp;#34; 5 } 6 labels = { 7 &amp;#34;kubesphere.
+Pull helm chats to local 1# add istio helm chat repo url 2helm repo add istio https://istio-release.storage.googleapis.com/charts 3# download latest helm chat packages 4helm pull istio/base 5helm pull istio/istiod 6helm pull istio/gateway 7 8# uncompress to relative directory 9tar -xzvf base-1.17.1.tgz 10tar -xzvf istiod-1.17.1.tgz 11tar -xzvf gateway-1.17.1.tgz 12 13# move the istio components to prefer directory 14mv base ~/code/chats/istio-base 15mv istiod ~/code/chats/istiod 16mv gateway ~/code/chats/istio-gateway Create the istio namespace and initialization the base resources 1resource &amp;#34;kubernetes_namespace&amp;#34; &amp;#34;istio_system&amp;#34; { 2 metadata { 3 annotations = { 4 name = &amp;#34;istio-system&amp;#34; 5 } 6 labels = { 7 &amp;#34;kubesphere.
           
           
         

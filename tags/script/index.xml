@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>script on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/script/</link>
+    <description>Recent content in script on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Fri, 20 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/script/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Getting started shell script in production from example</title>
+      <link>https://blog.wisekee.com/post/excellent-shell-script/</link>
+      <pubDate>Fri, 20 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/excellent-shell-script/</guid>
+      <description>
+        
+          
+            The link list to learn shell script in production practice github-install-go-release-cmd falco-install-script 
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

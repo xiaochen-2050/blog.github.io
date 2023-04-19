@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>OpenTelemetry on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/opentelemetry/</link>
+    <description>Recent content in OpenTelemetry on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sat, 18 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/opentelemetry/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Launch OpenTelemetry in eks and collect the metric, trace, logs</title>
+      <link>https://blog.wisekee.com/post/up_and_running_opentelmetry/</link>
+      <pubDate>Sat, 18 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/up_and_running_opentelmetry/</guid>
+      <description>
+        
+          
+            Use Helm+Terraform to installing and initialization the OpenTelmetry and Enable auto instrumentation the workloads
+Dowload the OpenTelmetry Operator Helm package to local 1# add OpenTelemetry chat repo 2helm repo add open-telemetry https://open-telemetry.github.io/opentelemetry-helm-charts 3# pull the chat package 4helm pull open-telemetry/opentelemetry-operator 5# https://github.com/open-telemetry/opentelemetry-demo 6# Or download the opentelmetry-demo chat 7helm pull open-telemetry/opentelemetry-demo 8tar -xzvf opentelemetry-operator-0.24.1.tgz 9tar -xzvf opentelemetry-demo-0.19.1.tgz Create OpenTelmetry resources in Terraform code The namesapce resource named to opentelemetry 1resource &amp;#34;kubernetes_namespace&amp;#34; &amp;#34;opentelemetry&amp;#34; { 2 metadata { 3 annotations = { 4 name = &amp;#34;opentelemetry&amp;#34; 5 } 6 labels = { 7 &amp;#34;kubesphere.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -3,7 +3,43 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.wisekee.com/</loc>
-    <lastmod>2023-02-20T00:00:00+00:00</lastmod>
+    <lastmod>2023-03-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/cloud-native/</loc>
+    <lastmod>2023-03-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/up_and_running_opentelmetry/</loc>
+    <lastmod>2023-03-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/metrics/</loc>
+    <lastmod>2023-03-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/opentelemetry/</loc>
+    <lastmod>2023-03-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/</loc>
+    <lastmod>2023-03-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/</loc>
+    <lastmod>2023-03-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/network/</loc>
+    <lastmod>2023-03-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/opensource-security-tools/</loc>
+    <lastmod>2023-03-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/security/</loc>
+    <lastmod>2023-03-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/cncf/</loc>
+    <lastmod>2023-02-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/falco/</loc>
+    <lastmod>2023-02-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/falco&#43;falcosidekick&#43;ui/</loc>
+    <lastmod>2023-02-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/aws/</loc>
     <lastmod>2023-02-20T00:00:00+00:00</lastmod>
@@ -20,34 +56,40 @@
     <loc>https://blog.wisekee.com/tags/farget/</loc>
     <lastmod>2023-02-20T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://blog.wisekee.com/tags/istio/</loc>
+    <lastmod>2023-02-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/istio-intecept-particular-traffic/</loc>
+    <lastmod>2023-02-20T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://blog.wisekee.com/tags/kubernetes/</loc>
     <lastmod>2023-02-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wisekee.com/post/</loc>
+    <loc>https://blog.wisekee.com/tags/serviceentry/</loc>
     <lastmod>2023-02-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/</loc>
-    <lastmod>2023-02-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/cloud-native/</loc>
-    <lastmod>2023-02-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/post/install_istio_helm_chat/</loc>
-    <lastmod>2023-02-18T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/istio/</loc>
     <lastmod>2023-02-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/terraform/</loc>
     <lastmod>2023-02-18T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://blog.wisekee.com/post/excellent-shell-script/</loc>
+    <lastmod>2023-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/open-source/</loc>
+    <lastmod>2023-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/script/</loc>
+    <lastmod>2023-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/shell/</loc>
+    <lastmod>2023-01-20T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://blog.wisekee.com/post/aws-traffic-analysis/</loc>
     <lastmod>2023-01-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/intrusion-detection/</loc>
-    <lastmod>2023-01-18T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/security/</loc>
     <lastmod>2023-01-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/traffic/</loc>
@@ -77,9 +119,6 @@
     <loc>https://blog.wisekee.com/tags/proxy/</loc>
     <lastmod>2022-12-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wisekee.com/tags/cncf/</loc>
-    <lastmod>2022-12-05T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.wisekee.com/post/macos-docker-notworking/</loc>
     <lastmod>2022-12-05T00:00:00+00:00</lastmod>
   </url><url>
@@ -104,12 +143,6 @@
     <loc>https://blog.wisekee.com/tags/iptables/</loc>
     <lastmod>2022-07-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wisekee.com/tags/network/</loc>
-    <lastmod>2022-07-18T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/falco/</loc>
-    <lastmod>2022-05-20T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.wisekee.com/post/falco-reverse-shell-rules/</loc>
     <lastmod>2022-05-20T00:00:00+00:00</lastmod>
   </url><url>
@@ -132,9 +165,6 @@
     <lastmod>2022-03-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/featured/</loc>
-    <lastmod>2022-03-05T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/open-source/</loc>
     <lastmod>2022-03-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/post/awesome-blog-resources/</loc>
@@ -392,7 +422,7 @@
     <loc>https://blog.wisekee.com/post/hugo-usage-issues/</loc>
     <lastmod>2017-08-16T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wisekee.com/post/up_and_running_opentelmetry/</loc>
+    <loc>https://blog.wisekee.com/post/use-oauth2-proxy/</loc>
   </url><url>
     <loc>https://blog.wisekee.com/categories/</loc>
   </url><url>
