@@ -5,6 +5,9 @@
     <loc>https://blog.wisekee.com/</loc>
     <lastmod>2023-03-18T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://blog.wisekee.com/tags/authortication/</loc>
+    <lastmod>2023-03-18T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://blog.wisekee.com/tags/cloud-native/</loc>
     <lastmod>2023-03-18T00:00:00+00:00</lastmod>
   </url><url>
@@ -14,6 +17,9 @@
     <loc>https://blog.wisekee.com/tags/metrics/</loc>
     <lastmod>2023-03-18T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://blog.wisekee.com/tags/oidc/</loc>
+    <lastmod>2023-03-18T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://blog.wisekee.com/tags/opentelemetry/</loc>
     <lastmod>2023-03-18T00:00:00+00:00</lastmod>
   </url><url>
@@ -21,6 +27,9 @@
     <lastmod>2023-03-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/</loc>
+    <lastmod>2023-03-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/use-oauth2-proxy/</loc>
     <lastmod>2023-03-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/network/</loc>
@@ -80,6 +89,12 @@
     <loc>https://blog.wisekee.com/tags/open-source/</loc>
     <lastmod>2023-01-20T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://blog.wisekee.com/tags/reverse/</loc>
+    <lastmod>2023-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/reverse-enginerring-getting-started/</loc>
+    <lastmod>2023-01-20T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://blog.wisekee.com/tags/script/</loc>
     <lastmod>2023-01-20T00:00:00+00:00</lastmod>
   </url><url>
@@ -136,6 +151,27 @@
   </url><url>
     <loc>https://blog.wisekee.com/tags/konga/</loc>
     <lastmod>2022-11-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/auto-tools/</loc>
+    <lastmod>2022-10-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/makefile-getting-started/</loc>
+    <lastmod>2022-10-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/makefile/</loc>
+    <lastmod>2022-10-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/task/</loc>
+    <lastmod>2022-10-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/hackthebox/</loc>
+    <lastmod>2022-10-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/hackthebox-operations/</loc>
+    <lastmod>2022-10-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/tools/</loc>
+    <lastmod>2022-10-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/post/iptables-forward-traffic/</loc>
     <lastmod>2022-07-18T00:00:00+00:00</lastmod>
@@ -421,8 +457,6 @@
   </url><url>
     <loc>https://blog.wisekee.com/post/hugo-usage-issues/</loc>
     <lastmod>2017-08-16T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/post/use-oauth2-proxy/</loc>
   </url><url>
     <loc>https://blog.wisekee.com/categories/</loc>
   </url><url>

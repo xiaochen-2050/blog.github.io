@@ -25,6 +25,23 @@ Dowload the OpenTelmetry Operator Helm package to local 1# add OpenTelemetry cha
     </item>
     
     <item>
+      <title>To defence the internal web or resources use Oauth2 proxy</title>
+      <link>https://blog.wisekee.com/post/use-oauth2-proxy/</link>
+      <pubDate>Sat, 18 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/use-oauth2-proxy/</guid>
+      <description>
+        
+          
+            To protect the some internal web resources we can use Oauth2 proxy to integration many identity tools for example: gitlab, github, Open ID, OpenLDAP and so on
+Get the Oauth2-proxy helm chat package 1# add the oauth2-pxory helm repo url 2helm repo add oauth2-proxy https://oauth2-proxy.github.io/manifests 3# decompression the tar package 4tar -xzvf oauth2-proxy-6.10.1.tgz 5# move to chats sub directory 6mv oauth2-proxy /terraform/iac/charts The oauth2-proxy config 1resource &amp;#34;helm_release&amp;#34; &amp;#34;oauth2-proxy&amp;#34; { 2 name = &amp;#34;oauth2-proxy&amp;#34; 3 chart = &amp;#34;.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
       <title>Istio intercept particular traffic</title>
       <link>https://blog.wisekee.com/post/istio-intecept-particular-traffic/</link>
       <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>

@@ -25,6 +25,23 @@ Dowload the OpenTelmetry Operator Helm package to local 1# add OpenTelemetry cha
     </item>
     
     <item>
+      <title>To defence the internal web or resources use Oauth2 proxy</title>
+      <link>https://blog.wisekee.com/post/use-oauth2-proxy/</link>
+      <pubDate>Sat, 18 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/use-oauth2-proxy/</guid>
+      <description>
+        
+          
+            To protect the some internal web resources we can use Oauth2 proxy to integration many identity tools for example: gitlab, github, Open ID, OpenLDAP and so on
+Get the Oauth2-proxy helm chat package 1# add the oauth2-pxory helm repo url 2helm repo add oauth2-proxy https://oauth2-proxy.github.io/manifests 3# decompression the tar package 4tar -xzvf oauth2-proxy-6.10.1.tgz 5# move to chats sub directory 6mv oauth2-proxy /terraform/iac/charts The oauth2-proxy config 1resource &amp;#34;helm_release&amp;#34; &amp;#34;oauth2-proxy&amp;#34; { 2 name = &amp;#34;oauth2-proxy&amp;#34; 3 chart = &amp;#34;.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
       <title>Open source security tools for beginners</title>
       <link>https://blog.wisekee.com/post/opensource-security-tools/</link>
       <pubDate>Thu, 02 Mar 2023 00:00:00 +0000</pubDate>
@@ -33,7 +50,7 @@ Dowload the OpenTelmetry Operator Helm package to local 1# add OpenTelemetry cha
       <description>
         
           
-             ossim tcpdump tshark wireshark Nmap skipfish security onion snort zeek openvas,Greenbone Community Edition backbox kali platform penetration testing and security assessmen 
+             ossim tcpdump tshark wireshark Nmap skipfish security onion snort zeek openvas,Greenbone Community Edition backbox kali platform penetration testing and security assessmen zeltser Threats with ATT&amp;amp;CK-based Analytics threat hunting tools canarytokens security tools and parse events for most products 
           
           
         
@@ -134,7 +151,23 @@ Pull helm chats to local 1# add istio helm chat repo url 2helm repo add istio ht
       <description>
         
           
-            The link list to learn shell script in production practice github-install-go-release-cmd falco-install-script 
+            The link list to learn shell script in production practice github-install-go-release-cmd falco-install-script curl https://meshery.io/install various os guideline The AWS SSM Document has many script to learn 
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Reverse enginerring getting started</title>
+      <link>https://blog.wisekee.com/post/reverse-enginerring-getting-started/</link>
+      <pubDate>Fri, 20 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/reverse-enginerring-getting-started/</guid>
+      <description>
+        
+          
+             Hopper Disassembler Ghidra is a software reverse engineering Ghidra script the Ultimate Packer for eXecutables 
           
           
         
@@ -258,6 +291,40 @@ Download Dokcer.dmg in Docker offical site and reinstalling 1 sudo hdiutil attac
     </item>
     
     <item>
+      <title>Auto tools makefile getting started</title>
+      <link>https://blog.wisekee.com/post/makefile-getting-started/</link>
+      <pubDate>Thu, 20 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/makefile-getting-started/</guid>
+      <description>
+        
+          
+            Basic the Makefile format First make sure ~/.vimrc settings for tab spaces 1# define the .vimrc file to following contents 2cat ~/.vimrc 3set noexpandtab 4set autoindent Small snippet Makefile contents 1.DEFAULT_GOAL:=build 2 3fmt: 4	echo &amp;#34;this is fmt....&amp;#34; 5 6.PHONY:vet 7vet:fmt 8	echo &amp;#34;this is vet...&amp;#34; 9 10 11build:vet 12	echo &amp;#34;this is build...&amp;#34; In the directory execute make should display the result. 1echo &amp;#34;this is fmt....&amp;#34; 2this is fmt.... 3echo &amp;#34;this is vet.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Hackthebox generally </title>
+      <link>https://blog.wisekee.com/post/hackthebox-operations/</link>
+      <pubDate>Sun, 16 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/hackthebox-operations/</guid>
+      <description>
+        
+          
+            HOMEBREW_NO_UPDATE=1 brew install inetutils
+nmap -A 10.129.186.124
+nmap -sV -sC X.X.X.X
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
       <title>Forward the traffic to internal server through iptables rule use bastion server</title>
       <link>https://blog.wisekee.com/post/iptables-forward-traffic/</link>
       <pubDate>Mon, 18 Jul 2022 00:00:00 +0000</pubDate>
@@ -373,7 +440,7 @@ Recommend getting stared study resources https://docs.microsoft.com/en-us/learn/
       <description>
         
           
-            General terminology of Software development Software Composition Analysis(SCA) Static Application Security Testing (SAST) Dynamic Application Security Testing (DAST) Runtime Application Self-Protection (RASP) information security (InfoSec) Integrated Development Environment (IDE) Common Vulnerabilities and Exposures (CVE) Version Control System (VCS) AWS Security Finding Format (ASFF) Proof of Concept (POC) IT Service Management (ITSM) distributed denial of service (DDoS) Other terminology of SDLC Test-driven development (TDD) Scaled Agile Framework (SAFe) Large-Scale Scrum (LeSS) 
+            General terminology of Software development Software Composition Analysis(SCA) Static Application Security Testing (SAST) Dynamic Application Security Testing (DAST) Runtime Application Self-Protection (RASP) information security (InfoSec) Integrated Development Environment (IDE) Common Vulnerabilities and Exposures (CVE) Version Control System (VCS) AWS Security Finding Format (ASFF) Proof of Concept (POC) IT Service Management (ITSM) distributed denial of service (DDoS) Other terminology of SDLC Test-driven development (TDD) Scaled Agile Framework (SAFe) Large-Scale Scrum (LeSS) Some usefuly tools and site url (malicious)[https://zeltser.
           
           
         
@@ -941,22 +1008,6 @@ Configuration file param.json 1{ 2 &amp;#34;dev&amp;#34;: { 3 &amp;#34;public_co
 1git submodule update --init --recursive Usage scene In my github repo initialize two repos
 One to storage Hugo sourcecode and markdown files And other one use release finaly site resources Has two folders themes and public as github submodes
 1 git submodule add https://github.com/don.chen/blog.github.io public 2 git submodule update --init and every time wited markdown article and execute
-          
-          
-        
-      </description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://blog.wisekee.com/post/use-oauth2-proxy/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.wisekee.com/post/use-oauth2-proxy/</guid>
-      <description>
-        
-          
-            https://github.com/oauth2-proxy/oauth2-proxy/blob/6cc7da8993cf81dc0aae475edfd1632fd74d7818/contrib/oauth2-proxy.cfg.example
           
           
         

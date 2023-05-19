@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Reverse on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/reverse/</link>
+    <description>Recent content in Reverse on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Fri, 20 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/reverse/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Reverse enginerring getting started</title>
+      <link>https://blog.wisekee.com/post/reverse-enginerring-getting-started/</link>
+      <pubDate>Fri, 20 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/reverse-enginerring-getting-started/</guid>
+      <description>
+        
+          
+             Hopper Disassembler Ghidra is a software reverse engineering Ghidra script the Ultimate Packer for eXecutables 
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

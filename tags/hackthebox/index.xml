@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hackthebox on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/hackthebox/</link>
+    <description>Recent content in hackthebox on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 16 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/hackthebox/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hackthebox generally </title>
+      <link>https://blog.wisekee.com/post/hackthebox-operations/</link>
+      <pubDate>Sun, 16 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/hackthebox-operations/</guid>
+      <description>
+        
+          
+            HOMEBREW_NO_UPDATE=1 brew install inetutils
+nmap -A 10.129.186.124
+nmap -sV -sC X.X.X.X
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

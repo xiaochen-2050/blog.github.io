@@ -209,6 +209,12 @@ Please reference previous post about basic and install falco: <a href=""></a></p
 </span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"># compile the amazon linux2 kernel specification version for ebpf and kernel for falco</span>
 </span></span><span class="line"><span class="ln">4</span><span class="cl">docker run -v /var/run/docker.sock:/var/run/docker.sock -v /tmp/output:/falco/output -ti  falcosecurity/driverkit:latest driverkit docker --kernelrelease 5.4.238-148.346.amzn2.x86_64  --target amazonlinux2 --output-module /falco/output/5.4.238-148.346.ko --output-probe /falco/output/5.4.238-148.346.o --kernelurls <span class="s2">&#34;http://52.45.193.166/mirrors/http/amazonlinux.us-east-1.amazonaws.com/amazon_linux_2/kernel-devel-5.4.238-148.346.amzn2.x86_64.rpm&#34;</span> --driverversion 4.0.0+driver
 </span></span></code></pre></div><ul>
+<li>The ubuntu linux kernel devel deb packages mirror <a href="https://packages.ubuntu.com/focal/all/linux-aws-5.13-headers-5.13.0-1022/download">ubuntu aws linux kernel</a></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"># you can also view download the pages find other versions</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">docker run -v /var/run/docker.sock:/var/run/docker.sock -v /tmp/:/tmp -ti --rm  falcosecurity/driverkit:latest driverkit docker --kernelrelease 5.13.0-1022-aws  --target ubuntu-aws --output-module /tmp/falco_ubuntu-aws_5.13.0-1022-aws_24.ko --output-probe /tmp/falco_ubuntu-aws_5.13.0-1022-aws_24.o --kernelurls <span class="s2">&#34;http://security.ubuntu.com/ubuntu/pool/main/l/linux-aws-5.13/linux-aws-5.13-headers-5.13.0-1022_5.13.0-1022.24~20.04.1_all.deb,http://security.ubuntu.com/ubuntu/pool/main/l/linux-aws-5.13/linux-headers-5.13.0-1022-aws_5.13.0-1022.24~20.04.1_amd64.deb&#34;</span> --driverversion 4.0.0+driver
+</span></span></code></pre></div><ul>
 <li>driverversion need reference <a href="https://github.com/falcosecurity/libs">driver libs</a> you can use branch or tags or commitid to compile the probe</li>
 <li>May in host temp folder random named you can tree find</li>
 </ul>
@@ -219,9 +225,24 @@ Please reference previous post about basic and install falco: <a href=""></a></p
 </span></span><span class="line"><span class="ln">5</span><span class="cl">│               └── output
 </span></span><span class="line"><span class="ln">6</span><span class="cl">│                   ├── 5.4.238-148.346.ko
 </span></span><span class="line"><span class="ln">7</span><span class="cl">│                   ├── 5.4.238-148.346.o
+</span></span></code></pre></div><ul>
+<li>Use custom url to load the driver</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># set environment variable</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nb">export</span> <span class="nv">DRIVERS_REPO</span><span class="o">=</span>http://localhost:8080
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"># the http serve the static file path like following </span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="c1"># {WEB_ROOT}/4.0.0+driver/x86_64/*.o</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="c1"># loader program should access to : http://localhost:8080/4.0.0%2Bdriver/x86_64/falco_ubuntu-aws_5.13.0-1022-aws_24.o</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="c1"># load the driver</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">falco-driver-loader bpf
 </span></span></code></pre></div><h3 id="get-the-falco-helm-chart-package">Get the falco helm chart package</h3>
-<p>We don&rsquo;t use the</p>
-
+<p>Independent install the <code>falcosidekick</code> component for recevie the event from other falco agent</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># add the repo repository</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">helm repo add falcosecurity https://falcosecurity.github.io/charts
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"># pull the falcosidekick package</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">helm pull falcosecurity/falcosidekick
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="c1"># </span>
+</span></span></code></pre></div>
     </div>
 <div class="post_comments">
   
@@ -264,6 +285,9 @@ Please reference previous post about basic and install falco: <a href=""></a></p
         <a href="https://blog.wisekee.com/post/up_and_running_opentelmetry/" class="nav-link" title="Launch OpenTelemetry in eks and collect the metric, trace, logs">Launch OpenTelemetry in eks and collect the metric, trace, logs</a>
       </li>
       <li>
+        <a href="https://blog.wisekee.com/post/use-oauth2-proxy/" class="nav-link" title="To defence the internal web or resources use Oauth2 proxy">To defence the internal web or resources use Oauth2 proxy</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/opensource-security-tools/" class="nav-link" title="Open source security tools for beginners">Open source security tools for beginners</a>
       </li>
       <li>
@@ -281,9 +305,6 @@ Please reference previous post about basic and install falco: <a href=""></a></p
       <li>
         <a href="https://blog.wisekee.com/post/install_istio_helm_chat/" class="nav-link" title="Installation and configuration istio use helm chat and terraform">Installation and configuration istio use helm chat and terraform</a>
       </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/excellent-shell-script/" class="nav-link" title="Getting started shell script in production from example">Getting started shell script in production from example</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="tags-section"></h2>
@@ -298,13 +319,13 @@ Please reference previous post about basic and install falco: <a href=""></a></p
           <span class="button_tally">9</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/featured/' class="post_tag button button_translucent" title="featured">
-          FEATURED
-          <span class="button_tally">8</span>
-        </a>
-        
         <a href='https://blog.wisekee.com/tags/security/' class="post_tag button button_translucent" title="security">
           SECURITY
+          <span class="button_tally">9</span>
+        </a>
+        
+        <a href='https://blog.wisekee.com/tags/featured/' class="post_tag button button_translucent" title="featured">
+          FEATURED
           <span class="button_tally">8</span>
         </a>
         
@@ -328,13 +349,13 @@ Please reference previous post about basic and install falco: <a href=""></a></p
           <span class="button_tally">4</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/ansible/' class="post_tag button button_translucent" title="ansible">
-          ANSIBLE
-          <span class="button_tally">3</span>
-        </a>
-        
         <a href='https://blog.wisekee.com/tags/cloud-native/' class="post_tag button button_translucent" title="cloud-native">
           CLOUD-NATIVE
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='https://blog.wisekee.com/tags/ansible/' class="post_tag button button_translucent" title="ansible">
+          ANSIBLE
           <span class="button_tally">3</span>
         </a>
         
@@ -380,6 +401,14 @@ Please reference previous post about basic and install falco: <a href=""></a></p
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/authortication/' class=" post_tag button button_translucent" data-position=1 title="authortication">AUTHORTICATION<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/auto-tools/' class=" post_tag button button_translucent" data-position=1 title="auto-tools">AUTO-TOOLS<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/aws/' class=" post_tag button button_translucent" data-position=4 title="aws">AWS<span class="button_tally">4</span>
             </a>
             
@@ -408,7 +437,7 @@ Please reference previous post about basic and install falco: <a href=""></a></p
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/cloud-native/' class=" post_tag button button_translucent" data-position=3 title="cloud-native">CLOUD-NATIVE<span class="button_tally">3</span>
+            <a href='https://blog.wisekee.com/tags/cloud-native/' class=" post_tag button button_translucent" data-position=4 title="cloud-native">CLOUD-NATIVE<span class="button_tally">4</span>
             </a>
             
             
@@ -504,6 +533,10 @@ Please reference previous post about basic and install falco: <a href=""></a></p
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/hackthebox/' class=" post_tag button button_translucent" data-position=1 title="hackthebox">HACKTHEBOX<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/hugo/' class=" post_tag button button_translucent" data-position=1 title="hugo">HUGO<span class="button_tally">1</span>
             </a>
             
@@ -572,6 +605,10 @@ Please reference previous post about basic and install falco: <a href=""></a></p
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/makefile/' class=" post_tag button button_translucent" data-position=1 title="makefile">MAKEFILE<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/metrics/' class=" post_tag button button_translucent" data-position=1 title="metrics">METRICS<span class="button_tally">1</span>
             </a>
             
@@ -601,6 +638,10 @@ Please reference previous post about basic and install falco: <a href=""></a></p
             
             
             <a href='https://blog.wisekee.com/tags/nuclio/' class=" post_tag button button_translucent" data-position=1 title="nuclio">NUCLIO<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/oidc/' class=" post_tag button button_translucent" data-position=1 title="oidc">OIDC<span class="button_tally">1</span>
             </a>
             
             
@@ -640,6 +681,10 @@ Please reference previous post about basic and install falco: <a href=""></a></p
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/reverse/' class=" post_tag button button_translucent" data-position=1 title="reverse">REVERSE<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/script/' class=" post_tag button button_translucent" data-position=1 title="script">SCRIPT<span class="button_tally">1</span>
             </a>
             
@@ -648,7 +693,7 @@ Please reference previous post about basic and install falco: <a href=""></a></p
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent" data-position=8 title="security">SECURITY<span class="button_tally">8</span>
+            <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent" data-position=9 title="security">SECURITY<span class="button_tally">9</span>
             </a>
             
             
@@ -668,11 +713,19 @@ Please reference previous post about basic and install falco: <a href=""></a></p
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/task/' class=" post_tag button button_translucent" data-position=1 title="task">TASK<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/terminology/' class=" post_tag button button_translucent" data-position=1 title="terminology">TERMINOLOGY<span class="button_tally">1</span>
             </a>
             
             
             <a href='https://blog.wisekee.com/tags/terraform/' class=" post_tag button button_translucent" data-position=7 title="terraform">TERRAFORM<span class="button_tally">7</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/tools/' class=" post_tag button button_translucent" data-position=1 title="tools">TOOLS<span class="button_tally">1</span>
             </a>
             
             
