@@ -16,7 +16,7 @@
       <description>
         
           
-            The link list to learn shell script in production practice github-install-go-release-cmd falco-install-script curl https://meshery.io/install various os guideline The AWS SSM Document has many script to learn 
+            The link list to learn shell script in production practice github-install-go-release-cmd falco-install-script curl https://meshery.io/install various os guideline The AWS SSM Document has many script to learn helm secrets script Colorize the output 1print_green() { 2 BOLD_GREEN=$(tput bold ; tput setaf 2) 3 NORMAL=$(tput sgr0) 4 echo &amp;#34;${BOLD_GREEN}$1${NORMAL}&amp;#34; 5} 6 7print_yellow() { 8 BOLD_YELLOW=$(tput bold ; tput setaf 3) 9 NORMAL=$(tput sgr0) 10 echo &amp;#34;${BOLD_YELLOW}$1${NORMAL}&amp;#34; 11} 12 13print_red() { 14 BOLD_YELLOW=$(tput bold ; tput setaf 1) 15 NORMAL=$(tput sgr0) 16 echo &amp;#34;${BOLD_YELLOW}$1${NORMAL}&amp;#34; 17} 18 19print_blue() { 20 BOLD_YELLOW=$(tput bold ; tput setaf 4) 21 NORMAL=$(tput sgr0) 22 echo &amp;#34;${BOLD_YELLOW}$1${NORMAL}&amp;#34; 23} 
           
           
         

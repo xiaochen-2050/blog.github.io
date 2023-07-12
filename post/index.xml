@@ -6,7 +6,25 @@
     <description>Recent content in Posts on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Sat, 18 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 11 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to call to kubernets grpc services in local</title>
+      <link>https://blog.wisekee.com/post/grpc-awesome/</link>
+      <pubDate>Thu, 11 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/grpc-awesome/</guid>
+      <description>
+        
+          
+            Usually for serivce better performance. we can use GRPC and multiple instance deployment for app, then the GRPC load balancing is challenges
+Create Grpc headless service for Grpc app when multiple instance is enable for GRPC service in order to load balacing the GRPC service, needs create headless service let client load balancing
+1apiVersion: v1 2kind: Service 3metadata: 4 name: grpc-demo-headless 5 namespace: apps 6spec: 7 ports: 8 - name: tcp-30555 9 protocol: TCP 10 port: 30555 11 targetPort: 30555 12 selector: 13 app: grpc-demo-app 14 clusterIP: None 15 type: ClusterIP Use Envoy proxy the headless service implementation load balancing deploy the envoy proxy 1apiVersion: apps/v1 2kind: Deployment 3metadata: 4 name: envoy-proxy-grpc-demo 5 namespace: apps 6 labels: 7 app: envoy-proxy-grpc-demo 8spec: 9 replicas: 1 10 selector: 11 matchLabels: 12 app: envoy-proxy-grpc-demo 13 template: 14 metadata: 15 labels: 16 app: envoy-proxy-grpc-demo 17 sidecar.
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Launch OpenTelemetry in eks and collect the metric, trace, logs</title>
       <link>https://blog.wisekee.com/post/up_and_running_opentelmetry/</link>
@@ -50,7 +68,7 @@ Get the Oauth2-proxy helm chat package 1# add the oauth2-pxory helm repo url 2he
       <description>
         
           
-             ossim tcpdump tshark wireshark Nmap skipfish security onion snort zeek openvas,Greenbone Community Edition backbox kali platform penetration testing and security assessmen zeltser Threats with ATT&amp;amp;CK-based Analytics threat hunting tools canarytokens security tools and parse events for most products 
+            ossim tcpdump tshark wireshark Nmap skipfish security onion snort zeek openvas,Greenbone Community Edition backbox kali platform penetration testing and security assessmen zeltser Threats with ATT&amp;amp;CK-based Analytics threat hunting tools canarytokens security tools and parse events for most products open source, cross platform web application firewall (WAF) Coraza is a golang enterprise-grade Web Application Firewall framework About A collection of awesome framework, libraries, learning tutorials, videos, webcasts, technical resources and cool stuff about Security Orchestration, Automation and Response (SOAR).
           
           
         
@@ -151,7 +169,7 @@ Pull helm chats to local 1# add istio helm chat repo url 2helm repo add istio ht
       <description>
         
           
-            The link list to learn shell script in production practice github-install-go-release-cmd falco-install-script curl https://meshery.io/install various os guideline The AWS SSM Document has many script to learn 
+            The link list to learn shell script in production practice github-install-go-release-cmd falco-install-script curl https://meshery.io/install various os guideline The AWS SSM Document has many script to learn helm secrets script Colorize the output 1print_green() { 2 BOLD_GREEN=$(tput bold ; tput setaf 2) 3 NORMAL=$(tput sgr0) 4 echo &amp;#34;${BOLD_GREEN}$1${NORMAL}&amp;#34; 5} 6 7print_yellow() { 8 BOLD_YELLOW=$(tput bold ; tput setaf 3) 9 NORMAL=$(tput sgr0) 10 echo &amp;#34;${BOLD_YELLOW}$1${NORMAL}&amp;#34; 11} 12 13print_red() { 14 BOLD_YELLOW=$(tput bold ; tput setaf 1) 15 NORMAL=$(tput sgr0) 16 echo &amp;#34;${BOLD_YELLOW}$1${NORMAL}&amp;#34; 17} 18 19print_blue() { 20 BOLD_YELLOW=$(tput bold ; tput setaf 4) 21 NORMAL=$(tput sgr0) 22 echo &amp;#34;${BOLD_YELLOW}$1${NORMAL}&amp;#34; 23} 
           
           
         
@@ -208,6 +226,22 @@ Pull helm chats to local 1# add istio helm chat repo url 2helm repo add istio ht
     </item>
     
     <item>
+      <title>How to update the out of date debian docker image</title>
+      <link>https://blog.wisekee.com/post/update-the-old-debian-repo/</link>
+      <pubDate>Sun, 18 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/update-the-old-debian-repo/</guid>
+      <description>
+        
+          
+            relative the docs about debian repo debian releases support versions for stretch old debian 1# pls reference: https://www.debian.org/security/ 2sed -i -e &amp;#34;2 {s/^/#/}&amp;#34; -e &amp;#34;4 {s/^/#/}&amp;#34; -e &amp;#34;6 {s/^/#/}&amp;#34; /etc/apt/sources.list 3echo &amp;#34;deb http://security.debian.org/debian-security bullseye-security main contrib non-free&amp;#34; &amp;gt;&amp;gt; /etc/apt/sources.list 4apt-get update &amp;amp;&amp;amp; apt-get upgrade 
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
       <title>AWS vpc flow logs insight</title>
       <link>https://blog.wisekee.com/post/aws-logs-insight/</link>
       <pubDate>Sat, 10 Dec 2022 00:00:00 +0000</pubDate>
@@ -216,7 +250,7 @@ Pull helm chats to local 1# add istio helm chat repo url 2helm repo add istio ht
       <description>
         
           
-            Define pattern for log groups in cloudwatch Create filter pattern filter pattern: [action, azid, bytes, dstaddr,dstport,instanceid,protocol,srcaddr,srcport,subnetid] Metric namespaces Name for metric namespace Metric name: bytes Metric value: $bytes Unit: Bytes Dimensions: Dimension Name: dst-addr, Dimension Value: $dstaddr Determine NAT gateway logs 1fields @timestamp 2| parse @message &amp;#34;* * * * * * * * * *&amp;#34; as action, azid, bytes, dstaddr,dstport,instanceid,protocol,srcaddr,srcport,subnetid 3| stats sum(bytes) as bytesTransferred by srcaddr, dstaddr 4| sort bytesTransferred desc VPC transit gateway flow logs Create filter pattern [version, resource_type, account_id,tgw_id, tgw_attachment_id, tgw_src_vpc_account_id, tgw_dst_vpc_account_id, tgw_src_vpc_id, tgw_dst_vpc_id, tgw_src_subnet_id, tgw_dst_subnet_id, tgw_src_eni, tgw_dst_eni, tgw_src_az_id, tgw_dst_az_id, tgw_pair_attachment_id, srcaddr, dstaddr, srcport, dstport, protocol, packets, bytes,start,end, log_status, type,packets_lost_no_route, packets_lost_blackhole, packets_lost_mtu_exceeded, packets_lost_ttl_expired, tcp_flags,region, flow_direction, pkt_src_aws_service, pkt_dst_aws_service] Metric namespaces Name for metric namespace Metric name: bytes Metric value: $bytes Unit: Bytes Dimensions: Dimension Name: account_id, Dimension Value: $account_id Determine VPC transit gateway logs 1filter @logStream = &amp;#39;tgw-attach-00000-all&amp;#39; 2 | fields @timestamp 3 | parse @message &amp;#34;* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *&amp;#34; as version, resource_type, account_id,tgw_id, tgw_attachment_id, tgw_src_vpc_account_id, tgw_dst_vpc_account_id, tgw_src_vpc_id, tgw_dst_vpc_id, tgw_src_subnet_id, tgw_dst_subnet_id, tgw_src_eni, tgw_dst_eni, tgw_src_az_id, tgw_dst_az_id, tgw_pair_attachment_id, srcaddr, dstaddr, srcport, dstport, protocol, packets, bytes,start,end, log_status, type,packets_lost_no_route, packets_lost_blackhole, packets_lost_mtu_exceeded, packets_lost_ttl_expired, tcp_flags,region, flow_direction, pkt_src_aws_service, pkt_dst_aws_service 
+            Define pattern for log groups in cloudwatch Create filter pattern filter pattern: [action, azid, bytes, dstaddr,dstport,instanceid,protocol,srcaddr,srcport,subnetid] Metric namespaces Name for metric namespace Metric name: bytes Metric value: $bytes Unit: Bytes Dimensions: Dimension Name: dst-addr, Dimension Value: $dstaddr Determine NAT gateway logs 1fields @timestamp 2| parse @message &amp;#34;* * * * * * * * * *&amp;#34; as action, azid, bytes, dstaddr,dstport,instanceid,protocol,srcaddr,srcport,subnetid 3| stats sum(bytes) as bytesTransferred by srcaddr, dstaddr 4| sort bytesTransferred desc VPC transit gateway flow logs Create filter pattern [version, resource_type, account_id,tgw_id, tgw_attachment_id, tgw_src_vpc_account_id, tgw_dst_vpc_account_id, tgw_src_vpc_id, tgw_dst_vpc_id, tgw_src_subnet_id, tgw_dst_subnet_id, tgw_src_eni, tgw_dst_eni, tgw_src_az_id, tgw_dst_az_id, tgw_pair_attachment_id, srcaddr, dstaddr, srcport, dstport, protocol, packets, bytes,start,end, log_status, type,packets_lost_no_route, packets_lost_blackhole, packets_lost_mtu_exceeded, packets_lost_ttl_expired, tcp_flags,region, flow_direction, pkt_src_aws_service, pkt_dst_aws_service] Metric namespaces Name for metric namespace Metric name: bytes Metric value: $bytes Unit: Bytes Dimensions: Dimension Name: account_id, Dimension Value: $account_id Determine VPC transit gateway logs 1fields @timestamp 2 | parse @message &amp;#34;* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *&amp;#34; as version, resource_type, account_id,tgw_id, tgw_attachment_id, tgw_src_vpc_account_id, tgw_dst_vpc_account_id, tgw_src_vpc_id, tgw_dst_vpc_id, tgw_src_subnet_id, tgw_dst_subnet_id, tgw_src_eni, tgw_dst_eni, tgw_src_az_id, tgw_dst_az_id, tgw_pair_attachment_id, srcaddr, dstaddr, srcport, dstport, protocol, packets, bytes,start,end, log_status, type,packets_lost_no_route, packets_lost_blackhole, packets_lost_mtu_exceeded, packets_lost_ttl_expired, tcp_flags,region, flow_direction, pkt_src_aws_service, pkt_dst_aws_service 3| sort bytes desc 
           
           
         
@@ -249,7 +283,7 @@ Install 1# On macos 2 HOMEBREW_NO_UPDATE=1 brew install proxychains-ng 3# On lin
       <description>
         
           
-            When upgraded the Docker Destop it&amp;rsquo;s can&amp;rsquo;t starting in MacOs
+            When upgraded the Docker Desktop it&amp;rsquo;s can&amp;rsquo;t starting in MacOs
 Use AppCleaner remove Docker Destop Open Activity Monitor Force quit the Docker and Docker backend process, then open AppCleaner drag the Docker icon in Application list to AppCleaner remove the Docker
 Download Dokcer.dmg in Docker offical site and reinstalling 1 sudo hdiutil attach Docker.dmg 2 sudo /Volumes/Docker/Docker.app/Contents/MacOS/install 3 sudo hdiutil detach /Volumes/Docker Setings and change if maybe not working sudo vi ~/Library/Group\ Containers/group.
           
@@ -408,6 +442,22 @@ Smallest source code build image use a smallest base image to build docker image
           
             There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
 Cloud native and kubernetes https://github.com/labring/sealos(kubernetes-kernel-based cloud os! Let&amp;rsquo;s sealos run kubernetes and applications.) https://github.com/kubevela/kubevela(The Modern Application Platform.) https://github.com/crossplane/crossplane(Cloud Native Control Planes multi cloud resoures) https://promcat.io/(A resource catalog for enterprise-class Prometheus) https://hub.datree.io/(Prevent Kubernetes misconfigurations from reaching production) https://aws.github.io/aws-eks-best-practices/(EKS Best Practices Guides) https://github.com/koderover/zadig(Zadig is a cloud native, distributed, developer-oriented continuous delivery product) https://github.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Getting started typescript minimal project</title>
+      <link>https://blog.wisekee.com/post/minimal-typescript-demo/</link>
+      <pubDate>Thu, 20 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/minimal-typescript-demo/</guid>
+      <description>
+        
+          
+            Create project structure and install nessess 1mkdir -p ~/code/exercise/ts-demo &amp;amp;&amp;amp; cd &amp;#34;$_&amp;#34; 2npm init 3mkdir src 4touch tsconfig.json 5npm i --save-dev @types/node 6npm i --save-dev @types/express 7npm i --save-dev @types/mocha 8npm i express 9npm i nodemon The src/App.ts content 1import * as express from &amp;#39;express&amp;#39; 2 3class App { 4 public express 5 6 constructor () { 7 this.express = express() 8 this.mountRoutes() 9 } 10 11 private mountRoutes (): void { 12 const router = express.
           
           
         
@@ -729,7 +779,7 @@ A large part of this is due to the removal of the Apiservice Resources from Meti
       <description>
         
           
-            Using Nginx-Ingress Controller in AWS Eks environment Need manually enable the Proxy protocol V2 in NLB target group just only TCP https 443 listener Rather than TCP http 80 listener Multiple SSL certificate need manually add to NLB The http redirect to https, need to change some paramets 1	# use http-snippet and open proxy protocol 2 use-proxy-protocol: &amp;#39;true&amp;#39; 3 use-forwarded-headers: &amp;#39;true&amp;#39; 4 server-tokens: &amp;#39;false&amp;#39; 5 http-snippet: | 6 server { 7 listen 8000; 8 return 308 https://$host$request_uri; 9 } 10 proxy-real-ip-cidr: ${join(&amp;#34;,&amp;#34;, var.
+            Append the nginx ingress http redirect to https Add extra port to nginx deployment for example: 8080, look like following 1ports: 2 - name: http 3 containerPort: 80 4 protocol: TCP 5 - name: https 6 containerPort: 443 7 protocol: TCP 8 - name: webhook 9 containerPort: 8443 10 protocol: TCP 11 - name: http-redirect 12 containerPort: 8080 Add section http-snippet to ConfigMap ingress-nginx-controller 1data: 2 allow-snippet-annotations: &amp;#39;true&amp;#39; 3 compute-full-forwarded-for: &amp;#39;true&amp;#39; 4 use-forwarded-headers: &amp;#39;true&amp;#39; 5 server-tokens: &amp;#39;false&amp;#39; 6 http-snippet: | 7 server { 8 listen 8080; 9 return 308 https://$host$request_uri; 10 } Modify the ingress service loadbalance configure, let http-80 forward to http-redirect-8080 1- name: http 2 protocol: TCP 3 appProtocol: http 4 port: 80 5 targetPort: http-redirect 6 nodePort: 32009 Using Nginx-Ingress Controller in AWS Eks environment Need manually enable the Proxy protocol V2 in NLB target group just only TCP https 443 listener Rather than TCP http 80 listener Multiple SSL certificate need manually add to NLB The http redirect to https, need to change some paramets 1	# use http-snippet and open proxy protocol 2 use-proxy-protocol: &amp;#39;true&amp;#39; 3 use-forwarded-headers: &amp;#39;true&amp;#39; 4 server-tokens: &amp;#39;false&amp;#39; 5 http-snippet: | 6 server { 7 listen 8000; 8 return 308 https://$host$request_uri; 9 } 10 proxy-real-ip-cidr: ${join(&amp;#34;,&amp;#34;, var.
           
           
         

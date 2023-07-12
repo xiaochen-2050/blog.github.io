@@ -142,6 +142,210 @@
   <div class="excerpt">
     <div class="excerpt_header">
       <h3 class="post_link">
+        <a href="https://blog.wisekee.com/post/kubernetes-ingress-guides/" title="Notes for using Kubernetes Ingress Controller">Notes for using Kubernetes Ingress Controller</a>
+      </h3>
+      
+  <div class="post_meta">
+    <span><svg class="icon">
+  <title>calendar</title>
+  <use xlink:href="#calendar"></use>
+</svg>
+</span>
+    <span class="post_date">
+      Oct 15, 2020</span>
+    <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/terraform/' title="Terraform" class="post_tag button button_translucent">Terraform
+        </a><a href='https://blog.wisekee.com/tags/kubernetes/' title="Kubernetes" class="post_tag button button_translucent">Kubernetes
+        </a><a href='https://blog.wisekee.com/tags/featured/' title="Featured" class="post_tag button button_translucent">Featured
+        </a>
+    </span>
+    <span class="page_only">&nbsp;·
+  <div class="post_share">
+    :
+    <a href="https://twitter.com/intent/tweet?text=Notes%20for%20using%20Kubernetes%20Ingress%20Controller&url=https%3a%2f%2fblog.wisekee.com%2fpost%2fkubernetes-ingress-guides%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <title>twitter</title>
+  <use xlink:href="#twitter"></use>
+</svg>
+
+    </a>
+    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2fkubernetes-ingress-guides%2f&t=Notes%20for%20using%20Kubernetes%20Ingress%20Controller" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <title>facebook</title>
+  <use xlink:href="#facebook"></use>
+</svg>
+
+    </a>
+    <a href="#linkedinshare" id = "linkedinshare" class="linkedin" title=" LinkedIn" rel="nofollow">
+      <svg class="icon">
+  <title>linkedin</title>
+  <use xlink:href="#linkedin"></use>
+</svg>
+
+    </a>
+    <a href="https://blog.wisekee.com/post/kubernetes-ingress-guides/" title="Copy Link" class="link link_yank">
+      <svg class="icon">
+  <title>copy</title>
+  <use xlink:href="#copy"></use>
+</svg>
+
+    </a>
+  </div>
+  </span>
+  </div>
+
+    </div>
+      <div class="excerpt_footer">
+        <div class="pale">
+          
+            <p>Append the nginx ingress http redirect to https Add extra port to nginx deployment for example: 8080, look like following 1ports: 2 - name: http 3 containerPort: 80 4 protocol: TCP 5 - name: https 6 containerPort: 443 7 protocol: TCP 8 - name: webhook 9 containerPort: 8443 10 protocol: TCP 11 - name: http-redirect 12 …</p>
+          
+          <br>
+          <a href="https://blog.wisekee.com/post/kubernetes-ingress-guides/" title="" class="excerpt_more button">read more</a>
+        </div>
+      </div>
+    </div>
+  </li>
+
+        <li class="post_item">
+  <div class="excerpt">
+    <div class="excerpt_header">
+      <h3 class="post_link">
+        <a href="https://blog.wisekee.com/post/airflow-kuberntes-logs-config/" title="Airflow console logs display in kuberntes container executor">Airflow console logs display in kuberntes container executor</a>
+      </h3>
+      
+  <div class="post_meta">
+    <span><svg class="icon">
+  <title>calendar</title>
+  <use xlink:href="#calendar"></use>
+</svg>
+</span>
+    <span class="post_date">
+      Oct 11, 2020</span>
+    <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/airflow/' title="Airflow" class="post_tag button button_translucent">Airflow
+        </a><a href='https://blog.wisekee.com/tags/k8s/' title="K8s" class="post_tag button button_translucent">K8s
+        </a><a href='https://blog.wisekee.com/tags/cloud/' title="Cloud" class="post_tag button button_translucent">Cloud
+        </a>
+    </span>
+    <span class="page_only">&nbsp;·
+  <div class="post_share">
+    :
+    <a href="https://twitter.com/intent/tweet?text=Airflow%20console%20logs%20display%20in%20kuberntes%20container%20executor&url=https%3a%2f%2fblog.wisekee.com%2fpost%2fairflow-kuberntes-logs-config%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <title>twitter</title>
+  <use xlink:href="#twitter"></use>
+</svg>
+
+    </a>
+    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2fairflow-kuberntes-logs-config%2f&t=Airflow%20console%20logs%20display%20in%20kuberntes%20container%20executor" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <title>facebook</title>
+  <use xlink:href="#facebook"></use>
+</svg>
+
+    </a>
+    <a href="#linkedinshare" id = "linkedinshare" class="linkedin" title=" LinkedIn" rel="nofollow">
+      <svg class="icon">
+  <title>linkedin</title>
+  <use xlink:href="#linkedin"></use>
+</svg>
+
+    </a>
+    <a href="https://blog.wisekee.com/post/airflow-kuberntes-logs-config/" title="Copy Link" class="link link_yank">
+      <svg class="icon">
+  <title>copy</title>
+  <use xlink:href="#copy"></use>
+</svg>
+
+    </a>
+  </div>
+  </span>
+  </div>
+
+    </div>
+      <div class="excerpt_footer">
+        <div class="pale">
+          
+            <p>Problem description When use kubernetes executor in airflow, the dags not use the podOperator but that use PythonOperator, the console logs end of Running %s on host %s &lt;TaskInstance:, then the task logs don’t redirect to stdout According to the Airflow descript need config the logging class: …</p>
+          
+          <br>
+          <a href="https://blog.wisekee.com/post/airflow-kuberntes-logs-config/" title="" class="excerpt_more button">read more</a>
+        </div>
+      </div>
+    </div>
+  </li>
+
+        <li class="post_item">
+  <div class="excerpt">
+    <div class="excerpt_header">
+      <h3 class="post_link">
+        <a href="https://blog.wisekee.com/post/terraform-helm-issues/" title="Points to note about  Terraform helm provider">Points to note about  Terraform helm provider</a>
+      </h3>
+      
+  <div class="post_meta">
+    <span><svg class="icon">
+  <title>calendar</title>
+  <use xlink:href="#calendar"></use>
+</svg>
+</span>
+    <span class="post_date">
+      Oct 10, 2020</span>
+    <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/terraform/' title="Terraform" class="post_tag button button_translucent">Terraform
+        </a><a href='https://blog.wisekee.com/tags/k8s/' title="K8s" class="post_tag button button_translucent">K8s
+        </a><a href='https://blog.wisekee.com/tags/featured/' title="Featured" class="post_tag button button_translucent">Featured
+        </a>
+    </span>
+    <span class="page_only">&nbsp;·
+  <div class="post_share">
+    :
+    <a href="https://twitter.com/intent/tweet?text=Points%20to%20note%20about%20%20Terraform%20helm%20provider&url=https%3a%2f%2fblog.wisekee.com%2fpost%2fterraform-helm-issues%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <title>twitter</title>
+  <use xlink:href="#twitter"></use>
+</svg>
+
+    </a>
+    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2fterraform-helm-issues%2f&t=Points%20to%20note%20about%20%20Terraform%20helm%20provider" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <title>facebook</title>
+  <use xlink:href="#facebook"></use>
+</svg>
+
+    </a>
+    <a href="#linkedinshare" id = "linkedinshare" class="linkedin" title=" LinkedIn" rel="nofollow">
+      <svg class="icon">
+  <title>linkedin</title>
+  <use xlink:href="#linkedin"></use>
+</svg>
+
+    </a>
+    <a href="https://blog.wisekee.com/post/terraform-helm-issues/" title="Copy Link" class="link link_yank">
+      <svg class="icon">
+  <title>copy</title>
+  <use xlink:href="#copy"></use>
+</svg>
+
+    </a>
+  </div>
+  </span>
+  </div>
+
+    </div>
+      <div class="excerpt_footer">
+        <div class="pale">
+          
+            <p>The Metrics-Server helm chart as Terraform HCL 1resource &quot;helm_release&quot; &quot;metrics-server&quot; { 2 name = &quot;metrics-server&quot; 3 repository = &quot;https://charts.bitnami.com/bitnami&quot; 4 chart = &quot;metrics-server&quot; 5 version = &quot;4.1.4&quot; 6 namespace = &quot;kube-system&quot; 7 8 set { 9 name = …</p>
+          
+          <br>
+          <a href="https://blog.wisekee.com/post/terraform-helm-issues/" title="" class="excerpt_more button">read more</a>
+        </div>
+      </div>
+    </div>
+  </li>
+
+        <li class="post_item">
+  <div class="excerpt">
+    <div class="excerpt_header">
+      <h3 class="post_link">
         <a href="https://blog.wisekee.com/post/k8s-backup-restore-using-velero/" title="Backup and Restore kubernetes cluster using Velero">Backup and Restore kubernetes cluster using Velero</a>
       </h3>
       
@@ -276,215 +480,6 @@ change coredns configmap add custom domain name config to …</p>
     </div>
   </li>
 
-        <li class="post_item">
-  <div class="excerpt">
-    <div class="excerpt_header">
-      <h3 class="post_link">
-        <a href="https://blog.wisekee.com/post/aws-local-development/" title="Quickly debug AWS App locally use Localstack(AWS Mock in local)">Quickly debug AWS App locally use Localstack(AWS Mock in local)</a>
-      </h3>
-      
-  <div class="post_meta">
-    <span><svg class="icon">
-  <title>calendar</title>
-  <use xlink:href="#calendar"></use>
-</svg>
-</span>
-    <span class="post_date">
-      Sep 1, 2020</span>
-    <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/aws/' title="AWS" class="post_tag button button_translucent">AWS
-        </a><a href='https://blog.wisekee.com/tags/localstack/' title="LocalStack" class="post_tag button button_translucent">LocalStack
-        </a><a href='https://blog.wisekee.com/tags/cloud/' title="Cloud" class="post_tag button button_translucent">Cloud
-        </a>
-    </span>
-    <span class="page_only">&nbsp;·
-  <div class="post_share">
-    :
-    <a href="https://twitter.com/intent/tweet?text=Quickly%20debug%20AWS%20App%20locally%20use%20Localstack%28AWS%20Mock%20in%20local%29&url=https%3a%2f%2fblog.wisekee.com%2fpost%2faws-local-development%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
-      <svg class="icon">
-  <title>twitter</title>
-  <use xlink:href="#twitter"></use>
-</svg>
-
-    </a>
-    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2faws-local-development%2f&t=Quickly%20debug%20AWS%20App%20locally%20use%20Localstack%28AWS%20Mock%20in%20local%29" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
-      <svg class="icon">
-  <title>facebook</title>
-  <use xlink:href="#facebook"></use>
-</svg>
-
-    </a>
-    <a href="#linkedinshare" id = "linkedinshare" class="linkedin" title=" LinkedIn" rel="nofollow">
-      <svg class="icon">
-  <title>linkedin</title>
-  <use xlink:href="#linkedin"></use>
-</svg>
-
-    </a>
-    <a href="https://blog.wisekee.com/post/aws-local-development/" title="Copy Link" class="link link_yank">
-      <svg class="icon">
-  <title>copy</title>
-  <use xlink:href="#copy"></use>
-</svg>
-
-    </a>
-  </div>
-  </span>
-  </div>
-
-    </div>
-      <div class="excerpt_footer">
-        <div class="pale">
-          
-            <p>When you develop components locally that rely on AWS, it can be cumbersome to configure authentication information, and sometimes network latency. It is important to mock with a native AWS component, which can:localstack I’m using Docker-Compose here to start a set of tools that local development depends on：
-The …</p>
-          
-          <br>
-          <a href="https://blog.wisekee.com/post/aws-local-development/" title="" class="excerpt_more button">read more</a>
-        </div>
-      </div>
-    </div>
-  </li>
-
-        <li class="post_item">
-  <div class="excerpt">
-    <div class="excerpt_header">
-      <h3 class="post_link">
-        <a href="https://blog.wisekee.com/post/k8s-common-command-conclusion/" title="kubernetes operations command summary">kubernetes operations command summary</a>
-      </h3>
-      
-  <div class="post_meta">
-    <span><svg class="icon">
-  <title>calendar</title>
-  <use xlink:href="#calendar"></use>
-</svg>
-</span>
-    <span class="post_date">
-      Aug 25, 2020</span>
-    <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/k8s/' title="k8s" class="post_tag button button_translucent">k8s
-        </a><a href='https://blog.wisekee.com/tags/kubectl/' title="kubectl" class="post_tag button button_translucent">kubectl
-        </a><a href='https://blog.wisekee.com/tags/kubernetes/' title="kubernetes" class="post_tag button button_translucent">kubernetes
-        </a><a href='https://blog.wisekee.com/tags/featured/' title="featured" class="post_tag button button_translucent">featured
-        </a>
-    </span>
-    <span class="page_only">&nbsp;·
-  <div class="post_share">
-    :
-    <a href="https://twitter.com/intent/tweet?text=kubernetes%20operations%20command%20summary&url=https%3a%2f%2fblog.wisekee.com%2fpost%2fk8s-common-command-conclusion%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
-      <svg class="icon">
-  <title>twitter</title>
-  <use xlink:href="#twitter"></use>
-</svg>
-
-    </a>
-    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2fk8s-common-command-conclusion%2f&t=kubernetes%20operations%20command%20summary" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
-      <svg class="icon">
-  <title>facebook</title>
-  <use xlink:href="#facebook"></use>
-</svg>
-
-    </a>
-    <a href="#linkedinshare" id = "linkedinshare" class="linkedin" title=" LinkedIn" rel="nofollow">
-      <svg class="icon">
-  <title>linkedin</title>
-  <use xlink:href="#linkedin"></use>
-</svg>
-
-    </a>
-    <a href="https://blog.wisekee.com/post/k8s-common-command-conclusion/" title="Copy Link" class="link link_yank">
-      <svg class="icon">
-  <title>copy</title>
-  <use xlink:href="#copy"></use>
-</svg>
-
-    </a>
-  </div>
-  </span>
-  </div>
-
-    </div>
-      <div class="excerpt_footer">
-        <div class="pale">
-          
-            <p>When we use the Kubernetes platform,has many commands is important:
-The k command is alias to kubectl
-label for nodes kubectl label nodes host02 disktype=ssd
-view local config for kubernetes context k config get-contexts
-switch context’s namespaces kubectl config set-context my-vsphere-cluster …</p>
-          
-          <br>
-          <a href="https://blog.wisekee.com/post/k8s-common-command-conclusion/" title="" class="excerpt_more button">read more</a>
-        </div>
-      </div>
-    </div>
-  </li>
-
-        <li class="post_item">
-  <div class="excerpt">
-    <div class="excerpt_header">
-      <h3 class="post_link">
-        <a href="https://blog.wisekee.com/post/laravel-librarys/" title="Php file cache in project">Php file cache in project</a>
-      </h3>
-      
-  <div class="post_meta">
-    <span><svg class="icon">
-  <title>calendar</title>
-  <use xlink:href="#calendar"></use>
-</svg>
-</span>
-    <span class="post_date">
-      Aug 25, 2020</span>
-    <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/php/' title="php" class="post_tag button button_translucent">php
-        </a><a href='https://blog.wisekee.com/tags/cache/' title="cache" class="post_tag button button_translucent">cache
-        </a>
-    </span>
-    <span class="page_only">&nbsp;·
-  <div class="post_share">
-    :
-    <a href="https://twitter.com/intent/tweet?text=Php%20file%20cache%20in%20project&url=https%3a%2f%2fblog.wisekee.com%2fpost%2flaravel-librarys%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
-      <svg class="icon">
-  <title>twitter</title>
-  <use xlink:href="#twitter"></use>
-</svg>
-
-    </a>
-    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2flaravel-librarys%2f&t=Php%20file%20cache%20in%20project" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
-      <svg class="icon">
-  <title>facebook</title>
-  <use xlink:href="#facebook"></use>
-</svg>
-
-    </a>
-    <a href="#linkedinshare" id = "linkedinshare" class="linkedin" title=" LinkedIn" rel="nofollow">
-      <svg class="icon">
-  <title>linkedin</title>
-  <use xlink:href="#linkedin"></use>
-</svg>
-
-    </a>
-    <a href="https://blog.wisekee.com/post/laravel-librarys/" title="Copy Link" class="link link_yank">
-      <svg class="icon">
-  <title>copy</title>
-  <use xlink:href="#copy"></use>
-</svg>
-
-    </a>
-  </div>
-  </span>
-  </div>
-
-    </div>
-      <div class="excerpt_footer">
-        <div class="pale">
-          
-            <p>use cache library out of laravel framework 1&lt;?php 2 3namespace Company; 4 5 6use Illuminate\Cache\CacheManager; 7use Illuminate\Container\Container; 8use Illuminate\Filesystem\Filesystem; 9 10class FileCache { 11 12 13 private $cacheManager; 14 private $cache; 15 16 private function __construct() 17 { 18 $container …</p>
-          
-          <br>
-          <a href="https://blog.wisekee.com/post/laravel-librarys/" title="" class="excerpt_more button">read more</a>
-        </div>
-      </div>
-    </div>
-  </li>
-
       <li>
     <ul class="pagination pagination-default">
       <li class="page-item">
@@ -512,7 +507,7 @@ switch context’s namespaces kubectl config set-context my-vsphere-cluster …<
         <a href="/page/11/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
       </li>
       <li class="page-item">
-        <a href="/page/12/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/13/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
       </li>
     </ul>
       </li>
@@ -546,6 +541,9 @@ switch context’s namespaces kubectl config set-context my-vsphere-cluster …<
     <h2 class="mt-4"></h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.wisekee.com/post/grpc-awesome/" class="nav-link" title="How to call to kubernets grpc services in local">How to call to kubernets grpc services in local</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/up_and_running_opentelmetry/" class="nav-link" title="Launch OpenTelemetry in eks and collect the metric, trace, logs">Launch OpenTelemetry in eks and collect the metric, trace, logs</a>
       </li>
       <li>
@@ -566,16 +564,13 @@ switch context’s namespaces kubectl config set-context my-vsphere-cluster …<
       <li>
         <a href="https://blog.wisekee.com/post/istio-intecept-particular-traffic/" class="nav-link" title="Istio intercept particular traffic">Istio intercept particular traffic</a>
       </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/install_istio_helm_chat/" class="nav-link" title="Installation and configuration istio use helm chat and terraform">Installation and configuration istio use helm chat and terraform</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="tags-section"></h2>
       <nav class="tags_nav">
         <a href='https://blog.wisekee.com/tags/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">14</span>
+          <span class="button_tally">15</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/k8s/' class="post_tag button button_translucent" title="k8s">
@@ -605,7 +600,7 @@ switch context’s namespaces kubectl config set-context my-vsphere-cluster …<
         
         <a href='https://blog.wisekee.com/tags/docker/' class="post_tag button button_translucent" title="docker">
           DOCKER
-          <span class="button_tally">5</span>
+          <span class="button_tally">6</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/aws/' class="post_tag button button_translucent" title="aws">
@@ -618,6 +613,11 @@ switch context’s namespaces kubectl config set-context my-vsphere-cluster …<
           <span class="button_tally">4</span>
         </a>
         
+        <a href='https://blog.wisekee.com/tags/go/' class="post_tag button button_translucent" title="go">
+          GO
+          <span class="button_tally">4</span>
+        </a>
+        
         <a href='https://blog.wisekee.com/tags/ansible/' class="post_tag button button_translucent" title="ansible">
           ANSIBLE
           <span class="button_tally">3</span>
@@ -625,11 +625,6 @@ switch context’s namespaces kubectl config set-context my-vsphere-cluster …<
         
         <a href='https://blog.wisekee.com/tags/elk/' class="post_tag button button_translucent" title="elk">
           ELK
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://blog.wisekee.com/tags/go/' class="post_tag button button_translucent" title="go">
-          GO
           <span class="button_tally">3</span>
         </a>
         
@@ -725,11 +720,15 @@ switch context’s namespaces kubectl config set-context my-vsphere-cluster …<
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/debain/' class=" post_tag button button_translucent" data-position=1 title="debain">DEBAIN<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/deployment/' class=" post_tag button button_translucent" data-position=1 title="deployment">DEPLOYMENT<span class="button_tally">1</span>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/docker/' class=" post_tag button button_translucent" data-position=5 title="docker">DOCKER<span class="button_tally">5</span>
+            <a href='https://blog.wisekee.com/tags/docker/' class=" post_tag button button_translucent" data-position=6 title="docker">DOCKER<span class="button_tally">6</span>
             </a>
             
             
@@ -785,7 +784,7 @@ switch context’s namespaces kubectl config set-context my-vsphere-cluster …<
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/go/' class=" post_tag button button_translucent" data-position=3 title="go">GO<span class="button_tally">3</span>
+            <a href='https://blog.wisekee.com/tags/go/' class=" post_tag button button_translucent" data-position=4 title="go">GO<span class="button_tally">4</span>
             </a>
             
             
@@ -794,6 +793,10 @@ switch context’s namespaces kubectl config set-context my-vsphere-cluster …<
             
             
             <a href='https://blog.wisekee.com/tags/grafana/' class=" post_tag button button_translucent" data-position=1 title="grafana">GRAFANA<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/grpc/' class=" post_tag button button_translucent" data-position=1 title="grpc">GRPC<span class="button_tally">1</span>
             </a>
             
             
@@ -849,7 +852,7 @@ switch context’s namespaces kubectl config set-context my-vsphere-cluster …<
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/kubernetes/' class=" post_tag button button_translucent" data-position=14 title="kubernetes">KUBERNETES<span class="button_tally">14</span>
+            <a href='https://blog.wisekee.com/tags/kubernetes/' class=" post_tag button button_translucent" data-position=15 title="kubernetes">KUBERNETES<span class="button_tally">15</span>
             </a>
             
             
@@ -933,6 +936,10 @@ switch context’s namespaces kubectl config set-context my-vsphere-cluster …<
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/project/' class=" post_tag button button_translucent" data-position=1 title="project">PROJECT<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/prometheus/' class=" post_tag button button_translucent" data-position=1 title="prometheus">PROMETHEUS<span class="button_tally">1</span>
             </a>
             
@@ -977,6 +984,10 @@ switch context’s namespaces kubectl config set-context my-vsphere-cluster …<
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/system/' class=" post_tag button button_translucent" data-position=1 title="system">SYSTEM<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/task/' class=" post_tag button button_translucent" data-position=1 title="task">TASK<span class="button_tally">1</span>
             </a>
             
@@ -994,6 +1005,10 @@ switch context’s namespaces kubectl config set-context my-vsphere-cluster …<
             
             
             <a href='https://blog.wisekee.com/tags/traffic/' class=" post_tag button button_translucent" data-position=2 title="traffic">TRAFFIC<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/typescript/' class=" post_tag button button_translucent" data-position=1 title="typescript">TYPESCRIPT<span class="button_tally">1</span>
             </a>
             
             

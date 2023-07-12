@@ -24,6 +24,22 @@
     </item>
     
     <item>
+      <title>How to update the out of date debian docker image</title>
+      <link>https://blog.wisekee.com/post/update-the-old-debian-repo/</link>
+      <pubDate>Sun, 18 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/update-the-old-debian-repo/</guid>
+      <description>
+        
+          
+            relative the docs about debian repo debian releases support versions for stretch old debian 1# pls reference: https://www.debian.org/security/ 2sed -i -e &amp;#34;2 {s/^/#/}&amp;#34; -e &amp;#34;4 {s/^/#/}&amp;#34; -e &amp;#34;6 {s/^/#/}&amp;#34; /etc/apt/sources.list 3echo &amp;#34;deb http://security.debian.org/debian-security bullseye-security main contrib non-free&amp;#34; &amp;gt;&amp;gt; /etc/apt/sources.list 4apt-get update &amp;amp;&amp;amp; apt-get upgrade 
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
       <title>Docker can&#39;t start in mac os</title>
       <link>https://blog.wisekee.com/post/macos-docker-notworking/</link>
       <pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate>
@@ -32,7 +48,7 @@
       <description>
         
           
-            When upgraded the Docker Destop it&amp;rsquo;s can&amp;rsquo;t starting in MacOs
+            When upgraded the Docker Desktop it&amp;rsquo;s can&amp;rsquo;t starting in MacOs
 Use AppCleaner remove Docker Destop Open Activity Monitor Force quit the Docker and Docker backend process, then open AppCleaner drag the Docker icon in Application list to AppCleaner remove the Docker
 Download Dokcer.dmg in Docker offical site and reinstalling 1 sudo hdiutil attach Docker.dmg 2 sudo /Volumes/Docker/Docker.app/Contents/MacOS/install 3 sudo hdiutil detach /Volumes/Docker Setings and change if maybe not working sudo vi ~/Library/Group\ Containers/group.
           

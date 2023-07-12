@@ -16,7 +16,7 @@
       <description>
         
           
-            When upgraded the Docker Destop it&amp;rsquo;s can&amp;rsquo;t starting in MacOs
+            When upgraded the Docker Desktop it&amp;rsquo;s can&amp;rsquo;t starting in MacOs
 Use AppCleaner remove Docker Destop Open Activity Monitor Force quit the Docker and Docker backend process, then open AppCleaner drag the Docker icon in Application list to AppCleaner remove the Docker
 Download Dokcer.dmg in Docker offical site and reinstalling 1 sudo hdiutil attach Docker.dmg 2 sudo /Volumes/Docker/Docker.app/Contents/MacOS/install 3 sudo hdiutil detach /Volumes/Docker Setings and change if maybe not working sudo vi ~/Library/Group\ Containers/group.
           
