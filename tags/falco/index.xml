@@ -24,5 +24,22 @@ We can install to independent host or kubernetes cluster Please reference previo
       </description>
     </item>
     
+    <item>
+      <title>Falco reverse shell detecting</title>
+      <link>https://blog.wisekee.com/post/falco-reverse-shell-rules/</link>
+      <pubDate>Fri, 20 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/falco-reverse-shell-rules/</guid>
+      <description>
+        
+          
+            Use install tools this will one site to launch falco
+1curl -o install_falco -s https://falco.org/script/install 2# It should be 59201c1339cc53e86edcd7d2e7273e52f784b3cf7d4a3142059112b3b9062f6d. 3sha256sum install_falco 4sudo bash install_falco Manully install Falco program You can also directly check in Github: falco-rules 1wget https://download.falco.org/packages/bin/x86_64/falco-0.34.1-x86_64.tar.gz 2tar -xzvf falco-0.34.1-x86_64.tar.gz 3apt update -y 4apt install -y dkms make linux-headers-$(uname -r) 5# If you use the falco-driver-loader to build the BPF probe locally you need also clang toolchain 6apt install -y clang llvm 7# can reference the falco site: https://falco.
+          
+          
+        
+      </description>
+    </item>
+    
   </channel>
 </rss>
