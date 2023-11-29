@@ -6,7 +6,24 @@
     <description>Recent content in open source on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Fri, 20 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/open-source/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 05 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/open-source/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Awesome open resoure new generational data laek house tools and project</title>
+      <link>https://blog.wisekee.com/post/bigdata-open-source/</link>
+      <pubDate>Wed, 05 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/bigdata-open-source/</guid>
+      <description>
+        
+          
+            There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
+https://github.com/volcano-sh/volcano(About A Cloud Native Batch System (Project under CNCF)) https://github.com/apache/yunikorn-core( light-weight, universal resource scheduler for container orchestrator systems) https://github.com/apache/airflow/(A platform to programmatically author, schedule, and monitor workflows) https://github.com/sql-machine-learning/sqlflow(Brings SQL and AI together.) https://github.com/open-metadata/OpenMetadata(About Open Standard for Metadata. A Single place to Discover, Collaborate and Get your data right) https://github.
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Getting started shell script in production from example</title>
       <link>https://blog.wisekee.com/post/excellent-shell-script/</link>
@@ -16,7 +33,7 @@
       <description>
         
           
-            The link list to learn shell script in production practice github-install-go-release-cmd falco-install-script curl https://meshery.io/install various os guideline The AWS SSM Document has many script to learn helm secrets script Colorize the output 1print_green() { 2 BOLD_GREEN=$(tput bold ; tput setaf 2) 3 NORMAL=$(tput sgr0) 4 echo &amp;#34;${BOLD_GREEN}$1${NORMAL}&amp;#34; 5} 6 7print_yellow() { 8 BOLD_YELLOW=$(tput bold ; tput setaf 3) 9 NORMAL=$(tput sgr0) 10 echo &amp;#34;${BOLD_YELLOW}$1${NORMAL}&amp;#34; 11} 12 13print_red() { 14 BOLD_YELLOW=$(tput bold ; tput setaf 1) 15 NORMAL=$(tput sgr0) 16 echo &amp;#34;${BOLD_YELLOW}$1${NORMAL}&amp;#34; 17} 18 19print_blue() { 20 BOLD_YELLOW=$(tput bold ; tput setaf 4) 21 NORMAL=$(tput sgr0) 22 echo &amp;#34;${BOLD_YELLOW}$1${NORMAL}&amp;#34; 23} 
+            The link list to learn shell script in production practice github-install-go-release-cmd falco-install-script curl https://meshery.io/install various os guideline The AWS SSM Document has many script to learn helm secrets script BASH Programming - Introduction HOW-TO Advanced Bash-Scripting Guide Colorize the output 1print_green() { 2 BOLD_GREEN=$(tput bold ; tput setaf 2) 3 NORMAL=$(tput sgr0) 4 echo &amp;#34;${BOLD_GREEN}$1${NORMAL}&amp;#34; 5} 6 7print_yellow() { 8 BOLD_YELLOW=$(tput bold ; tput setaf 3) 9 NORMAL=$(tput sgr0) 10 echo &amp;#34;${BOLD_YELLOW}$1${NORMAL}&amp;#34; 11} 12 13print_red() { 14 BOLD_YELLOW=$(tput bold ; tput setaf 1) 15 NORMAL=$(tput sgr0) 16 echo &amp;#34;${BOLD_YELLOW}$1${NORMAL}&amp;#34; 17} 18 19print_blue() { 20 BOLD_YELLOW=$(tput bold ; tput setaf 4) 21 NORMAL=$(tput sgr0) 22 echo &amp;#34;${BOLD_YELLOW}$1${NORMAL}&amp;#34; 23} Chooise the menu for aws login 1# Set a prompt for user input 2PS3=&amp;#39;Please enter your choice:&amp;#39; 3 4# Define the available options 5options=(&amp;#34;dev&amp;#34; &amp;#34;uat&amp;#34; &amp;#34;prod&amp;#34;) 6default_select=&amp;#34;dev&amp;#34; 7 8# Ask for user input 9select opt in &amp;#34;${options[@]}&amp;#34; &amp;#34;quit&amp;#34;; do 10 case &amp;#34;$REPLY&amp;#34; in 11 [1-3]) 12 echo &amp;#34;You select $opt environment&amp;#34; 13 default_select=$opt; break;; 14 $((${#options[@]}+1))) 15 echo &amp;#34;Goodbye!
           
           
         

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SecurityGroup on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/securitygroup/</link>
+    <description>Recent content in SecurityGroup on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Thu, 20 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/securitygroup/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AWS EKS pod attach the SecurityGroup through SecurityGroupPolicy CRD</title>
+      <link>https://blog.wisekee.com/post/aws-eks-pod-sg/</link>
+      <pubDate>Thu, 20 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-eks-pod-sg/</guid>
+      <description>
+        
+          
+            The EKS deployment should use ServiceAccount for pods
+Create the CR to eks cluster Control the access to Istio ingress gateway through bind the securitygroup to pod network interface.
+1apiVersion: vpcresources.k8s.aws/v1beta1 2kind: SecurityGroupPolicy 3metadata: 4 name: istio-internal-ingressgateway-sg 5 namespace: istio-system 6spec: 7 serviceAccountSelector: 8 matchLabels: 9 app: istio-internal-ingressgateway 10 securityGroups: 11 groupIds: 12 - sg-xxxxxxx 13 - sg-xxxxxxx 14 - sg-xxxxxxx 15 - sg-xxxxxxx 16 - sg-xxxxxxx Reference Security groups for Pods 
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

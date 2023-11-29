@@ -3,24 +3,150 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.wisekee.com/</loc>
-    <lastmod>2023-05-11T00:00:00+00:00</lastmod>
+    <lastmod>2023-10-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wisekee.com/tags/go/</loc>
-    <lastmod>2023-05-11T00:00:00+00:00</lastmod>
+    <loc>https://blog.wisekee.com/tags/bpf/</loc>
+    <lastmod>2023-10-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wisekee.com/tags/grpc/</loc>
-    <lastmod>2023-05-11T00:00:00+00:00</lastmod>
+    <loc>https://blog.wisekee.com/post/getting-started-ebpf/</loc>
+    <lastmod>2023-10-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wisekee.com/post/grpc-awesome/</loc>
-    <lastmod>2023-05-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/kubernetes/</loc>
-    <lastmod>2023-05-11T00:00:00+00:00</lastmod>
+    <loc>https://blog.wisekee.com/tags/kernel/</loc>
+    <lastmod>2023-10-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/post/</loc>
-    <lastmod>2023-05-11T00:00:00+00:00</lastmod>
+    <lastmod>2023-10-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/</loc>
+    <lastmod>2023-10-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/go/</loc>
+    <lastmod>2023-10-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/golang_profile/</loc>
+    <lastmod>2023-10-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/pprof/</loc>
+    <lastmod>2023-10-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/profile/</loc>
+    <lastmod>2023-10-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/aws/</loc>
+    <lastmod>2023-09-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/cloud-init/</loc>
+    <lastmod>2023-09-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/aws-ec2-userdata/</loc>
+    <lastmod>2023-09-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/ec2/</loc>
+    <lastmod>2023-09-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/gateway/</loc>
+    <lastmod>2023-09-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/istio/</loc>
+    <lastmod>2023-09-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/istio-nlb-proxy-protocolv2/</loc>
+    <lastmod>2023-09-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/nlb/</loc>
+    <lastmod>2023-09-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/envoy/</loc>
+    <lastmod>2023-09-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/envoyproxy-wasm/</loc>
+    <lastmod>2023-09-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/service-mesh/</loc>
+    <lastmod>2023-09-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/wasm/</loc>
+    <lastmod>2023-09-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/concurrency/</loc>
+    <lastmod>2023-09-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/golang-concurrency-patterns/</loc>
+    <lastmod>2023-09-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/goroutines/</loc>
+    <lastmod>2023-09-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/aws-metadata-ssrf-poc/</loc>
+    <lastmod>2023-08-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/security/</loc>
+    <lastmod>2023-08-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/ssrf/</loc>
+    <lastmod>2023-08-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/self-sign-certificate-for-istio-ingressgateway/</loc>
+    <lastmod>2023-08-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/selfsign-certificate/</loc>
+    <lastmod>2023-08-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/aws-eks-pod-sg/</loc>
+    <lastmod>2023-07-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/eks/</loc>
+    <lastmod>2023-07-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/securitygroup/</loc>
+    <lastmod>2023-07-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/envoyproxy/</loc>
+    <lastmod>2023-07-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/envoyproxy-getting-started/</loc>
+    <lastmod>2023-07-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/bigdata-open-source/</loc>
+    <lastmod>2023-07-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/bigdata/</loc>
+    <lastmod>2023-07-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/cncf/</loc>
+    <lastmod>2023-07-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/open-source/</loc>
+    <lastmod>2023-07-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/envoy-ratelimit/</loc>
+    <lastmod>2023-07-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/ratelimit/</loc>
+    <lastmod>2023-07-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/init.d/</loc>
+    <lastmod>2023-06-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/systemv/</loc>
+    <lastmod>2023-06-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/update-rc/</loc>
+    <lastmod>2023-06-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/update-rc.d-systemv/</loc>
+    <lastmod>2023-06-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/grpc/</loc>
+    <lastmod>2023-06-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/grpc-getting-started/</loc>
+    <lastmod>2023-06-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/kubernetes/</loc>
+    <lastmod>2023-06-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/grpc-awesome/</loc>
     <lastmod>2023-05-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/authortication/</loc>
@@ -50,34 +176,19 @@
     <loc>https://blog.wisekee.com/post/opensource-security-tools/</loc>
     <lastmod>2023-03-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wisekee.com/tags/security/</loc>
-    <lastmod>2023-03-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/cncf/</loc>
-    <lastmod>2023-02-25T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.wisekee.com/tags/falco/</loc>
     <lastmod>2023-02-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/post/falco&#43;falcosidekick&#43;ui/</loc>
     <lastmod>2023-02-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wisekee.com/tags/aws/</loc>
-    <lastmod>2023-02-20T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.wisekee.com/post/aws-eks-farget-nodes/</loc>
-    <lastmod>2023-02-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/eks/</loc>
     <lastmod>2023-02-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/post/aws-eks-placeholde-nodes/</loc>
     <lastmod>2023-02-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/farget/</loc>
-    <lastmod>2023-02-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/istio/</loc>
     <lastmod>2023-02-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/post/istio-intecept-particular-traffic/</loc>
@@ -93,9 +204,6 @@
     <lastmod>2023-02-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/post/excellent-shell-script/</loc>
-    <lastmod>2023-01-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/open-source/</loc>
     <lastmod>2023-01-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/reverse/</loc>
@@ -196,9 +304,6 @@
   </url><url>
     <loc>https://blog.wisekee.com/tags/iptables/</loc>
     <lastmod>2022-07-18T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/post/falco-reverse-shell-rules/</loc>
-    <lastmod>2022-05-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/checklist/</loc>
     <lastmod>2022-04-06T00:00:00+00:00</lastmod>

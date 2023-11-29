@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>bigdata on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/bigdata/</link>
+    <description>Recent content in bigdata on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Wed, 05 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/bigdata/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Awesome open resoure new generational data laek house tools and project</title>
+      <link>https://blog.wisekee.com/post/bigdata-open-source/</link>
+      <pubDate>Wed, 05 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/bigdata-open-source/</guid>
+      <description>
+        
+          
+            There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
+https://github.com/volcano-sh/volcano(About A Cloud Native Batch System (Project under CNCF)) https://github.com/apache/yunikorn-core( light-weight, universal resource scheduler for container orchestrator systems) https://github.com/apache/airflow/(A platform to programmatically author, schedule, and monitor workflows) https://github.com/sql-machine-learning/sqlflow(Brings SQL and AI together.) https://github.com/open-metadata/OpenMetadata(About Open Standard for Metadata. A Single place to Discover, Collaborate and Get your data right) https://github.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

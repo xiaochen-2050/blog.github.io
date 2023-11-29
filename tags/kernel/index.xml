@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kernel on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/kernel/</link>
+    <description>Recent content in Kernel on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 15 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/kernel/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Getting started eBPF development</title>
+      <link>https://blog.wisekee.com/post/getting-started-ebpf/</link>
+      <pubDate>Sun, 15 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/getting-started-ebpf/</guid>
+      <description>
+        
+          
+            Landscape of linux kernel tracing, monitoring,hooking and networking things method, tools.
+libbpf-bbotstrap libbpf libbpf-bootstrap-github bufcli bpf practice blog BTF sysdig ebpf write eBPF program A thorough introduction to eBPF XDP An introduction to KProbes systemtap pdig 
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

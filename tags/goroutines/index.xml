@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Goroutines on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/goroutines/</link>
+    <description>Recent content in Goroutines on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Fri, 08 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/goroutines/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Concurrency patterns in golang</title>
+      <link>https://blog.wisekee.com/post/golang-concurrency-patterns/</link>
+      <pubDate>Fri, 08 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/golang-concurrency-patterns/</guid>
+      <description>
+        
+          
+            Use for loop and ticker 1// someTask function that we call periodically. 2func someTask() { 3 fmt.Println(rand.Int() * rand.Int()) 4} 5 6// PeriodicTask runs someTask every 1 second. 7// If canceled goroutine should be stopped. 8func PeriodicTask(ctx context.Context) { 9 // Create a new ticker with a period of 1 second. 10 ticker := time.NewTicker(time.Second) 11 for { 12 select { 13 case &amp;lt;-ticker.C: 14 someTask() 15 case &amp;lt;-ctx.Done(): 16 fmt.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cloud-init on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/cloud-init/</link>
+    <description>Recent content in cloud-init on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Wed, 20 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/cloud-init/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Custom the ec2 user data when instance launch</title>
+      <link>https://blog.wisekee.com/post/aws-ec2-userdata/</link>
+      <pubDate>Wed, 20 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-ec2-userdata/</guid>
+      <description>
+        
+          
+            Usually, user data scripts are only run the first time the instance is started, however this can be changed using cloud-init to run every time the instance restarts.
+Create the cloud config file 1Content-Type: multipart/mixed; boundary=&amp;#34;//&amp;#34; 2MIME-Version: 1.0 3 4--// 5Content-Type: text/cloud-config; charset=&amp;#34;us-ascii&amp;#34; 6MIME-Version: 1.0 7Content-Transfer-Encoding: 7bit 8Content-Disposition: attachment; filename=&amp;#34;cloud-config.txt&amp;#34; 9 10#cloud-config 11cloud_final_modules: 12 - [scripts-user, always] 13runcmd: 14 - [ mkdir, /test-cloudinit ] 15write_files: 16 - path: /test-cloudinit/cloud-init.txt 17 content: Created by cloud-init 18 19--// 20Content-Type: text/x-shellscript; charset=&amp;#34;us-ascii&amp;#34; 21MIME-Version: 1.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

