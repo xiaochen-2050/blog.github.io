@@ -211,6 +211,8 @@
 </span></span><span class="line"><span class="ln">14</span><span class="cl">istioctl proxy-config listeners  reviews-v3-5c5cc7b6d-hpkd2.apps --port <span class="m">15001</span> -o yaml
 </span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="c1"># open the envoy admin portal in local host to view all stats and metrics and configs</span>
 </span></span><span class="line"><span class="ln">16</span><span class="cl">istioctl dash envoy deploy/pod-xxxx -n ns
+</span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="c1"># view the all clusters in pod</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">kubectl <span class="nb">exec</span> <span class="s2">&#34;</span><span class="k">$(</span>kubectl get pod -l <span class="nv">app</span><span class="o">=</span>helloworld -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span><span class="s2">&#34;</span> -c istio-proxy -- curl -sS 0:15000/clusters
 </span></span></code></pre></div><h4 id="deploy-the-testing-apps">Deploy the Testing Apps</h4>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">kubectl apply -f samples/sleep/sleep.yaml
 </span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nb">export</span> <span class="nv">SOURCE_POD</span><span class="o">=</span><span class="k">$(</span>kubectl get pod -l <span class="nv">app</span><span class="o">=</span>sleep -o <span class="nv">jsonpath</span><span class="o">={</span>.items..metadata.name<span class="o">}</span><span class="k">)</span>
@@ -539,28 +541,28 @@ while when execute script call api ,the correct more result
     <h2 class="mt-4"></h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.wisekee.com/post/vue-custom-components/" class="nav-link" title="Vue custom component getting started">Vue custom component getting started</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/aws-ecr-register-helper/" class="nav-link" title="Dynamic create docker registry pull image credentials in eks cluster for particular  imagePullSecret">Dynamic create docker registry pull image credentials in eks cluster for particular  imagePullSecret</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/aws-jsii-getting-started/" class="nav-link" title="Use AWS jsii to cross language invoker">Use AWS jsii to cross language invoker</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/vue-app-getting-started/" class="nav-link" title="How to create sample frontend in vue use cli and vite">How to create sample frontend in vue use cli and vite</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/golang-web-static-fileserver/" class="nav-link" title="Use golang serve the static file embedded to binary file">Use golang serve the static file embedded to binary file</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/getting-started-ebpf/" class="nav-link" title="Getting started eBPF development">Getting started eBPF development</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/golang_profile/" class="nav-link" title="How to profile the golang program">How to profile the golang program</a>
       </li>
       <li>
-        <a href="https://blog.wisekee.com/post/aws-ec2-userdata/" class="nav-link" title="Custom the ec2 user data when instance launch">Custom the ec2 user data when instance launch</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/istio-nlb-proxy-protocolv2/" class="nav-link" title="Istio ingress gateway enalbe proxy protocol v2 in AWS network loadbalance">Istio ingress gateway enalbe proxy protocol v2 in AWS network loadbalance</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/envoyproxy-wasm/" class="nav-link" title="Envoyproxy write wasm plugin getting started">Envoyproxy write wasm plugin getting started</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/golang-concurrency-patterns/" class="nav-link" title="Concurrency patterns in golang">Concurrency patterns in golang</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/aws-metadata-ssrf-poc/" class="nav-link" title="AWS metadata service v1 SSRF POC">AWS metadata service v1 SSRF POC</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/self-sign-certificate-for-istio-ingressgateway/" class="nav-link" title="Generate the self sign certificate for istio ingress gateway">Generate the self sign certificate for istio ingress gateway</a>
+        <a href="https://blog.wisekee.com/post/golang-jwt-example/" class="nav-link" title="Generation and Verify JWT token in golang">Generation and Verify JWT token in golang</a>
       </li>
     </ul>
     <div>
@@ -568,7 +570,12 @@ while when execute script call api ,the correct more result
       <nav class="tags_nav">
         <a href='https://blog.wisekee.com/tags/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">16</span>
+          <span class="button_tally">19</span>
+        </a>
+        
+        <a href='https://blog.wisekee.com/tags/k8s/' class="post_tag button button_translucent" title="k8s">
+          K8S
+          <span class="button_tally">11</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/security/' class="post_tag button button_translucent" title="security">
@@ -576,14 +583,19 @@ while when execute script call api ,the correct more result
           <span class="button_tally">10</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/k8s/' class="post_tag button button_translucent" title="k8s">
-          K8S
+        <a href='https://blog.wisekee.com/tags/aws/' class="post_tag button button_translucent" title="aws">
+          AWS
           <span class="button_tally">9</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/cncf/' class="post_tag button button_translucent" title="cncf">
           CNCF
-          <span class="button_tally">8</span>
+          <span class="button_tally">9</span>
+        </a>
+        
+        <a href='https://blog.wisekee.com/tags/go/' class="post_tag button button_translucent" title="go">
+          GO
+          <span class="button_tally">9</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/featured/' class="post_tag button button_translucent" title="featured">
@@ -591,29 +603,19 @@ while when execute script call api ,the correct more result
           <span class="button_tally">8</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/aws/' class="post_tag button button_translucent" title="aws">
-          AWS
-          <span class="button_tally">7</span>
-        </a>
-        
-        <a href='https://blog.wisekee.com/tags/go/' class="post_tag button button_translucent" title="go">
-          GO
-          <span class="button_tally">7</span>
-        </a>
-        
         <a href='https://blog.wisekee.com/tags/terraform/' class="post_tag button button_translucent" title="terraform">
           TERRAFORM
-          <span class="button_tally">7</span>
+          <span class="button_tally">8</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/docker/' class="post_tag button button_translucent" title="docker">
           DOCKER
-          <span class="button_tally">6</span>
+          <span class="button_tally">7</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/istio/' class="post_tag button button_translucent" title="istio">
           ISTIO
-          <span class="button_tally">5</span>
+          <span class="button_tally">6</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/cloud-native/' class="post_tag button button_translucent" title="cloud-native">
@@ -621,19 +623,19 @@ while when execute script call api ,the correct more result
           <span class="button_tally">4</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/service-mesh/' class="post_tag button button_translucent" title="service-mesh">
-          SERVICE-MESH
+        <a href='https://blog.wisekee.com/tags/frontend/' class="post_tag button button_translucent" title="frontend">
+          FRONTEND
           <span class="button_tally">4</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/ansible/' class="post_tag button button_translucent" title="ansible">
-          ANSIBLE
-          <span class="button_tally">3</span>
+        <a href='https://blog.wisekee.com/tags/open-source/' class="post_tag button button_translucent" title="open-source">
+          OPEN-SOURCE
+          <span class="button_tally">4</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/eks/' class="post_tag button button_translucent" title="eks">
-          EKS
-          <span class="button_tally">3</span>
+        <a href='https://blog.wisekee.com/tags/service-mesh/' class="post_tag button button_translucent" title="service-mesh">
+          SERVICE-MESH
+          <span class="button_tally">4</span>
         </a>
         
         
@@ -646,6 +648,10 @@ while when execute script call api ,the correct more result
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/agent/' class=" post_tag button button_translucent" data-position=1 title="agent">AGENT<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/airflow/' class=" post_tag button button_translucent" data-position=1 title="airflow">AIRFLOW<span class="button_tally">1</span>
             </a>
             
@@ -654,7 +660,15 @@ while when execute script call api ,the correct more result
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/apigateway/' class=" post_tag button button_translucent" data-position=1 title="apigateway">APIGATEWAY<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/athens/' class=" post_tag button button_translucent" data-position=1 title="athens">ATHENS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/authorization/' class=" post_tag button button_translucent" data-position=1 title="authorization">AUTHORIZATION<span class="button_tally">1</span>
             </a>
             
             
@@ -666,7 +680,11 @@ while when execute script call api ,the correct more result
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/aws/' class=" post_tag button button_translucent" data-position=7 title="aws">AWS<span class="button_tally">7</span>
+            <a href='https://blog.wisekee.com/tags/autogpt/' class=" post_tag button button_translucent" data-position=1 title="autogpt">AUTOGPT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/aws/' class=" post_tag button button_translucent" data-position=9 title="aws">AWS<span class="button_tally">9</span>
             </a>
             
             
@@ -674,7 +692,7 @@ while when execute script call api ,the correct more result
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/bigdata/' class=" post_tag button button_translucent" data-position=1 title="bigdata">BIGDATA<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/bigdata/' class=" post_tag button button_translucent" data-position=2 title="bigdata">BIGDATA<span class="button_tally">2</span>
             </a>
             
             
@@ -682,7 +700,15 @@ while when execute script call api ,the correct more result
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/boot/' class=" post_tag button button_translucent" data-position=1 title="boot">BOOT<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/bpf/' class=" post_tag button button_translucent" data-position=1 title="bpf">BPF<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/bundle/' class=" post_tag button button_translucent" data-position=1 title="bundle">BUNDLE<span class="button_tally">1</span>
             </a>
             
             
@@ -690,7 +716,15 @@ while when execute script call api ,the correct more result
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/cdk/' class=" post_tag button button_translucent" data-position=1 title="cdk">CDK<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/checklist/' class=" post_tag button button_translucent" data-position=1 title="checklist">CHECKLIST<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/claims/' class=" post_tag button button_translucent" data-position=1 title="claims">CLAIMS<span class="button_tally">1</span>
             </a>
             
             
@@ -710,7 +744,11 @@ while when execute script call api ,the correct more result
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=8 title="cncf">CNCF<span class="button_tally">8</span>
+            <a href='https://blog.wisekee.com/tags/cluster/' class=" post_tag button button_translucent" data-position=1 title="cluster">CLUSTER<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=9 title="cncf">CNCF<span class="button_tally">9</span>
             </a>
             
             
@@ -723,6 +761,10 @@ while when execute script call api ,the correct more result
             
             
             <a href='https://blog.wisekee.com/tags/consul/' class=" post_tag button button_translucent" data-position=1 title="consul">CONSUL<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/cordon/' class=" post_tag button button_translucent" data-position=1 title="cordon">CORDON<span class="button_tally">1</span>
             </a>
             
             
@@ -742,7 +784,7 @@ while when execute script call api ,the correct more result
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/docker/' class=" post_tag button button_translucent" data-position=6 title="docker">DOCKER<span class="button_tally">6</span>
+            <a href='https://blog.wisekee.com/tags/docker/' class=" post_tag button button_translucent" data-position=7 title="docker">DOCKER<span class="button_tally">7</span>
             </a>
             
             
@@ -759,6 +801,10 @@ while when execute script call api ,the correct more result
             
             
             <a href='https://blog.wisekee.com/tags/eclipse-che/' class=" post_tag button button_translucent" data-position=1 title="eclipse-che">ECLIPSE-CHE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/ecr/' class=" post_tag button button_translucent" data-position=1 title="ecr">ECR<span class="button_tally">1</span>
             </a>
             
             
@@ -786,6 +832,10 @@ while when execute script call api ,the correct more result
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/evict/' class=" post_tag button button_translucent" data-position=1 title="evict">EVICT<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/falco/' class=" post_tag button button_translucent" data-position=2 title="falco">FALCO<span class="button_tally">2</span>
             </a>
             
@@ -810,11 +860,15 @@ while when execute script call api ,the correct more result
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/frontend/' class=" post_tag button button_translucent" data-position=4 title="frontend">FRONTEND<span class="button_tally">4</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/gateway/' class=" post_tag button button_translucent" data-position=1 title="gateway">GATEWAY<span class="button_tally">1</span>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/go/' class=" post_tag button button_translucent" data-position=7 title="go">GO<span class="button_tally">7</span>
+            <a href='https://blog.wisekee.com/tags/go/' class=" post_tag button button_translucent" data-position=9 title="go">GO<span class="button_tally">9</span>
             </a>
             
             
@@ -823,6 +877,10 @@ while when execute script call api ,the correct more result
             
             
             <a href='https://blog.wisekee.com/tags/goroutines/' class=" post_tag button button_translucent" data-position=1 title="goroutines">GOROUTINES<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/gpt/' class=" post_tag button button_translucent" data-position=1 title="gpt">GPT<span class="button_tally">1</span>
             </a>
             
             
@@ -835,6 +893,10 @@ while when execute script call api ,the correct more result
             
             
             <a href='https://blog.wisekee.com/tags/hackthebox/' class=" post_tag button button_translucent" data-position=1 title="hackthebox">HACKTHEBOX<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/hive/' class=" post_tag button button_translucent" data-position=1 title="hive">HIVE<span class="button_tally">1</span>
             </a>
             
             
@@ -870,15 +932,31 @@ while when execute script call api ,the correct more result
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/istio/' class=" post_tag button button_translucent" data-position=5 title="istio">ISTIO<span class="button_tally">5</span>
+            <a href='https://blog.wisekee.com/tags/istio/' class=" post_tag button button_translucent" data-position=6 title="istio">ISTIO<span class="button_tally">6</span>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/k8s/' class=" post_tag button button_translucent" data-position=9 title="k8s">K8S<span class="button_tally">9</span>
+            <a href='https://blog.wisekee.com/tags/jenkins/' class=" post_tag button button_translucent" data-position=1 title="jenkins">JENKINS<span class="button_tally">1</span>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/kernel/' class=" post_tag button button_translucent" data-position=1 title="kernel">KERNEL<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/jsii/' class=" post_tag button button_translucent" data-position=1 title="jsii">JSII<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/jwt/' class=" post_tag button button_translucent" data-position=2 title="jwt">JWT<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/k8s/' class=" post_tag button button_translucent" data-position=11 title="k8s">K8S<span class="button_tally">11</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/kernel/' class=" post_tag button button_translucent" data-position=2 title="kernel">KERNEL<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/kind/' class=" post_tag button button_translucent" data-position=1 title="kind">KIND<span class="button_tally">1</span>
             </a>
             
             
@@ -894,7 +972,15 @@ while when execute script call api ,the correct more result
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/kubernetes/' class=" post_tag button button_translucent" data-position=16 title="kubernetes">KUBERNETES<span class="button_tally">16</span>
+            <a href='https://blog.wisekee.com/tags/kubernetes/' class=" post_tag button button_translucent" data-position=19 title="kubernetes">KUBERNETES<span class="button_tally">19</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/linux/' class=" post_tag button button_translucent" data-position=1 title="linux">LINUX<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/llm/' class=" post_tag button button_translucent" data-position=1 title="llm">LLM<span class="button_tally">1</span>
             </a>
             
             
@@ -919,6 +1005,10 @@ while when execute script call api ,the correct more result
             
             
             <a href='https://blog.wisekee.com/tags/metrics/' class=" post_tag button button_translucent" data-position=1 title="metrics">METRICS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/minio/' class=" post_tag button button_translucent" data-position=1 title="minio">MINIO<span class="button_tally">1</span>
             </a>
             
             
@@ -962,7 +1052,11 @@ while when execute script call api ,the correct more result
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/open-source/' class=" post_tag button button_translucent" data-position=3 title="open-source">OPEN-SOURCE<span class="button_tally">3</span>
+            <a href='https://blog.wisekee.com/tags/open-source/' class=" post_tag button button_translucent" data-position=4 title="open-source">OPEN-SOURCE<span class="button_tally">4</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/openai/' class=" post_tag button button_translucent" data-position=1 title="openai">OPENAI<span class="button_tally">1</span>
             </a>
             
             
@@ -979,6 +1073,10 @@ while when execute script call api ,the correct more result
             
             
             <a href='https://blog.wisekee.com/tags/pod/' class=" post_tag button button_translucent" data-position=1 title="pod">POD<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/postgresql/' class=" post_tag button button_translucent" data-position=1 title="postgresql">POSTGRESQL<span class="button_tally">1</span>
             </a>
             
             
@@ -999,6 +1097,10 @@ while when execute script call api ,the correct more result
             
             
             <a href='https://blog.wisekee.com/tags/proxy/' class=" post_tag button button_translucent" data-position=1 title="proxy">PROXY<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/psql/' class=" post_tag button button_translucent" data-position=1 title="psql">PSQL<span class="button_tally">1</span>
             </a>
             
             
@@ -1074,7 +1176,7 @@ while when execute script call api ,the correct more result
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/terraform/' class=" post_tag button button_translucent" data-position=7 title="terraform">TERRAFORM<span class="button_tally">7</span>
+            <a href='https://blog.wisekee.com/tags/terraform/' class=" post_tag button button_translucent" data-position=8 title="terraform">TERRAFORM<span class="button_tally">8</span>
             </a>
             
             
@@ -1083,6 +1185,10 @@ while when execute script call api ,the correct more result
             
             
             <a href='https://blog.wisekee.com/tags/traffic/' class=" post_tag button button_translucent" data-position=2 title="traffic">TRAFFIC<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/trino/' class=" post_tag button button_translucent" data-position=1 title="trino">TRINO<span class="button_tally">1</span>
             </a>
             
             
@@ -1102,7 +1208,23 @@ while when execute script call api ,the correct more result
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/vite/' class=" post_tag button button_translucent" data-position=2 title="vite">VITE<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/vue/' class=" post_tag button button_translucent" data-position=2 title="vue">VUE<span class="button_tally">2</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/wasm/' class=" post_tag button button_translucent" data-position=1 title="wasm">WASM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/web/' class=" post_tag button button_translucent" data-position=1 title="web">WEB<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/webpack/' class=" post_tag button button_translucent" data-position=1 title="webpack">WEBPACK<span class="button_tally">1</span>
             </a>
             
             <div class="tags_sort"><span title="sort alphabetically">[A~Z]</span><span title="sort by count">[0~9]</span>

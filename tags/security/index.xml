@@ -65,12 +65,7 @@ We can install to independent host or kubernetes cluster Please reference previo
       <description>
         
           
-            Posts series about knowledge ELF Format and Runtime Internals
-learning-linux-binary
-Hopper Disassembler
-Ghidra is a software reverse engineering
-Ghidra script
-the Ultimate Packer for eXecutables
+            Abstractor Application Binary Interface (ABI) How to check the binary format inform 1# you can view the program format and linked information 2file xxxxx 3# view the detail elf 4readelf -a xxxxx 5# to detect the dynamic libraries be used 6ldd xxxxx 7# view the header details 8hexdump -C -n 64 xxxxx Some command to view headers dumpelf elfls -p /bin/ps eu-readelf –section-headers /bin/ps readelf -S /bin/ps objdump -h /bin/ps Posts series about knowledge ELF Format and Runtime Internals
           
           
         

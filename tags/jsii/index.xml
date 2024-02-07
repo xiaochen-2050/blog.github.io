@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jsii on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/jsii/</link>
+    <description>Recent content in Jsii on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Mon, 20 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/jsii/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Use AWS jsii to cross language invoker</title>
+      <link>https://blog.wisekee.com/post/aws-jsii-getting-started/</link>
+      <pubDate>Mon, 20 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-jsii-getting-started/</guid>
+      <description>
+        
+          
+            You can generate Python, Java, and .NET software libraries from a TypeScript source use jsii of AWS Cloud Development Kit (AWS CDK).
+Initialization the project constructure 1pnpm init -y 2pnpm install --development jsii jsii-pacmak The package.json like following this 1{ 2 &amp;#34;name&amp;#34;: &amp;#34;jsii-demo&amp;#34;, 3 &amp;#34;version&amp;#34;: &amp;#34;1.0.0&amp;#34;, 4 &amp;#34;description&amp;#34;: &amp;#34;A demonstration jsii library&amp;#34;, 5 &amp;#34;main&amp;#34;: &amp;#34;index.js&amp;#34;, 6 &amp;#34;scripts&amp;#34;: { 7 &amp;#34;build&amp;#34;: &amp;#34;jsii&amp;#34;, 8 &amp;#34;build:watch&amp;#34;: &amp;#34;jsii --watch&amp;#34;, 9 &amp;#34;package&amp;#34;: &amp;#34;jsii-pacmak&amp;#34; 10 }, 11 &amp;#34;keywords&amp;#34;: [], 12 &amp;#34;author&amp;#34;: { 13 &amp;#34;name&amp;#34;: &amp;#34;John Doe&amp;#34;, 14 &amp;#34;email&amp;#34;: &amp;#34;john.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

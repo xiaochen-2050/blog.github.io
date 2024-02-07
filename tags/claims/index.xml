@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Claims on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/claims/</link>
+    <description>Recent content in Claims on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Tue, 15 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/claims/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Istio verify and parse jwt header</title>
+      <link>https://blog.wisekee.com/post/istio-parse-jwt/</link>
+      <pubDate>Tue, 15 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/istio-parse-jwt/</guid>
+      <description>
+        
+          
+            Create RequestAuthentication and AuthorizationPolicy resources 1apiVersion: security.istio.io/v1beta1 2kind: RequestAuthentication 3metadata: 4 name: &amp;#34;request-authentication-sso&amp;#34; 5 namespace: istio-system 6spec: 7 jwtRules: 8 - issuer: &amp;#34;https://issue.example.com/sso&amp;#34; 9 jwksUri: &amp;#34;https://issue.example.com/.well-known/openid-configuration/jwks&amp;#34; 10 outputClaimToHeaders: 11 - header: &amp;#34;x-jwt-claim-email&amp;#34; 12 claim: &amp;#34;email&amp;#34; 13 14--- 15apiVersion: security.istio.io/v1beta1 16kind: AuthorizationPolicy 17metadata: 18 name: ingress-gateway-authorization 19 namespace: istio-system 20spec: 21 selector: 22 matchLabels: 23 app: istio-ingressgateway 24 action: ALLOW 25 rules: 26 - from: 27 - source: 28 requestPrincipals: [&amp;#34;*&amp;#34;] 29 - to: 30 - operation: 31 paths: [ 32 &amp;#34;/productpage*&amp;#34;, 33 &amp;#34;/login*&amp;#34;, 34 &amp;#34;/logout*&amp;#34;, 35 &amp;#34;/static*&amp;#34; 36 ] May be need complex authorization 1--- 2# apiVersion: security.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

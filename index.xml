@@ -6,7 +6,91 @@
     <description>Recent content on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Sun, 15 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 10 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vue custom component getting started</title>
+      <link>https://blog.wisekee.com/post/vue-custom-components/</link>
+      <pubDate>Sun, 10 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/vue-custom-components/</guid>
+      <description>
+        
+          
+            Define the custom component MessageBox in vue file this file named MessageBox.vue
+1&amp;lt;template&amp;gt; 2 &amp;lt;transition name=&amp;#34;fade-in&amp;#34; mode=&amp;#34;out-in&amp;#34;&amp;gt; 3 &amp;lt;div 4 v-if=&amp;#34;show&amp;#34; 5 :class=&amp;#34;[&amp;#39;alert&amp;#39;, &amp;#39;notification&amp;#39;, &amp;#39;is-&amp;#39; + type]&amp;#34; 6 :style=&amp;#34;{ transform: &amp;#39;translate(-50%,&amp;#39; + offset + &amp;#39;px)&amp;#39; }&amp;#34; 7 &amp;gt; 8 &amp;lt;button 9 @click=&amp;#34;() =&amp;gt; (this.show = !this.show)&amp;#34; 10 v-show=&amp;#34;this.showBtn&amp;#34; 11 class=&amp;#34;delete&amp;#34; 12 &amp;gt;&amp;lt;/button&amp;gt; 13 &amp;lt;p v-html=&amp;#34;message&amp;#34;&amp;gt;&amp;lt;/p&amp;gt; 14 &amp;lt;/div&amp;gt; 15 &amp;lt;/transition&amp;gt; 16&amp;lt;/template&amp;gt; 17 18&amp;lt;script&amp;gt; 19export default { 20 name: &amp;#34;MessageBox&amp;#34;, 21 props: { 22 message: { 23 thype: String, 24 required: true, 25 }, 26 type: { 27 type: String, 28 default: &amp;#34;default&amp;#34;, 29 }, 30 offset: { 31 type: Number, 32 default: 20, 33 }, 34 showBtn: { 35 type: Boolean, 36 default: true, 37 }, 38 }, 39 data() { 40 return { 41 show: true, 42 }; 43 }, 44 methods: { 45 isShow(status) { 46 this.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Dynamic create docker registry pull image credentials in eks cluster for particular  imagePullSecret</title>
+      <link>https://blog.wisekee.com/post/aws-ecr-register-helper/</link>
+      <pubDate>Mon, 20 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-ecr-register-helper/</guid>
+      <description>
+        
+          
+            When use imagePullSecret to pull image from ecr in eks cluster for particular task etc. Istio WSAM plugin from ecr registry, need specific imagePullSecret
+Basic workflow create cronjob in eks cluster schedule login to ecr and obtain credentials create a secrets in some Namespaces named aws-registry save the docker pull credentals use this secrets in Namespace pull image specific imagePullSecret parameter for example: 1 spec: 2 imagePullPolicy: Always 3 imagePullSecret: aws-registry The Dockerfile to construct cronjob docker image 1FROM python:alpine 2MAINTAINER Mike Petersen &amp;lt;mike@odania-it.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Use AWS jsii to cross language invoker</title>
+      <link>https://blog.wisekee.com/post/aws-jsii-getting-started/</link>
+      <pubDate>Mon, 20 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-jsii-getting-started/</guid>
+      <description>
+        
+          
+            You can generate Python, Java, and .NET software libraries from a TypeScript source use jsii of AWS Cloud Development Kit (AWS CDK).
+Initialization the project constructure 1pnpm init -y 2pnpm install --development jsii jsii-pacmak The package.json like following this 1{ 2 &amp;#34;name&amp;#34;: &amp;#34;jsii-demo&amp;#34;, 3 &amp;#34;version&amp;#34;: &amp;#34;1.0.0&amp;#34;, 4 &amp;#34;description&amp;#34;: &amp;#34;A demonstration jsii library&amp;#34;, 5 &amp;#34;main&amp;#34;: &amp;#34;index.js&amp;#34;, 6 &amp;#34;scripts&amp;#34;: { 7 &amp;#34;build&amp;#34;: &amp;#34;jsii&amp;#34;, 8 &amp;#34;build:watch&amp;#34;: &amp;#34;jsii --watch&amp;#34;, 9 &amp;#34;package&amp;#34;: &amp;#34;jsii-pacmak&amp;#34; 10 }, 11 &amp;#34;keywords&amp;#34;: [], 12 &amp;#34;author&amp;#34;: { 13 &amp;#34;name&amp;#34;: &amp;#34;John Doe&amp;#34;, 14 &amp;#34;email&amp;#34;: &amp;#34;john.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>How to create sample frontend in vue use cli and vite</title>
+      <link>https://blog.wisekee.com/post/vue-app-getting-started/</link>
+      <pubDate>Sat, 18 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/vue-app-getting-started/</guid>
+      <description>
+        
+          
+            The vue cli 1 2npm i -g @vue/cli 3vue --version 4vue create vue-starter-project 5 6# create local development configuration file 7touch .env.development Use NODE_ENV to switch build or compiler and coding 1# can define the different environment file 2touch .env.development.local # to local testing for development don&amp;#39;t commit the git 3touch .env.staging # to staging environment to configuration 4 5# The env file content may be 6echo &amp;#39;NODE_ENV=&amp;#34;staging&amp;#34;&amp;#39; 7 8# integration the env file to launch 9# { 10# .
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Use golang serve the static file embedded to binary file</title>
+      <link>https://blog.wisekee.com/post/golang-web-static-fileserver/</link>
+      <pubDate>Wed, 08 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/golang-web-static-fileserver/</guid>
+      <description>
+        
+          
+            The golang code to embed file to compile file use the annotatioins to embed folder, this should embed current public folder to binary file
+1 2import ( 3	&amp;#34;embed&amp;#34; 4 &amp;#34;fmt&amp;#34; 5 &amp;#34;os&amp;#34; 6 &amp;#34;io/fs&amp;#34; 7	&amp;#34;net/http&amp;#34; 8 &amp;#34;os/signal&amp;#34; 9	&amp;#34;runtime&amp;#34; 10	&amp;#34;strings&amp;#34; 11	&amp;#34;syscall&amp;#34; 12) 13 14 15//go:embed public 16var staticFiles embed.FS 17 18 19func main() { 20 public, _ := fs.Sub(staticFiles, &amp;#34;public&amp;#34;) 21	// handle static files include HTML, CSS and JavaScripts.
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Getting started eBPF development</title>
       <link>https://blog.wisekee.com/post/getting-started-ebpf/</link>
@@ -35,6 +119,40 @@ libbpf-bbotstrap libbpf libbpf-bootstrap-github bufcli bpf practice blog BTF sys
           
             For checkout the resources usage in golang, this is simple
 Add the profile code in app 1// Add the flag to arguments to cpu and memory ptoto buffer file store to it 2	rootCmd.PersistentFlags().StringP(&amp;#34;cpuprofile&amp;#34;, &amp;#34;&amp;#34;, &amp;#34;&amp;#34;, &amp;#34;cpu profile file&amp;#34;) 3	rootCmd.PersistentFlags().StringP(&amp;#34;memprofile&amp;#34;, &amp;#34;&amp;#34;, &amp;#34;&amp;#34;, &amp;#34;memory profile file&amp;#34;) 4// whether enable profile 5func enableProfile() { 6	cpu, _ := rootCmd.Flags().GetString(&amp;#34;cpuprofile&amp;#34;) 7	mem, _ := rootCmd.Flags().GetString(&amp;#34;memprofile&amp;#34;) 8	if cpu != &amp;#34;&amp;#34; { 9	f, err := os.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Generation and Verify JWT token in golang</title>
+      <link>https://blog.wisekee.com/post/golang-jwt-example/</link>
+      <pubDate>Sun, 08 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/golang-jwt-example/</guid>
+      <description>
+        
+          
+            Use HS256 or RS256 to sign and authorization is common JWT methods
+Create the JWT token 1package util 2 3import &amp;#34;github.com/golang-jwt/jwt/v5&amp;#34; 4 5// retrieve JWT key from .env file 6var privateKey = []byte(os.Getenv(&amp;#34;JWT_PRIVATE_KEY&amp;#34;)) 7 8// generate JWT token 9func GenerateJWT(user model.User) (string, error) { 10	tokenTTL, _ := strconv.Atoi(os.Getenv(&amp;#34;TOKEN_TTL&amp;#34;)) 11	//log.Println(time.Now()) 12	//log.Println(time.Now().Add(time.Second * time.Duration(tokenTTL))) 13	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{ 14	&amp;#34;id&amp;#34;: user.ID, 15	&amp;#34;role&amp;#34;: user.RoleID, 16	&amp;#34;iat&amp;#34;: time.Now().Unix(), 17	&amp;#34;eat&amp;#34;: time.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Use terraform or ACK apigatewayv2 EKS operator to set up apigateway in AWS</title>
+      <link>https://blog.wisekee.com/post/aws-apigateway-practice/</link>
+      <pubDate>Thu, 05 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-apigateway-practice/</guid>
+      <description>
+        
+          
+            The daigram 1 2mock-restapi.example.dev(route53) -----&amp;gt; apigateway -----&amp;gt; vpclink -------&amp;gt; private aws nlb (eks ingress) ---&amp;gt; app servcie Use Terraform to create apigateway restapi resource to apply the resources and mapping the apigateway domain name to route53 to access the eks services
+create the route53 and domain name and vpc link to access eks services 1resource &amp;#34;aws_api_gateway_vpc_link&amp;#34; &amp;#34;to-private-nlb&amp;#34; { 2 name = &amp;#34;to-private-nlb&amp;#34; 3 description = &amp;#34;rest api to private nlb&amp;#34; 4 target_arns = [&amp;#34;arn:aws:elasticloadbalancing:xxxxx:xxxxx:loadbalancer/net/xxxxxx/xxxxxx&amp;#34;] 5} 6 7data &amp;#34;aws_route53_zone&amp;#34; &amp;#34;example_dev&amp;#34; { 8 name = &amp;#34;example.
           
           
         
@@ -83,7 +201,7 @@ Create the cloud config file 1Content-Type: multipart/mixed; boundary=&amp;#34;/
       <description>
         
           
-            The Dockerfile from envoyproxy base image inherit 1FROM envoyproxy/envoy:v1.27-latest 2 3COPY envoy.yaml /etc/envoy/envoy.yaml 4COPY hello.wasm hello.wasm 5RUN chmod go+r /etc/envoy/envoy.yaml 
+            The Dockerfile from envoyproxy base image inherit 1FROM envoyproxy/envoy:v1.27-latest 2 3COPY envoy.yaml /etc/envoy/envoy.yaml 4COPY hello.wasm hello.wasm 5RUN chmod go+r /etc/envoy/envoy.yaml The EnvoyProxy config envoy.yaml 1static_resources: 2 listeners: 3 - name: main 4 address: 5 socket_address: 6 address: 0.0.0.0 7 port_value: 18000 8 filter_chains: 9 - filters: 10 - name: envoy.http_connection_manager 11 typed_config: 12 &amp;#34;@type&amp;#34;: type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager 13 stat_prefix: ingress_http 14 codec_type: auto 15 route_config: 16 name: local_route 17 virtual_hosts: 18 - name: local_service 19 domains: 20 - &amp;#34;*&amp;#34; 21 routes: 22 - match: 23 prefix: &amp;#34;/&amp;#34; 24 direct_response: 25 status: 200 26 body: 27 inline_string: &amp;#34;example body\n&amp;#34; 28 http_filters: 29 - name: envoy.
           
           
         
@@ -100,6 +218,38 @@ Create the cloud config file 1Content-Type: multipart/mixed; boundary=&amp;#34;/
         
           
             Use for loop and ticker 1// someTask function that we call periodically. 2func someTask() { 3 fmt.Println(rand.Int() * rand.Int()) 4} 5 6// PeriodicTask runs someTask every 1 second. 7// If canceled goroutine should be stopped. 8func PeriodicTask(ctx context.Context) { 9 // Create a new ticker with a period of 1 second. 10 ticker := time.NewTicker(time.Second) 11 for { 12 select { 13 case &amp;lt;-ticker.C: 14 someTask() 15 case &amp;lt;-ctx.Done(): 16 fmt.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Istio verify and parse jwt header</title>
+      <link>https://blog.wisekee.com/post/istio-parse-jwt/</link>
+      <pubDate>Tue, 15 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/istio-parse-jwt/</guid>
+      <description>
+        
+          
+            Create RequestAuthentication and AuthorizationPolicy resources 1apiVersion: security.istio.io/v1beta1 2kind: RequestAuthentication 3metadata: 4 name: &amp;#34;request-authentication-sso&amp;#34; 5 namespace: istio-system 6spec: 7 jwtRules: 8 - issuer: &amp;#34;https://issue.example.com/sso&amp;#34; 9 jwksUri: &amp;#34;https://issue.example.com/.well-known/openid-configuration/jwks&amp;#34; 10 outputClaimToHeaders: 11 - header: &amp;#34;x-jwt-claim-email&amp;#34; 12 claim: &amp;#34;email&amp;#34; 13 14--- 15apiVersion: security.istio.io/v1beta1 16kind: AuthorizationPolicy 17metadata: 18 name: ingress-gateway-authorization 19 namespace: istio-system 20spec: 21 selector: 22 matchLabels: 23 app: istio-ingressgateway 24 action: ALLOW 25 rules: 26 - from: 27 - source: 28 requestPrincipals: [&amp;#34;*&amp;#34;] 29 - to: 30 - operation: 31 paths: [ 32 &amp;#34;/productpage*&amp;#34;, 33 &amp;#34;/login*&amp;#34;, 34 &amp;#34;/logout*&amp;#34;, 35 &amp;#34;/static*&amp;#34; 36 ] May be need complex authorization 1--- 2# apiVersion: security.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>trino&#43;hive metastore&#43;k8s&#43;minio environment prepared</title>
+      <link>https://blog.wisekee.com/post/bigdata-trino-hive-minio-getting-started/</link>
+      <pubDate>Fri, 11 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/bigdata-trino-hive-minio-getting-started/</guid>
+      <description>
+        
+          
+            Make the Hive images 1FROM openjdk:8u302 2 3WORKDIR /opt/hive 4ENV HADOOP_HOME=/opt/hadoop-3.2.3 5 6ADD ./hadoop-3.2.3 /opt/hadoop-3.2.3 7ADD ./apache-hive-3.1.3-bin /opt/hive 8ADD ./hadoop-3.2.3/share/hadoop/common/lib/guava-27.0-jre.jar /opt/hive/lib/ 9ADD ./hadoop-3.2.3/share/hadoop/tools/lib/hadoop-aws-3.2.3.jar /opt/hive/lib/ 10ADD ./hadoop-3.2.3/share/hadoop/tools/lib/aws-java-sdk-bundle-1.11.901.jar /opt/hive/lib/ 11 12RUN echo &amp;#39;export HIVE_HOME=/opt/hive \n export HIVE_CONF_DIR=/opt/hive/conf \n export PATH=$PATH:$HIVE_HOME/bin&amp;#39; &amp;gt;&amp;gt; ~/.bashrc 13# RUN curl https://jdbc.postgresql.org/download/postgresql-42.7.1.jar --output /opt/hive/lib/postgresql-42.7.1.jar 14RUN rm -rf /opt/hive/lib/guava-19.0.jar Define the docker-compose.yaml 1version: &amp;#39;3.7&amp;#39; 2services: 3 minio: 4 image: &amp;#39;minio/minio:latest&amp;#39; 5 hostname: minio 6 container_name: minio 7 ports: 8 - &amp;#39;9000:9000&amp;#39; 9 - &amp;#39;9001:9001&amp;#39; 10 volumes: 11 - .
           
           
         
@@ -404,7 +554,7 @@ Pull helm chats to local 1# add istio helm chat repo url 2helm repo add istio ht
       <description>
         
           
-            The link list to learn shell script in production practice github-install-go-release-cmd falco-install-script curl https://meshery.io/install various os guideline The AWS SSM Document has many script to learn helm secrets script BASH Programming - Introduction HOW-TO Advanced Bash-Scripting Guide Colorize the output 1print_green() { 2 BOLD_GREEN=$(tput bold ; tput setaf 2) 3 NORMAL=$(tput sgr0) 4 echo &amp;#34;${BOLD_GREEN}$1${NORMAL}&amp;#34; 5} 6 7print_yellow() { 8 BOLD_YELLOW=$(tput bold ; tput setaf 3) 9 NORMAL=$(tput sgr0) 10 echo &amp;#34;${BOLD_YELLOW}$1${NORMAL}&amp;#34; 11} 12 13print_red() { 14 BOLD_YELLOW=$(tput bold ; tput setaf 1) 15 NORMAL=$(tput sgr0) 16 echo &amp;#34;${BOLD_YELLOW}$1${NORMAL}&amp;#34; 17} 18 19print_blue() { 20 BOLD_YELLOW=$(tput bold ; tput setaf 4) 21 NORMAL=$(tput sgr0) 22 echo &amp;#34;${BOLD_YELLOW}$1${NORMAL}&amp;#34; 23} Chooise the menu for aws login 1# Set a prompt for user input 2PS3=&amp;#39;Please enter your choice:&amp;#39; 3 4# Define the available options 5options=(&amp;#34;dev&amp;#34; &amp;#34;uat&amp;#34; &amp;#34;prod&amp;#34;) 6default_select=&amp;#34;dev&amp;#34; 7 8# Ask for user input 9select opt in &amp;#34;${options[@]}&amp;#34; &amp;#34;quit&amp;#34;; do 10 case &amp;#34;$REPLY&amp;#34; in 11 [1-3]) 12 echo &amp;#34;You select $opt environment&amp;#34; 13 default_select=$opt; break;; 14 $((${#options[@]}+1))) 15 echo &amp;#34;Goodbye!
+            The link list to learn shell script in production practice github-install-go-release-cmd falco-install-script curl https://meshery.io/install various os guideline The AWS SSM Document has many script to learn helm secrets script BASH Programming - Introduction HOW-TO Advanced Bash-Scripting Guide Variable assign relative 1# sets SOMETHING to value if it isn&amp;#39;t already set, and evlate the value to execute, to avoid use this 2${SOMETHING=&amp;#39;value&amp;#39;} 3# If parameter not set, use default. 4${parameter-default}, ${parameter:-default} Colorize the output 1print_green() { 2 BOLD_GREEN=$(tput bold ; tput setaf 2) 3 NORMAL=$(tput sgr0) 4 echo &amp;#34;${BOLD_GREEN}$1${NORMAL}&amp;#34; 5} 6 7print_yellow() { 8 BOLD_YELLOW=$(tput bold ; tput setaf 3) 9 NORMAL=$(tput sgr0) 10 echo &amp;#34;${BOLD_YELLOW}$1${NORMAL}&amp;#34; 11} 12 13print_red() { 14 BOLD_YELLOW=$(tput bold ; tput setaf 1) 15 NORMAL=$(tput sgr0) 16 echo &amp;#34;${BOLD_YELLOW}$1${NORMAL}&amp;#34; 17} 18 19print_blue() { 20 BOLD_YELLOW=$(tput bold ; tput setaf 4) 21 NORMAL=$(tput sgr0) 22 echo &amp;#34;${BOLD_YELLOW}$1${NORMAL}&amp;#34; 23} Chooise the menu for aws login 1# Set a prompt for user input 2PS3=&amp;#39;Please enter your choice:&amp;#39; 3 4# Define the available options 5options=(&amp;#34;dev&amp;#34; &amp;#34;uat&amp;#34; &amp;#34;prod&amp;#34;) 6default_select=&amp;#34;dev&amp;#34; 7 8# Ask for user input 9select opt in &amp;#34;${options[@]}&amp;#34; &amp;#34;quit&amp;#34;; do 10 case &amp;#34;$REPLY&amp;#34; in 11 [1-3]) 12 echo &amp;#34;You select $opt environment&amp;#34; 13 default_select=$opt; break;; 14 $((${#options[@]}+1))) 15 echo &amp;#34;Goodbye!
           
           
         
@@ -420,12 +570,7 @@ Pull helm chats to local 1# add istio helm chat repo url 2helm repo add istio ht
       <description>
         
           
-            Posts series about knowledge ELF Format and Runtime Internals
-learning-linux-binary
-Hopper Disassembler
-Ghidra is a software reverse engineering
-Ghidra script
-the Ultimate Packer for eXecutables
+            Abstractor Application Binary Interface (ABI) How to check the binary format inform 1# you can view the program format and linked information 2file xxxxx 3# view the detail elf 4readelf -a xxxxx 5# to detect the dynamic libraries be used 6ldd xxxxx 7# view the header details 8hexdump -C -n 64 xxxxx Some command to view headers dumpelf elfls -p /bin/ps eu-readelf –section-headers /bin/ps readelf -S /bin/ps objdump -h /bin/ps Posts series about knowledge ELF Format and Runtime Internals
           
           
         
@@ -549,6 +694,22 @@ Download Dokcer.dmg in Docker offical site and reinstalling 1 sudo hdiutil attac
     </item>
     
     <item>
+      <title>Use webpack bundle the frontend sample example</title>
+      <link>https://blog.wisekee.com/post/webpack-sample-settings/</link>
+      <pubDate>Fri, 18 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/webpack-sample-settings/</guid>
+      <description>
+        
+          
+            Initialization the structure 1# make the demo folder 2mkdir webpack-demo 3 4# init the project 5cd webpack-demo 6npm init -y 7npm install webpack webpack-cli --save-dev 8 9# set the project to private prevent and accidental publish to public hub 10# add the `&amp;#34;private&amp;#34;: true,` to package.json 11 12# create config file for webpack keep empty temporary 13touch webpack.config.js 14 15mkdir dist src 16touch dist/index.html 17touch src/index.js A little the code to src/index.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
       <title>Kong and Konga deployment</title>
       <link>https://blog.wisekee.com/post/kong-and-konga-deployment/</link>
       <pubDate>Sat, 05 Nov 2022 00:00:00 +0000</pubDate>
@@ -592,6 +753,38 @@ Download Dokcer.dmg in Docker offical site and reinstalling 1 sudo hdiutil attac
             HOMEBREW_NO_UPDATE=1 brew install inetutils
 nmap -A 10.129.186.124
 nmap -sV -sC X.X.X.X
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Setup the jenkins agent in kubernetes cluster use pods</title>
+      <link>https://blog.wisekee.com/post/jenkins-eks-agent/</link>
+      <pubDate>Sat, 15 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/jenkins-eks-agent/</guid>
+      <description>
+        
+          
+            Basic settings Add Global credentials the Secret is kubernetes login token Add new cloud configure in Manage Jenkins &amp;ndash;&amp;gt; Clouds Config the Kubernetes Clouds websocket connection, use internal jenkins URL, specific the Pod Labels, Pod Retention: On Failure, Max connections, Seconds to wait for pod Add Pod template settings Specific Namespace, Usage: Only build jobs with label expressions matching this node Container Template: jnlp: jenkins/inbound-agent:latest, Working directory: /home/jenkins/agent Command to run: /usr/local/bin/jenkins-agent You can specific Volumes to mount cache etc.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>How to rescue ec2 linux when upgrade the kernel failed</title>
+      <link>https://blog.wisekee.com/post/ec2-linux-kernel-rescue/</link>
+      <pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/ec2-linux-kernel-rescue/</guid>
+      <description>
+        
+          
+            rescue steps Force stop the failed ec2 instance Detach the root ebs volume Launch new ec2 instance need support Nitro System the instance type and attach the previous EBS volume Add new user in new ec2 instance and get the /etc/shadows encrypt password copy to old device same file administrator user overide the line Detach the ebs volume from new instance and stop it Retach the ebs volume to first ec2 and start it use serial console connect to it and use overide the user credetials to fix some issue Or immediately fix some problem in new ec2 useful command or script 1# list the installed kernel 2dpkg --list | grep linux-image 3apt list --installed | egrep &amp;#39;^linux&amp;#39; | grep $(uname -r) 4# view some logs 5grep $(uname -r) /var/log/dpkg.
           
           
         
@@ -689,6 +882,22 @@ Cloud native and kubernetes https://github.com/labring/sealos(kubernetes-kernel-
     </item>
     
     <item>
+      <title>Postgresql common commands operations</title>
+      <link>https://blog.wisekee.com/post/postgresql-commands/</link>
+      <pubDate>Wed, 02 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/postgresql-commands/</guid>
+      <description>
+        
+          
+            Data export and import 1# install postgresql in macos 2brew install postgresql@15 3# settings to the path variable 4echo &amp;#39;export PATH=&amp;#34;/opt/homebrew/opt/postgresql@15/bin:$PATH&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.zshrc 5 6# dump database to sql file 7pg_dump --host xxxxx.eu-west-1.compute.amazonaws.com --port 5432 --user username database &amp;gt; backup.sql 8 9# change username password 10ALTER USER user_name WITH PASSWORD &amp;#39;new_password&amp;#39;; 11# import the data to postgresql 12psql --host x.x.x.x --user dba --db postgres &amp;lt; dump-xxx-xxxx.sql Reference Importing and exporting data in PostgreSQL 
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
       <title>Getting started typescript minimal project</title>
       <link>https://blog.wisekee.com/post/minimal-typescript-demo/</link>
       <pubDate>Thu, 20 Jan 2022 00:00:00 +0000</pubDate>
@@ -731,6 +940,23 @@ Recommend getting stared study resources https://docs.microsoft.com/en-us/learn/
         
           
             General terminology of Software development Software Composition Analysis(SCA) Static Application Security Testing (SAST) Dynamic Application Security Testing (DAST) Runtime Application Self-Protection (RASP) information security (InfoSec) Integrated Development Environment (IDE) Common Vulnerabilities and Exposures (CVE) Version Control System (VCS) AWS Security Finding Format (ASFF) Proof of Concept (POC) IT Service Management (ITSM) distributed denial of service (DDoS) Other terminology of SDLC Test-driven development (TDD) Scaled Agile Framework (SAFe) Large-Scale Scrum (LeSS) Some usefuly tools and site url (malicious)[https://zeltser.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>launch testing kubernetes cluster in local use Kind</title>
+      <link>https://blog.wisekee.com/post/k8s-local-cluster-kind/</link>
+      <pubDate>Sat, 25 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-local-cluster-kind/</guid>
+      <description>
+        
+          
+            The config for kind cluster settings the expose port didn&amp;rsquo;t change when cluster launched, need prepared
+1kind: Cluster 2apiVersion: kind.x-k8s.io/v1alpha4 3networking: 4 # WARNING: It is _strongly_ recommended that you keep this the default 5 # (127.0.0.1) for security reasons. However it is possible to change this. 6 apiServerAddress: &amp;#34;127.0.0.1&amp;#34; 7 # This can connect to k8s from external when install kind in virtual host or cloud platform(ec2 of aws) 8 # By default the API server listens on a random open port.
           
           
         
@@ -1298,6 +1524,38 @@ Configuration file param.json 1{ 2 &amp;#34;dev&amp;#34;: { 3 &amp;#34;public_co
 1git submodule update --init --recursive Usage scene In my github repo initialize two repos
 One to storage Hugo sourcecode and markdown files And other one use release finaly site resources Has two folders themes and public as github submodes
 1 git submodule add https://github.com/don.chen/blog.github.io public 2 git submodule update --init and every time wited markdown article and execute
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Getting started LLM for workshop</title>
+      <link>https://blog.wisekee.com/post/llm-getting-started/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/llm-getting-started/</guid>
+      <description>
+        
+          
+            Knowledge Referred to as &amp;ldquo;prompts&amp;rdquo;. Designing a prompt is essentially how you “program” a large language model model Plugins can be “eyes and ears” for language models Using commands to instruct the model what you want to achieve, such as &amp;ldquo;Write&amp;rdquo;, &amp;ldquo;Classify&amp;rdquo;, &amp;ldquo;Summarize&amp;rdquo;, &amp;ldquo;Translate&amp;rdquo;, &amp;ldquo;Order&amp;rdquo; Prompt example Give a demonstrations 1 2Q: What is prompt engineering? 3A: It&amp;#39;s a laugnauge for LLM to interactive 4 5This is awesome! // Positive 6This is bad!
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Kubernetes maintenance mode in nodes</title>
+      <link>https://blog.wisekee.com/post/k8s-taint-evict-cordon/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-taint-evict-cordon/</guid>
+      <description>
+        
+          
+            The steps Taint the node Cordon the node Evict pods Verify pod migration Drain the node Uncordon the node Traint the specific node 1# prevent new pods to schedule 2kubectl taint nodes node1 node.kubernetes.io/unreachable=&amp;#34;&amp;#34;:NoSchedule 3kubectl cordon node1 4# execute the upgrade or other maintenance 5# evict pods 6kubectl drain node1 --ignore-daemonsets --delete-emptydir-data --force 7# 8kubectl uncordon node1 9 10# verify the pods can schedule 11kubectl get pods -o wide --field-selector spec.
           
           
         

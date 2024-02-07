@@ -16,7 +16,7 @@
       <description>
         
           
-            The Dockerfile from envoyproxy base image inherit 1FROM envoyproxy/envoy:v1.27-latest 2 3COPY envoy.yaml /etc/envoy/envoy.yaml 4COPY hello.wasm hello.wasm 5RUN chmod go+r /etc/envoy/envoy.yaml 
+            The Dockerfile from envoyproxy base image inherit 1FROM envoyproxy/envoy:v1.27-latest 2 3COPY envoy.yaml /etc/envoy/envoy.yaml 4COPY hello.wasm hello.wasm 5RUN chmod go+r /etc/envoy/envoy.yaml The EnvoyProxy config envoy.yaml 1static_resources: 2 listeners: 3 - name: main 4 address: 5 socket_address: 6 address: 0.0.0.0 7 port_value: 18000 8 filter_chains: 9 - filters: 10 - name: envoy.http_connection_manager 11 typed_config: 12 &amp;#34;@type&amp;#34;: type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager 13 stat_prefix: ingress_http 14 codec_type: auto 15 route_config: 16 name: local_route 17 virtual_hosts: 18 - name: local_service 19 domains: 20 - &amp;#34;*&amp;#34; 21 routes: 22 - match: 23 prefix: &amp;#34;/&amp;#34; 24 direct_response: 25 status: 200 26 body: 27 inline_string: &amp;#34;example body\n&amp;#34; 28 http_filters: 29 - name: envoy.
           
           
         

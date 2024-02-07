@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Authorization on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/authorization/</link>
+    <description>Recent content in Authorization on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 08 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/authorization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Generation and Verify JWT token in golang</title>
+      <link>https://blog.wisekee.com/post/golang-jwt-example/</link>
+      <pubDate>Sun, 08 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/golang-jwt-example/</guid>
+      <description>
+        
+          
+            Use HS256 or RS256 to sign and authorization is common JWT methods
+Create the JWT token 1package util 2 3import &amp;#34;github.com/golang-jwt/jwt/v5&amp;#34; 4 5// retrieve JWT key from .env file 6var privateKey = []byte(os.Getenv(&amp;#34;JWT_PRIVATE_KEY&amp;#34;)) 7 8// generate JWT token 9func GenerateJWT(user model.User) (string, error) { 10	tokenTTL, _ := strconv.Atoi(os.Getenv(&amp;#34;TOKEN_TTL&amp;#34;)) 11	//log.Println(time.Now()) 12	//log.Println(time.Now().Add(time.Second * time.Duration(tokenTTL))) 13	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{ 14	&amp;#34;id&amp;#34;: user.ID, 15	&amp;#34;role&amp;#34;: user.RoleID, 16	&amp;#34;iat&amp;#34;: time.Now().Unix(), 17	&amp;#34;eat&amp;#34;: time.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -6,7 +6,24 @@
     <description>Recent content in Go on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Wed, 11 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 08 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Use golang serve the static file embedded to binary file</title>
+      <link>https://blog.wisekee.com/post/golang-web-static-fileserver/</link>
+      <pubDate>Wed, 08 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/golang-web-static-fileserver/</guid>
+      <description>
+        
+          
+            The golang code to embed file to compile file use the annotatioins to embed folder, this should embed current public folder to binary file
+1 2import ( 3	&amp;#34;embed&amp;#34; 4 &amp;#34;fmt&amp;#34; 5 &amp;#34;os&amp;#34; 6 &amp;#34;io/fs&amp;#34; 7	&amp;#34;net/http&amp;#34; 8 &amp;#34;os/signal&amp;#34; 9	&amp;#34;runtime&amp;#34; 10	&amp;#34;strings&amp;#34; 11	&amp;#34;syscall&amp;#34; 12) 13 14 15//go:embed public 16var staticFiles embed.FS 17 18 19func main() { 20 public, _ := fs.Sub(staticFiles, &amp;#34;public&amp;#34;) 21	// handle static files include HTML, CSS and JavaScripts.
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>How to profile the golang program</title>
       <link>https://blog.wisekee.com/post/golang_profile/</link>
@@ -18,6 +35,23 @@
           
             For checkout the resources usage in golang, this is simple
 Add the profile code in app 1// Add the flag to arguments to cpu and memory ptoto buffer file store to it 2	rootCmd.PersistentFlags().StringP(&amp;#34;cpuprofile&amp;#34;, &amp;#34;&amp;#34;, &amp;#34;&amp;#34;, &amp;#34;cpu profile file&amp;#34;) 3	rootCmd.PersistentFlags().StringP(&amp;#34;memprofile&amp;#34;, &amp;#34;&amp;#34;, &amp;#34;&amp;#34;, &amp;#34;memory profile file&amp;#34;) 4// whether enable profile 5func enableProfile() { 6	cpu, _ := rootCmd.Flags().GetString(&amp;#34;cpuprofile&amp;#34;) 7	mem, _ := rootCmd.Flags().GetString(&amp;#34;memprofile&amp;#34;) 8	if cpu != &amp;#34;&amp;#34; { 9	f, err := os.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Generation and Verify JWT token in golang</title>
+      <link>https://blog.wisekee.com/post/golang-jwt-example/</link>
+      <pubDate>Sun, 08 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/golang-jwt-example/</guid>
+      <description>
+        
+          
+            Use HS256 or RS256 to sign and authorization is common JWT methods
+Create the JWT token 1package util 2 3import &amp;#34;github.com/golang-jwt/jwt/v5&amp;#34; 4 5// retrieve JWT key from .env file 6var privateKey = []byte(os.Getenv(&amp;#34;JWT_PRIVATE_KEY&amp;#34;)) 7 8// generate JWT token 9func GenerateJWT(user model.User) (string, error) { 10	tokenTTL, _ := strconv.Atoi(os.Getenv(&amp;#34;TOKEN_TTL&amp;#34;)) 11	//log.Println(time.Now()) 12	//log.Println(time.Now().Add(time.Second * time.Duration(tokenTTL))) 13	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{ 14	&amp;#34;id&amp;#34;: user.ID, 15	&amp;#34;role&amp;#34;: user.RoleID, 16	&amp;#34;iat&amp;#34;: time.Now().Unix(), 17	&amp;#34;eat&amp;#34;: time.
           
           
         

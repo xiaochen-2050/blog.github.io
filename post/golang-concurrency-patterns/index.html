@@ -253,7 +253,7 @@
 </span></span><span class="line"><span class="ln">35</span><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;some task&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="ln">36</span><span class="cl">        <span class="k">if</span> <span class="nx">counter</span> <span class="p">&gt;</span> <span class="mi">10</span> <span class="p">{</span>
 </span></span><span class="line"><span class="ln">37</span><span class="cl">            <span class="k">return</span>
-</span></span><span class="line"><span class="ln">38</span><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="ln">38</span><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="ln">39</span><span class="cl">        <span class="nx">counter</span><span class="o">++</span>
 </span></span><span class="line"><span class="ln">40</span><span class="cl">     <span class="p">}</span>
 </span></span><span class="line"><span class="ln">41</span><span class="cl">  <span class="p">}</span>
@@ -263,7 +263,120 @@
 </span></span><span class="line"><span class="ln">45</span><span class="cl">  <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
 </span></span><span class="line"><span class="ln">46</span><span class="cl">  <span class="k">return</span> <span class="nx">errFailure</span>
 </span></span><span class="line"><span class="ln">47</span><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div>
+</span></span></code></pre></div><h3 id="batch-size-to-go-routines">batch size to go routines</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="ln"> 1</span><span class="cl">  <span class="nx">jobWorkerBuffer</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{},</span> <span class="nx">batchSize</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">	<span class="kd">var</span> <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">it</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">jobs</span><span class="p">.</span><span class="nx">Items</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">		<span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">		<span class="nx">jobWorkerBuffer</span> <span class="o">&lt;-</span> <span class="kd">struct</span><span class="p">{}{}</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">		<span class="nx">task</span> <span class="o">:=</span> <span class="nx">it</span> <span class="c1">// before enter the go routines to save don&#39;t use in routines
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="c1"></span>		<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">			<span class="k">defer</span> <span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">			<span class="nx">task</span><span class="p">.</span><span class="nf">Do</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">			<span class="o">&lt;-</span><span class="nx">restartBuffer</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">		<span class="p">}()</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">	<span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
+</span></span></code></pre></div><h3 id="go-routines-pool">go routines pool</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kd">var</span> <span class="nx">payLoad</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">sources</span><span class="p">.</span><span class="nx">TaskPayload</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="c1">// first level cache to every receive 10 task to work
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">pool</span>  <span class="p">=</span> <span class="nx">tools</span><span class="p">.</span><span class="nf">NewPool</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="nx">PutTask</span><span class="p">)</span> <span class="c1">// second level cache to every 20 go routines to concurrency do it
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="c1"></span> 
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="k">for</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">payLoad</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">		<span class="nx">pool</span><span class="p">.</span><span class="nf">Run</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="nx">pool</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="c1">// // Create a new pool
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="c1">// pool := NewPool(10, func(data interface{}) {
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="c1">// 	fmt.Println(data)
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="c1">// })
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="c1">// // Add data to the pool
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="c1">// for i := 0; i &lt; 100; i++ {
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="c1">// 	pool.Run(i)
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="c1">// }
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="c1">// // Wait for all goroutines to finish
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="c1">// pool.Wait()
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="c1">// Pool represents a pool of goroutines
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Pool</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">	<span class="c1">// Maximum number of goroutines allowed in the pool
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="c1"></span>	<span class="nx">MaxGoroutines</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">
+</span></span><span class="line"><span class="ln">26</span><span class="cl">	<span class="c1">// Stack of available goroutines
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="c1"></span>	<span class="nx">stack</span> <span class="kd">chan</span> <span class="kd">struct</span><span class="p">{}</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">
+</span></span><span class="line"><span class="ln">29</span><span class="cl">	<span class="c1">// Function to execute
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="c1"></span>	<span class="nx">f</span> <span class="kd">func</span><span class="p">(</span><span class="kd">interface</span><span class="p">{})</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">
+</span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="c1">// NewPool creates a new Pool
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">NewPool</span><span class="p">(</span><span class="nx">maxGoroutines</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">f</span> <span class="kd">func</span><span class="p">(</span><span class="kd">interface</span><span class="p">{})</span> <span class="kt">error</span><span class="p">)</span> <span class="o">*</span><span class="nx">Pool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl">	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">Pool</span><span class="p">{</span>
+</span></span><span class="line"><span class="ln">36</span><span class="cl">		<span class="nx">MaxGoroutines</span><span class="p">:</span> <span class="nx">maxGoroutines</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">37</span><span class="cl">		<span class="nx">stack</span><span class="p">:</span>         <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{},</span> <span class="nx">maxGoroutines</span><span class="p">),</span>
+</span></span><span class="line"><span class="ln">38</span><span class="cl">		<span class="nx">f</span><span class="p">:</span>             <span class="nx">f</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">39</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">41</span><span class="cl">
+</span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="c1">// Run starts the goroutine pool
+</span></span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">Pool</span><span class="p">)</span> <span class="nf">Run</span><span class="p">(</span><span class="nx">data</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">44</span><span class="cl">	<span class="c1">// Add one goroutine to the stack
+</span></span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="c1"></span>	<span class="nx">p</span><span class="p">.</span><span class="nx">stack</span> <span class="o">&lt;-</span> <span class="kd">struct</span><span class="p">{}{}</span>
+</span></span><span class="line"><span class="ln">46</span><span class="cl">
+</span></span><span class="line"><span class="ln">47</span><span class="cl">	<span class="c1">// Execute the function
+</span></span></span><span class="line"><span class="ln">48</span><span class="cl"><span class="c1"></span>	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">49</span><span class="cl">		<span class="nx">p</span><span class="p">.</span><span class="nf">f</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">50</span><span class="cl">
+</span></span><span class="line"><span class="ln">51</span><span class="cl">		<span class="c1">// Remove one goroutine from the stack
+</span></span></span><span class="line"><span class="ln">52</span><span class="cl"><span class="c1"></span>		<span class="o">&lt;-</span><span class="nx">p</span><span class="p">.</span><span class="nx">stack</span>
+</span></span><span class="line"><span class="ln">53</span><span class="cl">	<span class="p">}()</span>
+</span></span><span class="line"><span class="ln">54</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">55</span><span class="cl">
+</span></span><span class="line"><span class="ln">56</span><span class="cl"><span class="c1">// Wait waits for all goroutines to finish
+</span></span></span><span class="line"><span class="ln">57</span><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">Pool</span><span class="p">)</span> <span class="nf">Wait</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">58</span><span class="cl">	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">p</span><span class="p">.</span><span class="nx">MaxGoroutines</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">59</span><span class="cl">		<span class="nx">p</span><span class="p">.</span><span class="nx">stack</span> <span class="o">&lt;-</span> <span class="kd">struct</span><span class="p">{}{}</span>
+</span></span><span class="line"><span class="ln">60</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">61</span><span class="cl">	<span class="nx">log</span><span class="p">.</span><span class="nf">Info</span><span class="p">().</span><span class="nf">Msg</span><span class="p">(</span><span class="s">&#34;Waiting for pool completed&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">62</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="to-waiting-all-parallelly-go-routines-complete-and-recevies-results">To waiting all parallelly go routines complete and recevies results</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"> <span class="nx">ch1</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"> <span class="nx">ch2</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"> <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">  <span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">   <span class="nx">ch1</span> <span class="o">&lt;-</span> <span class="s">&#34;from ch1&#34;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">   <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"> <span class="p">}()</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">
+</span></span><span class="line"><span class="ln">12</span><span class="cl"> <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">  <span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">   <span class="nx">ch2</span> <span class="o">&lt;-</span> <span class="s">&#34;from ch2&#34;</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">   <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl"> <span class="p">}()</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">
+</span></span><span class="line"><span class="ln">19</span><span class="cl"> <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">  <span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">   <span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">   <span class="k">case</span> <span class="nx">msg1</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">ch1</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">msg1</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">   <span class="k">case</span> <span class="nx">msg2</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">ch2</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">msg2</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl"> <span class="p">}()</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">
+</span></span><span class="line"><span class="ln">30</span><span class="cl"> <span class="k">select</span> <span class="p">{}</span> <span class="c1">// keep the main function alive
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><h3 id="reference">Reference</h3>
+<ul>
+<li><a href="https://medium.com/@ninucium/golang-concurrency-patterns-for-select-done-errgroup-and-worker-pool-645bec0bd3c9">Golang Concurrency Patterns: For-Select-Done, Errgroup and Worker Pool</a></li>
+</ul>
+
     </div>
 <div class="post_comments">
   
@@ -303,28 +416,28 @@
     <h2 class="mt-4"></h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.wisekee.com/post/vue-custom-components/" class="nav-link" title="Vue custom component getting started">Vue custom component getting started</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/aws-ecr-register-helper/" class="nav-link" title="Dynamic create docker registry pull image credentials in eks cluster for particular  imagePullSecret">Dynamic create docker registry pull image credentials in eks cluster for particular  imagePullSecret</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/aws-jsii-getting-started/" class="nav-link" title="Use AWS jsii to cross language invoker">Use AWS jsii to cross language invoker</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/vue-app-getting-started/" class="nav-link" title="How to create sample frontend in vue use cli and vite">How to create sample frontend in vue use cli and vite</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/golang-web-static-fileserver/" class="nav-link" title="Use golang serve the static file embedded to binary file">Use golang serve the static file embedded to binary file</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/getting-started-ebpf/" class="nav-link" title="Getting started eBPF development">Getting started eBPF development</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/golang_profile/" class="nav-link" title="How to profile the golang program">How to profile the golang program</a>
       </li>
       <li>
-        <a href="https://blog.wisekee.com/post/aws-ec2-userdata/" class="nav-link" title="Custom the ec2 user data when instance launch">Custom the ec2 user data when instance launch</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/istio-nlb-proxy-protocolv2/" class="nav-link" title="Istio ingress gateway enalbe proxy protocol v2 in AWS network loadbalance">Istio ingress gateway enalbe proxy protocol v2 in AWS network loadbalance</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/envoyproxy-wasm/" class="nav-link" title="Envoyproxy write wasm plugin getting started">Envoyproxy write wasm plugin getting started</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/golang-concurrency-patterns/" class="nav-link" title="Concurrency patterns in golang">Concurrency patterns in golang</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/aws-metadata-ssrf-poc/" class="nav-link" title="AWS metadata service v1 SSRF POC">AWS metadata service v1 SSRF POC</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/self-sign-certificate-for-istio-ingressgateway/" class="nav-link" title="Generate the self sign certificate for istio ingress gateway">Generate the self sign certificate for istio ingress gateway</a>
+        <a href="https://blog.wisekee.com/post/golang-jwt-example/" class="nav-link" title="Generation and Verify JWT token in golang">Generation and Verify JWT token in golang</a>
       </li>
     </ul>
     <div>
@@ -332,7 +445,12 @@
       <nav class="tags_nav">
         <a href='https://blog.wisekee.com/tags/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">16</span>
+          <span class="button_tally">19</span>
+        </a>
+        
+        <a href='https://blog.wisekee.com/tags/k8s/' class="post_tag button button_translucent" title="k8s">
+          K8S
+          <span class="button_tally">11</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/security/' class="post_tag button button_translucent" title="security">
@@ -340,14 +458,19 @@
           <span class="button_tally">10</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/k8s/' class="post_tag button button_translucent" title="k8s">
-          K8S
+        <a href='https://blog.wisekee.com/tags/aws/' class="post_tag button button_translucent" title="aws">
+          AWS
           <span class="button_tally">9</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/cncf/' class="post_tag button button_translucent" title="cncf">
           CNCF
-          <span class="button_tally">8</span>
+          <span class="button_tally">9</span>
+        </a>
+        
+        <a href='https://blog.wisekee.com/tags/go/' class="post_tag button button_translucent" title="go">
+          GO
+          <span class="button_tally">9</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/featured/' class="post_tag button button_translucent" title="featured">
@@ -355,29 +478,19 @@
           <span class="button_tally">8</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/aws/' class="post_tag button button_translucent" title="aws">
-          AWS
-          <span class="button_tally">7</span>
-        </a>
-        
-        <a href='https://blog.wisekee.com/tags/go/' class="post_tag button button_translucent" title="go">
-          GO
-          <span class="button_tally">7</span>
-        </a>
-        
         <a href='https://blog.wisekee.com/tags/terraform/' class="post_tag button button_translucent" title="terraform">
           TERRAFORM
-          <span class="button_tally">7</span>
+          <span class="button_tally">8</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/docker/' class="post_tag button button_translucent" title="docker">
           DOCKER
-          <span class="button_tally">6</span>
+          <span class="button_tally">7</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/istio/' class="post_tag button button_translucent" title="istio">
           ISTIO
-          <span class="button_tally">5</span>
+          <span class="button_tally">6</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/cloud-native/' class="post_tag button button_translucent" title="cloud-native">
@@ -385,19 +498,19 @@
           <span class="button_tally">4</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/service-mesh/' class="post_tag button button_translucent" title="service-mesh">
-          SERVICE-MESH
+        <a href='https://blog.wisekee.com/tags/frontend/' class="post_tag button button_translucent" title="frontend">
+          FRONTEND
           <span class="button_tally">4</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/ansible/' class="post_tag button button_translucent" title="ansible">
-          ANSIBLE
-          <span class="button_tally">3</span>
+        <a href='https://blog.wisekee.com/tags/open-source/' class="post_tag button button_translucent" title="open-source">
+          OPEN-SOURCE
+          <span class="button_tally">4</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/eks/' class="post_tag button button_translucent" title="eks">
-          EKS
-          <span class="button_tally">3</span>
+        <a href='https://blog.wisekee.com/tags/service-mesh/' class="post_tag button button_translucent" title="service-mesh">
+          SERVICE-MESH
+          <span class="button_tally">4</span>
         </a>
         
         
@@ -410,6 +523,10 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/agent/' class=" post_tag button button_translucent" data-position=1 title="agent">AGENT<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/airflow/' class=" post_tag button button_translucent" data-position=1 title="airflow">AIRFLOW<span class="button_tally">1</span>
             </a>
             
@@ -418,7 +535,15 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/apigateway/' class=" post_tag button button_translucent" data-position=1 title="apigateway">APIGATEWAY<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/athens/' class=" post_tag button button_translucent" data-position=1 title="athens">ATHENS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/authorization/' class=" post_tag button button_translucent" data-position=1 title="authorization">AUTHORIZATION<span class="button_tally">1</span>
             </a>
             
             
@@ -430,7 +555,11 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/aws/' class=" post_tag button button_translucent" data-position=7 title="aws">AWS<span class="button_tally">7</span>
+            <a href='https://blog.wisekee.com/tags/autogpt/' class=" post_tag button button_translucent" data-position=1 title="autogpt">AUTOGPT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/aws/' class=" post_tag button button_translucent" data-position=9 title="aws">AWS<span class="button_tally">9</span>
             </a>
             
             
@@ -438,7 +567,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/bigdata/' class=" post_tag button button_translucent" data-position=1 title="bigdata">BIGDATA<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/bigdata/' class=" post_tag button button_translucent" data-position=2 title="bigdata">BIGDATA<span class="button_tally">2</span>
             </a>
             
             
@@ -446,7 +575,15 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/boot/' class=" post_tag button button_translucent" data-position=1 title="boot">BOOT<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/bpf/' class=" post_tag button button_translucent" data-position=1 title="bpf">BPF<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/bundle/' class=" post_tag button button_translucent" data-position=1 title="bundle">BUNDLE<span class="button_tally">1</span>
             </a>
             
             
@@ -454,7 +591,15 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/cdk/' class=" post_tag button button_translucent" data-position=1 title="cdk">CDK<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/checklist/' class=" post_tag button button_translucent" data-position=1 title="checklist">CHECKLIST<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/claims/' class=" post_tag button button_translucent" data-position=1 title="claims">CLAIMS<span class="button_tally">1</span>
             </a>
             
             
@@ -474,7 +619,11 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=8 title="cncf">CNCF<span class="button_tally">8</span>
+            <a href='https://blog.wisekee.com/tags/cluster/' class=" post_tag button button_translucent" data-position=1 title="cluster">CLUSTER<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=9 title="cncf">CNCF<span class="button_tally">9</span>
             </a>
             
             
@@ -487,6 +636,10 @@
             
             
             <a href='https://blog.wisekee.com/tags/consul/' class=" post_tag button button_translucent" data-position=1 title="consul">CONSUL<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/cordon/' class=" post_tag button button_translucent" data-position=1 title="cordon">CORDON<span class="button_tally">1</span>
             </a>
             
             
@@ -506,7 +659,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/docker/' class=" post_tag button button_translucent" data-position=6 title="docker">DOCKER<span class="button_tally">6</span>
+            <a href='https://blog.wisekee.com/tags/docker/' class=" post_tag button button_translucent" data-position=7 title="docker">DOCKER<span class="button_tally">7</span>
             </a>
             
             
@@ -523,6 +676,10 @@
             
             
             <a href='https://blog.wisekee.com/tags/eclipse-che/' class=" post_tag button button_translucent" data-position=1 title="eclipse-che">ECLIPSE-CHE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/ecr/' class=" post_tag button button_translucent" data-position=1 title="ecr">ECR<span class="button_tally">1</span>
             </a>
             
             
@@ -550,6 +707,10 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/evict/' class=" post_tag button button_translucent" data-position=1 title="evict">EVICT<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/falco/' class=" post_tag button button_translucent" data-position=2 title="falco">FALCO<span class="button_tally">2</span>
             </a>
             
@@ -574,11 +735,15 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/frontend/' class=" post_tag button button_translucent" data-position=4 title="frontend">FRONTEND<span class="button_tally">4</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/gateway/' class=" post_tag button button_translucent" data-position=1 title="gateway">GATEWAY<span class="button_tally">1</span>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/go/' class=" post_tag button button_translucent" data-position=7 title="go">GO<span class="button_tally">7</span>
+            <a href='https://blog.wisekee.com/tags/go/' class=" post_tag button button_translucent" data-position=9 title="go">GO<span class="button_tally">9</span>
             </a>
             
             
@@ -587,6 +752,10 @@
             
             
             <a href='https://blog.wisekee.com/tags/goroutines/' class=" post_tag button button_translucent" data-position=1 title="goroutines">GOROUTINES<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/gpt/' class=" post_tag button button_translucent" data-position=1 title="gpt">GPT<span class="button_tally">1</span>
             </a>
             
             
@@ -599,6 +768,10 @@
             
             
             <a href='https://blog.wisekee.com/tags/hackthebox/' class=" post_tag button button_translucent" data-position=1 title="hackthebox">HACKTHEBOX<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/hive/' class=" post_tag button button_translucent" data-position=1 title="hive">HIVE<span class="button_tally">1</span>
             </a>
             
             
@@ -634,15 +807,31 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/istio/' class=" post_tag button button_translucent" data-position=5 title="istio">ISTIO<span class="button_tally">5</span>
+            <a href='https://blog.wisekee.com/tags/istio/' class=" post_tag button button_translucent" data-position=6 title="istio">ISTIO<span class="button_tally">6</span>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/k8s/' class=" post_tag button button_translucent" data-position=9 title="k8s">K8S<span class="button_tally">9</span>
+            <a href='https://blog.wisekee.com/tags/jenkins/' class=" post_tag button button_translucent" data-position=1 title="jenkins">JENKINS<span class="button_tally">1</span>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/kernel/' class=" post_tag button button_translucent" data-position=1 title="kernel">KERNEL<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/jsii/' class=" post_tag button button_translucent" data-position=1 title="jsii">JSII<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/jwt/' class=" post_tag button button_translucent" data-position=2 title="jwt">JWT<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/k8s/' class=" post_tag button button_translucent" data-position=11 title="k8s">K8S<span class="button_tally">11</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/kernel/' class=" post_tag button button_translucent" data-position=2 title="kernel">KERNEL<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/kind/' class=" post_tag button button_translucent" data-position=1 title="kind">KIND<span class="button_tally">1</span>
             </a>
             
             
@@ -658,7 +847,15 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/kubernetes/' class=" post_tag button button_translucent" data-position=16 title="kubernetes">KUBERNETES<span class="button_tally">16</span>
+            <a href='https://blog.wisekee.com/tags/kubernetes/' class=" post_tag button button_translucent" data-position=19 title="kubernetes">KUBERNETES<span class="button_tally">19</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/linux/' class=" post_tag button button_translucent" data-position=1 title="linux">LINUX<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/llm/' class=" post_tag button button_translucent" data-position=1 title="llm">LLM<span class="button_tally">1</span>
             </a>
             
             
@@ -683,6 +880,10 @@
             
             
             <a href='https://blog.wisekee.com/tags/metrics/' class=" post_tag button button_translucent" data-position=1 title="metrics">METRICS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/minio/' class=" post_tag button button_translucent" data-position=1 title="minio">MINIO<span class="button_tally">1</span>
             </a>
             
             
@@ -726,7 +927,11 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/open-source/' class=" post_tag button button_translucent" data-position=3 title="open-source">OPEN-SOURCE<span class="button_tally">3</span>
+            <a href='https://blog.wisekee.com/tags/open-source/' class=" post_tag button button_translucent" data-position=4 title="open-source">OPEN-SOURCE<span class="button_tally">4</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/openai/' class=" post_tag button button_translucent" data-position=1 title="openai">OPENAI<span class="button_tally">1</span>
             </a>
             
             
@@ -743,6 +948,10 @@
             
             
             <a href='https://blog.wisekee.com/tags/pod/' class=" post_tag button button_translucent" data-position=1 title="pod">POD<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/postgresql/' class=" post_tag button button_translucent" data-position=1 title="postgresql">POSTGRESQL<span class="button_tally">1</span>
             </a>
             
             
@@ -763,6 +972,10 @@
             
             
             <a href='https://blog.wisekee.com/tags/proxy/' class=" post_tag button button_translucent" data-position=1 title="proxy">PROXY<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/psql/' class=" post_tag button button_translucent" data-position=1 title="psql">PSQL<span class="button_tally">1</span>
             </a>
             
             
@@ -838,7 +1051,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/terraform/' class=" post_tag button button_translucent" data-position=7 title="terraform">TERRAFORM<span class="button_tally">7</span>
+            <a href='https://blog.wisekee.com/tags/terraform/' class=" post_tag button button_translucent" data-position=8 title="terraform">TERRAFORM<span class="button_tally">8</span>
             </a>
             
             
@@ -847,6 +1060,10 @@
             
             
             <a href='https://blog.wisekee.com/tags/traffic/' class=" post_tag button button_translucent" data-position=2 title="traffic">TRAFFIC<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/trino/' class=" post_tag button button_translucent" data-position=1 title="trino">TRINO<span class="button_tally">1</span>
             </a>
             
             
@@ -866,7 +1083,23 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/vite/' class=" post_tag button button_translucent" data-position=2 title="vite">VITE<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/vue/' class=" post_tag button button_translucent" data-position=2 title="vue">VUE<span class="button_tally">2</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/wasm/' class=" post_tag button button_translucent" data-position=1 title="wasm">WASM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/web/' class=" post_tag button button_translucent" data-position=1 title="web">WEB<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/webpack/' class=" post_tag button button_translucent" data-position=1 title="webpack">WEBPACK<span class="button_tally">1</span>
             </a>
             
             <div class="tags_sort"><span title="sort alphabetically">[A~Z]</span><span title="sort by count">[0~9]</span>

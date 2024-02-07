@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Webpack on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/webpack/</link>
+    <description>Recent content in Webpack on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Fri, 18 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/webpack/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Use webpack bundle the frontend sample example</title>
+      <link>https://blog.wisekee.com/post/webpack-sample-settings/</link>
+      <pubDate>Fri, 18 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/webpack-sample-settings/</guid>
+      <description>
+        
+          
+            Initialization the structure 1# make the demo folder 2mkdir webpack-demo 3 4# init the project 5cd webpack-demo 6npm init -y 7npm install webpack webpack-cli --save-dev 8 9# set the project to private prevent and accidental publish to public hub 10# add the `&amp;#34;private&amp;#34;: true,` to package.json 11 12# create config file for webpack keep empty temporary 13touch webpack.config.js 14 15mkdir dist src 16touch dist/index.html 17touch src/index.js A little the code to src/index.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

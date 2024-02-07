@@ -185,7 +185,146 @@
 </span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w"></span><span class="l">COPY envoy.yaml /etc/envoy/envoy.yaml</span><span class="w">
 </span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w"></span><span class="l">COPY hello.wasm hello.wasm</span><span class="w">
 </span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w"></span><span class="l">RUN chmod go+r /etc/envoy/envoy.yaml</span><span class="w">
-</span></span></span></code></pre></div>
+</span></span></span></code></pre></div><h4 id="the-envoyproxy-config-envoyyaml">The EnvoyProxy config <code>envoy.yaml</code></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">static_resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">  </span><span class="nt">listeners</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">main</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">      </span><span class="nt">address</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">        </span><span class="nt">socket_address</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">          </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">          </span><span class="nt">port_value</span><span class="p">:</span><span class="w"> </span><span class="m">18000</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">      </span><span class="nt">filter_chains</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">        </span>- <span class="nt">filters</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">            </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">envoy.http_connection_manager</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">              </span><span class="nt">typed_config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">                </span><span class="nt">&#34;@type&#34;: </span><span class="l">type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">                </span><span class="nt">stat_prefix</span><span class="p">:</span><span class="w"> </span><span class="l">ingress_http</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">                </span><span class="nt">codec_type</span><span class="p">:</span><span class="w"> </span><span class="l">auto</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">                </span><span class="nt">route_config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">                  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">local_route</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">                  </span><span class="nt">virtual_hosts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">                    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">local_service</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">                      </span><span class="nt">domains</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">                        </span>- <span class="s2">&#34;*&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">                      </span><span class="nt">routes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">                        </span>- <span class="nt">match</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">                            </span><span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">                          </span><span class="nt">direct_response</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">                            </span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="m">200</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">                            </span><span class="nt">body</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">                              </span><span class="nt">inline_string</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;example body\n&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">                </span><span class="nt">http_filters</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">                  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">envoy.filters.http.wasm</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">                    </span><span class="nt">typed_config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">                      </span><span class="nt">&#34;@type&#34;: </span><span class="l">type.googleapis.com/udpa.type.v1.TypedStruct</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">                      </span><span class="nt">type_url</span><span class="p">:</span><span class="w"> </span><span class="l">type.googleapis.com/envoy.extensions.filters.http.wasm.v3.Wasm</span><span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">                      </span><span class="nt">value</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w">                        </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w">                          </span><span class="nt">vm_config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w">                            </span><span class="nt">runtime</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;envoy.wasm.runtime.v8&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w">                            </span><span class="nt">code</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w">                              </span><span class="nt">local</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w">                                </span><span class="nt">filename</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;./hello.wasm&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w">                  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">envoy.filters.http.router</span><span class="w">
+</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="w">                    </span><span class="nt">typed_config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="w">                      </span><span class="nt">&#34;@type&#34;: </span><span class="l">type.googleapis.com/envoy.extensions.filters.http.router.v3.Router</span><span class="w">
+</span></span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="w"></span><span class="nt">admin</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="w">  </span><span class="nt">access_log_path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/dev/null&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">46</span><span class="cl"><span class="w">  </span><span class="nt">address</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">47</span><span class="cl"><span class="w">    </span><span class="nt">socket_address</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">48</span><span class="cl"><span class="w">      </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="w">
+</span></span></span><span class="line"><span class="ln">49</span><span class="cl"><span class="w">      </span><span class="nt">port_value</span><span class="p">:</span><span class="w"> </span><span class="m">8001</span><span class="w">
+</span></span></span></code></pre></div><h4 id="the-maingoto-construction-the-wasm-plugin">The <code>main.go</code>to construction the wasm plugin</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// Copyright 2020-2021 Tetrate
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1">//
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="c1">// Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="c1">// you may not use this file except in compliance with the License.
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="c1">// You may obtain a copy of the License at
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="c1">//
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="c1">// http://www.apache.org/licenses/LICENSE-2.0
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="c1">//
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="c1">// Unless required by applicable law or agreed to in writing, software
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="c1">// distributed under the License is distributed on an &#34;AS IS&#34; BASIS,
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="c1">// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="c1">// See the License for the specific language governing permissions and
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="c1">// limitations under the License.
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">
+</span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">	<span class="s">&#34;math/rand&#34;</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">	<span class="s">&#34;time&#34;</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">
+</span></span><span class="line"><span class="ln">21</span><span class="cl">	<span class="s">&#34;github.com/tetratelabs/proxy-wasm-go-sdk/proxywasm&#34;</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">	<span class="s">&#34;github.com/tetratelabs/proxy-wasm-go-sdk/proxywasm/types&#34;</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">
+</span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="kd">const</span> <span class="nx">tickMilliseconds</span> <span class="kt">uint32</span> <span class="p">=</span> <span class="mi">1000</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">
+</span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">	<span class="nx">proxywasm</span><span class="p">.</span><span class="nf">SetVMContext</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">vmContext</span><span class="p">{})</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">
+</span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="kd">type</span> <span class="nx">vmContext</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">	<span class="c1">// Embed the default VM context here,
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="c1"></span>	<span class="c1">// so that we don&#39;t need to reimplement all the methods.
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="c1"></span>	<span class="nx">types</span><span class="p">.</span><span class="nx">DefaultVMContext</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">36</span><span class="cl">
+</span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="c1">// Override types.DefaultVMContext.
+</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="o">*</span><span class="nx">vmContext</span><span class="p">)</span> <span class="nf">NewPluginContext</span><span class="p">(</span><span class="nx">contextID</span> <span class="kt">uint32</span><span class="p">)</span> <span class="nx">types</span><span class="p">.</span><span class="nx">PluginContext</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">39</span><span class="cl">	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">helloWorld</span><span class="p">{}</span>
+</span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">41</span><span class="cl">
+</span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="kd">type</span> <span class="nx">helloWorld</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">43</span><span class="cl">	<span class="c1">// Embed the default plugin context here,
+</span></span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="c1"></span>	<span class="c1">// so that we don&#39;t need to reimplement all the methods.
+</span></span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="c1"></span>	<span class="nx">types</span><span class="p">.</span><span class="nx">DefaultPluginContext</span>
+</span></span><span class="line"><span class="ln">46</span><span class="cl">	<span class="nx">contextID</span> <span class="kt">uint32</span>
+</span></span><span class="line"><span class="ln">47</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">48</span><span class="cl">
+</span></span><span class="line"><span class="ln">49</span><span class="cl"><span class="c1">// Override types.DefaultPluginContext.
+</span></span></span><span class="line"><span class="ln">50</span><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">ctx</span> <span class="o">*</span><span class="nx">helloWorld</span><span class="p">)</span> <span class="nf">OnPluginStart</span><span class="p">(</span><span class="nx">pluginConfigurationSize</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">types</span><span class="p">.</span><span class="nx">OnPluginStartStatus</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">51</span><span class="cl">	<span class="nx">rand</span><span class="p">.</span><span class="nf">Seed</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">UnixNano</span><span class="p">())</span>
+</span></span><span class="line"><span class="ln">52</span><span class="cl">
+</span></span><span class="line"><span class="ln">53</span><span class="cl">	<span class="nx">proxywasm</span><span class="p">.</span><span class="nf">LogInfo</span><span class="p">(</span><span class="s">&#34;OnPluginStart from Go!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">54</span><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">proxywasm</span><span class="p">.</span><span class="nf">SetTickPeriodMilliSeconds</span><span class="p">(</span><span class="nx">tickMilliseconds</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">55</span><span class="cl">		<span class="nx">proxywasm</span><span class="p">.</span><span class="nf">LogCriticalf</span><span class="p">(</span><span class="s">&#34;failed to set tick period: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">56</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">57</span><span class="cl">
+</span></span><span class="line"><span class="ln">58</span><span class="cl">	<span class="k">return</span> <span class="nx">types</span><span class="p">.</span><span class="nx">OnPluginStartStatusOK</span>
+</span></span><span class="line"><span class="ln">59</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">60</span><span class="cl">
+</span></span><span class="line"><span class="ln">61</span><span class="cl"><span class="c1">// Override types.DefaultPluginContext.
+</span></span></span><span class="line"><span class="ln">62</span><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">ctx</span> <span class="o">*</span><span class="nx">helloWorld</span><span class="p">)</span> <span class="nf">OnTick</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">63</span><span class="cl">	<span class="nx">t</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">UnixNano</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">64</span><span class="cl">	<span class="nx">proxywasm</span><span class="p">.</span><span class="nf">LogInfof</span><span class="p">(</span><span class="s">&#34;It&#39;s %d: random value: %d&#34;</span><span class="p">,</span> <span class="nx">t</span><span class="p">,</span> <span class="nx">rand</span><span class="p">.</span><span class="nf">Uint64</span><span class="p">())</span>
+</span></span><span class="line"><span class="ln">65</span><span class="cl">	<span class="nx">proxywasm</span><span class="p">.</span><span class="nf">LogInfof</span><span class="p">(</span><span class="s">&#34;OnTick called&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">66</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">67</span><span class="cl">
+</span></span><span class="line"><span class="ln">68</span><span class="cl"><span class="c1">// Override types.DefaultPluginContext.
+</span></span></span><span class="line"><span class="ln">69</span><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="o">*</span><span class="nx">helloWorld</span><span class="p">)</span> <span class="nf">NewHttpContext</span><span class="p">(</span><span class="kt">uint32</span><span class="p">)</span> <span class="nx">types</span><span class="p">.</span><span class="nx">HttpContext</span> <span class="p">{</span> <span class="k">return</span> <span class="o">&amp;</span><span class="nx">types</span><span class="p">.</span><span class="nx">DefaultHttpContext</span><span class="p">{}</span> <span class="p">}</span>
+</span></span></code></pre></div><h4 id="install-tinygo">install TinyGo</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">brew tap tinygo-org/tools
+</span></span><span class="line"><span class="ln">2</span><span class="cl">brew install tinygo
+</span></span></code></pre></div><h4 id="the-makefile-to-build-and-make-the-wasm-and-image">The <code>Makefile</code> to build and make the wasm and image</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">wasm_name :<span class="o">=</span> hello.wasm
+</span></span><span class="line"><span class="ln">2</span><span class="cl">image_tag :<span class="o">=</span> hello-v1
+</span></span><span class="line"><span class="ln">3</span><span class="cl">
+</span></span><span class="line"><span class="ln">4</span><span class="cl">build.wasm:
+</span></span><span class="line"><span class="ln">5</span><span class="cl">	tinygo build -o <span class="k">$(</span>wasm_name<span class="k">)</span> -scheduler<span class="o">=</span>none -target<span class="o">=</span>wasi main.go
+</span></span><span class="line"><span class="ln">6</span><span class="cl">build.image: build.wasm
+</span></span><span class="line"><span class="ln">7</span><span class="cl">	docker buildx build --platform<span class="o">=</span>linux/amd64 -t envoyproxy/envoy:<span class="k">$(</span>image_tag<span class="k">)</span> . -f ./Dockerfile
+</span></span></code></pre></div><h4 id="dynamic-change-envoyproxy-loggin-level">Dynamic change envoyproxy loggin level</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">$ kubectl -n default <span class="nb">exec</span> <span class="s2">&#34;</span><span class="k">$(</span>kubectl get pod -l <span class="nv">app</span><span class="o">=</span>helloworld -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span><span class="s2">&#34;</span> -c istio-proxy pilot-agent request POST /logging<span class="s2">&#34;?wasm=info&#34;</span>
+</span></span></code></pre></div><p>Happy to wasm debug</p>
+<h3 id="reference-link">Reference link</h3>
+<ul>
+<li><a href="https://github.com/tetratelabs/proxy-wasm-go-sdk/tree/main/examples/helloworld">Hello World</a></li>
+<li><a href="https://github.com/henders/writing-an-envoy-wasm-plugin">Example code for the blog entry on same subject</a></li>
+</ul>
+
     </div>
 <div class="post_comments">
   
@@ -225,28 +364,28 @@
     <h2 class="mt-4"></h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.wisekee.com/post/vue-custom-components/" class="nav-link" title="Vue custom component getting started">Vue custom component getting started</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/aws-ecr-register-helper/" class="nav-link" title="Dynamic create docker registry pull image credentials in eks cluster for particular  imagePullSecret">Dynamic create docker registry pull image credentials in eks cluster for particular  imagePullSecret</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/aws-jsii-getting-started/" class="nav-link" title="Use AWS jsii to cross language invoker">Use AWS jsii to cross language invoker</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/vue-app-getting-started/" class="nav-link" title="How to create sample frontend in vue use cli and vite">How to create sample frontend in vue use cli and vite</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/golang-web-static-fileserver/" class="nav-link" title="Use golang serve the static file embedded to binary file">Use golang serve the static file embedded to binary file</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/getting-started-ebpf/" class="nav-link" title="Getting started eBPF development">Getting started eBPF development</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/golang_profile/" class="nav-link" title="How to profile the golang program">How to profile the golang program</a>
       </li>
       <li>
-        <a href="https://blog.wisekee.com/post/aws-ec2-userdata/" class="nav-link" title="Custom the ec2 user data when instance launch">Custom the ec2 user data when instance launch</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/istio-nlb-proxy-protocolv2/" class="nav-link" title="Istio ingress gateway enalbe proxy protocol v2 in AWS network loadbalance">Istio ingress gateway enalbe proxy protocol v2 in AWS network loadbalance</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/envoyproxy-wasm/" class="nav-link" title="Envoyproxy write wasm plugin getting started">Envoyproxy write wasm plugin getting started</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/golang-concurrency-patterns/" class="nav-link" title="Concurrency patterns in golang">Concurrency patterns in golang</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/aws-metadata-ssrf-poc/" class="nav-link" title="AWS metadata service v1 SSRF POC">AWS metadata service v1 SSRF POC</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/self-sign-certificate-for-istio-ingressgateway/" class="nav-link" title="Generate the self sign certificate for istio ingress gateway">Generate the self sign certificate for istio ingress gateway</a>
+        <a href="https://blog.wisekee.com/post/golang-jwt-example/" class="nav-link" title="Generation and Verify JWT token in golang">Generation and Verify JWT token in golang</a>
       </li>
     </ul>
     <div>
@@ -254,7 +393,12 @@
       <nav class="tags_nav">
         <a href='https://blog.wisekee.com/tags/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">16</span>
+          <span class="button_tally">19</span>
+        </a>
+        
+        <a href='https://blog.wisekee.com/tags/k8s/' class="post_tag button button_translucent" title="k8s">
+          K8S
+          <span class="button_tally">11</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/security/' class="post_tag button button_translucent" title="security">
@@ -262,14 +406,19 @@
           <span class="button_tally">10</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/k8s/' class="post_tag button button_translucent" title="k8s">
-          K8S
+        <a href='https://blog.wisekee.com/tags/aws/' class="post_tag button button_translucent" title="aws">
+          AWS
           <span class="button_tally">9</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/cncf/' class="post_tag button button_translucent" title="cncf">
           CNCF
-          <span class="button_tally">8</span>
+          <span class="button_tally">9</span>
+        </a>
+        
+        <a href='https://blog.wisekee.com/tags/go/' class="post_tag button button_translucent" title="go">
+          GO
+          <span class="button_tally">9</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/featured/' class="post_tag button button_translucent" title="featured">
@@ -277,29 +426,19 @@
           <span class="button_tally">8</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/aws/' class="post_tag button button_translucent" title="aws">
-          AWS
-          <span class="button_tally">7</span>
-        </a>
-        
-        <a href='https://blog.wisekee.com/tags/go/' class="post_tag button button_translucent" title="go">
-          GO
-          <span class="button_tally">7</span>
-        </a>
-        
         <a href='https://blog.wisekee.com/tags/terraform/' class="post_tag button button_translucent" title="terraform">
           TERRAFORM
-          <span class="button_tally">7</span>
+          <span class="button_tally">8</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/docker/' class="post_tag button button_translucent" title="docker">
           DOCKER
-          <span class="button_tally">6</span>
+          <span class="button_tally">7</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/istio/' class="post_tag button button_translucent" title="istio">
           ISTIO
-          <span class="button_tally">5</span>
+          <span class="button_tally">6</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/cloud-native/' class="post_tag button button_translucent" title="cloud-native">
@@ -307,19 +446,19 @@
           <span class="button_tally">4</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/service-mesh/' class="post_tag button button_translucent" title="service-mesh">
-          SERVICE-MESH
+        <a href='https://blog.wisekee.com/tags/frontend/' class="post_tag button button_translucent" title="frontend">
+          FRONTEND
           <span class="button_tally">4</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/ansible/' class="post_tag button button_translucent" title="ansible">
-          ANSIBLE
-          <span class="button_tally">3</span>
+        <a href='https://blog.wisekee.com/tags/open-source/' class="post_tag button button_translucent" title="open-source">
+          OPEN-SOURCE
+          <span class="button_tally">4</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/eks/' class="post_tag button button_translucent" title="eks">
-          EKS
-          <span class="button_tally">3</span>
+        <a href='https://blog.wisekee.com/tags/service-mesh/' class="post_tag button button_translucent" title="service-mesh">
+          SERVICE-MESH
+          <span class="button_tally">4</span>
         </a>
         
         
@@ -332,6 +471,10 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/agent/' class=" post_tag button button_translucent" data-position=1 title="agent">AGENT<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/airflow/' class=" post_tag button button_translucent" data-position=1 title="airflow">AIRFLOW<span class="button_tally">1</span>
             </a>
             
@@ -340,7 +483,15 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/apigateway/' class=" post_tag button button_translucent" data-position=1 title="apigateway">APIGATEWAY<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/athens/' class=" post_tag button button_translucent" data-position=1 title="athens">ATHENS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/authorization/' class=" post_tag button button_translucent" data-position=1 title="authorization">AUTHORIZATION<span class="button_tally">1</span>
             </a>
             
             
@@ -352,7 +503,11 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/aws/' class=" post_tag button button_translucent" data-position=7 title="aws">AWS<span class="button_tally">7</span>
+            <a href='https://blog.wisekee.com/tags/autogpt/' class=" post_tag button button_translucent" data-position=1 title="autogpt">AUTOGPT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/aws/' class=" post_tag button button_translucent" data-position=9 title="aws">AWS<span class="button_tally">9</span>
             </a>
             
             
@@ -360,7 +515,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/bigdata/' class=" post_tag button button_translucent" data-position=1 title="bigdata">BIGDATA<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/bigdata/' class=" post_tag button button_translucent" data-position=2 title="bigdata">BIGDATA<span class="button_tally">2</span>
             </a>
             
             
@@ -368,7 +523,15 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/boot/' class=" post_tag button button_translucent" data-position=1 title="boot">BOOT<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/bpf/' class=" post_tag button button_translucent" data-position=1 title="bpf">BPF<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/bundle/' class=" post_tag button button_translucent" data-position=1 title="bundle">BUNDLE<span class="button_tally">1</span>
             </a>
             
             
@@ -376,7 +539,15 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/cdk/' class=" post_tag button button_translucent" data-position=1 title="cdk">CDK<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/checklist/' class=" post_tag button button_translucent" data-position=1 title="checklist">CHECKLIST<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/claims/' class=" post_tag button button_translucent" data-position=1 title="claims">CLAIMS<span class="button_tally">1</span>
             </a>
             
             
@@ -396,7 +567,11 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=8 title="cncf">CNCF<span class="button_tally">8</span>
+            <a href='https://blog.wisekee.com/tags/cluster/' class=" post_tag button button_translucent" data-position=1 title="cluster">CLUSTER<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=9 title="cncf">CNCF<span class="button_tally">9</span>
             </a>
             
             
@@ -409,6 +584,10 @@
             
             
             <a href='https://blog.wisekee.com/tags/consul/' class=" post_tag button button_translucent" data-position=1 title="consul">CONSUL<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/cordon/' class=" post_tag button button_translucent" data-position=1 title="cordon">CORDON<span class="button_tally">1</span>
             </a>
             
             
@@ -428,7 +607,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/docker/' class=" post_tag button button_translucent" data-position=6 title="docker">DOCKER<span class="button_tally">6</span>
+            <a href='https://blog.wisekee.com/tags/docker/' class=" post_tag button button_translucent" data-position=7 title="docker">DOCKER<span class="button_tally">7</span>
             </a>
             
             
@@ -445,6 +624,10 @@
             
             
             <a href='https://blog.wisekee.com/tags/eclipse-che/' class=" post_tag button button_translucent" data-position=1 title="eclipse-che">ECLIPSE-CHE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/ecr/' class=" post_tag button button_translucent" data-position=1 title="ecr">ECR<span class="button_tally">1</span>
             </a>
             
             
@@ -472,6 +655,10 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/evict/' class=" post_tag button button_translucent" data-position=1 title="evict">EVICT<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/falco/' class=" post_tag button button_translucent" data-position=2 title="falco">FALCO<span class="button_tally">2</span>
             </a>
             
@@ -496,11 +683,15 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/frontend/' class=" post_tag button button_translucent" data-position=4 title="frontend">FRONTEND<span class="button_tally">4</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/gateway/' class=" post_tag button button_translucent" data-position=1 title="gateway">GATEWAY<span class="button_tally">1</span>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/go/' class=" post_tag button button_translucent" data-position=7 title="go">GO<span class="button_tally">7</span>
+            <a href='https://blog.wisekee.com/tags/go/' class=" post_tag button button_translucent" data-position=9 title="go">GO<span class="button_tally">9</span>
             </a>
             
             
@@ -509,6 +700,10 @@
             
             
             <a href='https://blog.wisekee.com/tags/goroutines/' class=" post_tag button button_translucent" data-position=1 title="goroutines">GOROUTINES<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/gpt/' class=" post_tag button button_translucent" data-position=1 title="gpt">GPT<span class="button_tally">1</span>
             </a>
             
             
@@ -521,6 +716,10 @@
             
             
             <a href='https://blog.wisekee.com/tags/hackthebox/' class=" post_tag button button_translucent" data-position=1 title="hackthebox">HACKTHEBOX<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/hive/' class=" post_tag button button_translucent" data-position=1 title="hive">HIVE<span class="button_tally">1</span>
             </a>
             
             
@@ -556,15 +755,31 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/istio/' class=" post_tag button button_translucent" data-position=5 title="istio">ISTIO<span class="button_tally">5</span>
+            <a href='https://blog.wisekee.com/tags/istio/' class=" post_tag button button_translucent" data-position=6 title="istio">ISTIO<span class="button_tally">6</span>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/k8s/' class=" post_tag button button_translucent" data-position=9 title="k8s">K8S<span class="button_tally">9</span>
+            <a href='https://blog.wisekee.com/tags/jenkins/' class=" post_tag button button_translucent" data-position=1 title="jenkins">JENKINS<span class="button_tally">1</span>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/kernel/' class=" post_tag button button_translucent" data-position=1 title="kernel">KERNEL<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/jsii/' class=" post_tag button button_translucent" data-position=1 title="jsii">JSII<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/jwt/' class=" post_tag button button_translucent" data-position=2 title="jwt">JWT<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/k8s/' class=" post_tag button button_translucent" data-position=11 title="k8s">K8S<span class="button_tally">11</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/kernel/' class=" post_tag button button_translucent" data-position=2 title="kernel">KERNEL<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/kind/' class=" post_tag button button_translucent" data-position=1 title="kind">KIND<span class="button_tally">1</span>
             </a>
             
             
@@ -580,7 +795,15 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/kubernetes/' class=" post_tag button button_translucent" data-position=16 title="kubernetes">KUBERNETES<span class="button_tally">16</span>
+            <a href='https://blog.wisekee.com/tags/kubernetes/' class=" post_tag button button_translucent" data-position=19 title="kubernetes">KUBERNETES<span class="button_tally">19</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/linux/' class=" post_tag button button_translucent" data-position=1 title="linux">LINUX<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/llm/' class=" post_tag button button_translucent" data-position=1 title="llm">LLM<span class="button_tally">1</span>
             </a>
             
             
@@ -605,6 +828,10 @@
             
             
             <a href='https://blog.wisekee.com/tags/metrics/' class=" post_tag button button_translucent" data-position=1 title="metrics">METRICS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/minio/' class=" post_tag button button_translucent" data-position=1 title="minio">MINIO<span class="button_tally">1</span>
             </a>
             
             
@@ -648,7 +875,11 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/open-source/' class=" post_tag button button_translucent" data-position=3 title="open-source">OPEN-SOURCE<span class="button_tally">3</span>
+            <a href='https://blog.wisekee.com/tags/open-source/' class=" post_tag button button_translucent" data-position=4 title="open-source">OPEN-SOURCE<span class="button_tally">4</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/openai/' class=" post_tag button button_translucent" data-position=1 title="openai">OPENAI<span class="button_tally">1</span>
             </a>
             
             
@@ -665,6 +896,10 @@
             
             
             <a href='https://blog.wisekee.com/tags/pod/' class=" post_tag button button_translucent" data-position=1 title="pod">POD<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/postgresql/' class=" post_tag button button_translucent" data-position=1 title="postgresql">POSTGRESQL<span class="button_tally">1</span>
             </a>
             
             
@@ -685,6 +920,10 @@
             
             
             <a href='https://blog.wisekee.com/tags/proxy/' class=" post_tag button button_translucent" data-position=1 title="proxy">PROXY<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/psql/' class=" post_tag button button_translucent" data-position=1 title="psql">PSQL<span class="button_tally">1</span>
             </a>
             
             
@@ -760,7 +999,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/terraform/' class=" post_tag button button_translucent" data-position=7 title="terraform">TERRAFORM<span class="button_tally">7</span>
+            <a href='https://blog.wisekee.com/tags/terraform/' class=" post_tag button button_translucent" data-position=8 title="terraform">TERRAFORM<span class="button_tally">8</span>
             </a>
             
             
@@ -769,6 +1008,10 @@
             
             
             <a href='https://blog.wisekee.com/tags/traffic/' class=" post_tag button button_translucent" data-position=2 title="traffic">TRAFFIC<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/trino/' class=" post_tag button button_translucent" data-position=1 title="trino">TRINO<span class="button_tally">1</span>
             </a>
             
             
@@ -788,7 +1031,23 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/vite/' class=" post_tag button button_translucent" data-position=2 title="vite">VITE<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/vue/' class=" post_tag button button_translucent" data-position=2 title="vue">VUE<span class="button_tally">2</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/wasm/' class=" post_tag button button_translucent" data-position=1 title="wasm">WASM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/web/' class=" post_tag button button_translucent" data-position=1 title="web">WEB<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/webpack/' class=" post_tag button button_translucent" data-position=1 title="webpack">WEBPACK<span class="button_tally">1</span>
             </a>
             
             <div class="tags_sort"><span title="sort alphabetically">[A~Z]</span><span title="sort by count">[0~9]</span>
