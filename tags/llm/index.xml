@@ -15,7 +15,7 @@
       <description>
         
           
-            Knowledge Referred to as &amp;ldquo;prompts&amp;rdquo;. Designing a prompt is essentially how you “program” a large language model model Plugins can be “eyes and ears” for language models Using commands to instruct the model what you want to achieve, such as &amp;ldquo;Write&amp;rdquo;, &amp;ldquo;Classify&amp;rdquo;, &amp;ldquo;Summarize&amp;rdquo;, &amp;ldquo;Translate&amp;rdquo;, &amp;ldquo;Order&amp;rdquo; Prompt example Give a demonstrations 1 2Q: What is prompt engineering? 3A: It&amp;#39;s a laugnauge for LLM to interactive 4 5This is awesome! // Positive 6This is bad!
+            How to use the LLMs Prompt Engineering Retrieval Augmented Generation (RAG) Fine-tuning Training your own Foundation Model(FM) from scratch Vector databases Milvus Database for AI. Store Vectors, Images, Texts, Videos, etc. Use with LLMs/LangChain deeplake Knowledge Referred to as &amp;ldquo;prompts&amp;rdquo;. Designing a prompt is essentially how you “program” a large language model model Plugins can be “eyes and ears” for language models Using commands to instruct the model what you want to achieve, such as &amp;ldquo;Write&amp;rdquo;, &amp;ldquo;Classify&amp;rdquo;, &amp;ldquo;Summarize&amp;rdquo;, &amp;ldquo;Translate&amp;rdquo;, &amp;ldquo;Order&amp;rdquo; Foundation model (FM) – An AI model with a large number of parameters and trained on a massive amount of diverse data.
           
           
         

@@ -142,6 +142,144 @@
   <div class="excerpt">
     <div class="excerpt_header">
       <h3 class="post_link">
+        <a href="https://blog.wisekee.com/post/aws-eks-pod-sg/" title="AWS EKS pod attach the SecurityGroup through SecurityGroupPolicy CRD">AWS EKS pod attach the SecurityGroup through SecurityGroupPolicy CRD</a>
+      </h3>
+      
+  <div class="post_meta">
+    <span><svg class="icon">
+  <title>calendar</title>
+  <use xlink:href="#calendar"></use>
+</svg>
+</span>
+    <span class="post_date">
+      Jul 20, 2023</span>
+    <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/eks/' title="EKS" class="post_tag button button_translucent">EKS
+        </a><a href='https://blog.wisekee.com/tags/aws/' title="AWS" class="post_tag button button_translucent">AWS
+        </a><a href='https://blog.wisekee.com/tags/securitygroup/' title="SecurityGroup" class="post_tag button button_translucent">SecurityGroup
+        </a>
+    </span>
+    <span class="page_only">&nbsp;·
+  <div class="post_share">
+    :
+    <a href="https://twitter.com/intent/tweet?text=AWS%20EKS%20pod%20attach%20the%20SecurityGroup%20through%20SecurityGroupPolicy%20CRD&url=https%3a%2f%2fblog.wisekee.com%2fpost%2faws-eks-pod-sg%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <title>twitter</title>
+  <use xlink:href="#twitter"></use>
+</svg>
+
+    </a>
+    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2faws-eks-pod-sg%2f&t=AWS%20EKS%20pod%20attach%20the%20SecurityGroup%20through%20SecurityGroupPolicy%20CRD" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <title>facebook</title>
+  <use xlink:href="#facebook"></use>
+</svg>
+
+    </a>
+    <a href="#linkedinshare" id = "linkedinshare" class="linkedin" title=" LinkedIn" rel="nofollow">
+      <svg class="icon">
+  <title>linkedin</title>
+  <use xlink:href="#linkedin"></use>
+</svg>
+
+    </a>
+    <a href="https://blog.wisekee.com/post/aws-eks-pod-sg/" title="Copy Link" class="link link_yank">
+      <svg class="icon">
+  <title>copy</title>
+  <use xlink:href="#copy"></use>
+</svg>
+
+    </a>
+  </div>
+  </span>
+  </div>
+
+    </div>
+      <div class="excerpt_footer">
+        <div class="pale">
+          
+            <p>The EKS deployment should use ServiceAccount for pods
+Create the CR to eks cluster Control the access to Istio ingress gateway through bind the securitygroup to pod network interface.
+1apiVersion: vpcresources.k8s.aws/v1beta1 2kind: SecurityGroupPolicy 3metadata: 4 name: istio-internal-ingressgateway-sg 5 namespace: …</p>
+          
+          <br>
+          <a href="https://blog.wisekee.com/post/aws-eks-pod-sg/" title="" class="excerpt_more button">read more</a>
+        </div>
+      </div>
+    </div>
+  </li>
+
+        <li class="post_item">
+  <div class="excerpt">
+    <div class="excerpt_header">
+      <h3 class="post_link">
+        <a href="https://blog.wisekee.com/post/envoyproxy-getting-started/" title="Envoyproxy getting started">Envoyproxy getting started</a>
+      </h3>
+      
+  <div class="post_meta">
+    <span><svg class="icon">
+  <title>calendar</title>
+  <use xlink:href="#calendar"></use>
+</svg>
+</span>
+    <span class="post_date">
+      Jul 10, 2023</span>
+    <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/envoy/' title="envoy" class="post_tag button button_translucent">envoy
+        </a><a href='https://blog.wisekee.com/tags/service-mesh/' title="service mesh" class="post_tag button button_translucent">service mesh
+        </a><a href='https://blog.wisekee.com/tags/envoyproxy/' title="envoyproxy" class="post_tag button button_translucent">envoyproxy
+        </a>
+    </span>
+    <span class="page_only">&nbsp;·
+  <div class="post_share">
+    :
+    <a href="https://twitter.com/intent/tweet?text=Envoyproxy%20getting%20started&url=https%3a%2f%2fblog.wisekee.com%2fpost%2fenvoyproxy-getting-started%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <title>twitter</title>
+  <use xlink:href="#twitter"></use>
+</svg>
+
+    </a>
+    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2fenvoyproxy-getting-started%2f&t=Envoyproxy%20getting%20started" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <title>facebook</title>
+  <use xlink:href="#facebook"></use>
+</svg>
+
+    </a>
+    <a href="#linkedinshare" id = "linkedinshare" class="linkedin" title=" LinkedIn" rel="nofollow">
+      <svg class="icon">
+  <title>linkedin</title>
+  <use xlink:href="#linkedin"></use>
+</svg>
+
+    </a>
+    <a href="https://blog.wisekee.com/post/envoyproxy-getting-started/" title="Copy Link" class="link link_yank">
+      <svg class="icon">
+  <title>copy</title>
+  <use xlink:href="#copy"></use>
+</svg>
+
+    </a>
+  </div>
+  </span>
+  </div>
+
+    </div>
+      <div class="excerpt_footer">
+        <div class="pale">
+          
+            <p>Can view the envoryproxy default config in docker container 1# Launch the envoryproxy container 2# The 9901 port is envoryproxy admin and metrics, the 10000 port is listner 3# Then you can open http://127.0.0.1:9901 and http://127.0.0.1:10000 to view details 4docker run -it &ndash;rm -p 9901:9901 -p 10000:10000 &ndash;name envoy …</p>
+          
+          <br>
+          <a href="https://blog.wisekee.com/post/envoyproxy-getting-started/" title="" class="excerpt_more button">read more</a>
+        </div>
+      </div>
+    </div>
+  </li>
+
+        <li class="post_item">
+  <div class="excerpt">
+    <div class="excerpt_header">
+      <h3 class="post_link">
         <a href="https://blog.wisekee.com/post/bigdata-open-source/" title="Awesome open resoure new generational data laek house tools and project">Awesome open resoure new generational data laek house tools and project</a>
       </h3>
       
@@ -345,143 +483,6 @@ Write the init script with systemv style cat /etc/init.d/demo-service
     </div>
   </li>
 
-        <li class="post_item">
-  <div class="excerpt">
-    <div class="excerpt_header">
-      <h3 class="post_link">
-        <a href="https://blog.wisekee.com/post/grpc-getting-started/" title="Grpc example and getting started">Grpc example and getting started</a>
-      </h3>
-      
-  <div class="post_meta">
-    <span><svg class="icon">
-  <title>calendar</title>
-  <use xlink:href="#calendar"></use>
-</svg>
-</span>
-    <span class="post_date">
-      Jun 11, 2023</span>
-    <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/go/' title="Go" class="post_tag button button_translucent">Go
-        </a><a href='https://blog.wisekee.com/tags/grpc/' title="Grpc" class="post_tag button button_translucent">Grpc
-        </a><a href='https://blog.wisekee.com/tags/kubernetes/' title="kubernetes" class="post_tag button button_translucent">kubernetes
-        </a>
-    </span>
-    <span class="page_only">&nbsp;·
-  <div class="post_share">
-    :
-    <a href="https://twitter.com/intent/tweet?text=Grpc%20example%20and%20getting%20started&url=https%3a%2f%2fblog.wisekee.com%2fpost%2fgrpc-getting-started%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
-      <svg class="icon">
-  <title>twitter</title>
-  <use xlink:href="#twitter"></use>
-</svg>
-
-    </a>
-    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2fgrpc-getting-started%2f&t=Grpc%20example%20and%20getting%20started" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
-      <svg class="icon">
-  <title>facebook</title>
-  <use xlink:href="#facebook"></use>
-</svg>
-
-    </a>
-    <a href="#linkedinshare" id = "linkedinshare" class="linkedin" title=" LinkedIn" rel="nofollow">
-      <svg class="icon">
-  <title>linkedin</title>
-  <use xlink:href="#linkedin"></use>
-</svg>
-
-    </a>
-    <a href="https://blog.wisekee.com/post/grpc-getting-started/" title="Copy Link" class="link link_yank">
-      <svg class="icon">
-  <title>copy</title>
-  <use xlink:href="#copy"></use>
-</svg>
-
-    </a>
-  </div>
-  </span>
-  </div>
-
-    </div>
-      <div class="excerpt_footer">
-        <div class="pale">
-          
-            <p>How to invoke the GRPC service grpcbin-example-go</p>
-          
-          <br>
-          <a href="https://blog.wisekee.com/post/grpc-getting-started/" title="" class="excerpt_more button">read more</a>
-        </div>
-      </div>
-    </div>
-  </li>
-
-        <li class="post_item">
-  <div class="excerpt">
-    <div class="excerpt_header">
-      <h3 class="post_link">
-        <a href="https://blog.wisekee.com/post/grpc-awesome/" title="How to call to kubernets grpc services in local">How to call to kubernets grpc services in local</a>
-      </h3>
-      
-  <div class="post_meta">
-    <span><svg class="icon">
-  <title>calendar</title>
-  <use xlink:href="#calendar"></use>
-</svg>
-</span>
-    <span class="post_date">
-      May 11, 2023</span>
-    <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/go/' title="Go" class="post_tag button button_translucent">Go
-        </a><a href='https://blog.wisekee.com/tags/grpc/' title="Grpc" class="post_tag button button_translucent">Grpc
-        </a><a href='https://blog.wisekee.com/tags/kubernetes/' title="kubernetes" class="post_tag button button_translucent">kubernetes
-        </a>
-    </span>
-    <span class="page_only">&nbsp;·
-  <div class="post_share">
-    :
-    <a href="https://twitter.com/intent/tweet?text=How%20to%20call%20to%20kubernets%20grpc%20services%20in%20local&url=https%3a%2f%2fblog.wisekee.com%2fpost%2fgrpc-awesome%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
-      <svg class="icon">
-  <title>twitter</title>
-  <use xlink:href="#twitter"></use>
-</svg>
-
-    </a>
-    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2fgrpc-awesome%2f&t=How%20to%20call%20to%20kubernets%20grpc%20services%20in%20local" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
-      <svg class="icon">
-  <title>facebook</title>
-  <use xlink:href="#facebook"></use>
-</svg>
-
-    </a>
-    <a href="#linkedinshare" id = "linkedinshare" class="linkedin" title=" LinkedIn" rel="nofollow">
-      <svg class="icon">
-  <title>linkedin</title>
-  <use xlink:href="#linkedin"></use>
-</svg>
-
-    </a>
-    <a href="https://blog.wisekee.com/post/grpc-awesome/" title="Copy Link" class="link link_yank">
-      <svg class="icon">
-  <title>copy</title>
-  <use xlink:href="#copy"></use>
-</svg>
-
-    </a>
-  </div>
-  </span>
-  </div>
-
-    </div>
-      <div class="excerpt_footer">
-        <div class="pale">
-          
-            <p>Usually for serivce better performance. we can use GRPC and multiple instance deployment for app, then the GRPC load balancing is challenges
-Create Grpc headless service for Grpc app when multiple instance is enable for GRPC service in order to load balacing the GRPC service, needs create headless service let client …</p>
-          
-          <br>
-          <a href="https://blog.wisekee.com/post/grpc-awesome/" title="" class="excerpt_more button">read more</a>
-        </div>
-      </div>
-    </div>
-  </li>
-
       <li>
     <ul class="pagination pagination-default">
       <li class="page-item">
@@ -509,7 +510,7 @@ Create Grpc headless service for Grpc app when multiple instance is enable for G
         <a href="/page/6/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
       </li>
       <li class="page-item">
-        <a href="/page/19/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/20/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
       </li>
     </ul>
       </li>
@@ -543,6 +544,12 @@ Create Grpc headless service for Grpc app when multiple instance is enable for G
     <h2 class="mt-4"></h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.wisekee.com/post/go-vscode-debug-config/" class="nav-link" title="How to config debug the go project in vscode">How to config debug the go project in vscode</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/bigdata-trino-hive-minio-getting-started/" class="nav-link" title="trino&#43;hive metastore&#43;k8s&#43;minio environment prepared">trino+hive metastore+k8s+minio environment prepared</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/vue-custom-components/" class="nav-link" title="Vue custom component getting started">Vue custom component getting started</a>
       </li>
       <li>
@@ -560,12 +567,6 @@ Create Grpc headless service for Grpc app when multiple instance is enable for G
       <li>
         <a href="https://blog.wisekee.com/post/golang-web-static-fileserver/" class="nav-link" title="Use golang serve the static file embedded to binary file">Use golang serve the static file embedded to binary file</a>
       </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/getting-started-ebpf/" class="nav-link" title="Getting started eBPF development">Getting started eBPF development</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/golang_profile/" class="nav-link" title="How to profile the golang program">How to profile the golang program</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="tags-section"></h2>
@@ -577,7 +578,17 @@ Create Grpc headless service for Grpc app when multiple instance is enable for G
         
         <a href='https://blog.wisekee.com/tags/k8s/' class="post_tag button button_translucent" title="k8s">
           K8S
-          <span class="button_tally">11</span>
+          <span class="button_tally">12</span>
+        </a>
+        
+        <a href='https://blog.wisekee.com/tags/aws/' class="post_tag button button_translucent" title="aws">
+          AWS
+          <span class="button_tally">10</span>
+        </a>
+        
+        <a href='https://blog.wisekee.com/tags/go/' class="post_tag button button_translucent" title="go">
+          GO
+          <span class="button_tally">10</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/security/' class="post_tag button button_translucent" title="security">
@@ -585,18 +596,8 @@ Create Grpc headless service for Grpc app when multiple instance is enable for G
           <span class="button_tally">10</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/aws/' class="post_tag button button_translucent" title="aws">
-          AWS
-          <span class="button_tally">9</span>
-        </a>
-        
         <a href='https://blog.wisekee.com/tags/cncf/' class="post_tag button button_translucent" title="cncf">
           CNCF
-          <span class="button_tally">9</span>
-        </a>
-        
-        <a href='https://blog.wisekee.com/tags/go/' class="post_tag button button_translucent" title="go">
-          GO
           <span class="button_tally">9</span>
         </a>
         
@@ -620,13 +621,13 @@ Create Grpc headless service for Grpc app when multiple instance is enable for G
           <span class="button_tally">6</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/cloud-native/' class="post_tag button button_translucent" title="cloud-native">
-          CLOUD-NATIVE
-          <span class="button_tally">4</span>
-        </a>
-        
         <a href='https://blog.wisekee.com/tags/frontend/' class="post_tag button button_translucent" title="frontend">
           FRONTEND
+          <span class="button_tally">5</span>
+        </a>
+        
+        <a href='https://blog.wisekee.com/tags/cloud-native/' class="post_tag button button_translucent" title="cloud-native">
+          CLOUD-NATIVE
           <span class="button_tally">4</span>
         </a>
         
@@ -686,7 +687,7 @@ Create Grpc headless service for Grpc app when multiple instance is enable for G
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/aws/' class=" post_tag button button_translucent" data-position=9 title="aws">AWS<span class="button_tally">9</span>
+            <a href='https://blog.wisekee.com/tags/aws/' class=" post_tag button button_translucent" data-position=10 title="aws">AWS<span class="button_tally">10</span>
             </a>
             
             
@@ -774,11 +775,23 @@ Create Grpc headless service for Grpc app when multiple instance is enable for G
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/csm/' class=" post_tag button button_translucent" data-position=1 title="csm">CSM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/css/' class=" post_tag button button_translucent" data-position=1 title="css">CSS<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/custom-resources/' class=" post_tag button button_translucent" data-position=1 title="custom-resources">CUSTOM-RESOURCES<span class="button_tally">1</span>
             </a>
             
             
             <a href='https://blog.wisekee.com/tags/debain/' class=" post_tag button button_translucent" data-position=1 title="debain">DEBAIN<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/debug/' class=" post_tag button button_translucent" data-position=1 title="debug">DEBUG<span class="button_tally">1</span>
             </a>
             
             
@@ -834,6 +847,10 @@ Create Grpc headless service for Grpc app when multiple instance is enable for G
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/es/' class=" post_tag button button_translucent" data-position=1 title="es">ES<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/evict/' class=" post_tag button button_translucent" data-position=1 title="evict">EVICT<span class="button_tally">1</span>
             </a>
             
@@ -862,7 +879,7 @@ Create Grpc headless service for Grpc app when multiple instance is enable for G
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/frontend/' class=" post_tag button button_translucent" data-position=4 title="frontend">FRONTEND<span class="button_tally">4</span>
+            <a href='https://blog.wisekee.com/tags/frontend/' class=" post_tag button button_translucent" data-position=5 title="frontend">FRONTEND<span class="button_tally">5</span>
             </a>
             
             
@@ -870,7 +887,7 @@ Create Grpc headless service for Grpc app when multiple instance is enable for G
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/go/' class=" post_tag button button_translucent" data-position=9 title="go">GO<span class="button_tally">9</span>
+            <a href='https://blog.wisekee.com/tags/go/' class=" post_tag button button_translucent" data-position=10 title="go">GO<span class="button_tally">10</span>
             </a>
             
             
@@ -934,6 +951,10 @@ Create Grpc headless service for Grpc app when multiple instance is enable for G
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/ipython/' class=" post_tag button button_translucent" data-position=1 title="ipython">IPYTHON<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/istio/' class=" post_tag button button_translucent" data-position=6 title="istio">ISTIO<span class="button_tally">6</span>
             </a>
             
@@ -946,11 +967,15 @@ Create Grpc headless service for Grpc app when multiple instance is enable for G
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/jupyter/' class=" post_tag button button_translucent" data-position=1 title="jupyter">JUPYTER<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/jwt/' class=" post_tag button button_translucent" data-position=2 title="jwt">JWT<span class="button_tally">2</span>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/k8s/' class=" post_tag button button_translucent" data-position=11 title="k8s">K8S<span class="button_tally">11</span>
+            <a href='https://blog.wisekee.com/tags/k8s/' class=" post_tag button button_translucent" data-position=12 title="k8s">K8S<span class="button_tally">12</span>
             </a>
             
             
@@ -1014,7 +1039,7 @@ Create Grpc headless service for Grpc app when multiple instance is enable for G
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/monitoring/' class=" post_tag button button_translucent" data-position=1 title="monitoring">MONITORING<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/monitoring/' class=" post_tag button button_translucent" data-position=2 title="monitoring">MONITORING<span class="button_tally">2</span>
             </a>
             
             
@@ -1162,6 +1187,10 @@ Create Grpc headless service for Grpc app when multiple instance is enable for G
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/sonarqube/' class=" post_tag button button_translucent" data-position=1 title="sonarqube">SONARQUBE<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/ssh/' class=" post_tag button button_translucent" data-position=1 title="ssh">SSH<span class="button_tally">1</span>
             </a>
             
@@ -1175,6 +1204,10 @@ Create Grpc headless service for Grpc app when multiple instance is enable for G
             
             
             <a href='https://blog.wisekee.com/tags/systemv/' class=" post_tag button button_translucent" data-position=1 title="systemv">SYSTEMV<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/tailwindcss/' class=" post_tag button button_translucent" data-position=1 title="tailwindcss">TAILWINDCSS<span class="button_tally">1</span>
             </a>
             
             
@@ -1219,6 +1252,10 @@ Create Grpc headless service for Grpc app when multiple instance is enable for G
             
             
             <a href='https://blog.wisekee.com/tags/vite/' class=" post_tag button button_translucent" data-position=2 title="vite">VITE<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/vscode/' class=" post_tag button button_translucent" data-position=1 title="vscode">VSCODE<span class="button_tally">1</span>
             </a>
             
             

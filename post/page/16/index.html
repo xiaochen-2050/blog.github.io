@@ -136,6 +136,144 @@
   <div class="excerpt">
     <div class="excerpt_header">
       <h3 class="post_link">
+        <a href="https://blog.wisekee.com/post/k8s-metrics-server/" title="Solve the problem of Metrics - Server">Solve the problem of Metrics - Server</a>
+      </h3>
+      
+  <div class="post_meta">
+    <span><svg class="icon">
+  <title>calendar</title>
+  <use xlink:href="#calendar"></use>
+</svg>
+</span>
+    <span class="post_date">
+      Oct 25, 2020</span>
+    <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/k8s/' title="k8s" class="post_tag button button_translucent">k8s
+        </a><a href='https://blog.wisekee.com/tags/kubectl/' title="kubectl" class="post_tag button button_translucent">kubectl
+        </a><a href='https://blog.wisekee.com/tags/kubernetes/' title="kubernetes" class="post_tag button button_translucent">kubernetes
+        </a><a href='https://blog.wisekee.com/tags/featured/' title="featured" class="post_tag button button_translucent">featured
+        </a>
+    </span>
+    <span class="page_only">&nbsp;·
+  <div class="post_share">
+    :
+    <a href="https://twitter.com/intent/tweet?text=Solve%20the%20problem%20of%20Metrics%20-%20Server&url=https%3a%2f%2fblog.wisekee.com%2fpost%2fk8s-metrics-server%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <title>twitter</title>
+  <use xlink:href="#twitter"></use>
+</svg>
+
+    </a>
+    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2fk8s-metrics-server%2f&t=Solve%20the%20problem%20of%20Metrics%20-%20Server" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <title>facebook</title>
+  <use xlink:href="#facebook"></use>
+</svg>
+
+    </a>
+    <a href="#linkedinshare" id = "linkedinshare" class="linkedin" title=" LinkedIn" rel="nofollow">
+      <svg class="icon">
+  <title>linkedin</title>
+  <use xlink:href="#linkedin"></use>
+</svg>
+
+    </a>
+    <a href="https://blog.wisekee.com/post/k8s-metrics-server/" title="Copy Link" class="link link_yank">
+      <svg class="icon">
+  <title>copy</title>
+  <use xlink:href="#copy"></use>
+</svg>
+
+    </a>
+  </div>
+  </span>
+  </div>
+
+    </div>
+      <div class="excerpt_footer">
+        <div class="pale">
+          
+            <p>When we repeatedly install the Metrics-Server, because we use helm to install it, deleting one of them will cause the following error when executing the command related to kubectl top nodes: Error from server (NotFound): the server could not find the requested resource (get services http:heapster:)
+A large part of this …</p>
+          
+          <br>
+          <a href="https://blog.wisekee.com/post/k8s-metrics-server/" title="" class="excerpt_more button">read more</a>
+        </div>
+      </div>
+    </div>
+  </li>
+
+        <li class="post_item">
+  <div class="excerpt">
+    <div class="excerpt_header">
+      <h3 class="post_link">
+        <a href="https://blog.wisekee.com/post/kubernetes-ingress-guides/" title="Notes for using Kubernetes Ingress Controller">Notes for using Kubernetes Ingress Controller</a>
+      </h3>
+      
+  <div class="post_meta">
+    <span><svg class="icon">
+  <title>calendar</title>
+  <use xlink:href="#calendar"></use>
+</svg>
+</span>
+    <span class="post_date">
+      Oct 15, 2020</span>
+    <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/terraform/' title="Terraform" class="post_tag button button_translucent">Terraform
+        </a><a href='https://blog.wisekee.com/tags/kubernetes/' title="Kubernetes" class="post_tag button button_translucent">Kubernetes
+        </a><a href='https://blog.wisekee.com/tags/featured/' title="Featured" class="post_tag button button_translucent">Featured
+        </a>
+    </span>
+    <span class="page_only">&nbsp;·
+  <div class="post_share">
+    :
+    <a href="https://twitter.com/intent/tweet?text=Notes%20for%20using%20Kubernetes%20Ingress%20Controller&url=https%3a%2f%2fblog.wisekee.com%2fpost%2fkubernetes-ingress-guides%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <title>twitter</title>
+  <use xlink:href="#twitter"></use>
+</svg>
+
+    </a>
+    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2fkubernetes-ingress-guides%2f&t=Notes%20for%20using%20Kubernetes%20Ingress%20Controller" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
+      <svg class="icon">
+  <title>facebook</title>
+  <use xlink:href="#facebook"></use>
+</svg>
+
+    </a>
+    <a href="#linkedinshare" id = "linkedinshare" class="linkedin" title=" LinkedIn" rel="nofollow">
+      <svg class="icon">
+  <title>linkedin</title>
+  <use xlink:href="#linkedin"></use>
+</svg>
+
+    </a>
+    <a href="https://blog.wisekee.com/post/kubernetes-ingress-guides/" title="Copy Link" class="link link_yank">
+      <svg class="icon">
+  <title>copy</title>
+  <use xlink:href="#copy"></use>
+</svg>
+
+    </a>
+  </div>
+  </span>
+  </div>
+
+    </div>
+      <div class="excerpt_footer">
+        <div class="pale">
+          
+            <p>Append the nginx ingress http redirect to https Add extra port to nginx deployment for example: 8080, look like following 1ports: 2 - name: http 3 containerPort: 80 4 protocol: TCP 5 - name: https 6 containerPort: 443 7 protocol: TCP 8 - name: webhook 9 containerPort: 8443 10 protocol: TCP 11 - name: http-redirect 12 …</p>
+          
+          <br>
+          <a href="https://blog.wisekee.com/post/kubernetes-ingress-guides/" title="" class="excerpt_more button">read more</a>
+        </div>
+      </div>
+    </div>
+  </li>
+
+        <li class="post_item">
+  <div class="excerpt">
+    <div class="excerpt_header">
+      <h3 class="post_link">
         <a href="https://blog.wisekee.com/post/airflow-kuberntes-logs-config/" title="Airflow console logs display in kuberntes container executor">Airflow console logs display in kuberntes container executor</a>
       </h3>
       
@@ -338,143 +476,6 @@
     </div>
   </li>
 
-        <li class="post_item">
-  <div class="excerpt">
-    <div class="excerpt_header">
-      <h3 class="post_link">
-        <a href="https://blog.wisekee.com/post/custom-domain-name-in-k8s/" title="Custom private domain name in kubernetes cluster">Custom private domain name in kubernetes cluster</a>
-      </h3>
-      
-  <div class="post_meta">
-    <span><svg class="icon">
-  <title>calendar</title>
-  <use xlink:href="#calendar"></use>
-</svg>
-</span>
-    <span class="post_date">
-      Sep 3, 2020</span>
-    <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/kubernetes/' title="kubernetes" class="post_tag button button_translucent">kubernetes
-        </a><a href='https://blog.wisekee.com/tags/coredons/' title="Coredons" class="post_tag button button_translucent">Coredons
-        </a>
-    </span>
-    <span class="page_only">&nbsp;·
-  <div class="post_share">
-    :
-    <a href="https://twitter.com/intent/tweet?text=Custom%20private%20domain%20name%20in%20kubernetes%20cluster&url=https%3a%2f%2fblog.wisekee.com%2fpost%2fcustom-domain-name-in-k8s%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
-      <svg class="icon">
-  <title>twitter</title>
-  <use xlink:href="#twitter"></use>
-</svg>
-
-    </a>
-    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2fcustom-domain-name-in-k8s%2f&t=Custom%20private%20domain%20name%20in%20kubernetes%20cluster" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
-      <svg class="icon">
-  <title>facebook</title>
-  <use xlink:href="#facebook"></use>
-</svg>
-
-    </a>
-    <a href="#linkedinshare" id = "linkedinshare" class="linkedin" title=" LinkedIn" rel="nofollow">
-      <svg class="icon">
-  <title>linkedin</title>
-  <use xlink:href="#linkedin"></use>
-</svg>
-
-    </a>
-    <a href="https://blog.wisekee.com/post/custom-domain-name-in-k8s/" title="Copy Link" class="link link_yank">
-      <svg class="icon">
-  <title>copy</title>
-  <use xlink:href="#copy"></use>
-</svg>
-
-    </a>
-  </div>
-  </span>
-  </div>
-
-    </div>
-      <div class="excerpt_footer">
-        <div class="pale">
-          
-            <p>We use default service domain name ${servicename}.${namespace}.svc.cluster.localin kubernetes cluster, however the custom private domain name in private k8s networks frequently used. we can use coredns component reparse the private domain name to default CNAME.
-change coredns configmap add custom domain name config to …</p>
-          
-          <br>
-          <a href="https://blog.wisekee.com/post/custom-domain-name-in-k8s/" title="" class="excerpt_more button">read more</a>
-        </div>
-      </div>
-    </div>
-  </li>
-
-        <li class="post_item">
-  <div class="excerpt">
-    <div class="excerpt_header">
-      <h3 class="post_link">
-        <a href="https://blog.wisekee.com/post/aws-local-development/" title="Quickly debug AWS App locally use Localstack(AWS Mock in local)">Quickly debug AWS App locally use Localstack(AWS Mock in local)</a>
-      </h3>
-      
-  <div class="post_meta">
-    <span><svg class="icon">
-  <title>calendar</title>
-  <use xlink:href="#calendar"></use>
-</svg>
-</span>
-    <span class="post_date">
-      Sep 1, 2020</span>
-    <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/aws/' title="AWS" class="post_tag button button_translucent">AWS
-        </a><a href='https://blog.wisekee.com/tags/localstack/' title="LocalStack" class="post_tag button button_translucent">LocalStack
-        </a><a href='https://blog.wisekee.com/tags/cloud/' title="Cloud" class="post_tag button button_translucent">Cloud
-        </a>
-    </span>
-    <span class="page_only">&nbsp;·
-  <div class="post_share">
-    :
-    <a href="https://twitter.com/intent/tweet?text=Quickly%20debug%20AWS%20App%20locally%20use%20Localstack%28AWS%20Mock%20in%20local%29&url=https%3a%2f%2fblog.wisekee.com%2fpost%2faws-local-development%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
-      <svg class="icon">
-  <title>twitter</title>
-  <use xlink:href="#twitter"></use>
-</svg>
-
-    </a>
-    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2faws-local-development%2f&t=Quickly%20debug%20AWS%20App%20locally%20use%20Localstack%28AWS%20Mock%20in%20local%29" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
-      <svg class="icon">
-  <title>facebook</title>
-  <use xlink:href="#facebook"></use>
-</svg>
-
-    </a>
-    <a href="#linkedinshare" id = "linkedinshare" class="linkedin" title=" LinkedIn" rel="nofollow">
-      <svg class="icon">
-  <title>linkedin</title>
-  <use xlink:href="#linkedin"></use>
-</svg>
-
-    </a>
-    <a href="https://blog.wisekee.com/post/aws-local-development/" title="Copy Link" class="link link_yank">
-      <svg class="icon">
-  <title>copy</title>
-  <use xlink:href="#copy"></use>
-</svg>
-
-    </a>
-  </div>
-  </span>
-  </div>
-
-    </div>
-      <div class="excerpt_footer">
-        <div class="pale">
-          
-            <p>When you develop components locally that rely on AWS, it can be cumbersome to configure authentication information, and sometimes network latency. It is important to mock with a native AWS component, which can:localstack I’m using Docker-Compose here to start a set of tools that local development depends on：
-The …</p>
-          
-          <br>
-          <a href="https://blog.wisekee.com/post/aws-local-development/" title="" class="excerpt_more button">read more</a>
-        </div>
-      </div>
-    </div>
-  </li>
-
       <li>
     <ul class="pagination pagination-default">
       <li class="page-item">
@@ -502,7 +503,7 @@ The …</p>
         <a href="/post/page/17/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
       </li>
       <li class="page-item">
-        <a href="/post/page/19/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/post/page/20/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
       </li>
     </ul>
       </li>
@@ -536,6 +537,12 @@ The …</p>
     <h2 class="mt-4"></h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.wisekee.com/post/go-vscode-debug-config/" class="nav-link" title="How to config debug the go project in vscode">How to config debug the go project in vscode</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/bigdata-trino-hive-minio-getting-started/" class="nav-link" title="trino&#43;hive metastore&#43;k8s&#43;minio environment prepared">trino+hive metastore+k8s+minio environment prepared</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/vue-custom-components/" class="nav-link" title="Vue custom component getting started">Vue custom component getting started</a>
       </li>
       <li>
@@ -553,12 +560,6 @@ The …</p>
       <li>
         <a href="https://blog.wisekee.com/post/golang-web-static-fileserver/" class="nav-link" title="Use golang serve the static file embedded to binary file">Use golang serve the static file embedded to binary file</a>
       </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/getting-started-ebpf/" class="nav-link" title="Getting started eBPF development">Getting started eBPF development</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/golang_profile/" class="nav-link" title="How to profile the golang program">How to profile the golang program</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="tags-section"></h2>
@@ -570,7 +571,17 @@ The …</p>
         
         <a href='https://blog.wisekee.com/tags/k8s/' class="post_tag button button_translucent" title="k8s">
           K8S
-          <span class="button_tally">11</span>
+          <span class="button_tally">12</span>
+        </a>
+        
+        <a href='https://blog.wisekee.com/tags/aws/' class="post_tag button button_translucent" title="aws">
+          AWS
+          <span class="button_tally">10</span>
+        </a>
+        
+        <a href='https://blog.wisekee.com/tags/go/' class="post_tag button button_translucent" title="go">
+          GO
+          <span class="button_tally">10</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/security/' class="post_tag button button_translucent" title="security">
@@ -578,18 +589,8 @@ The …</p>
           <span class="button_tally">10</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/aws/' class="post_tag button button_translucent" title="aws">
-          AWS
-          <span class="button_tally">9</span>
-        </a>
-        
         <a href='https://blog.wisekee.com/tags/cncf/' class="post_tag button button_translucent" title="cncf">
           CNCF
-          <span class="button_tally">9</span>
-        </a>
-        
-        <a href='https://blog.wisekee.com/tags/go/' class="post_tag button button_translucent" title="go">
-          GO
           <span class="button_tally">9</span>
         </a>
         
@@ -613,13 +614,13 @@ The …</p>
           <span class="button_tally">6</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/cloud-native/' class="post_tag button button_translucent" title="cloud-native">
-          CLOUD-NATIVE
-          <span class="button_tally">4</span>
-        </a>
-        
         <a href='https://blog.wisekee.com/tags/frontend/' class="post_tag button button_translucent" title="frontend">
           FRONTEND
+          <span class="button_tally">5</span>
+        </a>
+        
+        <a href='https://blog.wisekee.com/tags/cloud-native/' class="post_tag button button_translucent" title="cloud-native">
+          CLOUD-NATIVE
           <span class="button_tally">4</span>
         </a>
         
@@ -679,7 +680,7 @@ The …</p>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/aws/' class=" post_tag button button_translucent" data-position=9 title="aws">AWS<span class="button_tally">9</span>
+            <a href='https://blog.wisekee.com/tags/aws/' class=" post_tag button button_translucent" data-position=10 title="aws">AWS<span class="button_tally">10</span>
             </a>
             
             
@@ -767,11 +768,23 @@ The …</p>
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/csm/' class=" post_tag button button_translucent" data-position=1 title="csm">CSM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/css/' class=" post_tag button button_translucent" data-position=1 title="css">CSS<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/custom-resources/' class=" post_tag button button_translucent" data-position=1 title="custom-resources">CUSTOM-RESOURCES<span class="button_tally">1</span>
             </a>
             
             
             <a href='https://blog.wisekee.com/tags/debain/' class=" post_tag button button_translucent" data-position=1 title="debain">DEBAIN<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/debug/' class=" post_tag button button_translucent" data-position=1 title="debug">DEBUG<span class="button_tally">1</span>
             </a>
             
             
@@ -827,6 +840,10 @@ The …</p>
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/es/' class=" post_tag button button_translucent" data-position=1 title="es">ES<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/evict/' class=" post_tag button button_translucent" data-position=1 title="evict">EVICT<span class="button_tally">1</span>
             </a>
             
@@ -855,7 +872,7 @@ The …</p>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/frontend/' class=" post_tag button button_translucent" data-position=4 title="frontend">FRONTEND<span class="button_tally">4</span>
+            <a href='https://blog.wisekee.com/tags/frontend/' class=" post_tag button button_translucent" data-position=5 title="frontend">FRONTEND<span class="button_tally">5</span>
             </a>
             
             
@@ -863,7 +880,7 @@ The …</p>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/go/' class=" post_tag button button_translucent" data-position=9 title="go">GO<span class="button_tally">9</span>
+            <a href='https://blog.wisekee.com/tags/go/' class=" post_tag button button_translucent" data-position=10 title="go">GO<span class="button_tally">10</span>
             </a>
             
             
@@ -927,6 +944,10 @@ The …</p>
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/ipython/' class=" post_tag button button_translucent" data-position=1 title="ipython">IPYTHON<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/istio/' class=" post_tag button button_translucent" data-position=6 title="istio">ISTIO<span class="button_tally">6</span>
             </a>
             
@@ -939,11 +960,15 @@ The …</p>
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/jupyter/' class=" post_tag button button_translucent" data-position=1 title="jupyter">JUPYTER<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/jwt/' class=" post_tag button button_translucent" data-position=2 title="jwt">JWT<span class="button_tally">2</span>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/k8s/' class=" post_tag button button_translucent" data-position=11 title="k8s">K8S<span class="button_tally">11</span>
+            <a href='https://blog.wisekee.com/tags/k8s/' class=" post_tag button button_translucent" data-position=12 title="k8s">K8S<span class="button_tally">12</span>
             </a>
             
             
@@ -1007,7 +1032,7 @@ The …</p>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/monitoring/' class=" post_tag button button_translucent" data-position=1 title="monitoring">MONITORING<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/monitoring/' class=" post_tag button button_translucent" data-position=2 title="monitoring">MONITORING<span class="button_tally">2</span>
             </a>
             
             
@@ -1155,6 +1180,10 @@ The …</p>
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/sonarqube/' class=" post_tag button button_translucent" data-position=1 title="sonarqube">SONARQUBE<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/ssh/' class=" post_tag button button_translucent" data-position=1 title="ssh">SSH<span class="button_tally">1</span>
             </a>
             
@@ -1168,6 +1197,10 @@ The …</p>
             
             
             <a href='https://blog.wisekee.com/tags/systemv/' class=" post_tag button button_translucent" data-position=1 title="systemv">SYSTEMV<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/tailwindcss/' class=" post_tag button button_translucent" data-position=1 title="tailwindcss">TAILWINDCSS<span class="button_tally">1</span>
             </a>
             
             
@@ -1212,6 +1245,10 @@ The …</p>
             
             
             <a href='https://blog.wisekee.com/tags/vite/' class=" post_tag button button_translucent" data-position=2 title="vite">VITE<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/vscode/' class=" post_tag button button_translucent" data-position=1 title="vscode">VSCODE<span class="button_tally">1</span>
             </a>
             
             

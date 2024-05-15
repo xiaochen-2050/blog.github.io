@@ -73,5 +73,21 @@
       </description>
     </item>
     
+    <item>
+      <title>Tailwindcss getting started</title>
+      <link>https://blog.wisekee.com/post/tailwindcss-getting-started/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/tailwindcss-getting-started/</guid>
+      <description>
+        
+          
+            Initialization the project 1mkdir tailwind 2cd tailwind 3pnpm create vite@latest my-project -- --template vue 4pnpm install -D tailwindcss postcss autoprefixer 5# this will create a `tailwind.config.js` `postcss.config.js` 6pnpm tailwindcss init -p 7pnpm run dev config the tailwind css project add the package to src/style.css 1@tailwind base; 2@tailwind components; 3@tailwind utilities; config the postcss.config.js 1export default { 2 plugins: { 3 tailwindcss: {}, 4 autoprefixer: {}, 5 }, 6} config the tailwind.
+          
+          
+        
+      </description>
+    </item>
+    
   </channel>
 </rss>

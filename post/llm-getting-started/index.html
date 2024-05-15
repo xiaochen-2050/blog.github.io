@@ -180,12 +180,29 @@
   </span>
   </div>
 
-    <div class="post_body"><h4 id="knowledge">Knowledge</h4>
+    <div class="post_body"><h4 id="how-to-use-the-llms">How to use the LLMs</h4>
+<ul>
+<li>Prompt Engineering</li>
+<li>Retrieval Augmented Generation (RAG)</li>
+<li>Fine-tuning</li>
+<li>Training your own Foundation Model(FM) from scratch</li>
+</ul>
+<h4 id="vector-databases">Vector databases</h4>
+<ul>
+<li><a href="https://github.com/milvus-io/milvus">Milvus</a></li>
+<li><a href="https://github.com/activeloopai/deeplake">Database for AI. Store Vectors, Images, Texts, Videos, etc. Use with LLMs/LangChain deeplake</a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+</ul>
+<h4 id="knowledge">Knowledge</h4>
 <ul>
 <li>Referred to as &ldquo;prompts&rdquo;. Designing a prompt is essentially how you “program” a large language model model</li>
 <li>Plugins can be “eyes and ears” for language models</li>
 <li>Using commands to instruct the model what you want to achieve, such as &ldquo;Write&rdquo;, &ldquo;Classify&rdquo;, &ldquo;Summarize&rdquo;, &ldquo;Translate&rdquo;, &ldquo;Order&rdquo;</li>
-<li></li>
+<li>Foundation model (FM) – An AI model with a large number of parameters and trained on a massive amount of diverse data. A foundation model can generate a variety of responses for a wide range of use cases</li>
+<li>Agent – An application that carry out orchestrations through cyclically interpreting inputs and producing outputs by using a foundation model. An agent can be used to carry out customer requests. For more information</li>
+<li>Retrieval augmented generation (RAG) – The process of querying and retrieving information from a data source in order to augment a generated response to a prompt. For more information</li>
 </ul>
 <h4 id="prompt-example">Prompt example</h4>
 <ul>
@@ -207,7 +224,59 @@
 </span></span><span class="line"><span class="ln">14</span><span class="cl">### Instruction ###
 </span></span><span class="line"><span class="ln">15</span><span class="cl">Translate the text below to Spanish:
 </span></span><span class="line"><span class="ln">16</span><span class="cl">Text: &#34;hello!&#34;
-</span></span></code></pre></div><h4 id="reference">Reference</h4>
+</span></span></code></pre></div><h4 id="autogpt-getting-started">AutoGpt getting started</h4>
+<ul>
+<li>Fork the offical repo <code>https://github.com/Significant-Gravitas/Auto-GPT.git</code></li>
+<li>Clone the yourself repo <code>git clone https://github.com/Significant-Gravitas/Auto-GPT.git</code></li>
+<li>Setting up the project</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl"><span class="nb">cd</span> Auto-GPT
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"># create you agent</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">./run agent create YOUR_AGENT_NAME
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="c1"># start you agent</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">./run agent start YOUR_AGENT_NAME
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="c1"># to stop agent</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">./run agent stop
+</span></span></code></pre></div><h4 id="gpts-limits">GPTS Limits</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Model</th>
+<th style="text-align:center">Maximum</th>
+<th style="text-align:right">text</th>
+<th style="text-align:right">length</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">gpt-3.5-turbo</td>
+<td style="text-align:center">4,096</td>
+<td style="text-align:right">tokens</td>
+<td style="text-align:right">(~5 pages)</td>
+</tr>
+<tr>
+<td style="text-align:left">gpt4</td>
+<td style="text-align:center">8,192</td>
+<td style="text-align:right">tokens</td>
+<td style="text-align:right">(~10 pages)</td>
+</tr>
+<tr>
+<td style="text-align:left">gpt4-32k</td>
+<td style="text-align:center">32,768</td>
+<td style="text-align:right">tokens</td>
+<td style="text-align:right">(~40 pages)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="generative-ai-application-framework">Generative AI application framework</h4>
+<ul>
+<li><a href="https://github.com/microsoft/semantic-kernel">microsoft semantic kernal</a></li>
+<li><a href="https://github.com/langchain-ai/langchain">Build context-aware reasoning applications langchain</a></li>
+<li><a href="https://docs.trychroma.com/getting-started">Chroma</a></li>
+<li><a href="https://github.com/weaviate/weaviate">Weaviate open source vector database stores both objects and vectors</a></li>
+<li><a href="https://github.com/activeloopai/deeplake">Database for AI. Store Vectors, Images, Texts, Videos</a></li>
+</ul>
+<h4 id="reference">Reference</h4>
 <ul>
 <li><a href="https://github.com/eugeneyan/open-llms">A list of open LLMs available for commercial use.</a></li>
 <li><a href="https://help.openai.com/en/articles/8554397-creating-a-gpt">How to create a GPT</a></li>
@@ -215,6 +284,17 @@
 <li><a href="https://platform.openai.com/docs/assistants/overview">openai assistants</a></li>
 <li><a href="https://www.promptingguide.ai/">Prompt Engineering Guide</a></li>
 <li><a href="https://ai.plainenglish.io/prompt-engineering-101-a-beginners-guide-to-crafting-powerful-instructions-c2445d3dc2c0">Prompt Engineering 101: A Beginner’s Guide to Crafting Powerful Instructions</a></li>
+<li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/key-definitions.html">Key definitions</a></li>
+<li><a href="https://github.com/stephenc222/example-chroma-vector-embeddings">Example project for using chroma to store and query vector embeddings</a></li>
+<li><a href="https://openwebui.com/">the ui and modelfiles</a></li>
+</ul>
+<h4 id="opensource-llm">Opensource LLM</h4>
+<ul>
+<li><a href="https://github.com/mudler/LocalAI">localAI</a></li>
+<li><a href="https://github.com/ollama/ollama">ollama</a></li>
+<li><a href="https://components.streamlit.app/">streamlit apps</a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
 </ul>
 
     </div>
@@ -256,6 +336,12 @@
     <h2 class="mt-4"></h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.wisekee.com/post/go-vscode-debug-config/" class="nav-link" title="How to config debug the go project in vscode">How to config debug the go project in vscode</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/bigdata-trino-hive-minio-getting-started/" class="nav-link" title="trino&#43;hive metastore&#43;k8s&#43;minio environment prepared">trino+hive metastore+k8s+minio environment prepared</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/vue-custom-components/" class="nav-link" title="Vue custom component getting started">Vue custom component getting started</a>
       </li>
       <li>
@@ -273,12 +359,6 @@
       <li>
         <a href="https://blog.wisekee.com/post/golang-web-static-fileserver/" class="nav-link" title="Use golang serve the static file embedded to binary file">Use golang serve the static file embedded to binary file</a>
       </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/getting-started-ebpf/" class="nav-link" title="Getting started eBPF development">Getting started eBPF development</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/golang_profile/" class="nav-link" title="How to profile the golang program">How to profile the golang program</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="tags-section"></h2>
@@ -290,7 +370,17 @@
         
         <a href='https://blog.wisekee.com/tags/k8s/' class="post_tag button button_translucent" title="k8s">
           K8S
-          <span class="button_tally">11</span>
+          <span class="button_tally">12</span>
+        </a>
+        
+        <a href='https://blog.wisekee.com/tags/aws/' class="post_tag button button_translucent" title="aws">
+          AWS
+          <span class="button_tally">10</span>
+        </a>
+        
+        <a href='https://blog.wisekee.com/tags/go/' class="post_tag button button_translucent" title="go">
+          GO
+          <span class="button_tally">10</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/security/' class="post_tag button button_translucent" title="security">
@@ -298,18 +388,8 @@
           <span class="button_tally">10</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/aws/' class="post_tag button button_translucent" title="aws">
-          AWS
-          <span class="button_tally">9</span>
-        </a>
-        
         <a href='https://blog.wisekee.com/tags/cncf/' class="post_tag button button_translucent" title="cncf">
           CNCF
-          <span class="button_tally">9</span>
-        </a>
-        
-        <a href='https://blog.wisekee.com/tags/go/' class="post_tag button button_translucent" title="go">
-          GO
           <span class="button_tally">9</span>
         </a>
         
@@ -333,13 +413,13 @@
           <span class="button_tally">6</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/cloud-native/' class="post_tag button button_translucent" title="cloud-native">
-          CLOUD-NATIVE
-          <span class="button_tally">4</span>
-        </a>
-        
         <a href='https://blog.wisekee.com/tags/frontend/' class="post_tag button button_translucent" title="frontend">
           FRONTEND
+          <span class="button_tally">5</span>
+        </a>
+        
+        <a href='https://blog.wisekee.com/tags/cloud-native/' class="post_tag button button_translucent" title="cloud-native">
+          CLOUD-NATIVE
           <span class="button_tally">4</span>
         </a>
         
@@ -399,7 +479,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/aws/' class=" post_tag button button_translucent" data-position=9 title="aws">AWS<span class="button_tally">9</span>
+            <a href='https://blog.wisekee.com/tags/aws/' class=" post_tag button button_translucent" data-position=10 title="aws">AWS<span class="button_tally">10</span>
             </a>
             
             
@@ -487,11 +567,23 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/csm/' class=" post_tag button button_translucent" data-position=1 title="csm">CSM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/css/' class=" post_tag button button_translucent" data-position=1 title="css">CSS<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/custom-resources/' class=" post_tag button button_translucent" data-position=1 title="custom-resources">CUSTOM-RESOURCES<span class="button_tally">1</span>
             </a>
             
             
             <a href='https://blog.wisekee.com/tags/debain/' class=" post_tag button button_translucent" data-position=1 title="debain">DEBAIN<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/debug/' class=" post_tag button button_translucent" data-position=1 title="debug">DEBUG<span class="button_tally">1</span>
             </a>
             
             
@@ -547,6 +639,10 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/es/' class=" post_tag button button_translucent" data-position=1 title="es">ES<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/evict/' class=" post_tag button button_translucent" data-position=1 title="evict">EVICT<span class="button_tally">1</span>
             </a>
             
@@ -575,7 +671,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/frontend/' class=" post_tag button button_translucent" data-position=4 title="frontend">FRONTEND<span class="button_tally">4</span>
+            <a href='https://blog.wisekee.com/tags/frontend/' class=" post_tag button button_translucent" data-position=5 title="frontend">FRONTEND<span class="button_tally">5</span>
             </a>
             
             
@@ -583,7 +679,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/go/' class=" post_tag button button_translucent" data-position=9 title="go">GO<span class="button_tally">9</span>
+            <a href='https://blog.wisekee.com/tags/go/' class=" post_tag button button_translucent" data-position=10 title="go">GO<span class="button_tally">10</span>
             </a>
             
             
@@ -647,6 +743,10 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/ipython/' class=" post_tag button button_translucent" data-position=1 title="ipython">IPYTHON<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/istio/' class=" post_tag button button_translucent" data-position=6 title="istio">ISTIO<span class="button_tally">6</span>
             </a>
             
@@ -659,11 +759,15 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/jupyter/' class=" post_tag button button_translucent" data-position=1 title="jupyter">JUPYTER<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/jwt/' class=" post_tag button button_translucent" data-position=2 title="jwt">JWT<span class="button_tally">2</span>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/k8s/' class=" post_tag button button_translucent" data-position=11 title="k8s">K8S<span class="button_tally">11</span>
+            <a href='https://blog.wisekee.com/tags/k8s/' class=" post_tag button button_translucent" data-position=12 title="k8s">K8S<span class="button_tally">12</span>
             </a>
             
             
@@ -727,7 +831,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/monitoring/' class=" post_tag button button_translucent" data-position=1 title="monitoring">MONITORING<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/monitoring/' class=" post_tag button button_translucent" data-position=2 title="monitoring">MONITORING<span class="button_tally">2</span>
             </a>
             
             
@@ -875,6 +979,10 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/sonarqube/' class=" post_tag button button_translucent" data-position=1 title="sonarqube">SONARQUBE<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/ssh/' class=" post_tag button button_translucent" data-position=1 title="ssh">SSH<span class="button_tally">1</span>
             </a>
             
@@ -888,6 +996,10 @@
             
             
             <a href='https://blog.wisekee.com/tags/systemv/' class=" post_tag button button_translucent" data-position=1 title="systemv">SYSTEMV<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/tailwindcss/' class=" post_tag button button_translucent" data-position=1 title="tailwindcss">TAILWINDCSS<span class="button_tally">1</span>
             </a>
             
             
@@ -932,6 +1044,10 @@
             
             
             <a href='https://blog.wisekee.com/tags/vite/' class=" post_tag button button_translucent" data-position=2 title="vite">VITE<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/vscode/' class=" post_tag button button_translucent" data-position=1 title="vscode">VSCODE<span class="button_tally">1</span>
             </a>
             
             

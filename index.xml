@@ -6,7 +6,40 @@
     <description>Recent content on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Sun, 10 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 09 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to config debug the go project in vscode</title>
+      <link>https://blog.wisekee.com/post/go-vscode-debug-config/</link>
+      <pubDate>Sat, 09 Mar 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/go-vscode-debug-config/</guid>
+      <description>
+        
+          
+            To debug the go project has many method to achieve it
+The config file specific the program arguments 1{ 2 // Use IntelliSense to learn about possible attributes. 3 // Hover to view descriptions of existing attributes. 4 // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387 5 &amp;#34;version&amp;#34;: &amp;#34;0.2.0&amp;#34;, 6 &amp;#34;configurations&amp;#34;: [ 7 { 8 &amp;#34;name&amp;#34;: &amp;#34;cmd-name&amp;#34;, 9 &amp;#34;type&amp;#34;: &amp;#34;go&amp;#34;, 10 &amp;#34;request&amp;#34;: &amp;#34;launch&amp;#34;, 11 &amp;#34;mode&amp;#34;: &amp;#34;auto&amp;#34;, 12 &amp;#34;program&amp;#34;: &amp;#34;src/cmd/main.go&amp;#34;, 13 &amp;#34;args&amp;#34;: [&amp;#34;aws&amp;#34;, &amp;#34;ecr&amp;#34;, &amp;#34;create-repository&amp;#34;, &amp;#34;--repository-name&amp;#34;, &amp;#34;test/repository&amp;#34;] 14 } 15 ] 16} Set the environment variables 1{ 2 // Use IntelliSense to learn about possible attributes.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>trino&#43;hive metastore&#43;k8s&#43;minio environment prepared</title>
+      <link>https://blog.wisekee.com/post/bigdata-trino-hive-minio-getting-started/</link>
+      <pubDate>Sun, 11 Feb 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/bigdata-trino-hive-minio-getting-started/</guid>
+      <description>
+        
+          
+            Make the Hive images 1FROM openjdk:8u302 2 3WORKDIR /opt/hive 4ENV HADOOP_HOME=/opt/hadoop-3.2.3 5 6ADD ./hadoop-3.2.3 /opt/hadoop-3.2.3 7ADD ./apache-hive-3.1.3-bin /opt/hive 8ADD ./hadoop-3.2.3/share/hadoop/common/lib/guava-27.0-jre.jar /opt/hive/lib/ 9ADD ./hadoop-3.2.3/share/hadoop/tools/lib/hadoop-aws-3.2.3.jar /opt/hive/lib/ 10ADD ./hadoop-3.2.3/share/hadoop/tools/lib/aws-java-sdk-bundle-1.11.901.jar /opt/hive/lib/ 11 12RUN echo &amp;#39;export HIVE_HOME=/opt/hive \n export HIVE_CONF_DIR=/opt/hive/conf \n export PATH=$PATH:$HIVE_HOME/bin&amp;#39; &amp;gt;&amp;gt; ~/.bashrc 13# RUN curl https://jdbc.postgresql.org/download/postgresql-42.7.1.jar --output /opt/hive/lib/postgresql-42.7.1.jar 14RUN rm -rf /opt/hive/lib/guava-19.0.jar Define the docker-compose.yaml 1version: &amp;#39;3.7&amp;#39; 2services: 3 minio: 4 image: &amp;#39;minio/minio:latest&amp;#39; 5 hostname: minio 6 container_name: minio 7 ports: 8 - &amp;#39;9000:9000&amp;#39; 9 - &amp;#39;9001:9001&amp;#39; 10 volumes: 11 - .
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Vue custom component getting started</title>
       <link>https://blog.wisekee.com/post/vue-custom-components/</link>
@@ -101,6 +134,22 @@ Initialization the project constructure 1pnpm init -y 2pnpm install --developmen
           
             The golang code to embed file to compile file use the annotatioins to embed folder, this should embed current public folder to binary file
 1 2import ( 3	&amp;#34;embed&amp;#34; 4 &amp;#34;fmt&amp;#34; 5 &amp;#34;os&amp;#34; 6 &amp;#34;io/fs&amp;#34; 7	&amp;#34;net/http&amp;#34; 8 &amp;#34;os/signal&amp;#34; 9	&amp;#34;runtime&amp;#34; 10	&amp;#34;strings&amp;#34; 11	&amp;#34;syscall&amp;#34; 12) 13 14 15//go:embed public 16var staticFiles embed.FS 17 18 19func main() { 20 public, _ := fs.Sub(staticFiles, &amp;#34;public&amp;#34;) 21	// handle static files include HTML, CSS and JavaScripts.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Use the jupyter in venv</title>
+      <link>https://blog.wisekee.com/post/how-to-use-jupyter-in-venv/</link>
+      <pubDate>Mon, 16 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/how-to-use-jupyter-in-venv/</guid>
+      <description>
+        
+          
+            Initialization the venv 1mkdir test-venv 2cd test-venv &amp;amp;&amp;amp; python -m venv . 3source ./bin/activate 4pip install ipykernel 5./bin/python -m ipykernel install --user --name=test-venv How to test the python package in local development Initialization the python package construct 1./ 2 ├── __init__.py 3 ├── sub_packages 4 ├── sub_packages 5 ├── __init__.py Initialization the venv in local global 1python -m venv ~/.venv/global 2source ~/.venv/global/bin/activate 3export PYTHONPATH=/Users/test/python_custome_package/test 
           
           
         
@@ -250,22 +299,6 @@ Create the cloud config file 1Content-Type: multipart/mixed; boundary=&amp;#34;/
         
           
             Create RequestAuthentication and AuthorizationPolicy resources 1apiVersion: security.istio.io/v1beta1 2kind: RequestAuthentication 3metadata: 4 name: &amp;#34;request-authentication-sso&amp;#34; 5 namespace: istio-system 6spec: 7 jwtRules: 8 - issuer: &amp;#34;https://issue.example.com/sso&amp;#34; 9 jwksUri: &amp;#34;https://issue.example.com/.well-known/openid-configuration/jwks&amp;#34; 10 outputClaimToHeaders: 11 - header: &amp;#34;x-jwt-claim-email&amp;#34; 12 claim: &amp;#34;email&amp;#34; 13 14--- 15apiVersion: security.istio.io/v1beta1 16kind: AuthorizationPolicy 17metadata: 18 name: ingress-gateway-authorization 19 namespace: istio-system 20spec: 21 selector: 22 matchLabels: 23 app: istio-ingressgateway 24 action: ALLOW 25 rules: 26 - from: 27 - source: 28 requestPrincipals: [&amp;#34;*&amp;#34;] 29 - to: 30 - operation: 31 paths: [ 32 &amp;#34;/productpage*&amp;#34;, 33 &amp;#34;/login*&amp;#34;, 34 &amp;#34;/logout*&amp;#34;, 35 &amp;#34;/static*&amp;#34; 36 ] May be need complex authorization 1--- 2# apiVersion: security.
-          
-          
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>trino&#43;hive metastore&#43;k8s&#43;minio environment prepared</title>
-      <link>https://blog.wisekee.com/post/bigdata-trino-hive-minio-getting-started/</link>
-      <pubDate>Fri, 11 Aug 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.wisekee.com/post/bigdata-trino-hive-minio-getting-started/</guid>
-      <description>
-        
-          
-            Make the Hive images 1FROM openjdk:8u302 2 3WORKDIR /opt/hive 4ENV HADOOP_HOME=/opt/hadoop-3.2.3 5 6ADD ./hadoop-3.2.3 /opt/hadoop-3.2.3 7ADD ./apache-hive-3.1.3-bin /opt/hive 8ADD ./hadoop-3.2.3/share/hadoop/common/lib/guava-27.0-jre.jar /opt/hive/lib/ 9ADD ./hadoop-3.2.3/share/hadoop/tools/lib/hadoop-aws-3.2.3.jar /opt/hive/lib/ 10ADD ./hadoop-3.2.3/share/hadoop/tools/lib/aws-java-sdk-bundle-1.11.901.jar /opt/hive/lib/ 11 12RUN echo &amp;#39;export HIVE_HOME=/opt/hive \n export HIVE_CONF_DIR=/opt/hive/conf \n export PATH=$PATH:$HIVE_HOME/bin&amp;#39; &amp;gt;&amp;gt; ~/.bashrc 13# RUN curl https://jdbc.postgresql.org/download/postgresql-42.7.1.jar --output /opt/hive/lib/postgresql-42.7.1.jar 14RUN rm -rf /opt/hive/lib/guava-19.0.jar Define the docker-compose.yaml 1version: &amp;#39;3.7&amp;#39; 2services: 3 minio: 4 image: &amp;#39;minio/minio:latest&amp;#39; 5 hostname: minio 6 container_name: minio 7 ports: 8 - &amp;#39;9000:9000&amp;#39; 9 - &amp;#39;9001:9001&amp;#39; 10 volumes: 11 - .
           
           
         
@@ -833,7 +866,7 @@ nmap -sV -sC X.X.X.X
       <description>
         
           
-            Use install tools this will one site to launch falco
+            Padding 1# to install driver now 2falcoctl driver install 3# load the driver 4falcoctl driver config --type ebpf Use install tools this will one site to launch falco
 1curl -o install_falco -s https://falco.org/script/install 2# It should be 59201c1339cc53e86edcd7d2e7273e52f784b3cf7d4a3142059112b3b9062f6d. 3sha256sum install_falco 4sudo bash install_falco Manully install Falco program You can also directly check in Github: falco-rules 1wget https://download.falco.org/packages/bin/x86_64/falco-0.34.1-x86_64.tar.gz 2tar -xzvf falco-0.34.1-x86_64.tar.gz 3apt update -y 4apt install -y dkms make linux-headers-$(uname -r) 5# If you use the falco-driver-loader to build the BPF probe locally you need also clang toolchain 6apt install -y clang llvm 7# can reference the falco site: https://falco.
           
           
@@ -1555,7 +1588,7 @@ One to storage Hugo sourcecode and markdown files And other one use release fina
       <description>
         
           
-            Knowledge Referred to as &amp;ldquo;prompts&amp;rdquo;. Designing a prompt is essentially how you “program” a large language model model Plugins can be “eyes and ears” for language models Using commands to instruct the model what you want to achieve, such as &amp;ldquo;Write&amp;rdquo;, &amp;ldquo;Classify&amp;rdquo;, &amp;ldquo;Summarize&amp;rdquo;, &amp;ldquo;Translate&amp;rdquo;, &amp;ldquo;Order&amp;rdquo; Prompt example Give a demonstrations 1 2Q: What is prompt engineering? 3A: It&amp;#39;s a laugnauge for LLM to interactive 4 5This is awesome! // Positive 6This is bad!
+            How to use the LLMs Prompt Engineering Retrieval Augmented Generation (RAG) Fine-tuning Training your own Foundation Model(FM) from scratch Vector databases Milvus Database for AI. Store Vectors, Images, Texts, Videos, etc. Use with LLMs/LangChain deeplake Knowledge Referred to as &amp;ldquo;prompts&amp;rdquo;. Designing a prompt is essentially how you “program” a large language model model Plugins can be “eyes and ears” for language models Using commands to instruct the model what you want to achieve, such as &amp;ldquo;Write&amp;rdquo;, &amp;ldquo;Classify&amp;rdquo;, &amp;ldquo;Summarize&amp;rdquo;, &amp;ldquo;Translate&amp;rdquo;, &amp;ldquo;Order&amp;rdquo; Foundation model (FM) – An AI model with a large number of parameters and trained on a massive amount of diverse data.
           
           
         
@@ -1572,6 +1605,54 @@ One to storage Hugo sourcecode and markdown files And other one use release fina
         
           
             The steps Taint the node Cordon the node Evict pods Verify pod migration Drain the node Uncordon the node Traint the specific node 1# prevent new pods to schedule 2kubectl taint nodes node1 node.kubernetes.io/unreachable=&amp;#34;&amp;#34;:NoSchedule 3kubectl cordon node1 4# execute the upgrade or other maintenance 5# evict pods 6kubectl drain node1 --ignore-daemonsets --delete-emptydir-data --force 7# 8kubectl uncordon node1 9 10# verify the pods can schedule 11kubectl get pods -o wide --field-selector spec.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Sonarqube recovery from failed</title>
+      <link>https://blog.wisekee.com/post/sonarquebe-recovery/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/sonarquebe-recovery/</guid>
+      <description>
+        
+          
+            Adjust the resources request and limit 1resources: 2 limits: 3 cpu: &amp;#39;1&amp;#39; 4 memory: 8Gi 5 requests: 6 cpu: 400m 7 memory: 4Gi Change the securityContext to debug the pod and install some tools to check 1securityContext: 2 runAsUser: 0 3 runAsGroup: 0 Mount the sonar.properties to specific the java launch parameters the mount and volumes 1volumes: 2 - name: sonarqube-config 3 configMap: 4 name: sonarqube-sonarqube-config 5 defaultMode: 420 6volumeMounts: 7- name: sonarqube-config 8 mountPath: /opt/sonarqube/conf the configmap 1apiVersion: v1 2kind: ConfigMap 3metadata: 4 name: sonarqube-sonarqube-config 5 namespace: sonarqube 6data: 7 sonar.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Tailwindcss getting started</title>
+      <link>https://blog.wisekee.com/post/tailwindcss-getting-started/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/tailwindcss-getting-started/</guid>
+      <description>
+        
+          
+            Initialization the project 1mkdir tailwind 2cd tailwind 3pnpm create vite@latest my-project -- --template vue 4pnpm install -D tailwindcss postcss autoprefixer 5# this will create a `tailwind.config.js` `postcss.config.js` 6pnpm tailwindcss init -p 7pnpm run dev config the tailwind css project add the package to src/style.css 1@tailwind base; 2@tailwind components; 3@tailwind utilities; config the postcss.config.js 1export default { 2 plugins: { 3 tailwindcss: {}, 4 autoprefixer: {}, 5 }, 6} config the tailwind.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Use AWS CSM to monitoring the api call in your service</title>
+      <link>https://blog.wisekee.com/post/aws-client-side-monitoring/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-client-side-monitoring/</guid>
+      <description>
+        
+          
+            Enable the aws CSM for application specific the following Environment Variables 1export AWS_CSM_ENABLED=true # or config the `~/.aws/config` include `csm_enabled = true` 2export AWS_CSM_HOST=10.0.0.1 # to send message to udp host 3export AWS_CSM_PORT=31000 # the CSM host port to listener 4export AWS_CSM_CLIENT_ID=appName # to set an identifier to differentiate multiple processes you might have configured to send to the same listener. Receive the message from client in local testing 1nc -luv localhost 31000 Receive the message from client use go code 1package main 2 3import ( 4	&amp;#34;encoding/json&amp;#34; 5	&amp;#34;fmt&amp;#34; 6	&amp;#34;log&amp;#34; 7	&amp;#34;net&amp;#34; 8	&amp;#34;os&amp;#34; 9	&amp;#34;os/signal&amp;#34; 10	&amp;#34;runtime&amp;#34; 11	&amp;#34;strconv&amp;#34; 12	&amp;#34;strings&amp;#34; 13	&amp;#34;syscall&amp;#34; 14) 15 16// ActionMessage is a struct representing a message from CSM 17type ActionMessage struct { 18	Version int `json:&amp;#34;Version&amp;#34;` 19	ClientID string `json:&amp;#34;ClientId&amp;#34;` 20	Type string `json:&amp;#34;Type&amp;#34;` 21	Service string `json:&amp;#34;Service&amp;#34;` 22	Action string `json:&amp;#34;Api&amp;#34;` 23	Timestamp int `json:&amp;#34;Timestamp&amp;#34;` 24	AttemptLatency int `json:&amp;#34;AttemptLatency&amp;#34;` 25	Fqdn string `json:&amp;#34;Fqdn&amp;#34;` 26	UserAgent string `json:&amp;#34;UserAgent&amp;#34;` 27	AccessKey string `json:&amp;#34;AccessKey&amp;#34;` 28	Region string `json:&amp;#34;Region&amp;#34;` 29	HTTPStatusCode int `json:&amp;#34;HttpStatusCode&amp;#34;` 30	FinalHTTPStatusCode int `json:&amp;#34;FinalHttpStatusCode&amp;#34;` 31	XAmzRequestID string `json:&amp;#34;XAmzRequestId&amp;#34;` 32	XAmzID2 string `json:&amp;#34;XAmzId2&amp;#34;` 33} 34 35func listen(connection *net.
           
           
         
