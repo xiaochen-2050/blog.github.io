@@ -200,6 +200,9 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
 </span></span><span class="line"><span class="ln">13</span><span class="cl">
 </span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="c1"># create the k8s secrets</span>
 </span></span><span class="line"><span class="ln">15</span><span class="cl">kubectl create secret tls argo-dev-local-certs -n istio-system --key argo.<span class="nv">$DOMAIN_NAME</span>.key --cert argo.<span class="nv">$DOMAIN_NAME</span>.crt
+</span></span><span class="line"><span class="ln">16</span><span class="cl">
+</span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="c1"># create the openladp certificate</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">openssl req -x509 -newkey rsa:4096 -nodes -subj <span class="s1">&#39;/CN=dc=mycomp,dc=test&#39;</span> -keyout /tmp-certs/tls.key -out /tmp-certs/tls.crt -days <span class="m">365</span>
 </span></span></code></pre></div><h3 id="to-use-the-gateway-istio-resource-define">To use the <code>gateway</code> istio resource define</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">networking.istio.io/v1alpha3</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Gateway</span><span class="w">
@@ -257,7 +260,12 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
 </span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">  </span><span class="nt">trafficPolicy</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">    </span><span class="nt">tls</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l">SIMPLE</span><span class="w">
-</span></span></span></code></pre></div>
+</span></span></span></code></pre></div><h3 id="useful-openssl-command">Useful openssl command</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># extract the crtificate pem file from base64 crt file</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">openssl base64 -d -in test.crt -out k8s_crt.pem
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"># decode the base64 private key to pem file</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">openssl base64 -d -in test.key -out k8s_key.pem
+</span></span></code></pre></div>
     </div>
 <div class="post_comments">
   
@@ -297,6 +305,21 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
     <h2 class="mt-4"></h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.wisekee.com/post/awesome-ai/" class="nav-link" title="Awesome AI&#39;s resoures">Awesome AI&rsquo;s resoures</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/talos-k8s-aws/" class="nav-link" title="Talos launch kubernetes in aws environment getting started ">Talos launch kubernetes in aws environment getting started</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/copa-docker-image-patch/" class="nav-link" title="Use Copa to patch the container images">Use Copa to patch the container images</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/openldap-dex/" class="nav-link" title="Launch the openldap and dex in kubernetes">Launch the openldap and dex in kubernetes</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/vite-react-getting-started/" class="nav-link" title="To use the vite management the react project">To use the vite management the react project</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/go-vscode-debug-config/" class="nav-link" title="How to config debug the go project in vscode">How to config debug the go project in vscode</a>
       </li>
       <li>
@@ -304,21 +327,6 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/vue-custom-components/" class="nav-link" title="Vue custom component getting started">Vue custom component getting started</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/rust-getting-started/" class="nav-link" title="First step to learn Rust programming">First step to learn Rust programming</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/aws-ecr-register-helper/" class="nav-link" title="Dynamic create docker registry pull image credentials in eks cluster for particular  imagePullSecret">Dynamic create docker registry pull image credentials in eks cluster for particular  imagePullSecret</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/aws-jsii-getting-started/" class="nav-link" title="Use AWS jsii to cross language invoker">Use AWS jsii to cross language invoker</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/vue-app-getting-started/" class="nav-link" title="How to create sample frontend in vue use cli and vite">How to create sample frontend in vue use cli and vite</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/golang-web-static-fileserver/" class="nav-link" title="Use golang serve the static file embedded to binary file">Use golang serve the static file embedded to binary file</a>
       </li>
     </ul>
     <div>
@@ -331,12 +339,12 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
         
         <a href='https://blog.wisekee.com/tags/k8s/' class="post_tag button button_translucent" title="k8s">
           K8S
-          <span class="button_tally">12</span>
+          <span class="button_tally">14</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/aws/' class="post_tag button button_translucent" title="aws">
           AWS
-          <span class="button_tally">10</span>
+          <span class="button_tally">11</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/go/' class="post_tag button button_translucent" title="go">
@@ -346,12 +354,12 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
         
         <a href='https://blog.wisekee.com/tags/security/' class="post_tag button button_translucent" title="security">
           SECURITY
-          <span class="button_tally">10</span>
+          <span class="button_tally">9</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/cncf/' class="post_tag button button_translucent" title="cncf">
           CNCF
-          <span class="button_tally">9</span>
+          <span class="button_tally">8</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/featured/' class="post_tag button button_translucent" title="featured">
@@ -369,14 +377,14 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
           <span class="button_tally">7</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/istio/' class="post_tag button button_translucent" title="istio">
-          ISTIO
+        <a href='https://blog.wisekee.com/tags/frontend/' class="post_tag button button_translucent" title="frontend">
+          FRONTEND
           <span class="button_tally">6</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/frontend/' class="post_tag button button_translucent" title="frontend">
-          FRONTEND
-          <span class="button_tally">5</span>
+        <a href='https://blog.wisekee.com/tags/istio/' class="post_tag button button_translucent" title="istio">
+          ISTIO
+          <span class="button_tally">6</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/cloud-native/' class="post_tag button button_translucent" title="cloud-native">
@@ -405,6 +413,14 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
             
             
             <a href='https://blog.wisekee.com/tags/agent/' class=" post_tag button button_translucent" data-position=1 title="agent">AGENT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/agi/' class=" post_tag button button_translucent" data-position=1 title="agi">AGI<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/ai/' class=" post_tag button button_translucent" data-position=1 title="ai">AI<span class="button_tally">1</span>
             </a>
             
             
@@ -440,7 +456,7 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/aws/' class=" post_tag button button_translucent" data-position=10 title="aws">AWS<span class="button_tally">10</span>
+            <a href='https://blog.wisekee.com/tags/aws/' class=" post_tag button button_translucent" data-position=11 title="aws">AWS<span class="button_tally">11</span>
             </a>
             
             
@@ -504,7 +520,7 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=9 title="cncf">CNCF<span class="button_tally">9</span>
+            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=8 title="cncf">CNCF<span class="button_tally">8</span>
             </a>
             
             
@@ -517,6 +533,10 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
             
             
             <a href='https://blog.wisekee.com/tags/consul/' class=" post_tag button button_translucent" data-position=1 title="consul">CONSUL<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/copa/' class=" post_tag button button_translucent" data-position=1 title="copa">COPA<span class="button_tally">1</span>
             </a>
             
             
@@ -549,6 +569,14 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
             
             
             <a href='https://blog.wisekee.com/tags/deployment/' class=" post_tag button button_translucent" data-position=1 title="deployment">DEPLOYMENT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/development/' class=" post_tag button button_translucent" data-position=1 title="development">DEVELOPMENT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/dex/' class=" post_tag button button_translucent" data-position=1 title="dex">DEX<span class="button_tally">1</span>
             </a>
             
             
@@ -608,7 +636,7 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/falco/' class=" post_tag button button_translucent" data-position=2 title="falco">FALCO<span class="button_tally">2</span>
+            <a href='https://blog.wisekee.com/tags/falco/' class=" post_tag button button_translucent" data-position=1 title="falco">FALCO<span class="button_tally">1</span>
             </a>
             
             
@@ -632,7 +660,7 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/frontend/' class=" post_tag button button_translucent" data-position=5 title="frontend">FRONTEND<span class="button_tally">5</span>
+            <a href='https://blog.wisekee.com/tags/frontend/' class=" post_tag button button_translucent" data-position=6 title="frontend">FRONTEND<span class="button_tally">6</span>
             </a>
             
             
@@ -728,7 +756,7 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/k8s/' class=" post_tag button button_translucent" data-position=12 title="k8s">K8S<span class="button_tally">12</span>
+            <a href='https://blog.wisekee.com/tags/k8s/' class=" post_tag button button_translucent" data-position=14 title="k8s">K8S<span class="button_tally">14</span>
             </a>
             
             
@@ -756,11 +784,23 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/kvm/' class=" post_tag button button_translucent" data-position=1 title="kvm">KVM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/libvirt/' class=" post_tag button button_translucent" data-position=1 title="libvirt">LIBVIRT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/lima/' class=" post_tag button button_translucent" data-position=1 title="lima">LIMA<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/linux/' class=" post_tag button button_translucent" data-position=1 title="linux">LINUX<span class="button_tally">1</span>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/llm/' class=" post_tag button button_translucent" data-position=1 title="llm">LLM<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/llm/' class=" post_tag button button_translucent" data-position=2 title="llm">LLM<span class="button_tally">2</span>
             </a>
             
             
@@ -840,6 +880,10 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/openldap/' class=" post_tag button button_translucent" data-position=1 title="openldap">OPENLDAP<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/opentelemetry/' class=" post_tag button button_translucent" data-position=1 title="opentelemetry">OPENTELEMETRY<span class="button_tally">1</span>
             </a>
             
@@ -888,7 +932,15 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/qemu/' class=" post_tag button button_translucent" data-position=1 title="qemu">QEMU<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/ratelimit/' class=" post_tag button button_translucent" data-position=1 title="ratelimit">RATELIMIT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/react/' class=" post_tag button button_translucent" data-position=1 title="react">REACT<span class="button_tally">1</span>
             </a>
             
             
@@ -900,7 +952,11 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/rust/' class=" post_tag button button_translucent" data-position=1 title="rust">RUST<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/rust/' class=" post_tag button button_translucent" data-position=2 title="rust">RUST<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/screen/' class=" post_tag button button_translucent" data-position=1 title="screen">SCREEN<span class="button_tally">1</span>
             </a>
             
             
@@ -912,7 +968,7 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent" data-position=10 title="security">SECURITY<span class="button_tally">10</span>
+            <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent" data-position=9 title="security">SECURITY<span class="button_tally">9</span>
             </a>
             
             
@@ -964,6 +1020,10 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/talos/' class=" post_tag button button_translucent" data-position=1 title="talos">TALOS<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/task/' class=" post_tag button button_translucent" data-position=1 title="task">TASK<span class="button_tally">1</span>
             </a>
             
@@ -973,6 +1033,10 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
             
             
             <a href='https://blog.wisekee.com/tags/terraform/' class=" post_tag button button_translucent" data-position=8 title="terraform">TERRAFORM<span class="button_tally">8</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/tmux/' class=" post_tag button button_translucent" data-position=1 title="tmux">TMUX<span class="button_tally">1</span>
             </a>
             
             
@@ -1004,7 +1068,7 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/vite/' class=" post_tag button button_translucent" data-position=2 title="vite">VITE<span class="button_tally">2</span>
+            <a href='https://blog.wisekee.com/tags/vite/' class=" post_tag button button_translucent" data-position=3 title="vite">VITE<span class="button_tally">3</span>
             </a>
             
             
@@ -1025,6 +1089,14 @@ argo.dev.local &mdash;-&gt; istio-ingressgateway &mdash;-&gt; argo server virtua
             
             
             <a href='https://blog.wisekee.com/tags/webpack/' class=" post_tag button button_translucent" data-position=1 title="webpack">WEBPACK<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/websocket/' class=" post_tag button button_translucent" data-position=1 title="websocket">WEBSOCKET<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/xtermjs/' class=" post_tag button button_translucent" data-position=1 title="xtermjs">XTERMJS<span class="button_tally">1</span>
             </a>
             
             <div class="tags_sort"><span title="sort alphabetically">[A~Z]</span><span title="sort by count">[0~9]</span>

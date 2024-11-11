@@ -100,7 +100,7 @@ Create the JWT token 1package util 2 3import &amp;#34;github.com/golang-jwt/jwt/
       <description>
         
           
-            How to invoke the GRPC service grpcbin-example-go 
+            Create the structure 1mkdir myapp 2cd myapp &amp;amp;&amp;amp; go mod init myapp 3go mod tidy The steps Create the proto file descript the message 1syntax = &amp;#34;proto3&amp;#34;; 2package proto; 3 4option go_package = &amp;#34;./proto&amp;#34;; 5 6//A sample service which contains all our rpc. 7service MyService{ 8 //The definition of rpc. 9 rpc MyFunc(Request) returns (StringMessage) {} 10} 11 12//Empty Request. 13message Request { 14} 15 16//The message to Return when rpc is invoked.
           
           
         

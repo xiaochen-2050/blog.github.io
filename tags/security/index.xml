@@ -65,7 +65,8 @@ We can install to independent host or kubernetes cluster Please reference previo
       <description>
         
           
-            Abstractor Application Binary Interface (ABI) How to check the binary format inform 1# you can view the program format and linked information 2file xxxxx 3# view the detail elf 4readelf -a xxxxx 5# to detect the dynamic libraries be used 6ldd xxxxx 7# view the header details 8hexdump -C -n 64 xxxxx Some command to view headers dumpelf elfls -p /bin/ps eu-readelf –section-headers /bin/ps readelf -S /bin/ps objdump -h /bin/ps Posts series about knowledge ELF Format and Runtime Internals
+            Reverse engineering can be used for different goals, such as finding malware, discovering vulnerabilities, fixing software bugs, testing compatibility, and protecting intellectual property.
+Abstractor Application Binary Interface (ABI) Reverse tools Ghidra: free and open-source software reverse engineering suite made by the NSA and released to the public in 2019 github IDA Pro: commercial interactive disassembler and debugger made by Hex-Rays and widely used by security experts and professionals. How to check the binary format inform 1# you can view the program format and linked information 2file xxxxx 3# view the detail elf 4readelf -a xxxxx 5# to detect the dynamic libraries be used 6ldd xxxxx 7# view the header details 8hexdump -C -n 64 xxxxx Some command to view headers dumpelf elfls -p /bin/ps eu-readelf –section-headers /bin/ps readelf -S /bin/ps objdump -h /bin/ps Posts series about knowledge ELF Format and Runtime Internals
           
           
         
@@ -100,23 +101,6 @@ We can install to independent host or kubernetes cluster Please reference previo
           
             proxychains ng (new generation) - a preloader which hooks calls to sockets in dynamically linked programs and redirects it through one or more socks/http proxies. continuation of the unmaintained proxychains project https://github.com/rofl0r/proxychains-ng
 Install 1# On macos 2 HOMEBREW_NO_UPDATE=1 brew install proxychains-ng 3# On linux 4# needs a working C compiler, preferably gcc 5 ./configure --prefix=/usr --sysconfdir=/etc 6 make 7 sudo make install 8 sudo make install-config (installs proxychains.conf) Configuration Create and config file path ~/.
-          
-          
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>Falco reverse shell detecting</title>
-      <link>https://blog.wisekee.com/post/falco-reverse-shell-rules/</link>
-      <pubDate>Fri, 20 May 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.wisekee.com/post/falco-reverse-shell-rules/</guid>
-      <description>
-        
-          
-            Padding 1# to install driver now 2falcoctl driver install 3# load the driver 4falcoctl driver config --type ebpf Use install tools this will one site to launch falco
-1curl -o install_falco -s https://falco.org/script/install 2# It should be 59201c1339cc53e86edcd7d2e7273e52f784b3cf7d4a3142059112b3b9062f6d. 3sha256sum install_falco 4sudo bash install_falco Manully install Falco program You can also directly check in Github: falco-rules 1wget https://download.falco.org/packages/bin/x86_64/falco-0.34.1-x86_64.tar.gz 2tar -xzvf falco-0.34.1-x86_64.tar.gz 3apt update -y 4apt install -y dkms make linux-headers-$(uname -r) 5# If you use the falco-driver-loader to build the BPF probe locally you need also clang toolchain 6apt install -y clang llvm 7# can reference the falco site: https://falco.
           
           
         

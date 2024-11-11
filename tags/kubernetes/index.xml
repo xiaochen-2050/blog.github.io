@@ -16,7 +16,7 @@
       <description>
         
           
-            How to invoke the GRPC service grpcbin-example-go 
+            Create the structure 1mkdir myapp 2cd myapp &amp;amp;&amp;amp; go mod init myapp 3go mod tidy The steps Create the proto file descript the message 1syntax = &amp;#34;proto3&amp;#34;; 2package proto; 3 4option go_package = &amp;#34;./proto&amp;#34;; 5 6//A sample service which contains all our rpc. 7service MyService{ 8 //The definition of rpc. 9 rpc MyFunc(Request) returns (StringMessage) {} 10} 11 12//Empty Request. 13message Request { 14} 15 16//The message to Return when rpc is invoked.
           
           
         
@@ -66,7 +66,7 @@ Create Grpc headless service for Grpc app when multiple instance is enable for G
       <description>
         
           
-            Login in kubernetes node use ssh Find out the container 1#find process id in specific container 2docker top `docker ps|grep &amp;#34;istio-proxy_productpage&amp;#34;|cut -d &amp;#34; &amp;#34; -f1` 3# find the pid and use nsenter to container network namespace 4nsenter -n --target PID 5# View the details of the rule configuration in the NAT table. 6iptables -t nat -L -v 
+            View all listener 1lsof -i Login in kubernetes node use ssh Find out the container 1#find process id in specific container 2docker top `docker ps|grep &amp;#34;istio-proxy_productpage&amp;#34;|cut -d &amp;#34; &amp;#34; -f1` 3# find the pid and use nsenter to container network namespace 4nsenter -n --target PID 5# View the details of the rule configuration in the NAT table. 6iptables -t nat -L -v Debug the container use nicolaka/netshoot A Docker + Kubernetes network trouble-shooting swiss-army container netshoot 1docker run -it --net container:&amp;lt;container_name&amp;gt; nicolaka/netshoot 
           
           
         
@@ -98,7 +98,7 @@ Create Grpc headless service for Grpc app when multiple instance is enable for G
       <description>
         
           
-            Basic settings Add Global credentials the Secret is kubernetes login token Add new cloud configure in Manage Jenkins &amp;ndash;&amp;gt; Clouds Config the Kubernetes Clouds websocket connection, use internal jenkins URL, specific the Pod Labels, Pod Retention: On Failure, Max connections, Seconds to wait for pod Add Pod template settings Specific Namespace, Usage: Only build jobs with label expressions matching this node Container Template: jnlp: jenkins/inbound-agent:latest, Working directory: /home/jenkins/agent Command to run: /usr/local/bin/jenkins-agent You can specific Volumes to mount cache etc.
+            Supplement When you upgrade the jenkins.war in docker container, commit to another tag the Entrypoint and CMD is lost So can commit specific the Entrypoint and CMD 1docker commit --change=&amp;#39;ENTRYPOINT [/usr/bin/tini&amp;#34;, &amp;#34;--&amp;#34;, &amp;#34;/usr/local/bin/jenkins.sh&amp;#34;]&amp;#39; --change=&amp;#39;CMD [/usr/local/bin/jenkins.sh&amp;#34;]&amp;#39; &amp;lt;container_id&amp;gt; new_image_name Basic settings Add Global credentials the Secret is kubernetes login token Add new cloud configure in Manage Jenkins &amp;ndash;&amp;gt; Clouds Config the Kubernetes Clouds websocket connection, use internal jenkins URL, specific the Pod Labels, Pod Retention: On Failure, Max connections, Seconds to wait for pod Add Pod template settings Specific Namespace, Usage: Only build jobs with label expressions matching this node Container Template: jnlp: jenkins/inbound-agent:latest, Working directory: /home/jenkins/agent Command to run: /usr/local/bin/jenkins-agent You can specific Volumes to mount cache etc.
           
           
         

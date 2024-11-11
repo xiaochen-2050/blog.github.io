@@ -16,7 +16,7 @@
       <description>
         
           
-            Initialization the venv 1mkdir test-venv 2cd test-venv &amp;amp;&amp;amp; python -m venv . 3source ./bin/activate 4pip install ipykernel 5./bin/python -m ipykernel install --user --name=test-venv How to test the python package in local development Initialization the python package construct 1./ 2 ├── __init__.py 3 ├── sub_packages 4 ├── sub_packages 5 ├── __init__.py Initialization the venv in local global 1python -m venv ~/.venv/global 2source ~/.venv/global/bin/activate 3export PYTHONPATH=/Users/test/python_custome_package/test 
+            Installation and use 1pip install jupyterlab 2jupyter lab --app-dir /opt/homebrew/share/jupyter/lab Initialization the venv 1mkdir test-venv 2cd test-venv &amp;amp;&amp;amp; python -m venv . 3source ./bin/activate 4pip install ipykernel 5./bin/python -m ipykernel install --user --name=test-venv How to test the python package in local development Initialization the python package construct 1./ 2 ├── __init__.py 3 ├── sub_packages 4 ├── sub_packages 5 ├── __init__.py Initialization the venv in local global 1python -m venv ~/.venv/global 2source ~/.
           
           
         

@@ -136,7 +136,7 @@
   <div class="excerpt">
     <div class="excerpt_header">
       <h3 class="post_link">
-        <a href="https://blog.wisekee.com/post/aws-eks-pod-sg/" title="AWS EKS pod attach the SecurityGroup through SecurityGroupPolicy CRD">AWS EKS pod attach the SecurityGroup through SecurityGroupPolicy CRD</a>
+        <a href="https://blog.wisekee.com/post/istio-nlb-proxy-protocolv2/" title="Istio ingress gateway enalbe proxy protocol v2 in AWS network loadbalance">Istio ingress gateway enalbe proxy protocol v2 in AWS network loadbalance</a>
       </h3>
       
   <div class="post_meta">
@@ -146,23 +146,23 @@
 </svg>
 </span>
     <span class="post_date">
-      Jul 20, 2023</span>
-    <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/eks/' title="EKS" class="post_tag button button_translucent">EKS
-        </a><a href='https://blog.wisekee.com/tags/aws/' title="AWS" class="post_tag button button_translucent">AWS
-        </a><a href='https://blog.wisekee.com/tags/securitygroup/' title="SecurityGroup" class="post_tag button button_translucent">SecurityGroup
+      Sep 20, 2023</span>
+    <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/istio/' title="Istio" class="post_tag button button_translucent">Istio
+        </a><a href='https://blog.wisekee.com/tags/gateway/' title="Gateway" class="post_tag button button_translucent">Gateway
+        </a><a href='https://blog.wisekee.com/tags/nlb/' title="Nlb" class="post_tag button button_translucent">Nlb
         </a>
     </span>
     <span class="page_only">&nbsp;·
   <div class="post_share">
     :
-    <a href="https://twitter.com/intent/tweet?text=AWS%20EKS%20pod%20attach%20the%20SecurityGroup%20through%20SecurityGroupPolicy%20CRD&url=https%3a%2f%2fblog.wisekee.com%2fpost%2faws-eks-pod-sg%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
+    <a href="https://twitter.com/intent/tweet?text=Istio%20ingress%20gateway%20enalbe%20proxy%20protocol%20v2%20in%20AWS%20network%20loadbalance&url=https%3a%2f%2fblog.wisekee.com%2fpost%2fistio-nlb-proxy-protocolv2%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
       <svg class="icon">
   <title>twitter</title>
   <use xlink:href="#twitter"></use>
 </svg>
 
     </a>
-    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2faws-eks-pod-sg%2f&t=AWS%20EKS%20pod%20attach%20the%20SecurityGroup%20through%20SecurityGroupPolicy%20CRD" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
+    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2fistio-nlb-proxy-protocolv2%2f&t=Istio%20ingress%20gateway%20enalbe%20proxy%20protocol%20v2%20in%20AWS%20network%20loadbalance" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
       <svg class="icon">
   <title>facebook</title>
   <use xlink:href="#facebook"></use>
@@ -176,7 +176,7 @@
 </svg>
 
     </a>
-    <a href="https://blog.wisekee.com/post/aws-eks-pod-sg/" title="Copy Link" class="link link_yank">
+    <a href="https://blog.wisekee.com/post/istio-nlb-proxy-protocolv2/" title="Copy Link" class="link link_yank">
       <svg class="icon">
   <title>copy</title>
   <use xlink:href="#copy"></use>
@@ -191,12 +191,10 @@
       <div class="excerpt_footer">
         <div class="pale">
           
-            <p>The EKS deployment should use ServiceAccount for pods
-Create the CR to eks cluster Control the access to Istio ingress gateway through bind the securitygroup to pod network interface.
-1apiVersion: vpcresources.k8s.aws/v1beta1 2kind: SecurityGroupPolicy 3metadata: 4 name: istio-internal-ingressgateway-sg 5 namespace: …</p>
+            <p>Create the Network Loadbalance and specific the annotations 1name: &quot;istio-ingressgateway&quot; 2 service: 3 # type: ClusterIP 4 annotations: 5 service.beta.kubernetes.io/aws-load-balancer-name: &quot;istio-ingress-gateway&quot; 6 service.beta.kubernetes.io/aws-load-balancer-ssl-cert: &gt;- 7 …</p>
           
           <br>
-          <a href="https://blog.wisekee.com/post/aws-eks-pod-sg/" title="" class="excerpt_more button">read more</a>
+          <a href="https://blog.wisekee.com/post/istio-nlb-proxy-protocolv2/" title="" class="excerpt_more button">read more</a>
         </div>
       </div>
     </div>
@@ -206,7 +204,7 @@ Create the CR to eks cluster Control the access to Istio ingress gateway through
   <div class="excerpt">
     <div class="excerpt_header">
       <h3 class="post_link">
-        <a href="https://blog.wisekee.com/post/envoyproxy-getting-started/" title="Envoyproxy getting started">Envoyproxy getting started</a>
+        <a href="https://blog.wisekee.com/post/envoyproxy-wasm/" title="Envoyproxy write wasm plugin getting started">Envoyproxy write wasm plugin getting started</a>
       </h3>
       
   <div class="post_meta">
@@ -216,23 +214,23 @@ Create the CR to eks cluster Control the access to Istio ingress gateway through
 </svg>
 </span>
     <span class="post_date">
-      Jul 10, 2023</span>
+      Sep 10, 2023</span>
     <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/envoy/' title="envoy" class="post_tag button button_translucent">envoy
         </a><a href='https://blog.wisekee.com/tags/service-mesh/' title="service mesh" class="post_tag button button_translucent">service mesh
-        </a><a href='https://blog.wisekee.com/tags/envoyproxy/' title="envoyproxy" class="post_tag button button_translucent">envoyproxy
+        </a><a href='https://blog.wisekee.com/tags/wasm/' title="wasm" class="post_tag button button_translucent">wasm
         </a>
     </span>
     <span class="page_only">&nbsp;·
   <div class="post_share">
     :
-    <a href="https://twitter.com/intent/tweet?text=Envoyproxy%20getting%20started&url=https%3a%2f%2fblog.wisekee.com%2fpost%2fenvoyproxy-getting-started%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
+    <a href="https://twitter.com/intent/tweet?text=Envoyproxy%20write%20wasm%20plugin%20getting%20started&url=https%3a%2f%2fblog.wisekee.com%2fpost%2fenvoyproxy-wasm%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
       <svg class="icon">
   <title>twitter</title>
   <use xlink:href="#twitter"></use>
 </svg>
 
     </a>
-    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2fenvoyproxy-getting-started%2f&t=Envoyproxy%20getting%20started" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
+    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2fenvoyproxy-wasm%2f&t=Envoyproxy%20write%20wasm%20plugin%20getting%20started" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
       <svg class="icon">
   <title>facebook</title>
   <use xlink:href="#facebook"></use>
@@ -246,7 +244,7 @@ Create the CR to eks cluster Control the access to Istio ingress gateway through
 </svg>
 
     </a>
-    <a href="https://blog.wisekee.com/post/envoyproxy-getting-started/" title="Copy Link" class="link link_yank">
+    <a href="https://blog.wisekee.com/post/envoyproxy-wasm/" title="Copy Link" class="link link_yank">
       <svg class="icon">
   <title>copy</title>
   <use xlink:href="#copy"></use>
@@ -261,10 +259,10 @@ Create the CR to eks cluster Control the access to Istio ingress gateway through
       <div class="excerpt_footer">
         <div class="pale">
           
-            <p>Can view the envoryproxy default config in docker container 1# Launch the envoryproxy container 2# The 9901 port is envoryproxy admin and metrics, the 10000 port is listner 3# Then you can open http://127.0.0.1:9901 and http://127.0.0.1:10000 to view details 4docker run -it &ndash;rm -p 9901:9901 -p 10000:10000 &ndash;name envoy …</p>
+            <p>The Dockerfile from envoyproxy base image inherit 1FROM envoyproxy/envoy:v1.27-latest 2 3COPY envoy.yaml /etc/envoy/envoy.yaml 4COPY hello.wasm hello.wasm 5RUN chmod go+r /etc/envoy/envoy.yaml The EnvoyProxy config envoy.yaml 1static_resources: 2 listeners: 3 - name: main 4 address: 5 socket_address: 6 address: 0.0.0.0 …</p>
           
           <br>
-          <a href="https://blog.wisekee.com/post/envoyproxy-getting-started/" title="" class="excerpt_more button">read more</a>
+          <a href="https://blog.wisekee.com/post/envoyproxy-wasm/" title="" class="excerpt_more button">read more</a>
         </div>
       </div>
     </div>
@@ -274,7 +272,7 @@ Create the CR to eks cluster Control the access to Istio ingress gateway through
   <div class="excerpt">
     <div class="excerpt_header">
       <h3 class="post_link">
-        <a href="https://blog.wisekee.com/post/bigdata-open-source/" title="Awesome open resoure new generational data laek house tools and project">Awesome open resoure new generational data laek house tools and project</a>
+        <a href="https://blog.wisekee.com/post/golang-concurrency-patterns/" title="Concurrency patterns in golang">Concurrency patterns in golang</a>
       </h3>
       
   <div class="post_meta">
@@ -284,23 +282,23 @@ Create the CR to eks cluster Control the access to Istio ingress gateway through
 </svg>
 </span>
     <span class="post_date">
-      Jul 5, 2023</span>
-    <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/open-source/' title="open source" class="post_tag button button_translucent">open source
-        </a><a href='https://blog.wisekee.com/tags/cncf/' title="cncf" class="post_tag button button_translucent">cncf
-        </a><a href='https://blog.wisekee.com/tags/bigdata/' title="bigdata" class="post_tag button button_translucent">bigdata
+      Sep 8, 2023</span>
+    <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/go/' title="Go" class="post_tag button button_translucent">Go
+        </a><a href='https://blog.wisekee.com/tags/concurrency/' title="Concurrency" class="post_tag button button_translucent">Concurrency
+        </a><a href='https://blog.wisekee.com/tags/goroutines/' title="Goroutines" class="post_tag button button_translucent">Goroutines
         </a>
     </span>
     <span class="page_only">&nbsp;·
   <div class="post_share">
     :
-    <a href="https://twitter.com/intent/tweet?text=Awesome%20open%20resoure%20new%20generational%20data%20laek%20house%20tools%20and%20project&url=https%3a%2f%2fblog.wisekee.com%2fpost%2fbigdata-open-source%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
+    <a href="https://twitter.com/intent/tweet?text=Concurrency%20patterns%20in%20golang&url=https%3a%2f%2fblog.wisekee.com%2fpost%2fgolang-concurrency-patterns%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
       <svg class="icon">
   <title>twitter</title>
   <use xlink:href="#twitter"></use>
 </svg>
 
     </a>
-    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2fbigdata-open-source%2f&t=Awesome%20open%20resoure%20new%20generational%20data%20laek%20house%20tools%20and%20project" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
+    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2fgolang-concurrency-patterns%2f&t=Concurrency%20patterns%20in%20golang" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
       <svg class="icon">
   <title>facebook</title>
   <use xlink:href="#facebook"></use>
@@ -314,7 +312,7 @@ Create the CR to eks cluster Control the access to Istio ingress gateway through
 </svg>
 
     </a>
-    <a href="https://blog.wisekee.com/post/bigdata-open-source/" title="Copy Link" class="link link_yank">
+    <a href="https://blog.wisekee.com/post/golang-concurrency-patterns/" title="Copy Link" class="link link_yank">
       <svg class="icon">
   <title>copy</title>
   <use xlink:href="#copy"></use>
@@ -329,11 +327,10 @@ Create the CR to eks cluster Control the access to Istio ingress gateway through
       <div class="excerpt_footer">
         <div class="pale">
           
-            <p>There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
-<a href="https://github.com/volcano-sh/volcano(About">https://github.com/volcano-sh/volcano(About</a> A Cloud Native Batch System (Project under CNCF)) <a href="https://github.com/apache/yunikorn-core(">https://github.com/apache/yunikorn-core(</a> …</p>
+            <p>Use for loop and ticker 1// someTask function that we call periodically. 2func someTask() { 3 fmt.Println(rand.Int() * rand.Int()) 4} 5 6// PeriodicTask runs someTask every 1 second. 7// If canceled goroutine should be stopped. 8func PeriodicTask(ctx context.Context) { 9 // Create a new ticker with a period of 1 …</p>
           
           <br>
-          <a href="https://blog.wisekee.com/post/bigdata-open-source/" title="" class="excerpt_more button">read more</a>
+          <a href="https://blog.wisekee.com/post/golang-concurrency-patterns/" title="" class="excerpt_more button">read more</a>
         </div>
       </div>
     </div>
@@ -343,7 +340,7 @@ Create the CR to eks cluster Control the access to Istio ingress gateway through
   <div class="excerpt">
     <div class="excerpt_header">
       <h3 class="post_link">
-        <a href="https://blog.wisekee.com/post/envoy-ratelimit/" title=""></a>
+        <a href="https://blog.wisekee.com/post/istio-parse-jwt/" title="Istio verify and parse jwt header">Istio verify and parse jwt header</a>
       </h3>
       
   <div class="post_meta">
@@ -353,23 +350,23 @@ Create the CR to eks cluster Control the access to Istio ingress gateway through
 </svg>
 </span>
     <span class="post_date">
-      Jul 2, 2023</span>
-    <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/ratelimit/' title="ratelimit" class="post_tag button button_translucent">ratelimit
-        </a><a href='https://blog.wisekee.com/tags/service-mesh/' title="service mesh" class="post_tag button button_translucent">service mesh
-        </a><a href='https://blog.wisekee.com/tags/envoyproxy/' title="envoyproxy" class="post_tag button button_translucent">envoyproxy
+      Aug 15, 2023</span>
+    <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/istio/' title="Istio" class="post_tag button button_translucent">Istio
+        </a><a href='https://blog.wisekee.com/tags/jwt/' title="JWT" class="post_tag button button_translucent">JWT
+        </a><a href='https://blog.wisekee.com/tags/claims/' title="Claims" class="post_tag button button_translucent">Claims
         </a>
     </span>
     <span class="page_only">&nbsp;·
   <div class="post_share">
     :
-    <a href="https://twitter.com/intent/tweet?text=&url=https%3a%2f%2fblog.wisekee.com%2fpost%2fenvoy-ratelimit%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
+    <a href="https://twitter.com/intent/tweet?text=Istio%20verify%20and%20parse%20jwt%20header&url=https%3a%2f%2fblog.wisekee.com%2fpost%2fistio-parse-jwt%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
       <svg class="icon">
   <title>twitter</title>
   <use xlink:href="#twitter"></use>
 </svg>
 
     </a>
-    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2fenvoy-ratelimit%2f&t=" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
+    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2fistio-parse-jwt%2f&t=Istio%20verify%20and%20parse%20jwt%20header" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
       <svg class="icon">
   <title>facebook</title>
   <use xlink:href="#facebook"></use>
@@ -383,7 +380,7 @@ Create the CR to eks cluster Control the access to Istio ingress gateway through
 </svg>
 
     </a>
-    <a href="https://blog.wisekee.com/post/envoy-ratelimit/" title="Copy Link" class="link link_yank">
+    <a href="https://blog.wisekee.com/post/istio-parse-jwt/" title="Copy Link" class="link link_yank">
       <svg class="icon">
   <title>copy</title>
   <use xlink:href="#copy"></use>
@@ -398,10 +395,10 @@ Create the CR to eks cluster Control the access to Istio ingress gateway through
       <div class="excerpt_footer">
         <div class="pale">
           
-            <p>Use external rate limit service deployment the Envoyproxy ratelimit service to kubernetes deployment the redis to serve envoy proxy ratelimit use Envoyproxy ratelimit serivce in envoy filter chains through grpc service for every workloads create Envoyfilter rule Deployment the envoy ratelimit service the …</p>
+            <p>Create RequestAuthentication and AuthorizationPolicy resources 1apiVersion: security.istio.io/v1beta1 2kind: RequestAuthentication 3metadata: 4 name: &quot;request-authentication-sso&quot; 5 namespace: istio-system 6spec: 7 jwtRules: 8 - issuer: &quot;https://issue.example.com/sso&quot; 9 jwksUri: …</p>
           
           <br>
-          <a href="https://blog.wisekee.com/post/envoy-ratelimit/" title="" class="excerpt_more button">read more</a>
+          <a href="https://blog.wisekee.com/post/istio-parse-jwt/" title="" class="excerpt_more button">read more</a>
         </div>
       </div>
     </div>
@@ -411,7 +408,7 @@ Create the CR to eks cluster Control the access to Istio ingress gateway through
   <div class="excerpt">
     <div class="excerpt_header">
       <h3 class="post_link">
-        <a href="https://blog.wisekee.com/post/update-rc.d-systemv/" title="use systemv manager the auto boot script and servcie">use systemv manager the auto boot script and servcie</a>
+        <a href="https://blog.wisekee.com/post/aws-metadata-ssrf-poc/" title="AWS metadata service v1 SSRF POC">AWS metadata service v1 SSRF POC</a>
       </h3>
       
   <div class="post_meta">
@@ -421,23 +418,23 @@ Create the CR to eks cluster Control the access to Istio ingress gateway through
 </svg>
 </span>
     <span class="post_date">
-      Jun 18, 2023</span>
-    <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/update-rc/' title="update-rc" class="post_tag button button_translucent">update-rc
-        </a><a href='https://blog.wisekee.com/tags/init.d/' title="init.d" class="post_tag button button_translucent">init.d
-        </a><a href='https://blog.wisekee.com/tags/systemv/' title="systemv" class="post_tag button button_translucent">systemv
+      Aug 10, 2023</span>
+    <span class="post_time"> · </span><span>&nbsp;· <a href='https://blog.wisekee.com/tags/aws/' title="AWS" class="post_tag button button_translucent">AWS
+        </a><a href='https://blog.wisekee.com/tags/ssrf/' title="SSRF" class="post_tag button button_translucent">SSRF
+        </a><a href='https://blog.wisekee.com/tags/security/' title="Security" class="post_tag button button_translucent">Security
         </a>
     </span>
     <span class="page_only">&nbsp;·
   <div class="post_share">
     :
-    <a href="https://twitter.com/intent/tweet?text=use%20systemv%20manager%20the%20auto%20boot%20script%20and%20servcie&url=https%3a%2f%2fblog.wisekee.com%2fpost%2fupdate-rc.d-systemv%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
+    <a href="https://twitter.com/intent/tweet?text=AWS%20metadata%20service%20v1%20SSRF%20POC&url=https%3a%2f%2fblog.wisekee.com%2fpost%2faws-metadata-ssrf-poc%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
       <svg class="icon">
   <title>twitter</title>
   <use xlink:href="#twitter"></use>
 </svg>
 
     </a>
-    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2fupdate-rc.d-systemv%2f&t=use%20systemv%20manager%20the%20auto%20boot%20script%20and%20servcie" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
+    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2faws-metadata-ssrf-poc%2f&t=AWS%20metadata%20service%20v1%20SSRF%20POC" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
       <svg class="icon">
   <title>facebook</title>
   <use xlink:href="#facebook"></use>
@@ -451,7 +448,7 @@ Create the CR to eks cluster Control the access to Istio ingress gateway through
 </svg>
 
     </a>
-    <a href="https://blog.wisekee.com/post/update-rc.d-systemv/" title="Copy Link" class="link link_yank">
+    <a href="https://blog.wisekee.com/post/aws-metadata-ssrf-poc/" title="Copy Link" class="link link_yank">
       <svg class="icon">
   <title>copy</title>
   <use xlink:href="#copy"></use>
@@ -466,12 +463,10 @@ Create the CR to eks cluster Control the access to Istio ingress gateway through
       <div class="excerpt_footer">
         <div class="pale">
           
-            <p>Init scripts are typically stored in the /etc/init.d/ directory and are started using the init process, which is the first process started by the Linux kernel.
-Write the init script with systemv style cat /etc/init.d/demo-service
-1#!/usr/bin/env bash 2 3### BEGIN INIT INFO 4# Provides: restore-iptables 5# …</p>
+            <p>POC process Construct attack machine to listener and redirect the credentials url 1#!/usr/bin/env python3 2 3 4# ./redirect.py 1337 http://169.254.169.254/latest/meta-data/iam/security-credentials/ 5 6import sys 7from http.server import HTTPServer, BaseHTTPRequestHandler 8 9if len(sys.argv)-1 != 2: 10 …</p>
           
           <br>
-          <a href="https://blog.wisekee.com/post/update-rc.d-systemv/" title="" class="excerpt_more button">read more</a>
+          <a href="https://blog.wisekee.com/post/aws-metadata-ssrf-poc/" title="" class="excerpt_more button">read more</a>
         </div>
       </div>
     </div>
@@ -504,7 +499,7 @@ Write the init script with systemv style cat /etc/init.d/demo-service
         <a href="/post/page/6/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
       </li>
       <li class="page-item">
-        <a href="/post/page/20/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/post/page/22/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
       </li>
     </ul>
       </li>
@@ -538,6 +533,21 @@ Write the init script with systemv style cat /etc/init.d/demo-service
     <h2 class="mt-4"></h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.wisekee.com/post/awesome-ai/" class="nav-link" title="Awesome AI&#39;s resoures">Awesome AI&rsquo;s resoures</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/talos-k8s-aws/" class="nav-link" title="Talos launch kubernetes in aws environment getting started ">Talos launch kubernetes in aws environment getting started</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/copa-docker-image-patch/" class="nav-link" title="Use Copa to patch the container images">Use Copa to patch the container images</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/openldap-dex/" class="nav-link" title="Launch the openldap and dex in kubernetes">Launch the openldap and dex in kubernetes</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/vite-react-getting-started/" class="nav-link" title="To use the vite management the react project">To use the vite management the react project</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/go-vscode-debug-config/" class="nav-link" title="How to config debug the go project in vscode">How to config debug the go project in vscode</a>
       </li>
       <li>
@@ -545,21 +555,6 @@ Write the init script with systemv style cat /etc/init.d/demo-service
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/vue-custom-components/" class="nav-link" title="Vue custom component getting started">Vue custom component getting started</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/rust-getting-started/" class="nav-link" title="First step to learn Rust programming">First step to learn Rust programming</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/aws-ecr-register-helper/" class="nav-link" title="Dynamic create docker registry pull image credentials in eks cluster for particular  imagePullSecret">Dynamic create docker registry pull image credentials in eks cluster for particular  imagePullSecret</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/aws-jsii-getting-started/" class="nav-link" title="Use AWS jsii to cross language invoker">Use AWS jsii to cross language invoker</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/vue-app-getting-started/" class="nav-link" title="How to create sample frontend in vue use cli and vite">How to create sample frontend in vue use cli and vite</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/golang-web-static-fileserver/" class="nav-link" title="Use golang serve the static file embedded to binary file">Use golang serve the static file embedded to binary file</a>
       </li>
     </ul>
     <div>
@@ -572,12 +567,12 @@ Write the init script with systemv style cat /etc/init.d/demo-service
         
         <a href='https://blog.wisekee.com/tags/k8s/' class="post_tag button button_translucent" title="k8s">
           K8S
-          <span class="button_tally">12</span>
+          <span class="button_tally">14</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/aws/' class="post_tag button button_translucent" title="aws">
           AWS
-          <span class="button_tally">10</span>
+          <span class="button_tally">11</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/go/' class="post_tag button button_translucent" title="go">
@@ -587,12 +582,12 @@ Write the init script with systemv style cat /etc/init.d/demo-service
         
         <a href='https://blog.wisekee.com/tags/security/' class="post_tag button button_translucent" title="security">
           SECURITY
-          <span class="button_tally">10</span>
+          <span class="button_tally">9</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/cncf/' class="post_tag button button_translucent" title="cncf">
           CNCF
-          <span class="button_tally">9</span>
+          <span class="button_tally">8</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/featured/' class="post_tag button button_translucent" title="featured">
@@ -610,14 +605,14 @@ Write the init script with systemv style cat /etc/init.d/demo-service
           <span class="button_tally">7</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/istio/' class="post_tag button button_translucent" title="istio">
-          ISTIO
+        <a href='https://blog.wisekee.com/tags/frontend/' class="post_tag button button_translucent" title="frontend">
+          FRONTEND
           <span class="button_tally">6</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/frontend/' class="post_tag button button_translucent" title="frontend">
-          FRONTEND
-          <span class="button_tally">5</span>
+        <a href='https://blog.wisekee.com/tags/istio/' class="post_tag button button_translucent" title="istio">
+          ISTIO
+          <span class="button_tally">6</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/cloud-native/' class="post_tag button button_translucent" title="cloud-native">
@@ -646,6 +641,14 @@ Write the init script with systemv style cat /etc/init.d/demo-service
             
             
             <a href='https://blog.wisekee.com/tags/agent/' class=" post_tag button button_translucent" data-position=1 title="agent">AGENT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/agi/' class=" post_tag button button_translucent" data-position=1 title="agi">AGI<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/ai/' class=" post_tag button button_translucent" data-position=1 title="ai">AI<span class="button_tally">1</span>
             </a>
             
             
@@ -681,7 +684,7 @@ Write the init script with systemv style cat /etc/init.d/demo-service
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/aws/' class=" post_tag button button_translucent" data-position=10 title="aws">AWS<span class="button_tally">10</span>
+            <a href='https://blog.wisekee.com/tags/aws/' class=" post_tag button button_translucent" data-position=11 title="aws">AWS<span class="button_tally">11</span>
             </a>
             
             
@@ -745,7 +748,7 @@ Write the init script with systemv style cat /etc/init.d/demo-service
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=9 title="cncf">CNCF<span class="button_tally">9</span>
+            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=8 title="cncf">CNCF<span class="button_tally">8</span>
             </a>
             
             
@@ -758,6 +761,10 @@ Write the init script with systemv style cat /etc/init.d/demo-service
             
             
             <a href='https://blog.wisekee.com/tags/consul/' class=" post_tag button button_translucent" data-position=1 title="consul">CONSUL<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/copa/' class=" post_tag button button_translucent" data-position=1 title="copa">COPA<span class="button_tally">1</span>
             </a>
             
             
@@ -790,6 +797,14 @@ Write the init script with systemv style cat /etc/init.d/demo-service
             
             
             <a href='https://blog.wisekee.com/tags/deployment/' class=" post_tag button button_translucent" data-position=1 title="deployment">DEPLOYMENT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/development/' class=" post_tag button button_translucent" data-position=1 title="development">DEVELOPMENT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/dex/' class=" post_tag button button_translucent" data-position=1 title="dex">DEX<span class="button_tally">1</span>
             </a>
             
             
@@ -849,7 +864,7 @@ Write the init script with systemv style cat /etc/init.d/demo-service
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/falco/' class=" post_tag button button_translucent" data-position=2 title="falco">FALCO<span class="button_tally">2</span>
+            <a href='https://blog.wisekee.com/tags/falco/' class=" post_tag button button_translucent" data-position=1 title="falco">FALCO<span class="button_tally">1</span>
             </a>
             
             
@@ -873,7 +888,7 @@ Write the init script with systemv style cat /etc/init.d/demo-service
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/frontend/' class=" post_tag button button_translucent" data-position=5 title="frontend">FRONTEND<span class="button_tally">5</span>
+            <a href='https://blog.wisekee.com/tags/frontend/' class=" post_tag button button_translucent" data-position=6 title="frontend">FRONTEND<span class="button_tally">6</span>
             </a>
             
             
@@ -969,7 +984,7 @@ Write the init script with systemv style cat /etc/init.d/demo-service
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/k8s/' class=" post_tag button button_translucent" data-position=12 title="k8s">K8S<span class="button_tally">12</span>
+            <a href='https://blog.wisekee.com/tags/k8s/' class=" post_tag button button_translucent" data-position=14 title="k8s">K8S<span class="button_tally">14</span>
             </a>
             
             
@@ -997,11 +1012,23 @@ Write the init script with systemv style cat /etc/init.d/demo-service
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/kvm/' class=" post_tag button button_translucent" data-position=1 title="kvm">KVM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/libvirt/' class=" post_tag button button_translucent" data-position=1 title="libvirt">LIBVIRT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/lima/' class=" post_tag button button_translucent" data-position=1 title="lima">LIMA<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/linux/' class=" post_tag button button_translucent" data-position=1 title="linux">LINUX<span class="button_tally">1</span>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/llm/' class=" post_tag button button_translucent" data-position=1 title="llm">LLM<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/llm/' class=" post_tag button button_translucent" data-position=2 title="llm">LLM<span class="button_tally">2</span>
             </a>
             
             
@@ -1081,6 +1108,10 @@ Write the init script with systemv style cat /etc/init.d/demo-service
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/openldap/' class=" post_tag button button_translucent" data-position=1 title="openldap">OPENLDAP<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/opentelemetry/' class=" post_tag button button_translucent" data-position=1 title="opentelemetry">OPENTELEMETRY<span class="button_tally">1</span>
             </a>
             
@@ -1129,7 +1160,15 @@ Write the init script with systemv style cat /etc/init.d/demo-service
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/qemu/' class=" post_tag button button_translucent" data-position=1 title="qemu">QEMU<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/ratelimit/' class=" post_tag button button_translucent" data-position=1 title="ratelimit">RATELIMIT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/react/' class=" post_tag button button_translucent" data-position=1 title="react">REACT<span class="button_tally">1</span>
             </a>
             
             
@@ -1141,7 +1180,11 @@ Write the init script with systemv style cat /etc/init.d/demo-service
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/rust/' class=" post_tag button button_translucent" data-position=1 title="rust">RUST<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/rust/' class=" post_tag button button_translucent" data-position=2 title="rust">RUST<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/screen/' class=" post_tag button button_translucent" data-position=1 title="screen">SCREEN<span class="button_tally">1</span>
             </a>
             
             
@@ -1153,7 +1196,7 @@ Write the init script with systemv style cat /etc/init.d/demo-service
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent" data-position=10 title="security">SECURITY<span class="button_tally">10</span>
+            <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent" data-position=9 title="security">SECURITY<span class="button_tally">9</span>
             </a>
             
             
@@ -1205,6 +1248,10 @@ Write the init script with systemv style cat /etc/init.d/demo-service
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/talos/' class=" post_tag button button_translucent" data-position=1 title="talos">TALOS<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/task/' class=" post_tag button button_translucent" data-position=1 title="task">TASK<span class="button_tally">1</span>
             </a>
             
@@ -1214,6 +1261,10 @@ Write the init script with systemv style cat /etc/init.d/demo-service
             
             
             <a href='https://blog.wisekee.com/tags/terraform/' class=" post_tag button button_translucent" data-position=8 title="terraform">TERRAFORM<span class="button_tally">8</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/tmux/' class=" post_tag button button_translucent" data-position=1 title="tmux">TMUX<span class="button_tally">1</span>
             </a>
             
             
@@ -1245,7 +1296,7 @@ Write the init script with systemv style cat /etc/init.d/demo-service
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/vite/' class=" post_tag button button_translucent" data-position=2 title="vite">VITE<span class="button_tally">2</span>
+            <a href='https://blog.wisekee.com/tags/vite/' class=" post_tag button button_translucent" data-position=3 title="vite">VITE<span class="button_tally">3</span>
             </a>
             
             
@@ -1266,6 +1317,14 @@ Write the init script with systemv style cat /etc/init.d/demo-service
             
             
             <a href='https://blog.wisekee.com/tags/webpack/' class=" post_tag button button_translucent" data-position=1 title="webpack">WEBPACK<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/websocket/' class=" post_tag button button_translucent" data-position=1 title="websocket">WEBSOCKET<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/xtermjs/' class=" post_tag button button_translucent" data-position=1 title="xtermjs">XTERMJS<span class="button_tally">1</span>
             </a>
             
             <div class="tags_sort"><span title="sort alphabetically">[A~Z]</span><span title="sort by count">[0~9]</span>

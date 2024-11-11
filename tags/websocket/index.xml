@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>websocket on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/websocket/</link>
+    <description>Recent content in websocket on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Mon, 02 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/websocket/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to connect the pod terminal use web browser</title>
+      <link>https://blog.wisekee.com/post/remote-termination-websocket/</link>
+      <pubDate>Mon, 02 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/remote-termination-websocket/</guid>
+      <description>
+        
+          
+            Reference Building a Browser-based Terminal using Docker and XtermJS Docker attach api Kubernetes dashboard terminal Use a WebSocket client to exec commands in a Kubernetes pod 
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

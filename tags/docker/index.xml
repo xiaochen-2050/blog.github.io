@@ -33,7 +33,7 @@ Basic workflow create cronjob in eks cluster schedule login to ecr and obtain cr
       <description>
         
           
-            Login in kubernetes node use ssh Find out the container 1#find process id in specific container 2docker top `docker ps|grep &amp;#34;istio-proxy_productpage&amp;#34;|cut -d &amp;#34; &amp;#34; -f1` 3# find the pid and use nsenter to container network namespace 4nsenter -n --target PID 5# View the details of the rule configuration in the NAT table. 6iptables -t nat -L -v 
+            View all listener 1lsof -i Login in kubernetes node use ssh Find out the container 1#find process id in specific container 2docker top `docker ps|grep &amp;#34;istio-proxy_productpage&amp;#34;|cut -d &amp;#34; &amp;#34; -f1` 3# find the pid and use nsenter to container network namespace 4nsenter -n --target PID 5# View the details of the rule configuration in the NAT table. 6iptables -t nat -L -v Debug the container use nicolaka/netshoot A Docker + Kubernetes network trouble-shooting swiss-army container netshoot 1docker run -it --net container:&amp;lt;container_name&amp;gt; nicolaka/netshoot 
           
           
         
@@ -49,7 +49,7 @@ Basic workflow create cronjob in eks cluster schedule login to ecr and obtain cr
       <description>
         
           
-            relative the docs about debian repo debian releases support versions for stretch old debian 1# pls reference: https://www.debian.org/security/ 2sed -i -e &amp;#34;2 {s/^/#/}&amp;#34; -e &amp;#34;4 {s/^/#/}&amp;#34; -e &amp;#34;6 {s/^/#/}&amp;#34; /etc/apt/sources.list 3echo &amp;#34;deb http://security.debian.org/debian-security bullseye-security main contrib non-free&amp;#34; &amp;gt;&amp;gt; /etc/apt/sources.list 4apt-get update &amp;amp;&amp;amp; apt-get upgrade 
+            How to upgrade the some packages 1dpkg -L libssh2-1 # view the package use which files 2dpkg -s libssh2-1 # view the package infos 3# install the checkinstall 4echo &amp;#34;deb http://ftp.de.debian.org/debian bullseye main&amp;#34; &amp;gt;&amp;gt; /etc/apt/sources.list 5apt update 6apt install checkinstall 7tar -zxvf source-app.tar.gz 8cd source 9./configure 10make 11checkinstall --install=no Upgrade the single package in debian 1apt-cache madison systemd 2apt-get install libglib2.0-0=2.66.8-1+deb11u3 relative the docs about debian repo debian releases support versions for stretch old debian 1# pls reference: https://www.
           
           
         

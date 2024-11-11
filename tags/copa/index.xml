@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>copa on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/copa/</link>
+    <description>Recent content in copa on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Thu, 23 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/copa/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Use Copa to patch the container images</title>
+      <link>https://blog.wisekee.com/post/copa-docker-image-patch/</link>
+      <pubDate>Thu, 23 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/copa-docker-image-patch/</guid>
+      <description>
+        
+          
+            The steps for image patch pull the image use: nerdctl pull xxxxx scan the image vulnerable: TRIVY_DEBUG=true trivy image --timeout 10m --scanners vuln --vuln-type os --ignore-unfixed -f json -o ${JSON_FILE_NAME}.json ${IMAGE} patch the image: copa patch -r ${JSON_FILE_NAME}.json -i $IMAGE -t ${2} --addr unix:///run/user/501/buildkit-default/buildkitd.sock --timeout 20m Use lima to management the buildkit virtual machine installation the lima 1brew install lima 2# launch virtual machine use template, the template can: template://docker, template://k8s 3limactl create --name=default template://buildkit 4# stop the virtual machine 5limactl stop buildkit 6 7# in buildkit virtual machine run the containerd 8nerdctl run -d -p 0.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

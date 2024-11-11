@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dex on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/dex/</link>
+    <description>Recent content in Dex on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sat, 20 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/dex/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Launch the openldap and dex in kubernetes</title>
+      <link>https://blog.wisekee.com/post/openldap-dex/</link>
+      <pubDate>Sat, 20 Apr 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/openldap-dex/</guid>
+      <description>
+        
+          
+            Generate the PKI for openldap Caution: the certificate&amp;rsquo;s subject&#39;s domain component (DC) can with openldap DN same to name 1# install the certtool 2apt install gnutls-bin 3# generate the ca.key 4certtool --generate-privkey --outfile ca.key 5# generate the ca certificate 6certtool --generate-self-signed --load-privkey ca.key --outfile ca.crt 7# generate the server endpoint private key 8certtool --generate-privkey --outfile tls.key --rsa 9# server endpoint certificate request 10certtool --generate-request --load-privkey tls.key --outfile request.crt 11# use ca certificate to sign the server endpoint certificate 12certtool --generate-certificate --load-request request.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

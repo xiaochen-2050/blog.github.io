@@ -179,9 +179,121 @@
   </span>
   </div>
 
-    <div class="post_body"><h3 id="how-to-invoke-the-grpc-service">How to invoke the GRPC service</h3>
+    <div class="post_body"><h4 id="create-the-structure">Create the structure</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">mkdir myapp
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nb">cd</span> myapp <span class="o">&amp;&amp;</span> go mod init myapp
+</span></span><span class="line"><span class="ln">3</span><span class="cl">go mod tidy
+</span></span></code></pre></div><h4 id="the-steps">The steps</h4>
+<ul>
+<li>Create the <code>proto</code> file descript the message</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-proto" data-lang="proto"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">syntax</span> <span class="o">=</span> <span class="s">&#34;proto3&#34;</span><span class="p">;</span><span class="err">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="err"></span><span class="kn">package</span> <span class="nn">proto</span><span class="p">;</span><span class="err">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="err"></span><span class="k">option</span> <span class="n">go_package</span> <span class="o">=</span> <span class="s">&#34;./proto&#34;</span><span class="p">;</span><span class="err">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="err"></span><span class="c1">//A sample service which contains all our rpc.
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="c1"></span><span class="kd">service</span> <span class="n">MyService</span><span class="p">{</span><span class="err">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="err"></span> <span class="c1">//The definition of rpc.
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="c1"></span> <span class="k">rpc</span> <span class="n">MyFunc</span><span class="p">(</span><span class="n">Request</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">StringMessage</span><span class="p">)</span> <span class="p">{}</span><span class="err">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="err"></span><span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="err"></span><span class="c1">//Empty Request.
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="c1"></span><span class="kd">message</span> <span class="nc">Request</span> <span class="p">{</span><span class="err">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="err"></span><span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="err"></span><span class="c1">//The message to Return when rpc is invoked.
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="c1"></span><span class="kd">message</span> <span class="nc">StringMessage</span> <span class="p">{</span><span class="err">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="err"></span>    <span class="kt">string</span>  <span class="n">reply</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="err">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="err"></span><span class="p">}</span><span class="err">
+</span></span></span></code></pre></div><ul>
+<li>Compile the proto file use <code>protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. hello-world.proto</code></li>
+<li>Move the pb file to <code>proto</code> folder <code>mv hello-world.pb.go ./proto/</code></li>
+<li>Finally folder structure</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">├── go.mod
+</span></span><span class="line"><span class="ln">2</span><span class="cl">├── go.sum
+</span></span><span class="line"><span class="ln">3</span><span class="cl">├── hello-world.proto
+</span></span><span class="line"><span class="ln">4</span><span class="cl">├── main.go
+</span></span><span class="line"><span class="ln">5</span><span class="cl">└── proto
+</span></span><span class="line"><span class="ln">6</span><span class="cl">    ├── hello-world.pb.go
+</span></span><span class="line"><span class="ln">7</span><span class="cl">    └── hello-world_grpc.pb.go
+</span></span></code></pre></div><ul>
+<li>The <code>main.go</code> code</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">        <span class="s">&#34;context&#34;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">        <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">        <span class="s">&#34;net&#34;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">        <span class="nx">pb</span> <span class="s">&#34;myapp/proto&#34;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl">        <span class="s">&#34;google.golang.org/grpc&#34;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="kd">type</span> <span class="nx">server</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">        <span class="nx">pb</span><span class="p">.</span><span class="nx">UnimplementedMyServiceServer</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">
+</span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">server</span><span class="p">)</span> <span class="nf">MyFunc</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">input</span> <span class="o">*</span><span class="nx">pb</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">pb</span><span class="p">.</span><span class="nx">StringMessage</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="s">&#34;Inside The actual caller rpc FUnction&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">        <span class="k">return</span> <span class="o">&amp;</span><span class="nx">pb</span><span class="p">.</span><span class="nx">StringMessage</span><span class="p">{</span><span class="nx">Reply</span><span class="p">:</span> <span class="s">&#34;Hey There&#34;</span><span class="p">},</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">
+</span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">        <span class="nx">plistener</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nf">Listen</span><span class="p">(</span><span class="s">&#34;tcp&#34;</span><span class="p">,</span> <span class="s">&#34;:2408&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">        <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">                <span class="nb">panic</span><span class="p">(</span><span class="s">&#34;Failed to bind to port&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">
+</span></span><span class="line"><span class="ln">28</span><span class="cl">        <span class="c1">//Creating a New gRPC server
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="c1"></span>        <span class="nx">gServ</span> <span class="o">:=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nf">NewServer</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">        <span class="c1">//Binding the stub function with the func we created
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="c1"></span>        <span class="nx">pb</span><span class="p">.</span><span class="nf">RegisterMyServiceServer</span><span class="p">(</span><span class="nx">gServ</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">server</span><span class="p">{})</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="s">&#34;gRPC server starting at port 2408&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">        <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">gServ</span><span class="p">.</span><span class="nf">Serve</span><span class="p">(</span><span class="nx">plistener</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl">                <span class="nb">panic</span><span class="p">(</span><span class="s">&#34;Unable to start gRPC server&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><ul>
+<li>To testing the grpc server <code>go run main.go</code></li>
+<li>To build the server binary <code>go build -o gRPC-server main.go</code></li>
+<li>Run the server <code>./gRPC-server</code></li>
+</ul>
+<h4 id="to-create-python-client-invoker-the-grpc-server-endpoint">To create python client invoker the grpc server endpoint</h4>
+<ul>
+<li>Create the virtual environment <code>python3 -m venv ~/.venv/global</code></li>
+<li>Active the environment <code>source ~/.venv/global/bin/activate</code></li>
+<li>Install the gRPC tools <code>pip install grpcio-tools</code></li>
+<li>Generate the client python code <code>python3 -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. hello-world.proto</code></li>
+<li>Create <code>client.py</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kn">import</span> <span class="nn">grpc</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kn">import</span> <span class="nn">hello_world_pb2_grpc</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="kn">import</span> <span class="nn">hello_world_pb2</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="k">def</span> <span class="nf">invoke</span><span class="p">():</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="n">server_addr</span> <span class="o">=</span>  <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;SERVER_URL&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="n">channel</span> <span class="o">=</span> <span class="n">grpc</span><span class="o">.</span><span class="n">insecure_channel</span><span class="p">(</span><span class="n">server_addr</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="n">stub</span> <span class="o">=</span> <span class="n">hello_world_pb2_grpc</span><span class="o">.</span><span class="n">MyServiceStub</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">        <span class="n">response</span> <span class="o">=</span> <span class="n">stub</span><span class="o">.</span><span class="n">MyFunc</span><span class="p">(</span><span class="n">hello_world_pb2</span><span class="o">.</span><span class="n">Request</span><span class="p">())</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">
+</span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="n">invoke</span><span class="p">()</span>
+</span></span></code></pre></div><ul>
+<li>Run the client endpoint to testing<code>SERVER_URL=127.0.0.1:2408 python3 ./client.py</code></li>
+</ul>
+<h3 id="how-to-invoke-the-grpc-service">How to invoke the GRPC service</h3>
 <ul>
 <li><a href="https://github.com/moul/grpcbin-example/blob/master/go/grpcbin-example-go/">grpcbin-example-go</a></li>
+<li><a href="https://github.com/prateek2408/BookExamples/tree/main/gRPC">gRPC sample application</a></li>
+<li><a href="https://grpc.io/docs/languages/python/quickstart/">gRPC quickstart</a></li>
 </ul>
 
     </div>
@@ -223,6 +335,21 @@
     <h2 class="mt-4"></h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.wisekee.com/post/awesome-ai/" class="nav-link" title="Awesome AI&#39;s resoures">Awesome AI&rsquo;s resoures</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/talos-k8s-aws/" class="nav-link" title="Talos launch kubernetes in aws environment getting started ">Talos launch kubernetes in aws environment getting started</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/copa-docker-image-patch/" class="nav-link" title="Use Copa to patch the container images">Use Copa to patch the container images</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/openldap-dex/" class="nav-link" title="Launch the openldap and dex in kubernetes">Launch the openldap and dex in kubernetes</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/vite-react-getting-started/" class="nav-link" title="To use the vite management the react project">To use the vite management the react project</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/go-vscode-debug-config/" class="nav-link" title="How to config debug the go project in vscode">How to config debug the go project in vscode</a>
       </li>
       <li>
@@ -230,21 +357,6 @@
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/vue-custom-components/" class="nav-link" title="Vue custom component getting started">Vue custom component getting started</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/rust-getting-started/" class="nav-link" title="First step to learn Rust programming">First step to learn Rust programming</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/aws-ecr-register-helper/" class="nav-link" title="Dynamic create docker registry pull image credentials in eks cluster for particular  imagePullSecret">Dynamic create docker registry pull image credentials in eks cluster for particular  imagePullSecret</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/aws-jsii-getting-started/" class="nav-link" title="Use AWS jsii to cross language invoker">Use AWS jsii to cross language invoker</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/vue-app-getting-started/" class="nav-link" title="How to create sample frontend in vue use cli and vite">How to create sample frontend in vue use cli and vite</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/golang-web-static-fileserver/" class="nav-link" title="Use golang serve the static file embedded to binary file">Use golang serve the static file embedded to binary file</a>
       </li>
     </ul>
     <div>
@@ -257,12 +369,12 @@
         
         <a href='https://blog.wisekee.com/tags/k8s/' class="post_tag button button_translucent" title="k8s">
           K8S
-          <span class="button_tally">12</span>
+          <span class="button_tally">14</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/aws/' class="post_tag button button_translucent" title="aws">
           AWS
-          <span class="button_tally">10</span>
+          <span class="button_tally">11</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/go/' class="post_tag button button_translucent" title="go">
@@ -272,12 +384,12 @@
         
         <a href='https://blog.wisekee.com/tags/security/' class="post_tag button button_translucent" title="security">
           SECURITY
-          <span class="button_tally">10</span>
+          <span class="button_tally">9</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/cncf/' class="post_tag button button_translucent" title="cncf">
           CNCF
-          <span class="button_tally">9</span>
+          <span class="button_tally">8</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/featured/' class="post_tag button button_translucent" title="featured">
@@ -295,14 +407,14 @@
           <span class="button_tally">7</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/istio/' class="post_tag button button_translucent" title="istio">
-          ISTIO
+        <a href='https://blog.wisekee.com/tags/frontend/' class="post_tag button button_translucent" title="frontend">
+          FRONTEND
           <span class="button_tally">6</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/frontend/' class="post_tag button button_translucent" title="frontend">
-          FRONTEND
-          <span class="button_tally">5</span>
+        <a href='https://blog.wisekee.com/tags/istio/' class="post_tag button button_translucent" title="istio">
+          ISTIO
+          <span class="button_tally">6</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/cloud-native/' class="post_tag button button_translucent" title="cloud-native">
@@ -331,6 +443,14 @@
             
             
             <a href='https://blog.wisekee.com/tags/agent/' class=" post_tag button button_translucent" data-position=1 title="agent">AGENT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/agi/' class=" post_tag button button_translucent" data-position=1 title="agi">AGI<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/ai/' class=" post_tag button button_translucent" data-position=1 title="ai">AI<span class="button_tally">1</span>
             </a>
             
             
@@ -366,7 +486,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/aws/' class=" post_tag button button_translucent" data-position=10 title="aws">AWS<span class="button_tally">10</span>
+            <a href='https://blog.wisekee.com/tags/aws/' class=" post_tag button button_translucent" data-position=11 title="aws">AWS<span class="button_tally">11</span>
             </a>
             
             
@@ -430,7 +550,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=9 title="cncf">CNCF<span class="button_tally">9</span>
+            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=8 title="cncf">CNCF<span class="button_tally">8</span>
             </a>
             
             
@@ -443,6 +563,10 @@
             
             
             <a href='https://blog.wisekee.com/tags/consul/' class=" post_tag button button_translucent" data-position=1 title="consul">CONSUL<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/copa/' class=" post_tag button button_translucent" data-position=1 title="copa">COPA<span class="button_tally">1</span>
             </a>
             
             
@@ -475,6 +599,14 @@
             
             
             <a href='https://blog.wisekee.com/tags/deployment/' class=" post_tag button button_translucent" data-position=1 title="deployment">DEPLOYMENT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/development/' class=" post_tag button button_translucent" data-position=1 title="development">DEVELOPMENT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/dex/' class=" post_tag button button_translucent" data-position=1 title="dex">DEX<span class="button_tally">1</span>
             </a>
             
             
@@ -534,7 +666,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/falco/' class=" post_tag button button_translucent" data-position=2 title="falco">FALCO<span class="button_tally">2</span>
+            <a href='https://blog.wisekee.com/tags/falco/' class=" post_tag button button_translucent" data-position=1 title="falco">FALCO<span class="button_tally">1</span>
             </a>
             
             
@@ -558,7 +690,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/frontend/' class=" post_tag button button_translucent" data-position=5 title="frontend">FRONTEND<span class="button_tally">5</span>
+            <a href='https://blog.wisekee.com/tags/frontend/' class=" post_tag button button_translucent" data-position=6 title="frontend">FRONTEND<span class="button_tally">6</span>
             </a>
             
             
@@ -654,7 +786,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/k8s/' class=" post_tag button button_translucent" data-position=12 title="k8s">K8S<span class="button_tally">12</span>
+            <a href='https://blog.wisekee.com/tags/k8s/' class=" post_tag button button_translucent" data-position=14 title="k8s">K8S<span class="button_tally">14</span>
             </a>
             
             
@@ -682,11 +814,23 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/kvm/' class=" post_tag button button_translucent" data-position=1 title="kvm">KVM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/libvirt/' class=" post_tag button button_translucent" data-position=1 title="libvirt">LIBVIRT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/lima/' class=" post_tag button button_translucent" data-position=1 title="lima">LIMA<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/linux/' class=" post_tag button button_translucent" data-position=1 title="linux">LINUX<span class="button_tally">1</span>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/llm/' class=" post_tag button button_translucent" data-position=1 title="llm">LLM<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/llm/' class=" post_tag button button_translucent" data-position=2 title="llm">LLM<span class="button_tally">2</span>
             </a>
             
             
@@ -766,6 +910,10 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/openldap/' class=" post_tag button button_translucent" data-position=1 title="openldap">OPENLDAP<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/opentelemetry/' class=" post_tag button button_translucent" data-position=1 title="opentelemetry">OPENTELEMETRY<span class="button_tally">1</span>
             </a>
             
@@ -814,7 +962,15 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/qemu/' class=" post_tag button button_translucent" data-position=1 title="qemu">QEMU<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/ratelimit/' class=" post_tag button button_translucent" data-position=1 title="ratelimit">RATELIMIT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/react/' class=" post_tag button button_translucent" data-position=1 title="react">REACT<span class="button_tally">1</span>
             </a>
             
             
@@ -826,7 +982,11 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/rust/' class=" post_tag button button_translucent" data-position=1 title="rust">RUST<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/rust/' class=" post_tag button button_translucent" data-position=2 title="rust">RUST<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/screen/' class=" post_tag button button_translucent" data-position=1 title="screen">SCREEN<span class="button_tally">1</span>
             </a>
             
             
@@ -838,7 +998,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent" data-position=10 title="security">SECURITY<span class="button_tally">10</span>
+            <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent" data-position=9 title="security">SECURITY<span class="button_tally">9</span>
             </a>
             
             
@@ -890,6 +1050,10 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/talos/' class=" post_tag button button_translucent" data-position=1 title="talos">TALOS<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/task/' class=" post_tag button button_translucent" data-position=1 title="task">TASK<span class="button_tally">1</span>
             </a>
             
@@ -899,6 +1063,10 @@
             
             
             <a href='https://blog.wisekee.com/tags/terraform/' class=" post_tag button button_translucent" data-position=8 title="terraform">TERRAFORM<span class="button_tally">8</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/tmux/' class=" post_tag button button_translucent" data-position=1 title="tmux">TMUX<span class="button_tally">1</span>
             </a>
             
             
@@ -930,7 +1098,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/vite/' class=" post_tag button button_translucent" data-position=2 title="vite">VITE<span class="button_tally">2</span>
+            <a href='https://blog.wisekee.com/tags/vite/' class=" post_tag button button_translucent" data-position=3 title="vite">VITE<span class="button_tally">3</span>
             </a>
             
             
@@ -951,6 +1119,14 @@
             
             
             <a href='https://blog.wisekee.com/tags/webpack/' class=" post_tag button button_translucent" data-position=1 title="webpack">WEBPACK<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/websocket/' class=" post_tag button button_translucent" data-position=1 title="websocket">WEBSOCKET<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/xtermjs/' class=" post_tag button button_translucent" data-position=1 title="xtermjs">XTERMJS<span class="button_tally">1</span>
             </a>
             
             <div class="tags_sort"><span title="sort alphabetically">[A~Z]</span><span title="sort by count">[0~9]</span>

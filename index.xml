@@ -6,7 +6,89 @@
     <description>Recent content on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Sat, 09 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 10 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Awesome AI&#39;s resoures</title>
+      <link>https://blog.wisekee.com/post/awesome-ai/</link>
+      <pubDate>Wed, 10 Jul 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/awesome-ai/</guid>
+      <description>
+        
+          
+            Basic knowledges MLflow: A Tool for Managing the Machine Learning Lifecycle Docs and getting started Introduction to Generative AI Machine Learning Ops Tools and Efficiency Discover, download, and run local LLMs Go ahead and axolotl questions A template for Metaflow cards Machine Learning Toolkit for Kubernetes LightGBM is a gradient boosting framework XGBoost is an optimized distributed gradient boosting library Open source framework and models The fastai deep learning library H2O is an Open Source, Distributed, Fast &amp;amp; Scalable Machine Learning Platform TensorFlow Tensors and Dynamic neural networks in Python with strong GPU acceleration machine learning in Python Scalable, Portable and Distributed Gradient Boosting (GBDT, GBRT or GBM) Library A fast, distributed, high performance gradient boosting plotting with Python 
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Talos launch kubernetes in aws environment getting started </title>
+      <link>https://blog.wisekee.com/post/talos-k8s-aws/</link>
+      <pubDate>Sun, 02 Jun 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/talos-k8s-aws/</guid>
+      <description>
+        
+          
+            talos in aws
+the all talos nodes don&amp;rsquo;t enable public ip, can use private subnet and vpc ip cidr
+Operate workflow ​ Installation the talosctl to operator machine talosctl Create aws resources VPC Subnet SecurityGroup NetworkLoadbalancer : listener tcp 443 forward to control plane nodes tcp: 6443 TargetGroup: for control plane port tcp: 6443 Setup the environment variables, the talosctl command generate config file need the Env Variables 1REGION=&amp;#34;us-east-1&amp;#34; 2VPC=&amp;#34;vpc-xxxxxx&amp;#34; 3SUBNET=&amp;#34;subnet-xxxxxx&amp;#34; 4AMI=`curl -sL https://github.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Use Copa to patch the container images</title>
+      <link>https://blog.wisekee.com/post/copa-docker-image-patch/</link>
+      <pubDate>Thu, 23 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/copa-docker-image-patch/</guid>
+      <description>
+        
+          
+            The steps for image patch pull the image use: nerdctl pull xxxxx scan the image vulnerable: TRIVY_DEBUG=true trivy image --timeout 10m --scanners vuln --vuln-type os --ignore-unfixed -f json -o ${JSON_FILE_NAME}.json ${IMAGE} patch the image: copa patch -r ${JSON_FILE_NAME}.json -i $IMAGE -t ${2} --addr unix:///run/user/501/buildkit-default/buildkitd.sock --timeout 20m Use lima to management the buildkit virtual machine installation the lima 1brew install lima 2# launch virtual machine use template, the template can: template://docker, template://k8s 3limactl create --name=default template://buildkit 4# stop the virtual machine 5limactl stop buildkit 6 7# in buildkit virtual machine run the containerd 8nerdctl run -d -p 0.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Launch the openldap and dex in kubernetes</title>
+      <link>https://blog.wisekee.com/post/openldap-dex/</link>
+      <pubDate>Sat, 20 Apr 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/openldap-dex/</guid>
+      <description>
+        
+          
+            Generate the PKI for openldap Caution: the certificate&amp;rsquo;s subject&#39;s domain component (DC) can with openldap DN same to name 1# install the certtool 2apt install gnutls-bin 3# generate the ca.key 4certtool --generate-privkey --outfile ca.key 5# generate the ca certificate 6certtool --generate-self-signed --load-privkey ca.key --outfile ca.crt 7# generate the server endpoint private key 8certtool --generate-privkey --outfile tls.key --rsa 9# server endpoint certificate request 10certtool --generate-request --load-privkey tls.key --outfile request.crt 11# use ca certificate to sign the server endpoint certificate 12certtool --generate-certificate --load-request request.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>To use the vite management the react project</title>
+      <link>https://blog.wisekee.com/post/vite-react-getting-started/</link>
+      <pubDate>Thu, 18 Apr 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/vite-react-getting-started/</guid>
+      <description>
+        
+          
+            Install the bun 1HOMEBREW_NO_AUTO_UPDATE=1 brew install oven-sh/bun/bun Initialization the project use bun 1bun create vite@latest part1 --template react 2cd part1 3bun install 4bun run dev 
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>How to config debug the go project in vscode</title>
       <link>https://blog.wisekee.com/post/go-vscode-debug-config/</link>
@@ -149,7 +231,7 @@ Initialization the project constructure 1pnpm init -y 2pnpm install --developmen
       <description>
         
           
-            Initialization the venv 1mkdir test-venv 2cd test-venv &amp;amp;&amp;amp; python -m venv . 3source ./bin/activate 4pip install ipykernel 5./bin/python -m ipykernel install --user --name=test-venv How to test the python package in local development Initialization the python package construct 1./ 2 ├── __init__.py 3 ├── sub_packages 4 ├── sub_packages 5 ├── __init__.py Initialization the venv in local global 1python -m venv ~/.venv/global 2source ~/.venv/global/bin/activate 3export PYTHONPATH=/Users/test/python_custome_package/test 
+            Installation and use 1pip install jupyterlab 2jupyter lab --app-dir /opt/homebrew/share/jupyter/lab Initialization the venv 1mkdir test-venv 2cd test-venv &amp;amp;&amp;amp; python -m venv . 3source ./bin/activate 4pip install ipykernel 5./bin/python -m ipykernel install --user --name=test-venv How to test the python package in local development Initialization the python package construct 1./ 2 ├── __init__.py 3 ├── sub_packages 4 ├── sub_packages 5 ├── __init__.py Initialization the venv in local global 1python -m venv ~/.venv/global 2source ~/.
           
           
         
@@ -166,7 +248,7 @@ Initialization the project constructure 1pnpm init -y 2pnpm install --developmen
         
           
             Landscape of linux kernel tracing, monitoring,hooking and networking things method, tools.
-libbpf-bbotstrap libbpf libbpf-bootstrap-github bufcli bpf practice blog BTF sysdig ebpf write eBPF program A thorough introduction to eBPF XDP An introduction to KProbes systemtap pdig 
+Install essential compiler and kernel source code 1apt-get install clang 2sudo apt-get -y install libbpf-dev 3apt install linux-headers-`uname -r` 4sudo ln -s /usr/include/x86_64-linux-gnu/asm /usr/include/asm 5# download kernel source code corresponding kernel version 6git clone --branch $(uname -r | awk -F- &amp;#39;{print $1}&amp;#39; | awk -F. &amp;#39;{print &amp;#34;v&amp;#34; $1 &amp;#34;.&amp;#34; $2}&amp;#39;) --single-branch https://github.com/torvalds/linux.git The sample bpf code 1#include &amp;lt;linux/bpf.h&amp;gt; 2#define SEC(NAME) __attribute__((section(NAME), used)) 3 4static int (*bpf_trace_printk)(const char *fmt, int fmt_size, 5 .
           
           
         
@@ -218,6 +300,22 @@ Create the JWT token 1package util 2 3import &amp;#34;github.com/golang-jwt/jwt/
           
             The daigram 1 2mock-restapi.example.dev(route53) -----&amp;gt; apigateway -----&amp;gt; vpclink -------&amp;gt; private aws nlb (eks ingress) ---&amp;gt; app servcie Use Terraform to create apigateway restapi resource to apply the resources and mapping the apigateway domain name to route53 to access the eks services
 create the route53 and domain name and vpc link to access eks services 1resource &amp;#34;aws_api_gateway_vpc_link&amp;#34; &amp;#34;to-private-nlb&amp;#34; { 2 name = &amp;#34;to-private-nlb&amp;#34; 3 description = &amp;#34;rest api to private nlb&amp;#34; 4 target_arns = [&amp;#34;arn:aws:elasticloadbalancing:xxxxx:xxxxx:loadbalancer/net/xxxxxx/xxxxxx&amp;#34;] 5} 6 7data &amp;#34;aws_route53_zone&amp;#34; &amp;#34;example_dev&amp;#34; { 8 name = &amp;#34;example.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>How to connect the pod terminal use web browser</title>
+      <link>https://blog.wisekee.com/post/remote-termination-websocket/</link>
+      <pubDate>Mon, 02 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/remote-termination-websocket/</guid>
+      <description>
+        
+          
+            Reference Building a Browser-based Terminal using Docker and XtermJS Docker attach api Kubernetes dashboard terminal Use a WebSocket client to exec commands in a Kubernetes pod 
           
           
         
@@ -384,7 +482,11 @@ Create the CR to eks cluster Control the access to Istio ingress gateway through
         
           
             There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
-https://github.com/volcano-sh/volcano(About A Cloud Native Batch System (Project under CNCF)) https://github.com/apache/yunikorn-core( light-weight, universal resource scheduler for container orchestrator systems) https://github.com/apache/airflow/(A platform to programmatically author, schedule, and monitor workflows) https://github.com/sql-machine-learning/sqlflow(Brings SQL and AI together.) https://github.com/open-metadata/OpenMetadata(About Open Standard for Metadata. A Single place to Discover, Collaborate and Get your data right) https://github.
+Dataflow next gen data engineering tools A modular implementation of timely dataflow in Rust
+Apache DataFusion SQL Query Engine
+Apache Arrow is a multi-language toolbox for accelerated data interchange and in-memory processing
+Distributed stream processing engine in Rust
+https://github.com/volcano-sh/volcano(About A Cloud Native Batch System (Project under CNCF))
           
           
         
@@ -434,7 +536,7 @@ Write the init script with systemv style cat /etc/init.d/demo-service
       <description>
         
           
-            How to invoke the GRPC service grpcbin-example-go 
+            Create the structure 1mkdir myapp 2cd myapp &amp;amp;&amp;amp; go mod init myapp 3go mod tidy The steps Create the proto file descript the message 1syntax = &amp;#34;proto3&amp;#34;; 2package proto; 3 4option go_package = &amp;#34;./proto&amp;#34;; 5 6//A sample service which contains all our rpc. 7service MyService{ 8 //The definition of rpc. 9 rpc MyFunc(Request) returns (StringMessage) {} 10} 11 12//Empty Request. 13message Request { 14} 15 16//The message to Return when rpc is invoked.
           
           
         
@@ -619,7 +721,8 @@ Pull helm chats to local 1# add istio helm chat repo url 2helm repo add istio ht
       <description>
         
           
-            Abstractor Application Binary Interface (ABI) How to check the binary format inform 1# you can view the program format and linked information 2file xxxxx 3# view the detail elf 4readelf -a xxxxx 5# to detect the dynamic libraries be used 6ldd xxxxx 7# view the header details 8hexdump -C -n 64 xxxxx Some command to view headers dumpelf elfls -p /bin/ps eu-readelf –section-headers /bin/ps readelf -S /bin/ps objdump -h /bin/ps Posts series about knowledge ELF Format and Runtime Internals
+            Reverse engineering can be used for different goals, such as finding malware, discovering vulnerabilities, fixing software bugs, testing compatibility, and protecting intellectual property.
+Abstractor Application Binary Interface (ABI) Reverse tools Ghidra: free and open-source software reverse engineering suite made by the NSA and released to the public in 2019 github IDA Pro: commercial interactive disassembler and debugger made by Hex-Rays and widely used by security experts and professionals. How to check the binary format inform 1# you can view the program format and linked information 2file xxxxx 3# view the detail elf 4readelf -a xxxxx 5# to detect the dynamic libraries be used 6ldd xxxxx 7# view the header details 8hexdump -C -n 64 xxxxx Some command to view headers dumpelf elfls -p /bin/ps eu-readelf –section-headers /bin/ps readelf -S /bin/ps objdump -h /bin/ps Posts series about knowledge ELF Format and Runtime Internals
           
           
         
@@ -652,7 +755,7 @@ Pull helm chats to local 1# add istio helm chat repo url 2helm repo add istio ht
       <description>
         
           
-            Login in kubernetes node use ssh Find out the container 1#find process id in specific container 2docker top `docker ps|grep &amp;#34;istio-proxy_productpage&amp;#34;|cut -d &amp;#34; &amp;#34; -f1` 3# find the pid and use nsenter to container network namespace 4nsenter -n --target PID 5# View the details of the rule configuration in the NAT table. 6iptables -t nat -L -v 
+            View all listener 1lsof -i Login in kubernetes node use ssh Find out the container 1#find process id in specific container 2docker top `docker ps|grep &amp;#34;istio-proxy_productpage&amp;#34;|cut -d &amp;#34; &amp;#34; -f1` 3# find the pid and use nsenter to container network namespace 4nsenter -n --target PID 5# View the details of the rule configuration in the NAT table. 6iptables -t nat -L -v Debug the container use nicolaka/netshoot A Docker + Kubernetes network trouble-shooting swiss-army container netshoot 1docker run -it --net container:&amp;lt;container_name&amp;gt; nicolaka/netshoot 
           
           
         
@@ -668,7 +771,7 @@ Pull helm chats to local 1# add istio helm chat repo url 2helm repo add istio ht
       <description>
         
           
-            relative the docs about debian repo debian releases support versions for stretch old debian 1# pls reference: https://www.debian.org/security/ 2sed -i -e &amp;#34;2 {s/^/#/}&amp;#34; -e &amp;#34;4 {s/^/#/}&amp;#34; -e &amp;#34;6 {s/^/#/}&amp;#34; /etc/apt/sources.list 3echo &amp;#34;deb http://security.debian.org/debian-security bullseye-security main contrib non-free&amp;#34; &amp;gt;&amp;gt; /etc/apt/sources.list 4apt-get update &amp;amp;&amp;amp; apt-get upgrade 
+            How to upgrade the some packages 1dpkg -L libssh2-1 # view the package use which files 2dpkg -s libssh2-1 # view the package infos 3# install the checkinstall 4echo &amp;#34;deb http://ftp.de.debian.org/debian bullseye main&amp;#34; &amp;gt;&amp;gt; /etc/apt/sources.list 5apt update 6apt install checkinstall 7tar -zxvf source-app.tar.gz 8cd source 9./configure 10make 11checkinstall --install=no Upgrade the single package in debian 1apt-cache madison systemd 2apt-get install libglib2.0-0=2.66.8-1+deb11u3 relative the docs about debian repo debian releases support versions for stretch old debian 1# pls reference: https://www.
           
           
         
@@ -817,7 +920,7 @@ nmap -sV -sC X.X.X.X
       <description>
         
           
-            Basic settings Add Global credentials the Secret is kubernetes login token Add new cloud configure in Manage Jenkins &amp;ndash;&amp;gt; Clouds Config the Kubernetes Clouds websocket connection, use internal jenkins URL, specific the Pod Labels, Pod Retention: On Failure, Max connections, Seconds to wait for pod Add Pod template settings Specific Namespace, Usage: Only build jobs with label expressions matching this node Container Template: jnlp: jenkins/inbound-agent:latest, Working directory: /home/jenkins/agent Command to run: /usr/local/bin/jenkins-agent You can specific Volumes to mount cache etc.
+            Supplement When you upgrade the jenkins.war in docker container, commit to another tag the Entrypoint and CMD is lost So can commit specific the Entrypoint and CMD 1docker commit --change=&amp;#39;ENTRYPOINT [/usr/bin/tini&amp;#34;, &amp;#34;--&amp;#34;, &amp;#34;/usr/local/bin/jenkins.sh&amp;#34;]&amp;#39; --change=&amp;#39;CMD [/usr/local/bin/jenkins.sh&amp;#34;]&amp;#39; &amp;lt;container_id&amp;gt; new_image_name Basic settings Add Global credentials the Secret is kubernetes login token Add new cloud configure in Manage Jenkins &amp;ndash;&amp;gt; Clouds Config the Kubernetes Clouds websocket connection, use internal jenkins URL, specific the Pod Labels, Pod Retention: On Failure, Max connections, Seconds to wait for pod Add Pod template settings Specific Namespace, Usage: Only build jobs with label expressions matching this node Container Template: jnlp: jenkins/inbound-agent:latest, Working directory: /home/jenkins/agent Command to run: /usr/local/bin/jenkins-agent You can specific Volumes to mount cache etc.
           
           
         
@@ -851,23 +954,6 @@ nmap -sV -sC X.X.X.X
           
             Sometimes we have access internal service or server in local network,needs through external bastion server bridge to.
 1# The traffic forward to internal environment through bastion iptables rule diagram 2 3# local or office ------&amp;gt; bastion machine ----------&amp;gt; internal server 4# local access bastion-public-ip:8888 -----&amp;gt; bastion iptables rules ----&amp;gt; internal server:80 5 6# display iptalbes nat rules 7iptables -t nat -L 8 9# add prepostrouting rule to chain 10iptables -t nat -A PREROUTING -p tcp -m tcp --dport 8899 -j DNAT --to-destination 192.
-          
-          
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>Falco reverse shell detecting</title>
-      <link>https://blog.wisekee.com/post/falco-reverse-shell-rules/</link>
-      <pubDate>Fri, 20 May 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.wisekee.com/post/falco-reverse-shell-rules/</guid>
-      <description>
-        
-          
-            Padding 1# to install driver now 2falcoctl driver install 3# load the driver 4falcoctl driver config --type ebpf Use install tools this will one site to launch falco
-1curl -o install_falco -s https://falco.org/script/install 2# It should be 59201c1339cc53e86edcd7d2e7273e52f784b3cf7d4a3142059112b3b9062f6d. 3sha256sum install_falco 4sudo bash install_falco Manully install Falco program You can also directly check in Github: falco-rules 1wget https://download.falco.org/packages/bin/x86_64/falco-0.34.1-x86_64.tar.gz 2tar -xzvf falco-0.34.1-x86_64.tar.gz 3apt update -y 4apt install -y dkms make linux-headers-$(uname -r) 5# If you use the falco-driver-loader to build the BPF probe locally you need also clang toolchain 6apt install -y clang llvm 7# can reference the falco site: https://falco.
           
           
         
@@ -1529,6 +1615,22 @@ Configuration file param.json 1{ 2 &amp;#34;dev&amp;#34;: { 3 &amp;#34;public_co
     </item>
     
     <item>
+      <title>Tmux common commands</title>
+      <link>https://blog.wisekee.com/post/tmux-getting-started/</link>
+      <pubDate>Sat, 02 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/tmux-getting-started/</guid>
+      <description>
+        
+          
+            tmux kill-session # kill all sessions tmux ls # list all sessions To enable Iterm2 to access the clipboard General -&amp;gt; Selection -&amp;gt; Applications in terminal may access clipboard The common commands 11. Create a new session: tmux new-session or tmux new -s &amp;lt;session-name&amp;gt; 22. Detach from a session: Ctrl + b followed by d 33. Attach to a session: tmux attach-session or tmux attach -t &amp;lt;session-name&amp;gt; 44. Switch between sessions: Ctrl + b followed by ( 55.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
       <title>Filebeat and Logstash config</title>
       <link>https://blog.wisekee.com/post/logstash_configure/</link>
       <pubDate>Fri, 10 Aug 2018 00:00:00 +0000</pubDate>
@@ -1596,6 +1698,23 @@ One to storage Hugo sourcecode and markdown files And other one use release fina
     </item>
     
     <item>
+      <title>Getting started rust development</title>
+      <link>https://blog.wisekee.com/post/gettting-started-rust/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/gettting-started-rust/</guid>
+      <description>
+        
+          
+            The sample is: rustup doc in local
+Environment setup 1# update the rust binary 2rustup update 3# uninstall the rust and rustup self 4rustup self uninstall 5 6rustc -V 7cargo -V Basic commands 1rustc --version 2cargo --version 3 4# crate the cargo project 5cargo new exercise 6cd exercise 7cargo run 8 9# to fast check 10cargo check 11# build 12cargo build --release 13# to debug 14cargo run 15# to debug build 16cargo build 17# to fromat the code 18rustfmt .
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
       <title>Kubernetes maintenance mode in nodes</title>
       <link>https://blog.wisekee.com/post/k8s-taint-evict-cordon/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -1612,6 +1731,23 @@ One to storage Hugo sourcecode and markdown files And other one use release fina
     </item>
     
     <item>
+      <title>KVM getting started</title>
+      <link>https://blog.wisekee.com/post/kvm-getting-started/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/kvm-getting-started/</guid>
+      <description>
+        
+          
+            Can use the prompt in ChatAI how to launch ubuntu linux x86_64 in mac os apple silicon use : qemu-system-x86_64
+QEMU in macos Basic QEMU 1 2# create the virtual disk image 3qemu-img create -f qcow2 ubuntu-x86.qcow2 20G 4 5# install the ubuntu os to virtual disk 6qemu-system-x86_64 \ 7-m 4G \ 8-smp 4 \ 9-machine q35,accel=tcg\ 10-cpu Broadwell \ 11-drive file=ubuntu-x86.qcow2,format=qcow2 \ 12-cdrom path/to/ubuntu-iso.iso \ 13-boot d \ 14-vga virtio \ 15-display default,show-cursor=on 16 17# launch the ubuntu linux from virtual disk 18qemu-system-x86_64 \ 19-m 4G \ 20-smp 4 \ 21-machine q35,accel=tcg \ 22-cpu Broadwell \ 23-drive file=ubuntu-x86.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
       <title>Sonarqube recovery from failed</title>
       <link>https://blog.wisekee.com/post/sonarquebe-recovery/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -1620,7 +1756,8 @@ One to storage Hugo sourcecode and markdown files And other one use release fina
       <description>
         
           
-            Adjust the resources request and limit 1resources: 2 limits: 3 cpu: &amp;#39;1&amp;#39; 4 memory: 8Gi 5 requests: 6 cpu: 400m 7 memory: 4Gi Change the securityContext to debug the pod and install some tools to check 1securityContext: 2 runAsUser: 0 3 runAsGroup: 0 Mount the sonar.properties to specific the java launch parameters the mount and volumes 1volumes: 2 - name: sonarqube-config 3 configMap: 4 name: sonarqube-sonarqube-config 5 defaultMode: 420 6volumeMounts: 7- name: sonarqube-config 8 mountPath: /opt/sonarqube/conf the configmap 1apiVersion: v1 2kind: ConfigMap 3metadata: 4 name: sonarqube-sonarqube-config 5 namespace: sonarqube 6data: 7 sonar.
+            The volumen prefere to EBS can speed up the scanning.
+Adjust the resources request and limit 1resources: 2 limits: 3 cpu: &amp;#39;1&amp;#39; 4 memory: 8Gi 5 requests: 6 cpu: 400m 7 memory: 4Gi Change the securityContext to debug the pod and install some tools to check 1securityContext: 2 runAsUser: 0 3 runAsGroup: 0 Mount the sonar.properties to specific the java launch parameters the mount and volumes 1volumes: 2 - name: sonarqube-config 3 configMap: 4 name: sonarqube-sonarqube-config 5 defaultMode: 420 6volumeMounts: 7- name: sonarqube-config 8 mountPath: /opt/sonarqube/conf the configmap 1apiVersion: v1 2kind: ConfigMap 3metadata: 4 name: sonarqube-sonarqube-config 5 namespace: sonarqube 6data: 7 sonar.
           
           
         

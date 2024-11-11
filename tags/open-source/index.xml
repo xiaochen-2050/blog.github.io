@@ -33,7 +33,11 @@
         
           
             There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
-https://github.com/volcano-sh/volcano(About A Cloud Native Batch System (Project under CNCF)) https://github.com/apache/yunikorn-core( light-weight, universal resource scheduler for container orchestrator systems) https://github.com/apache/airflow/(A platform to programmatically author, schedule, and monitor workflows) https://github.com/sql-machine-learning/sqlflow(Brings SQL and AI together.) https://github.com/open-metadata/OpenMetadata(About Open Standard for Metadata. A Single place to Discover, Collaborate and Get your data right) https://github.
+Dataflow next gen data engineering tools A modular implementation of timely dataflow in Rust
+Apache DataFusion SQL Query Engine
+Apache Arrow is a multi-language toolbox for accelerated data interchange and in-memory processing
+Distributed stream processing engine in Rust
+https://github.com/volcano-sh/volcano(About A Cloud Native Batch System (Project under CNCF))
           
           
         

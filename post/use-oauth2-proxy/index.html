@@ -290,11 +290,30 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
 </span></span></span><span class="line"><span class="ln">52</span><span class="cl"><span class="w">  </span><span class="nt">skip-provider-button</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">       </span><span class="c"># We only have one provider configured (Keycloak)</span><span class="w">
 </span></span></span><span class="line"><span class="ln">53</span><span class="cl"><span class="w">  </span><span class="nt">silence-ping-logging</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">       </span><span class="c"># Keeps our logs clean</span><span class="w">
 </span></span></span><span class="line"><span class="ln">54</span><span class="cl"><span class="w">  </span><span class="nt">whitelist-domain</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;.example.com&#34;</span><span class="w"> </span><span class="c"># Replace with your base domain</span><span class="w">
-</span></span></span></code></pre></div><h3 id="reference-resources">Reference resources</h3>
+</span></span></span></code></pre></div><h3 id="integration-the-nginx-ingress-to-authentication">Integration the nginx ingress to authentication</h3>
+<ul>
+<li>Add the annanotations to ingress resources</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">1</span><span class="cl"><span class="nt">nginx.ingress.kubernetes.io/auth-response-headers</span><span class="p">:</span><span class="w"> </span><span class="l">Authorization</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="nt">nginx.ingress.kubernetes.io/auth-signin</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://oauth2.int.testing.com/oauth2/start?rd=https://$host$request_uri&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w"></span><span class="nt">nginx.ingress.kubernetes.io/auth-url</span><span class="p">:</span><span class="w"> </span><span class="l">https://oauth2.int.testing.com/oauth2/auth</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w"></span><span class="nt">nginx.ingress.kubernetes.io/configuration-snippet</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="sd">  </span><span class="w">  </span><span class="l">proxy_set_header X-Auth-Request-Redirect $request_uri;</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>The oauth2-proxy config look like following this</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># strip the upstreams, the oauth2-proxy don&#39;t proxy any upstreams, can as authentication backend only, through pass the `rd` parameters to redirect</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"># when authorization is completed</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"># upstreams=[&#34;http://app.namespace:8080/&#34;] </span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="nv">whitelist_domains</span><span class="o">=[</span><span class="s2">&#34;.sufix.text.com&#34;</span><span class="o">]</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="nv">cookie_domains</span><span class="o">=[</span><span class="s2">&#34;.sufix.text.com&#34;</span><span class="o">]</span>
+</span></span></code></pre></div><h3 id="reference-resources">Reference resources</h3>
 <ul>
 <li>(Oauth2-proxy config example)[https://github.com/oauth2-proxy/oauth2-proxy/blob/6cc7da8993cf81dc0aae475edfd1632fd74d7818/contrib/oauth2-proxy.cfg.example]</li>
 <li>(Official docs)[https://oauth2-proxy.github.io/oauth2-proxy/docs/]</li>
 <li>(integration the DEX identity)[https://github.com/dexidp/dex]</li>
+<li>(Single proxy multiple sub domain to authentication)[https://www.digitalocean.com/community/tutorials/how-to-protect-private-kubernetes-services-behind-a-github-login-with-oauth2_proxy]</li>
+<li>(OAuth from First Principles)[https://stack-auth.com/blog/oauth-from-first-principles]</li>
 </ul>
 
     </div>
@@ -336,6 +355,21 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
     <h2 class="mt-4"></h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.wisekee.com/post/awesome-ai/" class="nav-link" title="Awesome AI&#39;s resoures">Awesome AI&rsquo;s resoures</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/talos-k8s-aws/" class="nav-link" title="Talos launch kubernetes in aws environment getting started ">Talos launch kubernetes in aws environment getting started</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/copa-docker-image-patch/" class="nav-link" title="Use Copa to patch the container images">Use Copa to patch the container images</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/openldap-dex/" class="nav-link" title="Launch the openldap and dex in kubernetes">Launch the openldap and dex in kubernetes</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/vite-react-getting-started/" class="nav-link" title="To use the vite management the react project">To use the vite management the react project</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/go-vscode-debug-config/" class="nav-link" title="How to config debug the go project in vscode">How to config debug the go project in vscode</a>
       </li>
       <li>
@@ -343,21 +377,6 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/vue-custom-components/" class="nav-link" title="Vue custom component getting started">Vue custom component getting started</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/rust-getting-started/" class="nav-link" title="First step to learn Rust programming">First step to learn Rust programming</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/aws-ecr-register-helper/" class="nav-link" title="Dynamic create docker registry pull image credentials in eks cluster for particular  imagePullSecret">Dynamic create docker registry pull image credentials in eks cluster for particular  imagePullSecret</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/aws-jsii-getting-started/" class="nav-link" title="Use AWS jsii to cross language invoker">Use AWS jsii to cross language invoker</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/vue-app-getting-started/" class="nav-link" title="How to create sample frontend in vue use cli and vite">How to create sample frontend in vue use cli and vite</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/golang-web-static-fileserver/" class="nav-link" title="Use golang serve the static file embedded to binary file">Use golang serve the static file embedded to binary file</a>
       </li>
     </ul>
     <div>
@@ -370,12 +389,12 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
         
         <a href='https://blog.wisekee.com/tags/k8s/' class="post_tag button button_translucent" title="k8s">
           K8S
-          <span class="button_tally">12</span>
+          <span class="button_tally">14</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/aws/' class="post_tag button button_translucent" title="aws">
           AWS
-          <span class="button_tally">10</span>
+          <span class="button_tally">11</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/go/' class="post_tag button button_translucent" title="go">
@@ -385,12 +404,12 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
         
         <a href='https://blog.wisekee.com/tags/security/' class="post_tag button button_translucent" title="security">
           SECURITY
-          <span class="button_tally">10</span>
+          <span class="button_tally">9</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/cncf/' class="post_tag button button_translucent" title="cncf">
           CNCF
-          <span class="button_tally">9</span>
+          <span class="button_tally">8</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/featured/' class="post_tag button button_translucent" title="featured">
@@ -408,14 +427,14 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
           <span class="button_tally">7</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/istio/' class="post_tag button button_translucent" title="istio">
-          ISTIO
+        <a href='https://blog.wisekee.com/tags/frontend/' class="post_tag button button_translucent" title="frontend">
+          FRONTEND
           <span class="button_tally">6</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/frontend/' class="post_tag button button_translucent" title="frontend">
-          FRONTEND
-          <span class="button_tally">5</span>
+        <a href='https://blog.wisekee.com/tags/istio/' class="post_tag button button_translucent" title="istio">
+          ISTIO
+          <span class="button_tally">6</span>
         </a>
         
         <a href='https://blog.wisekee.com/tags/cloud-native/' class="post_tag button button_translucent" title="cloud-native">
@@ -444,6 +463,14 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
             
             
             <a href='https://blog.wisekee.com/tags/agent/' class=" post_tag button button_translucent" data-position=1 title="agent">AGENT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/agi/' class=" post_tag button button_translucent" data-position=1 title="agi">AGI<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/ai/' class=" post_tag button button_translucent" data-position=1 title="ai">AI<span class="button_tally">1</span>
             </a>
             
             
@@ -479,7 +506,7 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/aws/' class=" post_tag button button_translucent" data-position=10 title="aws">AWS<span class="button_tally">10</span>
+            <a href='https://blog.wisekee.com/tags/aws/' class=" post_tag button button_translucent" data-position=11 title="aws">AWS<span class="button_tally">11</span>
             </a>
             
             
@@ -543,7 +570,7 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=9 title="cncf">CNCF<span class="button_tally">9</span>
+            <a href='https://blog.wisekee.com/tags/cncf/' class=" post_tag button button_translucent" data-position=8 title="cncf">CNCF<span class="button_tally">8</span>
             </a>
             
             
@@ -556,6 +583,10 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
             
             
             <a href='https://blog.wisekee.com/tags/consul/' class=" post_tag button button_translucent" data-position=1 title="consul">CONSUL<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/copa/' class=" post_tag button button_translucent" data-position=1 title="copa">COPA<span class="button_tally">1</span>
             </a>
             
             
@@ -588,6 +619,14 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
             
             
             <a href='https://blog.wisekee.com/tags/deployment/' class=" post_tag button button_translucent" data-position=1 title="deployment">DEPLOYMENT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/development/' class=" post_tag button button_translucent" data-position=1 title="development">DEVELOPMENT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/dex/' class=" post_tag button button_translucent" data-position=1 title="dex">DEX<span class="button_tally">1</span>
             </a>
             
             
@@ -647,7 +686,7 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/falco/' class=" post_tag button button_translucent" data-position=2 title="falco">FALCO<span class="button_tally">2</span>
+            <a href='https://blog.wisekee.com/tags/falco/' class=" post_tag button button_translucent" data-position=1 title="falco">FALCO<span class="button_tally">1</span>
             </a>
             
             
@@ -671,7 +710,7 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/frontend/' class=" post_tag button button_translucent" data-position=5 title="frontend">FRONTEND<span class="button_tally">5</span>
+            <a href='https://blog.wisekee.com/tags/frontend/' class=" post_tag button button_translucent" data-position=6 title="frontend">FRONTEND<span class="button_tally">6</span>
             </a>
             
             
@@ -767,7 +806,7 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/k8s/' class=" post_tag button button_translucent" data-position=12 title="k8s">K8S<span class="button_tally">12</span>
+            <a href='https://blog.wisekee.com/tags/k8s/' class=" post_tag button button_translucent" data-position=14 title="k8s">K8S<span class="button_tally">14</span>
             </a>
             
             
@@ -795,11 +834,23 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/kvm/' class=" post_tag button button_translucent" data-position=1 title="kvm">KVM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/libvirt/' class=" post_tag button button_translucent" data-position=1 title="libvirt">LIBVIRT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/lima/' class=" post_tag button button_translucent" data-position=1 title="lima">LIMA<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/linux/' class=" post_tag button button_translucent" data-position=1 title="linux">LINUX<span class="button_tally">1</span>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/llm/' class=" post_tag button button_translucent" data-position=1 title="llm">LLM<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/llm/' class=" post_tag button button_translucent" data-position=2 title="llm">LLM<span class="button_tally">2</span>
             </a>
             
             
@@ -879,6 +930,10 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/openldap/' class=" post_tag button button_translucent" data-position=1 title="openldap">OPENLDAP<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/opentelemetry/' class=" post_tag button button_translucent" data-position=1 title="opentelemetry">OPENTELEMETRY<span class="button_tally">1</span>
             </a>
             
@@ -927,7 +982,15 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/qemu/' class=" post_tag button button_translucent" data-position=1 title="qemu">QEMU<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/ratelimit/' class=" post_tag button button_translucent" data-position=1 title="ratelimit">RATELIMIT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/react/' class=" post_tag button button_translucent" data-position=1 title="react">REACT<span class="button_tally">1</span>
             </a>
             
             
@@ -939,7 +1002,11 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/rust/' class=" post_tag button button_translucent" data-position=1 title="rust">RUST<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/rust/' class=" post_tag button button_translucent" data-position=2 title="rust">RUST<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/screen/' class=" post_tag button button_translucent" data-position=1 title="screen">SCREEN<span class="button_tally">1</span>
             </a>
             
             
@@ -951,7 +1018,7 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent" data-position=10 title="security">SECURITY<span class="button_tally">10</span>
+            <a href='https://blog.wisekee.com/tags/security/' class=" post_tag button button_translucent" data-position=9 title="security">SECURITY<span class="button_tally">9</span>
             </a>
             
             
@@ -1003,6 +1070,10 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/talos/' class=" post_tag button button_translucent" data-position=1 title="talos">TALOS<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/task/' class=" post_tag button button_translucent" data-position=1 title="task">TASK<span class="button_tally">1</span>
             </a>
             
@@ -1012,6 +1083,10 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
             
             
             <a href='https://blog.wisekee.com/tags/terraform/' class=" post_tag button button_translucent" data-position=8 title="terraform">TERRAFORM<span class="button_tally">8</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/tmux/' class=" post_tag button button_translucent" data-position=1 title="tmux">TMUX<span class="button_tally">1</span>
             </a>
             
             
@@ -1043,7 +1118,7 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/vite/' class=" post_tag button button_translucent" data-position=2 title="vite">VITE<span class="button_tally">2</span>
+            <a href='https://blog.wisekee.com/tags/vite/' class=" post_tag button button_translucent" data-position=3 title="vite">VITE<span class="button_tally">3</span>
             </a>
             
             
@@ -1064,6 +1139,14 @@ for example: gitlab, github, Open ID, OpenLDAP and so on</p>
             
             
             <a href='https://blog.wisekee.com/tags/webpack/' class=" post_tag button button_translucent" data-position=1 title="webpack">WEBPACK<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/websocket/' class=" post_tag button button_translucent" data-position=1 title="websocket">WEBSOCKET<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/xtermjs/' class=" post_tag button button_translucent" data-position=1 title="xtermjs">XTERMJS<span class="button_tally">1</span>
             </a>
             
             <div class="tags_sort"><span title="sort alphabetically">[A~Z]</span><span title="sort by count">[0~9]</span>

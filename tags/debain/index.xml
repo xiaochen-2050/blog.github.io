@@ -16,7 +16,7 @@
       <description>
         
           
-            relative the docs about debian repo debian releases support versions for stretch old debian 1# pls reference: https://www.debian.org/security/ 2sed -i -e &amp;#34;2 {s/^/#/}&amp;#34; -e &amp;#34;4 {s/^/#/}&amp;#34; -e &amp;#34;6 {s/^/#/}&amp;#34; /etc/apt/sources.list 3echo &amp;#34;deb http://security.debian.org/debian-security bullseye-security main contrib non-free&amp;#34; &amp;gt;&amp;gt; /etc/apt/sources.list 4apt-get update &amp;amp;&amp;amp; apt-get upgrade 
+            How to upgrade the some packages 1dpkg -L libssh2-1 # view the package use which files 2dpkg -s libssh2-1 # view the package infos 3# install the checkinstall 4echo &amp;#34;deb http://ftp.de.debian.org/debian bullseye main&amp;#34; &amp;gt;&amp;gt; /etc/apt/sources.list 5apt update 6apt install checkinstall 7tar -zxvf source-app.tar.gz 8cd source 9./configure 10make 11checkinstall --install=no Upgrade the single package in debian 1apt-cache madison systemd 2apt-get install libglib2.0-0=2.66.8-1+deb11u3 relative the docs about debian repo debian releases support versions for stretch old debian 1# pls reference: https://www.
           
           
         

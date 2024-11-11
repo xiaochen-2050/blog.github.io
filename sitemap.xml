@@ -3,7 +3,67 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.wisekee.com/</loc>
-    <lastmod>2024-03-09T00:00:00+00:00</lastmod>
+    <lastmod>2024-07-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/agi/</loc>
+    <lastmod>2024-07-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/ai/</loc>
+    <lastmod>2024-07-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/awesome-ai/</loc>
+    <lastmod>2024-07-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/llm/</loc>
+    <lastmod>2024-07-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/</loc>
+    <lastmod>2024-07-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/</loc>
+    <lastmod>2024-07-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/aws/</loc>
+    <lastmod>2024-06-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/k8s/</loc>
+    <lastmod>2024-06-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/talos/</loc>
+    <lastmod>2024-06-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/talos-k8s-aws/</loc>
+    <lastmod>2024-06-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/copa/</loc>
+    <lastmod>2024-05-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/lima/</loc>
+    <lastmod>2024-05-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/copa-docker-image-patch/</loc>
+    <lastmod>2024-05-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/dex/</loc>
+    <lastmod>2024-04-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/openldap-dex/</loc>
+    <lastmod>2024-04-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/openldap/</loc>
+    <lastmod>2024-04-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/frontend/</loc>
+    <lastmod>2024-04-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/react/</loc>
+    <lastmod>2024-04-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/vite-react-getting-started/</loc>
+    <lastmod>2024-04-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/vite/</loc>
+    <lastmod>2024-04-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/debug/</loc>
     <lastmod>2024-03-09T00:00:00+00:00</lastmod>
@@ -12,12 +72,6 @@
     <lastmod>2024-03-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/post/go-vscode-debug-config/</loc>
-    <lastmod>2024-03-09T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/post/</loc>
-    <lastmod>2024-03-09T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/</loc>
     <lastmod>2024-03-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/vscode/</loc>
@@ -41,12 +95,6 @@
     <loc>https://blog.wisekee.com/post/bigdata-trino-hive-minio-getting-started/</loc>
     <lastmod>2024-02-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wisekee.com/tags/frontend/</loc>
-    <lastmod>2023-12-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/vite/</loc>
-    <lastmod>2023-12-10T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.wisekee.com/tags/vue/</loc>
     <lastmod>2023-12-10T00:00:00+00:00</lastmod>
   </url><url>
@@ -61,9 +109,6 @@
   </url><url>
     <loc>https://blog.wisekee.com/tags/rust/</loc>
     <lastmod>2023-12-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/aws/</loc>
-    <lastmod>2023-11-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/cdk/</loc>
     <lastmod>2023-11-20T00:00:00+00:00</lastmod>
@@ -139,6 +184,15 @@
   </url><url>
     <loc>https://blog.wisekee.com/post/aws-apigateway-practice/</loc>
     <lastmod>2023-10-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/remote-termination-websocket/</loc>
+    <lastmod>2023-10-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/websocket/</loc>
+    <lastmod>2023-10-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/xtermjs/</loc>
+    <lastmod>2023-10-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/cloud-init/</loc>
     <lastmod>2023-09-20T00:00:00+00:00</lastmod>
@@ -428,17 +482,11 @@
     <loc>https://blog.wisekee.com/tags/iptables/</loc>
     <lastmod>2022-07-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wisekee.com/post/falco-reverse-shell-rules/</loc>
-    <lastmod>2022-05-20T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.wisekee.com/tags/checklist/</loc>
     <lastmod>2022-04-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/post/kubernetes-security-checklist/</loc>
     <lastmod>2022-04-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/k8s/</loc>
-    <lastmod>2022-03-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/post/k8s-app-runtime-sparate/</loc>
     <lastmod>2022-03-10T00:00:00+00:00</lastmod>
@@ -704,6 +752,15 @@
     <loc>https://blog.wisekee.com/tags/bastion/</loc>
     <lastmod>2019-05-05T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://blog.wisekee.com/tags/screen/</loc>
+    <lastmod>2019-03-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/tmux/</loc>
+    <lastmod>2019-03-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/tmux-getting-started/</loc>
+    <lastmod>2019-03-02T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://blog.wisekee.com/about/</loc>
     <lastmod>2019-02-28T00:00:00+00:00</lastmod>
   </url><url>
@@ -741,11 +798,15 @@
   </url><url>
     <loc>https://blog.wisekee.com/tags/css/</loc>
   </url><url>
+    <loc>https://blog.wisekee.com/tags/development/</loc>
+  </url><url>
     <loc>https://blog.wisekee.com/tags/es/</loc>
   </url><url>
     <loc>https://blog.wisekee.com/tags/evict/</loc>
   </url><url>
     <loc>https://blog.wisekee.com/post/llm-getting-started/</loc>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/gettting-started-rust/</loc>
   </url><url>
     <loc>https://blog.wisekee.com/tags/gpt/</loc>
   </url><url>
@@ -753,9 +814,15 @@
   </url><url>
     <loc>https://blog.wisekee.com/post/k8s-taint-evict-cordon/</loc>
   </url><url>
-    <loc>https://blog.wisekee.com/tags/llm/</loc>
+    <loc>https://blog.wisekee.com/tags/kvm/</loc>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/kvm-getting-started/</loc>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/libvirt/</loc>
   </url><url>
     <loc>https://blog.wisekee.com/tags/openai/</loc>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/qemu/</loc>
   </url><url>
     <loc>https://blog.wisekee.com/search/</loc>
   </url><url>
