@@ -6,7 +6,106 @@
     <description>Recent content in Posts on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Wed, 10 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 10 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The SSE(server sent event) example</title>
+      <link>https://blog.wisekee.com/post/the-server-sent-events/</link>
+      <pubDate>Tue, 10 Dec 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/the-server-sent-events/</guid>
+      <description>
+        
+          
+            SSE establishes a one-way communication channel from server to client over HTTP. Unlike WebSockets&amp;rsquo; bidirectional connection, SSE maintains an open HTTP connection for server-to-client updates. Think of it as a radio broadcast: the server (station) transmits, and clients (receivers) listen. The LLM completion API is most use SSE event to interactive with human in chat web ui
+The directory level look like following this 1├── bin 2│ ├── Activate.ps1 3│ ├── activate 4│ ├── activate.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Setup the Dify and vllm in AWS G4dn instance</title>
+      <link>https://blog.wisekee.com/post/dify-vllm-ec2/</link>
+      <pubDate>Wed, 20 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/dify-vllm-ec2/</guid>
+      <description>
+        
+          
+            The first step launch the AWS ec2 type G4dn-xlarge 1# initialization the default ebs volume 2sudo file -s /dev/nvme2n1 3lsblk -f 4mkfs -t xfs /dev/nvme2n1 5mount /dev/nvme2n1 /mnt 6 7# persistent the mount info to `/etc/fstab` 8# view the UUID 9blkid 10 11# write the information 12echo &amp;#34;UID=xxxxx-3047-437a-81f0-xxxxx /mnt xfs defaults,nofail 0 2&amp;#34; &amp;gt;&amp;gt; /etc/fstab Extends the root ebs volume 1# modify the ebs volume size in aws console 2# extend the partition 3growpart /dev/nvme0n1 1 4# extend thf filesystem 5resize2fs /dev/nvme0n1p1 Install the docker-ce 1# Add Docker&amp;#39;s official GPG key: 2sudo apt-get update 3sudo apt-get install ca-certificates curl 4sudo install -m 0755 -d /etc/apt/keyrings 5sudo curl -fsSL https://download.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>How to setup the TTS LLM model GPT-SoVITS</title>
+      <link>https://blog.wisekee.com/post/setup-gpt-sovits/</link>
+      <pubDate>Sun, 10 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/setup-gpt-sovits/</guid>
+      <description>
+        
+          
+            Features: (GPT-SoVITS)[https://github.com/RVC-Boss/GPT-SoVITS]
+Zero-shot TTS: Input a 5-second vocal sample and experience instant text-to-speech conversion. Few-shot TTS: Fine-tune the model with just 1 minute of training data for improved voice similarity and realism. Cross-lingual Support: Inference in languages different from the training dataset, currently supporting English, Japanese, Korean, Cantonese and Chinese. WebUI Tools: Integrated tools include voice accompaniment separation, automatic training set segmentation, Chinese ASR, and text labeling, assisting beginners in creating training datasets and GPT/SoVITS models.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Some css reset or tricks in projects</title>
+      <link>https://blog.wisekee.com/post/css_trick/</link>
+      <pubDate>Wed, 23 Oct 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/css_trick/</guid>
+      <description>
+        
+          
+            This is for notes, and may be use the AI agent or chat to explain some rules.
+The some css rule syntax 1/* The css background gradient */ 2background: repeating-linear-gradient( 3 var(--first-color) 0%, 4 var(--first-color) 40%, 5 var(--second-color) 40%, 6 var(--second-color) 80% 7); The example of some css rules 1/* Define the variables in root level can inherit to sibling */ 2:root { 3 --building-color1: #aa80ff; 4 --building-color2: #66cc99; 5 --building-color3: #cc6699; 6} 7 8/* resetting the box model */ 9*{ 10 box-sizing: border-box; 11 font-family: sans-serif; 12} 13 14/* or use the pseudo selector to do this */ 15*, ::before, ::after{ 16 box-sizing: inherit; 17} 18 19/* 20pseudo select for specific class 21This property is for screen reader 22*/ 23span[class~=&amp;#34;sr-only&amp;#34;] { 24 border: 0; 25 /* clip the elements */ 26 clip: rect(1px, 1px, 1px, 1px); /* creates a 1px by 1px clipping rectangle, essentially hiding everything except for a very tiny area.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Django getting started</title>
+      <link>https://blog.wisekee.com/post/django-getting-stared/</link>
+      <pubDate>Sun, 20 Oct 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/django-getting-stared/</guid>
+      <description>
+        
+          
+            Create project scaffolding Create the project folder and initialization the virtual environment 1 2# Create the project directory 3mkdir djangoApp 4cd djangoApp 5 6# Initialization the virtual environment 7python -m venv ~/.venv/global 8source ~/.venv/global/bin/activate 9 10# Install the Django framework 11pip install django Create the project 1mkdir myDjangoProject 2django-admin startproject mysite myDjangoProject 3cd myDjangoProject 4# create the app in project 5python manage.py startapp polls 6 7# can create another app in this project 8python manage.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Open source text to image and image LLM</title>
+      <link>https://blog.wisekee.com/post/text_to_image_llm/</link>
+      <pubDate>Thu, 10 Oct 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/text_to_image_llm/</guid>
+      <description>
+        
+          
+            Large models related to image processing OmniGen: Unified Image Generation. FLUX.1 minimal inference code to run image generation Llama OCRAbout Document to Markdown OCR library with Llama 3.2 vision deepfaceAbout A Lightweight Face Recognition and Facial Attribute Analysis (Age, Gender, Emotion and Race) Library for Python PIXART-αFast Training of Diffusion Transformer for Photorealistic Text-to-Image Synthesis LTX-VideoDiT-based video generation model Hugging face playground: play ground 
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Awesome AI&#39;s resoures</title>
       <link>https://blog.wisekee.com/post/awesome-ai/</link>
@@ -16,7 +115,7 @@
       <description>
         
           
-            Basic knowledges MLflow: A Tool for Managing the Machine Learning Lifecycle Docs and getting started Introduction to Generative AI Machine Learning Ops Tools and Efficiency Discover, download, and run local LLMs Go ahead and axolotl questions A template for Metaflow cards Machine Learning Toolkit for Kubernetes LightGBM is a gradient boosting framework XGBoost is an optimized distributed gradient boosting library Open source framework and models The fastai deep learning library H2O is an Open Source, Distributed, Fast &amp;amp; Scalable Machine Learning Platform TensorFlow Tensors and Dynamic neural networks in Python with strong GPU acceleration machine learning in Python Scalable, Portable and Distributed Gradient Boosting (GBDT, GBRT or GBM) Library A fast, distributed, high performance gradient boosting plotting with Python 
+            Basic knowledges MLflow: A Tool for Managing the Machine Learning Lifecycle Docs and getting started Introduction to Generative AI Machine Learning Ops Tools and Efficiency Discover, download, and run local LLMs Go ahead and axolotl questions A template for Metaflow cards Machine Learning Toolkit for Kubernetes LightGBM is a gradient boosting framework XGBoost is an optimized distributed gradient boosting library 1 min voice data can also be used to train a good TTS model Kokoro is a frontier TTS model for its size.
           
           
         
@@ -82,7 +181,7 @@ Operate workflow ​ Installation the talosctl to operator machine talosctl Crea
       <description>
         
           
-            Install the bun 1HOMEBREW_NO_AUTO_UPDATE=1 brew install oven-sh/bun/bun Initialization the project use bun 1bun create vite@latest part1 --template react 2cd part1 3bun install 4bun run dev 
+            Install the bun 1HOMEBREW_NO_AUTO_UPDATE=1 brew install oven-sh/bun/bun Initialization the project use bun 1bun create vite@latest part1 --template react 2cd part1 3bun install 4bun run dev Or use the pnpm 1pnpm create vite@latest part1 --template react 
           
           
         
@@ -166,6 +265,22 @@ The config file specific the program arguments 1{ 2 // Use IntelliSense to learn
           
             When use imagePullSecret to pull image from ecr in eks cluster for particular task etc. Istio WSAM plugin from ecr registry, need specific imagePullSecret
 Basic workflow create cronjob in eks cluster schedule login to ecr and obtain credentials create a secrets in some Namespaces named aws-registry save the docker pull credentals use this secrets in Namespace pull image specific imagePullSecret parameter for example: 1 spec: 2 imagePullPolicy: Always 3 imagePullSecret: aws-registry The Dockerfile to construct cronjob docker image 1FROM python:alpine 2MAINTAINER Mike Petersen &amp;lt;mike@odania-it.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>How to use Tauri development the GUI app</title>
+      <link>https://blog.wisekee.com/post/how_to_use_tauri/</link>
+      <pubDate>Mon, 20 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/how_to_use_tauri/</guid>
+      <description>
+        
+          
+            The prerequisites Install rust Reference offical site Install the Create-tauri-app Follow the tutorial step by step to create new Tauri project 1cargo install create-tauri-app --locked 2cargo create-tauri-app Select the Frontend language: TypeScript / JavaScript 1 2# Project name · tauri-app 3# ✔ Identifier · com.tauri-app.app 4# ✔ Choose which language to use for your frontend · TypeScript / JavaScript - (pnpm, yarn, npm, deno, bun) 5# ✔ Choose your package manager · pnpm 6# ✔ Choose your UI template · Vue - (https://vuejs.
           
           
         
@@ -722,7 +837,7 @@ Pull helm chats to local 1# add istio helm chat repo url 2helm repo add istio ht
         
           
             Reverse engineering can be used for different goals, such as finding malware, discovering vulnerabilities, fixing software bugs, testing compatibility, and protecting intellectual property.
-Abstractor Application Binary Interface (ABI) Reverse tools Ghidra: free and open-source software reverse engineering suite made by the NSA and released to the public in 2019 github IDA Pro: commercial interactive disassembler and debugger made by Hex-Rays and widely used by security experts and professionals. How to check the binary format inform 1# you can view the program format and linked information 2file xxxxx 3# view the detail elf 4readelf -a xxxxx 5# to detect the dynamic libraries be used 6ldd xxxxx 7# view the header details 8hexdump -C -n 64 xxxxx Some command to view headers dumpelf elfls -p /bin/ps eu-readelf –section-headers /bin/ps readelf -S /bin/ps objdump -h /bin/ps Posts series about knowledge ELF Format and Runtime Internals
+Abstractor Application Binary Interface (ABI) Reverse tools Ghidra: free and open-source software reverse engineering suite made by the NSA and released to the public in 2019 github IDA Pro: commercial interactive disassembler and debugger made by Hex-Rays and widely used by security experts and professionals. How to check the binary format inform 1# you can view the program format and linked information 2file xxxxx 3# view the detail elf 4readelf -a xxxxx 5# to detect the dynamic libraries be used 6ldd xxxxx 7# view the header details 8hexdump -C -n 64 xxxxx 9 10# view the binary file objects 11objdump -t hello 12 13objdump -h hello 14 15objdump -f hello Some command to view headers dumpelf elfls -p /bin/ps eu-readelf –section-headers /bin/ps readelf -S /bin/ps objdump -h /bin/ps Posts series about knowledge ELF Format and Runtime Internals
           
           
         
@@ -1707,7 +1822,7 @@ One to storage Hugo sourcecode and markdown files And other one use release fina
         
           
             The sample is: rustup doc in local
-Environment setup 1# update the rust binary 2rustup update 3# uninstall the rust and rustup self 4rustup self uninstall 5 6rustc -V 7cargo -V Basic commands 1rustc --version 2cargo --version 3 4# crate the cargo project 5cargo new exercise 6cd exercise 7cargo run 8 9# to fast check 10cargo check 11# build 12cargo build --release 13# to debug 14cargo run 15# to debug build 16cargo build 17# to fromat the code 18rustfmt .
+Environment setup 1curl --proto &amp;#39;=https&amp;#39; --tlsv1.3 -sSf https://sh.rustup.rs | sh 2rustup component add rust-src rust-analyzer rust-analysis 3# update the rust binary 4rustup update 5# uninstall the rust and rustup self 6rustup self uninstall 7 8rustc -V 9cargo -V Basic commands 1rustc --version 2cargo --version 3 4# crate the cargo project 5cargo new exercise 6cd exercise 7cargo run 8 9# to fast check 10cargo check 11# build 12cargo build --release 13# to debug 14cargo run 15# to debug build 16cargo build 17# to fromat the code 18rustfmt .
           
           
         

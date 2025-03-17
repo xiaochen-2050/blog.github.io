@@ -3,7 +3,76 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.wisekee.com/</loc>
-    <lastmod>2024-07-10T00:00:00+00:00</lastmod>
+    <lastmod>2024-12-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/html/</loc>
+    <lastmod>2024-12-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/</loc>
+    <lastmod>2024-12-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/sse/</loc>
+    <lastmod>2024-12-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/stream/</loc>
+    <lastmod>2024-12-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/</loc>
+    <lastmod>2024-12-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/the-server-sent-events/</loc>
+    <lastmod>2024-12-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/dify/</loc>
+    <lastmod>2024-11-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/gpt/</loc>
+    <lastmod>2024-11-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/dify-vllm-ec2/</loc>
+    <lastmod>2024-11-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/vllm/</loc>
+    <lastmod>2024-11-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/setup-gpt-sovits/</loc>
+    <lastmod>2024-11-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/llm/</loc>
+    <lastmod>2024-11-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/tts/</loc>
+    <lastmod>2024-11-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/voice/</loc>
+    <lastmod>2024-11-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/css/</loc>
+    <lastmod>2024-10-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/css_trick/</loc>
+    <lastmod>2024-10-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/stylesheet/</loc>
+    <lastmod>2024-10-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/django/</loc>
+    <lastmod>2024-10-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/django-getting-stared/</loc>
+    <lastmod>2024-10-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/framework/</loc>
+    <lastmod>2024-10-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/python/</loc>
+    <lastmod>2024-10-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/image/</loc>
+    <lastmod>2024-10-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/text_to_image_llm/</loc>
+    <lastmod>2024-10-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/agi/</loc>
     <lastmod>2024-07-10T00:00:00+00:00</lastmod>
@@ -12,15 +81,6 @@
     <lastmod>2024-07-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/post/awesome-ai/</loc>
-    <lastmod>2024-07-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/llm/</loc>
-    <lastmod>2024-07-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/post/</loc>
-    <lastmod>2024-07-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/</loc>
     <lastmod>2024-07-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/aws/</loc>
@@ -122,7 +182,13 @@
     <loc>https://blog.wisekee.com/tags/ecr/</loc>
     <lastmod>2023-11-20T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://blog.wisekee.com/post/how_to_use_tauri/</loc>
+    <lastmod>2023-11-20T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://blog.wisekee.com/tags/jsii/</loc>
+    <lastmod>2023-11-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/tauri/</loc>
     <lastmod>2023-11-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/post/aws-jsii-getting-started/</loc>
@@ -796,8 +862,6 @@
   </url><url>
     <loc>https://blog.wisekee.com/tags/csm/</loc>
   </url><url>
-    <loc>https://blog.wisekee.com/tags/css/</loc>
-  </url><url>
     <loc>https://blog.wisekee.com/tags/development/</loc>
   </url><url>
     <loc>https://blog.wisekee.com/tags/es/</loc>
@@ -807,8 +871,6 @@
     <loc>https://blog.wisekee.com/post/llm-getting-started/</loc>
   </url><url>
     <loc>https://blog.wisekee.com/post/gettting-started-rust/</loc>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/gpt/</loc>
   </url><url>
     <loc>https://blog.wisekee.com/tags/index/</loc>
   </url><url>

@@ -24,6 +24,22 @@
     </item>
     
     <item>
+      <title>How to use Tauri development the GUI app</title>
+      <link>https://blog.wisekee.com/post/how_to_use_tauri/</link>
+      <pubDate>Mon, 20 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/how_to_use_tauri/</guid>
+      <description>
+        
+          
+            The prerequisites Install rust Reference offical site Install the Create-tauri-app Follow the tutorial step by step to create new Tauri project 1cargo install create-tauri-app --locked 2cargo create-tauri-app Select the Frontend language: TypeScript / JavaScript 1 2# Project name · tauri-app 3# ✔ Identifier · com.tauri-app.app 4# ✔ Choose which language to use for your frontend · TypeScript / JavaScript - (pnpm, yarn, npm, deno, bun) 5# ✔ Choose your package manager · pnpm 6# ✔ Choose your UI template · Vue - (https://vuejs.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
       <title>Getting started rust development</title>
       <link>https://blog.wisekee.com/post/gettting-started-rust/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -33,7 +49,7 @@
         
           
             The sample is: rustup doc in local
-Environment setup 1# update the rust binary 2rustup update 3# uninstall the rust and rustup self 4rustup self uninstall 5 6rustc -V 7cargo -V Basic commands 1rustc --version 2cargo --version 3 4# crate the cargo project 5cargo new exercise 6cd exercise 7cargo run 8 9# to fast check 10cargo check 11# build 12cargo build --release 13# to debug 14cargo run 15# to debug build 16cargo build 17# to fromat the code 18rustfmt .
+Environment setup 1curl --proto &amp;#39;=https&amp;#39; --tlsv1.3 -sSf https://sh.rustup.rs | sh 2rustup component add rust-src rust-analyzer rust-analysis 3# update the rust binary 4rustup update 5# uninstall the rust and rustup self 6rustup self uninstall 7 8rustc -V 9cargo -V Basic commands 1rustc --version 2cargo --version 3 4# crate the cargo project 5cargo new exercise 6cd exercise 7cargo run 8 9# to fast check 10cargo check 11# build 12cargo build --release 13# to debug 14cargo run 15# to debug build 16cargo build 17# to fromat the code 18rustfmt .
           
           
         

@@ -16,7 +16,7 @@
         
           
             The sample is: rustup doc in local
-Environment setup 1# update the rust binary 2rustup update 3# uninstall the rust and rustup self 4rustup self uninstall 5 6rustc -V 7cargo -V Basic commands 1rustc --version 2cargo --version 3 4# crate the cargo project 5cargo new exercise 6cd exercise 7cargo run 8 9# to fast check 10cargo check 11# build 12cargo build --release 13# to debug 14cargo run 15# to debug build 16cargo build 17# to fromat the code 18rustfmt .
+Environment setup 1curl --proto &amp;#39;=https&amp;#39; --tlsv1.3 -sSf https://sh.rustup.rs | sh 2rustup component add rust-src rust-analyzer rust-analysis 3# update the rust binary 4rustup update 5# uninstall the rust and rustup self 6rustup self uninstall 7 8rustc -V 9cargo -V Basic commands 1rustc --version 2cargo --version 3 4# crate the cargo project 5cargo new exercise 6cd exercise 7cargo run 8 9# to fast check 10cargo check 11# build 12cargo build --release 13# to debug 14cargo run 15# to debug build 16cargo build 17# to fromat the code 18rustfmt .
           
           
         

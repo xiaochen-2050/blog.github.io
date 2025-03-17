@@ -6,7 +6,40 @@
     <description>Recent content in LLM on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Wed, 10 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/llm/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 10 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/llm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to setup the TTS LLM model GPT-SoVITS</title>
+      <link>https://blog.wisekee.com/post/setup-gpt-sovits/</link>
+      <pubDate>Sun, 10 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/setup-gpt-sovits/</guid>
+      <description>
+        
+          
+            Features: (GPT-SoVITS)[https://github.com/RVC-Boss/GPT-SoVITS]
+Zero-shot TTS: Input a 5-second vocal sample and experience instant text-to-speech conversion. Few-shot TTS: Fine-tune the model with just 1 minute of training data for improved voice similarity and realism. Cross-lingual Support: Inference in languages different from the training dataset, currently supporting English, Japanese, Korean, Cantonese and Chinese. WebUI Tools: Integrated tools include voice accompaniment separation, automatic training set segmentation, Chinese ASR, and text labeling, assisting beginners in creating training datasets and GPT/SoVITS models.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Open source text to image and image LLM</title>
+      <link>https://blog.wisekee.com/post/text_to_image_llm/</link>
+      <pubDate>Thu, 10 Oct 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/text_to_image_llm/</guid>
+      <description>
+        
+          
+            Large models related to image processing OmniGen: Unified Image Generation. FLUX.1 minimal inference code to run image generation Llama OCRAbout Document to Markdown OCR library with Llama 3.2 vision deepfaceAbout A Lightweight Face Recognition and Facial Attribute Analysis (Age, Gender, Emotion and Race) Library for Python PIXART-αFast Training of Diffusion Transformer for Photorealistic Text-to-Image Synthesis LTX-VideoDiT-based video generation model Hugging face playground: play ground 
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Awesome AI&#39;s resoures</title>
       <link>https://blog.wisekee.com/post/awesome-ai/</link>
@@ -16,7 +49,7 @@
       <description>
         
           
-            Basic knowledges MLflow: A Tool for Managing the Machine Learning Lifecycle Docs and getting started Introduction to Generative AI Machine Learning Ops Tools and Efficiency Discover, download, and run local LLMs Go ahead and axolotl questions A template for Metaflow cards Machine Learning Toolkit for Kubernetes LightGBM is a gradient boosting framework XGBoost is an optimized distributed gradient boosting library Open source framework and models The fastai deep learning library H2O is an Open Source, Distributed, Fast &amp;amp; Scalable Machine Learning Platform TensorFlow Tensors and Dynamic neural networks in Python with strong GPU acceleration machine learning in Python Scalable, Portable and Distributed Gradient Boosting (GBDT, GBRT or GBM) Library A fast, distributed, high performance gradient boosting plotting with Python 
+            Basic knowledges MLflow: A Tool for Managing the Machine Learning Lifecycle Docs and getting started Introduction to Generative AI Machine Learning Ops Tools and Efficiency Discover, download, and run local LLMs Go ahead and axolotl questions A template for Metaflow cards Machine Learning Toolkit for Kubernetes LightGBM is a gradient boosting framework XGBoost is an optimized distributed gradient boosting library 1 min voice data can also be used to train a good TTS model Kokoro is a frontier TTS model for its size.
           
           
         

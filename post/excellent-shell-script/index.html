@@ -281,7 +281,63 @@
 </span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="nv">JSON_FILE_NAME</span><span class="o">=</span><span class="si">${</span><span class="nv">JSON_FILE_NAME</span><span class="p">//:/-</span><span class="si">}</span>
 </span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="c1"># split the IMAGE variable dlimit / and extract the last section</span>
 </span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="nv">JSON_FILE_NAME</span><span class="o">=</span><span class="si">${</span><span class="nv">IMAGE</span><span class="p">##*/</span><span class="si">}</span>
-</span></span></code></pre></div><h3 id="reference">Reference</h3>
+</span></span></code></pre></div><h3 id="read-a-file">Read a file</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">while</span> <span class="nb">read</span> line
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="k">do</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="nb">echo</span> <span class="nv">$line</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="k">done</span> &lt; input.txt
+</span></span></code></pre></div><h3 id="the-condition-statement">The condition statement</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Please enter a number: &#34;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="nb">read</span> num
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$num</span> -gt <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$num</span><span class="s2"> is positive&#34;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="k">elif</span> <span class="o">[</span> <span class="nv">$num</span> -lt <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$num</span><span class="s2"> is negative&#34;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$num</span><span class="s2"> is zero&#34;</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></div><h3 id="the-loop-statement">The loop statement</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="cp"></span><span class="nv">i</span><span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="k">while</span> <span class="o">[[</span> <span class="nv">$i</span> -le <span class="m">10</span> <span class="o">]]</span> <span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">   <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$i</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">  <span class="o">((</span> <span class="nv">i</span> <span class="o">+=</span> <span class="m">1</span> <span class="o">))</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="k">done</span>
+</span></span></code></pre></div><h3 id="the-cron-script">The cron script</h3>
+<table>
+<thead>
+<tr>
+<th>Schedule</th>
+<th>Description	Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 0</td>
+<td>Run a script at midnight every day	0 0 /path/to/script.sh</td>
+</tr>
+<tr>
+<td>/5</td>
+<td>Run a script every 5 minutes	/5 /path/to/script.sh</td>
+</tr>
+<tr>
+<td>0 6 1-5</td>
+<td>Run a script at 6 am from Monday to Friday	0 6 1-5 /path/to/script.sh</td>
+</tr>
+<tr>
+<td>0 0 1-7</td>
+<td>Run a script on the first 7 days of every month	0 0 1-7 /path/to/script.sh</td>
+</tr>
+<tr>
+<td>0 12 1</td>
+<td>Run a script on the first day of every month at noon	0 12 1 /path/to/script.sh</td>
+</tr>
+</tbody>
+</table>
+<h3 id="reference">Reference</h3>
 <ul>
 <li><a href="https://github.com/HariSekhon/DevOps-Bash-tools">1000+ DevOps Bash Scripts</a></li>
 <li><a href="https://github.com/awslabs/amazon-eks-ami.git">AWS EKS packer scripts</a></li>
@@ -332,28 +388,28 @@
     <h2 class="mt-4"></h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.wisekee.com/post/the-server-sent-events/" class="nav-link" title="The SSE(server sent event) example">The SSE(server sent event) example</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/dify-vllm-ec2/" class="nav-link" title="Setup the Dify and vllm in AWS G4dn instance">Setup the Dify and vllm in AWS G4dn instance</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/setup-gpt-sovits/" class="nav-link" title="How to setup the TTS LLM model GPT-SoVITS">How to setup the TTS LLM model GPT-SoVITS</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/css_trick/" class="nav-link" title="Some css reset or tricks in projects">Some css reset or tricks in projects</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/django-getting-stared/" class="nav-link" title="Django getting started">Django getting started</a>
+      </li>
+      <li>
+        <a href="https://blog.wisekee.com/post/text_to_image_llm/" class="nav-link" title="Open source text to image and image LLM">Open source text to image and image LLM</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/awesome-ai/" class="nav-link" title="Awesome AI&#39;s resoures">Awesome AI&rsquo;s resoures</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/talos-k8s-aws/" class="nav-link" title="Talos launch kubernetes in aws environment getting started ">Talos launch kubernetes in aws environment getting started</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/copa-docker-image-patch/" class="nav-link" title="Use Copa to patch the container images">Use Copa to patch the container images</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/openldap-dex/" class="nav-link" title="Launch the openldap and dex in kubernetes">Launch the openldap and dex in kubernetes</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/vite-react-getting-started/" class="nav-link" title="To use the vite management the react project">To use the vite management the react project</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/go-vscode-debug-config/" class="nav-link" title="How to config debug the go project in vscode">How to config debug the go project in vscode</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/bigdata-trino-hive-minio-getting-started/" class="nav-link" title="trino&#43;hive metastore&#43;k8s&#43;minio environment prepared">trino+hive metastore+k8s+minio environment prepared</a>
-      </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/vue-custom-components/" class="nav-link" title="Vue custom component getting started">Vue custom component getting started</a>
       </li>
     </ul>
     <div>
@@ -419,13 +475,13 @@
           <span class="button_tally">4</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/open-source/' class="post_tag button button_translucent" title="open-source">
-          OPEN-SOURCE
+        <a href='https://blog.wisekee.com/tags/llm/' class="post_tag button button_translucent" title="llm">
+          LLM
           <span class="button_tally">4</span>
         </a>
         
-        <a href='https://blog.wisekee.com/tags/service-mesh/' class="post_tag button button_translucent" title="service-mesh">
-          SERVICE-MESH
+        <a href='https://blog.wisekee.com/tags/open-source/' class="post_tag button button_translucent" title="open-source">
+          OPEN-SOURCE
           <span class="button_tally">4</span>
         </a>
         
@@ -579,7 +635,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/css/' class=" post_tag button button_translucent" data-position=1 title="css">CSS<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/css/' class=" post_tag button button_translucent" data-position=2 title="css">CSS<span class="button_tally">2</span>
             </a>
             
             
@@ -604,6 +660,14 @@
             
             
             <a href='https://blog.wisekee.com/tags/dex/' class=" post_tag button button_translucent" data-position=1 title="dex">DEX<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/dify/' class=" post_tag button button_translucent" data-position=1 title="dify">DIFY<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/django/' class=" post_tag button button_translucent" data-position=1 title="django">DJANGO<span class="button_tally">1</span>
             </a>
             
             
@@ -687,6 +751,10 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/framework/' class=" post_tag button button_translucent" data-position=1 title="framework">FRAMEWORK<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/frontend/' class=" post_tag button button_translucent" data-position=6 title="frontend">FRONTEND<span class="button_tally">6</span>
             </a>
             
@@ -707,7 +775,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/gpt/' class=" post_tag button button_translucent" data-position=1 title="gpt">GPT<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/gpt/' class=" post_tag button button_translucent" data-position=3 title="gpt">GPT<span class="button_tally">3</span>
             </a>
             
             
@@ -727,7 +795,15 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/html/' class=" post_tag button button_translucent" data-position=1 title="html">HTML<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/hugo/' class=" post_tag button button_translucent" data-position=1 title="hugo">HUGO<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/image/' class=" post_tag button button_translucent" data-position=1 title="image">IMAGE<span class="button_tally">1</span>
             </a>
             
             
@@ -827,7 +903,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/llm/' class=" post_tag button button_translucent" data-position=2 title="llm">LLM<span class="button_tally">2</span>
+            <a href='https://blog.wisekee.com/tags/llm/' class=" post_tag button button_translucent" data-position=4 title="llm">LLM<span class="button_tally">4</span>
             </a>
             
             
@@ -959,6 +1035,10 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/python/' class=" post_tag button button_translucent" data-position=1 title="python">PYTHON<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/qemu/' class=" post_tag button button_translucent" data-position=1 title="qemu">QEMU<span class="button_tally">1</span>
             </a>
             
@@ -979,7 +1059,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/rust/' class=" post_tag button button_translucent" data-position=2 title="rust">RUST<span class="button_tally">2</span>
+            <a href='https://blog.wisekee.com/tags/rust/' class=" post_tag button button_translucent" data-position=3 title="rust">RUST<span class="button_tally">3</span>
             </a>
             
             
@@ -1027,11 +1107,23 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/sse/' class=" post_tag button button_translucent" data-position=1 title="sse">SSE<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/ssh/' class=" post_tag button button_translucent" data-position=1 title="ssh">SSH<span class="button_tally">1</span>
             </a>
             
             
             <a href='https://blog.wisekee.com/tags/ssrf/' class=" post_tag button button_translucent" data-position=1 title="ssrf">SSRF<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/stream/' class=" post_tag button button_translucent" data-position=1 title="stream">STREAM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/stylesheet/' class=" post_tag button button_translucent" data-position=1 title="stylesheet">STYLESHEET<span class="button_tally">1</span>
             </a>
             
             
@@ -1052,6 +1144,10 @@
             
             
             <a href='https://blog.wisekee.com/tags/task/' class=" post_tag button button_translucent" data-position=1 title="task">TASK<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/tauri/' class=" post_tag button button_translucent" data-position=1 title="tauri">TAURI<span class="button_tally">1</span>
             </a>
             
             
@@ -1079,6 +1175,10 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/tts/' class=" post_tag button button_translucent" data-position=1 title="tts">TTS<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/typescript/' class=" post_tag button button_translucent" data-position=1 title="typescript">TYPESCRIPT<span class="button_tally">1</span>
             </a>
             
@@ -1096,6 +1196,14 @@
             
             
             <a href='https://blog.wisekee.com/tags/vite/' class=" post_tag button button_translucent" data-position=3 title="vite">VITE<span class="button_tally">3</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/vllm/' class=" post_tag button button_translucent" data-position=1 title="vllm">VLLM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/voice/' class=" post_tag button button_translucent" data-position=1 title="voice">VOICE<span class="button_tally">1</span>
             </a>
             
             

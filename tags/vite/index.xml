@@ -16,7 +16,7 @@
       <description>
         
           
-            Install the bun 1HOMEBREW_NO_AUTO_UPDATE=1 brew install oven-sh/bun/bun Initialization the project use bun 1bun create vite@latest part1 --template react 2cd part1 3bun install 4bun run dev 
+            Install the bun 1HOMEBREW_NO_AUTO_UPDATE=1 brew install oven-sh/bun/bun Initialization the project use bun 1bun create vite@latest part1 --template react 2cd part1 3bun install 4bun run dev Or use the pnpm 1pnpm create vite@latest part1 --template react 
           
           
         
