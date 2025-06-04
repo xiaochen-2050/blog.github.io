@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>selfsign certificate on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/selfsign-certificate/</link>
+    <description>Recent content in selfsign certificate on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Thu, 03 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/selfsign-certificate/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Generate the self sign certificate for istio ingress gateway</title>
+      <link>https://blog.wisekee.com/post/self-sign-certificate-for-istio-ingressgateway/</link>
+      <pubDate>Thu, 03 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/self-sign-certificate-for-istio-ingressgateway/</guid>
+      <description>
+        
+          
+            Simple diagram for istio ingress gateway to access argo ui
+argo.dev.local &amp;mdash;-&amp;gt; istio-ingressgateway &amp;mdash;-&amp;gt; argo server virtual service &amp;mdash;-&amp;gt; argo distination rule &amp;mdash;-&amp;gt; argo kubernetes service
+Use the shell script generate the CA root certificate and csr for sub domain add the certificate and private key to kubernetes secrets store
+1#!/usr/bin/env bash 2 3DOMAIN_NAME=&amp;#34;dev.local&amp;#34; 4 5# create root CA certificate 6openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -subj &amp;#34;/O=$DOMAIN_NAME Inc.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

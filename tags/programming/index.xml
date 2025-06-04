@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Programming on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/programming/</link>
+    <description>Recent content in Programming on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sat, 02 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>First step to learn Rust programming</title>
+      <link>https://blog.wisekee.com/post/rust-getting-started/</link>
+      <pubDate>Sat, 02 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/rust-getting-started/</guid>
+      <description>
+        
+          
+            Basic knowledge &amp;amp;str is string literal To do the conversion use the standard String::from(&amp;amp;str) method also can use .to_string() String::from(&amp;quot;Something&amp;quot;) is string data type enum with structs 1// Define a tuple struct 2struct KeyPress(String, char); 3 4// Define a classic struct 5struct MouseClick { x: i64, y: i64 } 6 7// Redefine the enum variants to use the data from the new structs 8// Update the page Load variant to have the boolean type 9enum WebEvent { WELoad(bool), WEClick(MouseClick), WEKeys(KeyPress) } 10 11let we_load = WebEvent::WELoad(true); Project manage commands Cargo commands cargo new to create new project cargo build to build a project cargo run to build and run project cargo test Test a project cargo check Check project types cargo doc Build documentation for a project cargo publish Publish a library to crates.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

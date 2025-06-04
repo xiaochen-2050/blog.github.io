@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jenkins on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/jenkins/</link>
+    <description>Recent content in Jenkins on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sat, 15 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/jenkins/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Setup the jenkins agent in kubernetes cluster use pods</title>
+      <link>https://blog.wisekee.com/post/jenkins-eks-agent/</link>
+      <pubDate>Sat, 15 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/jenkins-eks-agent/</guid>
+      <description>
+        
+          
+            Supplement When you upgrade the jenkins.war in docker container, commit to another tag the Entrypoint and CMD is lost So can commit specific the Entrypoint and CMD 1docker commit --change=&amp;#39;ENTRYPOINT [/usr/bin/tini&amp;#34;, &amp;#34;--&amp;#34;, &amp;#34;/usr/local/bin/jenkins.sh&amp;#34;]&amp;#39; --change=&amp;#39;CMD [/usr/local/bin/jenkins.sh&amp;#34;]&amp;#39; &amp;lt;container_id&amp;gt; new_image_name Basic settings Add Global credentials the Secret is kubernetes login token Add new cloud configure in Manage Jenkins &amp;ndash;&amp;gt; Clouds Config the Kubernetes Clouds websocket connection, use internal jenkins URL, specific the Pod Labels, Pod Retention: On Failure, Max connections, Seconds to wait for pod Add Pod template settings Specific Namespace, Usage: Only build jobs with label expressions matching this node Container Template: jnlp: jenkins/inbound-agent:latest, Working directory: /home/jenkins/agent Command to run: /usr/local/bin/jenkins-agent You can specific Volumes to mount cache etc.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

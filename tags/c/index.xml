@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/c/</link>
+    <description>Recent content in C on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Tue, 18 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Use c language and GTK4,Msys2 to development lightweight Windows GUI app</title>
+      <link>https://blog.wisekee.com/post/use-gtk-wingw64/</link>
+      <pubDate>Tue, 18 Feb 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/use-gtk-wingw64/</guid>
+      <description>
+        
+          
+            Environment Preparing Download and installation the Msys2 After install the wsys2 open and create shortcut ucrt64.exe to desktop In ucrt64.exe console shell use pacman to install packages 1 2pacman -Syu 3#Repeat this step until all packages are up to date. 4#Follow any given instructions Installation the essential packages 1 2 pacman -S mingw-w64-x86_64-gtk4 3 pacman -S mingw-w64-x86_64-toolchain base-devel Test and verify the packages 1 gcc --version 2 #Discovers the directories where the GTK include files are stored.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

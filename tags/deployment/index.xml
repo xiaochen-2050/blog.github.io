@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Deployment on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/deployment/</link>
+    <description>Recent content in Deployment on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Wed, 20 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/deployment/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installing OmniDB in kubernetes as deployment resource</title>
+      <link>https://blog.wisekee.com/post/omnidb-installing/</link>
+      <pubDate>Wed, 20 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/omnidb-installing/</guid>
+      <description>
+        
+          
+            OmniDB is tool for unify the multiple type DataBase management,appropriate deploy in enterprise internal proxy access to other environment.
+fetch the Dockerfile in this url: OminDB Dockerfile Build the docker image docker build . -t dev.com/library/omnidb:latest then push the image to registry:docker push dev.com/library/omnidb:latest
+create the kubernetes deployment manifest file 1apiVersion: v1 2kind: PersistentVolumeClaim 3metadata: 4 name: omnidb-pvc 5spec: 6 accessModes: 7 - ReadWriteOnce 8 storageClassName: nfs-client 9 resources: 10 requests: 11 storage: 5Gi 12--- 13apiVersion: apps/v1 14kind: Deployment 15metadata: 16 name: omnidb-deployment 17 labels: 18 app: omnidb 19spec: 20 replicas: 1 21 selector: 22 matchLabels: 23 app: omnidb 24 template: 25 metadata: 26 labels: 27 app: omnidb 28 spec: 29 containers: 30 - name: omnidb 31 image: dev.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

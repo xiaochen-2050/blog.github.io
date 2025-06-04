@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Framework on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/framework/</link>
+    <description>Recent content in Framework on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 20 Oct 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/framework/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Django getting started</title>
+      <link>https://blog.wisekee.com/post/django-getting-stared/</link>
+      <pubDate>Sun, 20 Oct 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/django-getting-stared/</guid>
+      <description>
+        
+          
+            Create project scaffolding Create the project folder and initialization the virtual environment 1 2# Create the project directory 3mkdir djangoApp 4cd djangoApp 5 6# Initialization the virtual environment 7python -m venv ~/.venv/global 8source ~/.venv/global/bin/activate 9 10# Install the Django framework 11pip install django Create the project 1mkdir myDjangoProject 2django-admin startproject mysite myDjangoProject 3cd myDjangoProject 4# create the app in project 5python manage.py startapp polls 6 7# can create another app in this project 8python manage.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

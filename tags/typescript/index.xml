@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>typescript on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/typescript/</link>
+    <description>Recent content in typescript on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Thu, 20 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Getting started typescript minimal project</title>
+      <link>https://blog.wisekee.com/post/minimal-typescript-demo/</link>
+      <pubDate>Thu, 20 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/minimal-typescript-demo/</guid>
+      <description>
+        
+          
+            Create project structure and install nessess 1mkdir -p ~/code/exercise/ts-demo &amp;amp;&amp;amp; cd &amp;#34;$_&amp;#34; 2npm init 3mkdir src 4touch tsconfig.json 5npm i --save-dev @types/node 6npm i --save-dev @types/express 7npm i --save-dev @types/mocha 8npm i express 9npm i nodemon The src/App.ts content 1import * as express from &amp;#39;express&amp;#39; 2 3class App { 4 public express 5 6 constructor () { 7 this.express = express() 8 this.mountRoutes() 9 } 10 11 private mountRoutes (): void { 12 const router = express.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

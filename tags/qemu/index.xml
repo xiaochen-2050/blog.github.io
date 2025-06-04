@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Qemu on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/qemu/</link>
+    <description>Recent content in Qemu on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright><atom:link href="https://blog.wisekee.com/tags/qemu/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>KVM getting started</title>
+      <link>https://blog.wisekee.com/post/kvm-getting-started/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/kvm-getting-started/</guid>
+      <description>
+        
+          
+            Can use the prompt in ChatAI how to launch ubuntu linux x86_64 in mac os apple silicon use : qemu-system-x86_64
+QEMU in macos Basic QEMU 1 2# create the virtual disk image 3qemu-img create -f qcow2 ubuntu-x86.qcow2 20G 4 5# install the ubuntu os to virtual disk 6qemu-system-x86_64 \ 7-m 4G \ 8-smp 4 \ 9-machine q35,accel=tcg\ 10-cpu Broadwell \ 11-drive file=ubuntu-x86.qcow2,format=qcow2 \ 12-cdrom path/to/ubuntu-iso.iso \ 13-boot d \ 14-vga virtio \ 15-display default,show-cursor=on 16 17# launch the ubuntu linux from virtual disk 18qemu-system-x86_64 \ 19-m 4G \ 20-smp 4 \ 21-machine q35,accel=tcg \ 22-cpu Broadwell \ 23-drive file=ubuntu-x86.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

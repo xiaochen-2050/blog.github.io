@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MacOS on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/macos/</link>
+    <description>Recent content in MacOS on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Mon, 05 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/macos/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker can&#39;t start in mac os</title>
+      <link>https://blog.wisekee.com/post/macos-docker-notworking/</link>
+      <pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/macos-docker-notworking/</guid>
+      <description>
+        
+          
+            When upgraded the Docker Desktop it&amp;rsquo;s can&amp;rsquo;t starting in MacOs
+Use AppCleaner remove Docker Destop Open Activity Monitor Force quit the Docker and Docker backend process, then open AppCleaner drag the Docker icon in Application list to AppCleaner remove the Docker
+Download Dokcer.dmg in Docker offical site and reinstalling 1 sudo hdiutil attach Docker.dmg 2 sudo /Volumes/Docker/Docker.app/Contents/MacOS/install 3 sudo hdiutil detach /Volumes/Docker Setings and change if maybe not working sudo vi ~/Library/Group\ Containers/group.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

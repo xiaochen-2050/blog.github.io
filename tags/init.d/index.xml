@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>init.d on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/init.d/</link>
+    <description>Recent content in init.d on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 18 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/init.d/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>use systemv manager the auto boot script and servcie</title>
+      <link>https://blog.wisekee.com/post/update-rc.d-systemv/</link>
+      <pubDate>Sun, 18 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/update-rc.d-systemv/</guid>
+      <description>
+        
+          
+            Init scripts are typically stored in the /etc/init.d/ directory and are started using the init process, which is the first process started by the Linux kernel.
+Write the init script with systemv style cat /etc/init.d/demo-service
+1#!/usr/bin/env bash 2 3### BEGIN INIT INFO 4# Provides: restore-iptables 5# Required-Start: 6# Required-Stop: 7# Default-Start: 2 3 4 5 8# Default-Stop: 0 1 6 9# Short-Description: load iptables rule when reboot 10# Description: Automation restore the iptables rule from file, when system is reboot.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>intrusion detection on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/intrusion-detection/</link>
+    <description>Recent content in intrusion detection on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Wed, 18 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/intrusion-detection/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AWS traffic security analysis and mirror</title>
+      <link>https://blog.wisekee.com/post/aws-traffic-analysis/</link>
+      <pubDate>Wed, 18 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-traffic-analysis/</guid>
+      <description>
+        
+          
+            install Suricata in ubuntu instance 1sudo add-apt-repository ppa:oisf/suricata-stable 2sudo apt install suricata 3sudo systemctl enable suricata.service 4sudo systemctl stop suricata.service Config Suricata edit file sudo nano /etc/suricata/suricata.yaml
+1# enable/disable the community id feature. 2community-id: true 3# Linux high speed capture support 4af-packet: 5 - interface: eth0 6 # Number of receive threads. &amp;#34;auto&amp;#34; uses the number of cores 7 #threads: auto 8 # Default clusterid. AF_PACKET will load balance packets based on flow.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

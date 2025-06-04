@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ipython on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/ipython/</link>
+    <description>Recent content in Ipython on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Mon, 16 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/ipython/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Use the jupyter in venv</title>
+      <link>https://blog.wisekee.com/post/how-to-use-jupyter-in-venv/</link>
+      <pubDate>Mon, 16 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/how-to-use-jupyter-in-venv/</guid>
+      <description>
+        
+          
+            Installation and use 1pip install jupyterlab 2jupyter lab --app-dir /opt/homebrew/share/jupyter/lab Initialization the venv 1mkdir test-venv 2cd test-venv &amp;amp;&amp;amp; python -m venv . 3source ./bin/activate 4pip install ipykernel 5./bin/python -m ipykernel install --user --name=test-venv How to test the python package in local development Initialization the python package construct 1./ 2 ├── __init__.py 3 ├── sub_packages 4 ├── sub_packages 5 ├── __init__.py Initialization the venv in local global 1python -m venv ~/.venv/global 2source ~/.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

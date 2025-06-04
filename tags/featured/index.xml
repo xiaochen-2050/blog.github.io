@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>featured on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/featured/</link>
+    <description>Recent content in featured on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sat, 05 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/featured/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Awesome open resoure tools and project</title>
+      <link>https://blog.wisekee.com/post/awesome-open-source/</link>
+      <pubDate>Sat, 05 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/awesome-open-source/</guid>
+      <description>
+        
+          
+            There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
+Cloud native and kubernetes https://github.com/labring/sealos(kubernetes-kernel-based cloud os! Let&amp;rsquo;s sealos run kubernetes and applications.) https://github.com/kubevela/kubevela(The Modern Application Platform.) https://github.com/crossplane/crossplane(Cloud Native Control Planes multi cloud resoures) https://promcat.io/(A resource catalog for enterprise-class Prometheus) https://hub.datree.io/(Prevent Kubernetes misconfigurations from reaching production) https://aws.github.io/aws-eks-best-practices/(EKS Best Practices Guides) https://github.com/koderover/zadig(Zadig is a cloud native, distributed, developer-oriented continuous delivery product) https://github.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Awesome blog&#39;s resoures</title>
+      <link>https://blog.wisekee.com/post/awesome-blog-resources/</link>
+      <pubDate>Mon, 10 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/awesome-blog-resources/</guid>
+      <description>
+        
+          
+            There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
+Recommend getting stared study resources https://docs.microsoft.com/en-us/learn/browse/(Microsoft products with step-by-step guidance) https://developer.mozilla.org/en-US/docs/Learn(Mizzla learn guides about web development) https://programming.guide/go/(Articles on Programming Guide) https://gobyexample.com/(hands-on introduction to Go using annotated example programs) https://roadmap.sh/(Step by step guides and paths to learn different tools or technologies) https://zetcode.com/(provides accessible tutorials for Go, C#, Python, Java, and JavaScript programming languages.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Solve the problem of Metrics - Server</title>
+      <link>https://blog.wisekee.com/post/k8s-metrics-server/</link>
+      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-metrics-server/</guid>
+      <description>
+        
+          
+            When we repeatedly install the Metrics-Server, because we use helm to install it, deleting one of them will cause the following error when executing the command related to kubectl top nodes: Error from server (NotFound): the server could not find the requested resource (get services http:heapster:)
+A large part of this is due to the removal of the Apiservice Resources from Metics, when you execute the following command to ensure that the Apiservice exists kubectl get apiservice | grep metrics v1beta1.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Notes for using Kubernetes Ingress Controller</title>
+      <link>https://blog.wisekee.com/post/kubernetes-ingress-guides/</link>
+      <pubDate>Thu, 15 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/kubernetes-ingress-guides/</guid>
+      <description>
+        
+          
+            Append the nginx ingress http redirect to https Add extra port to nginx deployment for example: 8080, look like following 1ports: 2 - name: http 3 containerPort: 80 4 protocol: TCP 5 - name: https 6 containerPort: 443 7 protocol: TCP 8 - name: webhook 9 containerPort: 8443 10 protocol: TCP 11 - name: http-redirect 12 containerPort: 8080 Add section http-snippet to ConfigMap ingress-nginx-controller 1data: 2 allow-snippet-annotations: &amp;#39;true&amp;#39; 3 compute-full-forwarded-for: &amp;#39;true&amp;#39; 4 use-forwarded-headers: &amp;#39;true&amp;#39; 5 server-tokens: &amp;#39;false&amp;#39; 6 http-snippet: | 7 server { 8 listen 8080; 9 return 308 https://$host$request_uri; 10 } Modify the ingress service loadbalance configure, let http-80 forward to http-redirect-8080 1- name: http 2 protocol: TCP 3 appProtocol: http 4 port: 80 5 targetPort: http-redirect 6 nodePort: 32009 Using Nginx-Ingress Controller in AWS Eks environment Need manually enable the Proxy protocol V2 in NLB target group just only TCP https 443 listener Rather than TCP http 80 listener Multiple SSL certificate need manually add to NLB The http redirect to https, need to change some paramets 1	# use http-snippet and open proxy protocol 2 use-proxy-protocol: &amp;#39;true&amp;#39; 3 use-forwarded-headers: &amp;#39;true&amp;#39; 4 server-tokens: &amp;#39;false&amp;#39; 5 http-snippet: | 6 server { 7 listen 8000; 8 return 308 https://$host$request_uri; 9 } 10 proxy-real-ip-cidr: ${join(&amp;#34;,&amp;#34;, var.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Points to note about  Terraform helm provider</title>
+      <link>https://blog.wisekee.com/post/terraform-helm-issues/</link>
+      <pubDate>Sat, 10 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/terraform-helm-issues/</guid>
+      <description>
+        
+          
+            The Metrics-Server helm chart as Terraform HCL 1resource &amp;#34;helm_release&amp;#34; &amp;#34;metrics-server&amp;#34; { 2 name = &amp;#34;metrics-server&amp;#34; 3 repository = &amp;#34;https://charts.bitnami.com/bitnami&amp;#34; 4 chart = &amp;#34;metrics-server&amp;#34; 5 version = &amp;#34;4.1.4&amp;#34; 6 namespace = &amp;#34;kube-system&amp;#34; 7 8 set { 9 name = &amp;#34;extraArgs.kubelet-preferred-address-types&amp;#34; 10 value = &amp;#34;InternalIP\\,ExternalIP\\,Hostname&amp;#34; 11 } 12 13 set { 14 name = &amp;#34;resources.requests.memory&amp;#34; 15 value = &amp;#34;500Mi&amp;#34; 16 } 17 18 set { 19 name = &amp;#34;resources.limits.memory&amp;#34; 20 value = &amp;#34;1Gi&amp;#34; 21 } 22 23 set { 24 name = &amp;#34;apiService.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>kubernetes operations command summary</title>
+      <link>https://blog.wisekee.com/post/k8s-common-command-conclusion/</link>
+      <pubDate>Tue, 25 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-common-command-conclusion/</guid>
+      <description>
+        
+          
+            When we use the Kubernetes platform,has many commands is important:
+The k command is alias to kubectl
+label for nodes kubectl label nodes host02 disktype=ssd
+view local config for kubernetes context k config get-contexts
+switch context&amp;rsquo;s namespaces kubectl config set-context my-vsphere-cluster --namespace=helm-test
+force delete pod, sometimes the pod still terminating.
+k delete pods &amp;lt;pod&amp;gt; -n &amp;lt;namespace&amp;gt; --grace-period=0 --force
+get all resource in current kubernetes cluster
+k get all --all-namespaces
+view job logs
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Go language frequently used command notes</title>
+      <link>https://blog.wisekee.com/post/go-usually-commands/</link>
+      <pubDate>Wed, 11 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/go-usually-commands/</guid>
+      <description>
+        
+          
+            Global install go program(go version &amp;gt;=1.16.0) go install sigs.k8s.io/kind@v0.9.0 when go version is higher 1.12 should install godoc command go get golang.org/x/tools/cmd/godoc launch go docs services in local godoc -http=:6060 view go environment variables,inlude GO ROOT path go env fmt package Println docs go doc fmt Println initialization go modules, when reference sub directory straightway example.com/module/sub1/sub2 go mod init example.com/module delete packages go clean -i -v -x github.com/somepkg/go/simpleGitHub Add modules to current packages go mod edit -require github.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>AWS networking security enhance</title>
+      <link>https://blog.wisekee.com/post/aws-network-secrutiy-enhance/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-network-secrutiy-enhance/</guid>
+      <description>
+        
+          
+            Vpc network division According to the requirements of the product and the customer, the two services of the two types of subnets are isolated. For example, DBsubnet01 and DBsubnet02 are both internal private subnets and belong to different product segments. ​	The two major subnet types are the intranet and the extranet. The internal network goes to the NAT Gateway, and the external network goes to the Internet Gateway. Like: RDS, Redis, background services, etc.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

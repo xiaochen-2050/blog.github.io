@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>stylesheet on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/stylesheet/</link>
+    <description>Recent content in stylesheet on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Wed, 23 Oct 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/stylesheet/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Some css reset or tricks in projects</title>
+      <link>https://blog.wisekee.com/post/css_trick/</link>
+      <pubDate>Wed, 23 Oct 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/css_trick/</guid>
+      <description>
+        
+          
+            This is for notes, and may be use the AI agent or chat to explain some rules.
+The some css rule syntax 1/* The css background gradient */ 2background: repeating-linear-gradient( 3 var(--first-color) 0%, 4 var(--first-color) 40%, 5 var(--second-color) 40%, 6 var(--second-color) 80% 7); The example of some css rules 1/* Define the variables in root level can inherit to sibling */ 2:root { 3 --building-color1: #aa80ff; 4 --building-color2: #66cc99; 5 --building-color3: #cc6699; 6} 7 8/* resetting the box model */ 9*{ 10 box-sizing: border-box; 11 font-family: sans-serif; 12} 13 14/* or use the pseudo selector to do this */ 15*, ::before, ::after{ 16 box-sizing: inherit; 17} 18 19/* 20pseudo select for specific class 21This property is for screen reader 22*/ 23span[class~=&amp;#34;sr-only&amp;#34;] { 24 border: 0; 25 /* clip the elements */ 26 clip: rect(1px, 1px, 1px, 1px); /* creates a 1px by 1px clipping rectangle, essentially hiding everything except for a very tiny area.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

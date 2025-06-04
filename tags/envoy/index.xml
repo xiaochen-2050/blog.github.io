@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>envoy on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/envoy/</link>
+    <description>Recent content in envoy on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 10 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/envoy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Envoyproxy write wasm plugin getting started</title>
+      <link>https://blog.wisekee.com/post/envoyproxy-wasm/</link>
+      <pubDate>Sun, 10 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/envoyproxy-wasm/</guid>
+      <description>
+        
+          
+            The Dockerfile from envoyproxy base image inherit 1FROM envoyproxy/envoy:v1.27-latest 2 3COPY envoy.yaml /etc/envoy/envoy.yaml 4COPY hello.wasm hello.wasm 5RUN chmod go+r /etc/envoy/envoy.yaml The EnvoyProxy config envoy.yaml 1static_resources: 2 listeners: 3 - name: main 4 address: 5 socket_address: 6 address: 0.0.0.0 7 port_value: 18000 8 filter_chains: 9 - filters: 10 - name: envoy.http_connection_manager 11 typed_config: 12 &amp;#34;@type&amp;#34;: type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager 13 stat_prefix: ingress_http 14 codec_type: auto 15 route_config: 16 name: local_route 17 virtual_hosts: 18 - name: local_service 19 domains: 20 - &amp;#34;*&amp;#34; 21 routes: 22 - match: 23 prefix: &amp;#34;/&amp;#34; 24 direct_response: 25 status: 200 26 body: 27 inline_string: &amp;#34;example body\n&amp;#34; 28 http_filters: 29 - name: envoy.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Envoyproxy getting started</title>
+      <link>https://blog.wisekee.com/post/envoyproxy-getting-started/</link>
+      <pubDate>Mon, 10 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/envoyproxy-getting-started/</guid>
+      <description>
+        
+          
+            Can view the envoryproxy default config in docker container 1# Launch the envoryproxy container 2# The 9901 port is envoryproxy admin and metrics, the 10000 port is listner 3# Then you can open http://127.0.0.1:9901 and http://127.0.0.1:10000 to view details 4docker run -it --rm -p 9901:9901 -p 10000:10000 --name envoy envoyproxy/envoy:v1.27-latest 5# Can attach and exec to container to view default config 6docker exec -it envoy cat /etc/envoy/envoy.yaml 7 8# admin: 9# address: 10# socket_address: 11# protocol: TCP 12# address: 0.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

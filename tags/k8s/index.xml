@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>K8s on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/k8s/</link>
+    <description>Recent content in K8s on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 02 Jun 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Talos launch kubernetes in aws environment getting started </title>
+      <link>https://blog.wisekee.com/post/talos-k8s-aws/</link>
+      <pubDate>Sun, 02 Jun 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/talos-k8s-aws/</guid>
+      <description>
+        
+          
+            talos in aws
+the all talos nodes don&amp;rsquo;t enable public ip, can use private subnet and vpc ip cidr
+Operate workflow ​Installation the talosctl to operator machine talosctl Create aws resources VPC Subnet SecurityGroup NetworkLoadbalancer : listener tcp 443 forward to control plane nodes tcp: 6443 TargetGroup: for control plane port tcp: 6443 Setup the environment variables, the talosctl command generate config file need the Env Variables 1REGION=&amp;#34;us-east-1&amp;#34; 2VPC=&amp;#34;vpc-xxxxxx&amp;#34; 3SUBNET=&amp;#34;subnet-xxxxxx&amp;#34; 4AMI=`curl -sL https://github.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>How to connect the pod terminal use web browser</title>
+      <link>https://blog.wisekee.com/post/remote-termination-websocket/</link>
+      <pubDate>Mon, 02 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/remote-termination-websocket/</guid>
+      <description>
+        
+          
+            Reference Building a Browser-based Terminal using Docker and XtermJS Docker attach api Kubernetes dashboard terminal Use a WebSocket client to exec commands in a Kubernetes pod 
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>K8S app source code and runtime separate in pod</title>
+      <link>https://blog.wisekee.com/post/k8s-app-runtime-sparate/</link>
+      <pubDate>Thu, 10 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-app-runtime-sparate/</guid>
+      <description>
+        
+          
+            In a k8s environment, it is a good choice to have the application runtime and source code build packages separated in separate containers
+Smallest source code build image use a smallest base image to build docker image store source code build result package
+1FROM alpine:latest 2WORKDIR /var/www 3COPY app /var/www/app Use different images of the runtime environment according to different programming languages 1FROM python:3.6.15-slim 2 3RUN pip install boto3 Build app image and runtime image 1# build the app image 2docker build .
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>launch testing kubernetes cluster in local use Kind</title>
+      <link>https://blog.wisekee.com/post/k8s-local-cluster-kind/</link>
+      <pubDate>Sat, 25 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-local-cluster-kind/</guid>
+      <description>
+        
+          
+            The config for kind cluster settings the expose port didn&amp;rsquo;t change when cluster launched, need prepared
+1kind: Cluster 2apiVersion: kind.x-k8s.io/v1alpha4 3networking: 4 # WARNING: It is _strongly_ recommended that you keep this the default 5 # (127.0.0.1) for security reasons. However it is possible to change this. 6 apiServerAddress: &amp;#34;127.0.0.1&amp;#34; 7 # This can connect to k8s from external when install kind in virtual host or cloud platform(ec2 of aws) 8 # By default the API server listens on a random open port.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Offline install and setup kubernetes cluster in internal network</title>
+      <link>https://blog.wisekee.com/post/k8s-cluster-offline-setup/</link>
+      <pubDate>Mon, 15 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-cluster-offline-setup/</guid>
+      <description>
+        
+          
+            Sometimes enterprise is ineternal network not has internet network in production The offline installing and setup k8s environment and resources is necessery Prepare the terraform environment Download the Terraform binary terraform You can also download the HELM binary to operate the k8s cluster. 1wget https://releases.hashicorp.com/terraform/0.15.4/terraform_0.15.4_linux_amd64.zip 2unzip terraform_0.15.4_linux_amd64.zip 3mv terraform /usr/local/bin/ 4chmod +x /usr/local/bin/terraform 5terraform version Prepare the Terraform syntax tips plugins in idea IDE https://plugins.jetbrains.com/plugin/7808-hashicorp-terraform--hcl-language-support
+Because the Terraform plugins and providers Offline to local directory and push to CVS repo so needs to install git lfs plugins
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Kubernetes events collect to elasticsearch</title>
+      <link>https://blog.wisekee.com/post/kubernetes-events-to-es/</link>
+      <pubDate>Wed, 16 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/kubernetes-events-to-es/</guid>
+      <description>
+        
+          
+            We what collect and storage kubernetes events to elasticsearch, easy to query and analyze alerts. we use this github repo componentkubernetes-event-exporter
+The main.tf include kubernetes &amp;lsquo;deployment&amp;rsquo; object 1resource &amp;#34;kubernetes_deployment&amp;#34; &amp;#34;event_export&amp;#34; { 2 metadata { 3 name = &amp;#34;event-export&amp;#34; 4 namespace = &amp;#34;kube-system&amp;#34; 5 labels = { 6 app = &amp;#34;event-export&amp;#34; 7 } 8 } 9 10 spec { 11 replicas = 1 12 13 selector { 14 match_labels = { 15 app = &amp;#34;event-export&amp;#34; 16 } 17 } 18 19 template { 20 metadata { 21 labels = { 22 app = &amp;#34;event-export&amp;#34; 23 version = &amp;#34;v1&amp;#34; 24 } 25 } 26 27 spec { 28 service_account_name = kubernetes_service_account.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Terraform&#43;Helm release&#43;fluentd in kubernetes</title>
+      <link>https://blog.wisekee.com/post/terraform-helm-fluentd/</link>
+      <pubDate>Wed, 02 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/terraform-helm-fluentd/</guid>
+      <description>
+        
+          
+            step1 the main.tf include following contents: 1resource &amp;#34;helm_release&amp;#34; &amp;#34;fluentd_server&amp;#34; { 2 name = &amp;#34;fluentd-server&amp;#34; 3 repository = &amp;#34;https://charts.bitnami.com/bitnami&amp;#34; 4 # chart = &amp;#34;${path.module}/../../../../../charts/fluentd&amp;#34; 5 version = &amp;#34;3.1.0&amp;#34; 6 namespace = &amp;#34;kube-system&amp;#34; 7 8 values = [ 9 &amp;lt;&amp;lt;-EOF 10 forwarder: 11 configMap: &amp;#34;fluentd-forwarder-config&amp;#34; 12 rbac: 13 pspEnabled: true 14 resources: 15 limits: 16 memory: 1Gi 17 requests: 18 memory: 512Mi 19 aggregator: 20 replicaCount: 1 21 configMap: &amp;#34;fluentd-elasticsearch-config&amp;#34; 22 resources: 23 limits: 24 memory: 1Gi 25 requests: 26 memory: 512Mi 27 extraEnv: 28 - name: ELASTICSEARCH_HOST 29 value: &amp;#34;${var.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Solve the problem of Metrics - Server</title>
+      <link>https://blog.wisekee.com/post/k8s-metrics-server/</link>
+      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-metrics-server/</guid>
+      <description>
+        
+          
+            When we repeatedly install the Metrics-Server, because we use helm to install it, deleting one of them will cause the following error when executing the command related to kubectl top nodes: Error from server (NotFound): the server could not find the requested resource (get services http:heapster:)
+A large part of this is due to the removal of the Apiservice Resources from Metics, when you execute the following command to ensure that the Apiservice exists kubectl get apiservice | grep metrics v1beta1.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Airflow console logs display in kuberntes container executor</title>
+      <link>https://blog.wisekee.com/post/airflow-kuberntes-logs-config/</link>
+      <pubDate>Sun, 11 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/airflow-kuberntes-logs-config/</guid>
+      <description>
+        
+          
+            Problem description When use kubernetes executor in airflow, the dags not use the podOperator but that use PythonOperator, the console logs end of Running %s on host %s &amp;lt;TaskInstance:, then the task logs don&amp;rsquo;t redirect to stdout According to the Airflow descript need config the logging class: custom_log_settings Change the custom log settings comment relative code and enable to console the tee_file_task_handler.py edit the following code snippet.
+comment the following content.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Points to note about  Terraform helm provider</title>
+      <link>https://blog.wisekee.com/post/terraform-helm-issues/</link>
+      <pubDate>Sat, 10 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/terraform-helm-issues/</guid>
+      <description>
+        
+          
+            The Metrics-Server helm chart as Terraform HCL 1resource &amp;#34;helm_release&amp;#34; &amp;#34;metrics-server&amp;#34; { 2 name = &amp;#34;metrics-server&amp;#34; 3 repository = &amp;#34;https://charts.bitnami.com/bitnami&amp;#34; 4 chart = &amp;#34;metrics-server&amp;#34; 5 version = &amp;#34;4.1.4&amp;#34; 6 namespace = &amp;#34;kube-system&amp;#34; 7 8 set { 9 name = &amp;#34;extraArgs.kubelet-preferred-address-types&amp;#34; 10 value = &amp;#34;InternalIP\\,ExternalIP\\,Hostname&amp;#34; 11 } 12 13 set { 14 name = &amp;#34;resources.requests.memory&amp;#34; 15 value = &amp;#34;500Mi&amp;#34; 16 } 17 18 set { 19 name = &amp;#34;resources.limits.memory&amp;#34; 20 value = &amp;#34;1Gi&amp;#34; 21 } 22 23 set { 24 name = &amp;#34;apiService.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Backup and Restore kubernetes cluster using Velero</title>
+      <link>https://blog.wisekee.com/post/k8s-backup-restore-using-velero/</link>
+      <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-backup-restore-using-velero/</guid>
+      <description>
+        
+          
+            Installing or Upgrade Velero client on Mac OS:
+1	brew install velero 2	HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade velero #upgrade to the latest version if maybe The Velero should use object store save the snapshot. so we use Minio as kubernetes object store.Minio launched as part of docker-compose.yaml
+1	minio: 2 container_name: &amp;#34;minio&amp;#34; 3 image: minio/minio 4 command: &amp;#34;server /data&amp;#34; 5 ports: 6 - &amp;#34;9000:9000&amp;#34; 7 environment: 8 MINIO_ACCESS_KEY: “xxxxxxx” 9 MINIO_SECRET_KEY: “xxxxxxx” 10 volumes: 11 - &amp;#34;.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>kubernetes operations command summary</title>
+      <link>https://blog.wisekee.com/post/k8s-common-command-conclusion/</link>
+      <pubDate>Tue, 25 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-common-command-conclusion/</guid>
+      <description>
+        
+          
+            When we use the Kubernetes platform,has many commands is important:
+The k command is alias to kubectl
+label for nodes kubectl label nodes host02 disktype=ssd
+view local config for kubernetes context k config get-contexts
+switch context&amp;rsquo;s namespaces kubectl config set-context my-vsphere-cluster --namespace=helm-test
+force delete pod, sometimes the pod still terminating.
+k delete pods &amp;lt;pod&amp;gt; -n &amp;lt;namespace&amp;gt; --grace-period=0 --force
+get all resource in current kubernetes cluster
+k get all --all-namespaces
+view job logs
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Kubernetes maintenance mode in nodes</title>
+      <link>https://blog.wisekee.com/post/k8s-taint-evict-cordon/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-taint-evict-cordon/</guid>
+      <description>
+        
+          
+            The steps Taint the node Cordon the node Evict pods Verify pod migration Drain the node Uncordon the node Traint the specific node 1# prevent new pods to schedule 2kubectl taint nodes node1 node.kubernetes.io/unreachable=&amp;#34;&amp;#34;:NoSchedule 3kubectl cordon node1 4# execute the upgrade or other maintenance 5# evict pods 6kubectl drain node1 --ignore-daemonsets --delete-emptydir-data --force 7# 8kubectl uncordon node1 9 10# verify the pods can schedule 11kubectl get pods -o wide --field-selector spec.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Sonarqube recovery from failed</title>
+      <link>https://blog.wisekee.com/post/sonarquebe-recovery/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/sonarquebe-recovery/</guid>
+      <description>
+        
+          
+            The volumen prefere to EBS can speed up the scanning.
+Adjust the resources request and limit 1resources: 2 limits: 3 cpu: &amp;#39;1&amp;#39; 4 memory: 8Gi 5 requests: 6 cpu: 400m 7 memory: 4Gi Change the securityContext to debug the pod and install some tools to check 1securityContext: 2 runAsUser: 0 3 runAsGroup: 0 Mount the sonar.properties to specific the java launch parameters the mount and volumes 1volumes: 2 - name: sonarqube-config 3 configMap: 4 name: sonarqube-sonarqube-config 5 defaultMode: 420 6volumeMounts: 7- name: sonarqube-config 8 mountPath: /opt/sonarqube/conf the configmap 1apiVersion: v1 2kind: ConfigMap 3metadata: 4 name: sonarqube-sonarqube-config 5 namespace: sonarqube 6data: 7 sonar.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

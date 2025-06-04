@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Custom Resources on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/custom-resources/</link>
+    <description>Recent content in Custom Resources on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sat, 22 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/custom-resources/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Automatic generate kubernetes custom resources api go language code</title>
+      <link>https://blog.wisekee.com/post/generate-crds-api-k8s/</link>
+      <pubDate>Sat, 22 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/generate-crds-api-k8s/</guid>
+      <description>
+        
+          
+            Why does this article exist because when we use Kubesphere. the go client code need to use the client objects of K8s but dosen&amp;rsquo;t provider the s2ibinary object client code. https://github.com/kubesphere/s2ioperator/tree/master/pkg/client/clientset/versioned/typed/devops/v1alpha1
+Prepare directory structure and resource defination files The doc.go include content: 1// +k8s:deepcopy-gen=package,register 2// +k8s:defaulter-gen=TypeMeta 3// +groupName=devops.kubesphere.io 4package v1alpha1 The register.go main defination custom resources GroupName and GroupVersion 1package v1alpha1 2 3import ( 4 &amp;#34;k8s.io/apimachinery/pkg/runtime/schema&amp;#34; 5 &amp;#34;sigs.k8s.io/controller-runtime/pkg/scheme&amp;#34; 6) 7 8type CodeFramework string 9 10const ( 11 Ruby CodeFramework = &amp;#34;ruby&amp;#34; 12 Go CodeFramework = &amp;#34;go&amp;#34; 13 Java CodeFramework = &amp;#34;Java&amp;#34; 14 JavaTomcat CodeFramework = &amp;#34;JavaTomcat&amp;#34; 15 Nodejs CodeFramework = &amp;#34;Nodejs&amp;#34; 16 Python CodeFramework = &amp;#34;python&amp;#34; 17 GroupName string = &amp;#34;devops.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

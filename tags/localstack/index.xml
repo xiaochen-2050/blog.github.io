@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LocalStack on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/localstack/</link>
+    <description>Recent content in LocalStack on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Tue, 01 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/localstack/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Quickly debug AWS App locally use Localstack(AWS Mock in local)</title>
+      <link>https://blog.wisekee.com/post/aws-local-development/</link>
+      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-local-development/</guid>
+      <description>
+        
+          
+            When you develop components locally that rely on AWS, it can be cumbersome to configure authentication information, and sometimes network latency. It is important to mock with a native AWS component, which can:localstack I&amp;rsquo;m using Docker-Compose here to start a set of tools that local development depends on：
+The docker-compose.yml looks like this following 1version: &amp;#39;3&amp;#39; 2 3services: 4 mongodb: 5 image: mongo:3.4.1 6 volumes: 7 - &amp;#39;./easymock/data/db:/data/db&amp;#39; 8 networks: 9 - easy-mock 10 ports: 11 - &amp;#34;27017:27017&amp;#34; 12 restart: always 13 container_name: mongodb 14 15 redis: 16 image: redis:4.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

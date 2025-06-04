@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cncf on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/cncf/</link>
+    <description>Recent content in cncf on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Thu, 05 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/cncf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Use terraform or ACK apigatewayv2 EKS operator to set up apigateway in AWS</title>
+      <link>https://blog.wisekee.com/post/aws-apigateway-practice/</link>
+      <pubDate>Thu, 05 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-apigateway-practice/</guid>
+      <description>
+        
+          
+            The daigram 1 2mock-restapi.example.dev(route53) -----&amp;gt; apigateway -----&amp;gt; vpclink -------&amp;gt; private aws nlb (eks ingress) ---&amp;gt; app servcie Use Terraform to create apigateway restapi resource to apply the resources and mapping the apigateway domain name to route53 to access the eks services
+create the route53 and domain name and vpc link to access eks services 1resource &amp;#34;aws_api_gateway_vpc_link&amp;#34; &amp;#34;to-private-nlb&amp;#34; { 2 name = &amp;#34;to-private-nlb&amp;#34; 3 description = &amp;#34;rest api to private nlb&amp;#34; 4 target_arns = [&amp;#34;arn:aws:elasticloadbalancing:xxxxx:xxxxx:loadbalancer/net/xxxxxx/xxxxxx&amp;#34;] 5} 6 7data &amp;#34;aws_route53_zone&amp;#34; &amp;#34;example_dev&amp;#34; { 8 name = &amp;#34;example.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Awesome open resoure new generational data laek house tools and project</title>
+      <link>https://blog.wisekee.com/post/bigdata-open-source/</link>
+      <pubDate>Wed, 05 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/bigdata-open-source/</guid>
+      <description>
+        
+          
+            There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
+Dataflow next gen data engineering tools A modular implementation of timely dataflow in Rust
+Apache DataFusion SQL Query Engine
+Apache Arrow is a multi-language toolbox for accelerated data interchange and in-memory processing
+Distributed stream processing engine in Rust
+https://github.com/volcano-sh/volcano(About A Cloud Native Batch System (Project under CNCF))
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Setting up falco&#43;falcosidekick&#43;ui in kubernetes cluster</title>
+      <link>https://blog.wisekee.com/post/falco&#43;falcosidekick&#43;ui/</link>
+      <pubDate>Sat, 25 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/falco&#43;falcosidekick&#43;ui/</guid>
+      <description>
+        
+          
+            Today, Cloud Native Security is more and more important. the Falco is sysdig open source cloud security tools.
+We can install to independent host or kubernetes cluster Please reference previous post about basic and install falco: Change every independent machine hostname to a meaningful name 1hostnamectl set-hostname qa-performance-testing Change macro ignore the itself rules change the /etc/falco/falco_rules.yaml to exclude falco event when falco upgrade check the writable 1# add /etc/falco/._check_writable to not fd.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Docker can&#39;t start in mac os</title>
+      <link>https://blog.wisekee.com/post/macos-docker-notworking/</link>
+      <pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/macos-docker-notworking/</guid>
+      <description>
+        
+          
+            When upgraded the Docker Desktop it&amp;rsquo;s can&amp;rsquo;t starting in MacOs
+Use AppCleaner remove Docker Destop Open Activity Monitor Force quit the Docker and Docker backend process, then open AppCleaner drag the Docker icon in Application list to AppCleaner remove the Docker
+Download Dokcer.dmg in Docker offical site and reinstalling 1 sudo hdiutil attach Docker.dmg 2 sudo /Volumes/Docker/Docker.app/Contents/MacOS/install 3 sudo hdiutil detach /Volumes/Docker Setings and change if maybe not working sudo vi ~/Library/Group\ Containers/group.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>istio getting started</title>
+      <link>https://blog.wisekee.com/post/istio-getting-started/</link>
+      <pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/istio-getting-started/</guid>
+      <description>
+        
+          
+            installing the istio 1# downloading the istio compress archive and the script will auto uncompress 2curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.16.1 sh - 3# for easier usage 4export PATH=$PWD/bin:$PATH 5# check the version 6./bin/istioctl version 7# check the requirments 8./bin/istioctl x precheck 9# installing components to local k8s cluster 10./bin/istioctl install --set profile=demo -y 11# enable injection in the default namespace 12kubectl label namespace default istio-injection=enabled 13# verify the install result 14istioctl verify-install Generally commands 1k get MutatingWebhookConfiguration 2k get validatingWebhookConfiguration 3kubectl describe configmap istio-sidecar-injector -n istio-system 4istioctl proxy-config secret istio-ingressgateway-xxxxxxx.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Kong and Konga deployment</title>
+      <link>https://blog.wisekee.com/post/kong-and-konga-deployment/</link>
+      <pubDate>Sat, 05 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/kong-and-konga-deployment/</guid>
+      <description>
+        
+          
+            Installing the Kong use docker compose 1git clone https://github.com/Kong/docker-kong 2cd docker-kong/compose/ 3KONG_DATABASE=postgres docker-compose --profile database up Running Kong admin use docker 1# refer to network name with kong docker compose resource same. 2# https://hub.docker.com/r/pantsel/konga/ 3docker run --platform=linux/amd64 -it --rm -p 1337:1337 --network compose_kong-net --name konga -e &amp;#34;NODE_ENV=production&amp;#34; -e &amp;#34;TOKEN_SECRET=xxxxxxx&amp;#34; pantsel/konga Setting Kong 1# add kong admin api to services 2curl --location --request POST &amp;#39;http://localhost:8001/services/&amp;#39; \ 3--header &amp;#39;Content-Type: application/json&amp;#39; \ 4--data-raw &amp;#39;{ 5 &amp;#34;name&amp;#34;: &amp;#34;admin-api&amp;#34;, 6 &amp;#34;host&amp;#34;: &amp;#34;localhost&amp;#34;, 7 &amp;#34;port&amp;#34;: 8001 8}&amp;#39; 9# add admin api route 10curl --location --request POST &amp;#39;http://localhost:8001/services/admin-api/routes&amp;#39; \ 11--header &amp;#39;Content-Type: application/json&amp;#39; \ 12--data-raw &amp;#39;{ 13 &amp;#34;paths&amp;#34;: [&amp;#34;/admin-api&amp;#34;] 14}&amp;#39; 15# testing admin api from kong gateway 16curl localhost:8000/admin-api/ 17# enable key auth plugin for admin api 18curl -X POST http://localhost:8001/services/admin-api/plugins \ 19 --data &amp;#34;name=key-auth&amp;#34; 20# add kong admin as consumer 21curl --location --request POST &amp;#39;http://localhost:8001/consumers/&amp;#39; \ 22--form &amp;#39;username=konga&amp;#39; \ 23--form &amp;#39;custom_id=cebd360d-3de6-4f8f-81b2-31575fe9846a&amp;#39; 24# create api key form konga 25curl --location --request POST &amp;#39;http://localhost:8001/consumers/e7b420e2-f200-40d0-9d1a-a0df359da56e/key-auth&amp;#39; https://dev.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Kubernetes and Cloud native security checklist</title>
+      <link>https://blog.wisekee.com/post/kubernetes-security-checklist/</link>
+      <pubDate>Wed, 06 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/kubernetes-security-checklist/</guid>
+      <description>
+        
+          
+            Cloud native workflow security checklist
+Development security Integrate Code Scanning at the CI/CD Process
+SAST (Static Application Security Testing) tools sonarqube, gosec various language lint itegration the IDE plugins Enabled the gitlab ci security or github action scan Reduce external vulnerabilities via dependency scanning
+various language dependency check(npm, maven, go.mod, reqirements.txt) dependency-check plugin Use image scanning to analyze container images
+Avoid unnecessary privileges
+Rootless containers Make sure the user specified in the USER instruction exists inside the container.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Awesome open resoure tools and project</title>
+      <link>https://blog.wisekee.com/post/awesome-open-source/</link>
+      <pubDate>Sat, 05 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/awesome-open-source/</guid>
+      <description>
+        
+          
+            There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
+Cloud native and kubernetes https://github.com/labring/sealos(kubernetes-kernel-based cloud os! Let&amp;rsquo;s sealos run kubernetes and applications.) https://github.com/kubevela/kubevela(The Modern Application Platform.) https://github.com/crossplane/crossplane(Cloud Native Control Planes multi cloud resoures) https://promcat.io/(A resource catalog for enterprise-class Prometheus) https://hub.datree.io/(Prevent Kubernetes misconfigurations from reaching production) https://aws.github.io/aws-eks-best-practices/(EKS Best Practices Guides) https://github.com/koderover/zadig(Zadig is a cloud native, distributed, developer-oriented continuous delivery product) https://github.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

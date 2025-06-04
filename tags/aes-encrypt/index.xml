@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Aes encrypt on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/aes-encrypt/</link>
+    <description>Recent content in Aes encrypt on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 18 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/aes-encrypt/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ansible encrypt and decrypt the secure fields</title>
+      <link>https://blog.wisekee.com/post/ansible-encrypt-secure/</link>
+      <pubDate>Sun, 18 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/ansible-encrypt-secure/</guid>
+      <description>
+        
+          
+            Wrap the ansible vault scripts 1#!/usr/bin/env bash 2 3[ &amp;#34;$#&amp;#34; -gt 2 ] || { 4 echo &amp;#34;Usage $0 encrypt|decrypt option...&amp;#34; 5 echo &amp;#34;Must be least three argumeents required&amp;#34; 6 exit 1 7} 8 9#the decrypt key file path, also can put the aws ssm 10vault_id=&amp;#39;/opt/ansible_pass&amp;#39; 11 12 13function encrypt() { 14 ansible-vault encrypt_string --vault-password-file $1 $2 --name $3 15} 16 17function decrypt() { 18 ansible -i $1 $2 -m ansible.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

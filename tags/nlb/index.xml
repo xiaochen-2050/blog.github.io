@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nlb on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/nlb/</link>
+    <description>Recent content in Nlb on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Wed, 20 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/nlb/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Istio ingress gateway enalbe proxy protocol v2 in AWS network loadbalance</title>
+      <link>https://blog.wisekee.com/post/istio-nlb-proxy-protocolv2/</link>
+      <pubDate>Wed, 20 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/istio-nlb-proxy-protocolv2/</guid>
+      <description>
+        
+          
+            Create the Network Loadbalance and specific the annotations 1name: &amp;#34;istio-ingressgateway&amp;#34; 2 service: 3 # type: ClusterIP 4 annotations: 5 service.beta.kubernetes.io/aws-load-balancer-name: &amp;#34;istio-ingress-gateway&amp;#34; 6 service.beta.kubernetes.io/aws-load-balancer-ssl-cert: &amp;gt;- 7 arn:aws:acm:us-east-1:xxxxxxxxxx:certificate/xxxxxxxxx 8 service.beta.kubernetes.io/aws-load-balancer-scheme: &amp;#34;internal&amp;#34; 9 # service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy: ELBSecurityPolicy-TLS-1-2-2017-01 10 service.beta.kubernetes.io/aws-load-balancer-type: &amp;#34;external&amp;#34; 11 service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: &amp;#34;ip&amp;#34; 12 service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp 13 service.beta.kubernetes.io/aws-load-balancer-ssl-ports: &amp;#34;https&amp;#34; 14 service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: &amp;#34;3600&amp;#34; 15 service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: &amp;#34;*&amp;#34; 16 service.beta.kubernetes.io/aws-load-balancer-target-group-attributes: &amp;#34;preserve_client_ip.enabled=true&amp;#34; 17 service.beta.kubernetes.io/aws-load-balancer-attributes: &amp;#34;deletion_protection.enabled=true, load_balancing.cross_zone.enabled=true&amp;#34; 18 ports: 19 - name: http2 20 port: 80 21 protocol: TCP 22 targetPort: 80 23 - name: https 24 port: 443 25 protocol: TCP 26 targetPort: 443 27 - name: tcp-kafka 28 port: 9095 29 protocol: TCP 30 targetPort: 9095 31 imagePullPolicy: &amp;#34;IfNotPresent&amp;#34; Create the EnvoyFilter to support x-forward-for header and propagation 1apiVersion: networking.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>consul on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/consul/</link>
+    <description>Recent content in consul on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Wed, 20 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/consul/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Launch Consul&#43;Nomad&#43;Vault through Ansible Role</title>
+      <link>https://blog.wisekee.com/post/launch-hashistack-through-ansible/</link>
+      <pubDate>Wed, 20 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/launch-hashistack-through-ansible/</guid>
+      <description>
+        
+          
+            Sometimes we need to manage distributed task scheduling and secure clandestine transport, so introducing HashiStack is a good choice
+Prepare Ansible script and playbook I choice the following playbook roles for stacks,But I changed things to suit my own needs
+Consul: github url Nomad: github url Vault use both repo community-ansibleand MiteshSharma/AnsiblevaultRole 1# The playbook folder level 2├── site.yml 3├── nomad-dev.local 4├── ansible.cfg 5├── roles 6│ ├── consul 7│ └── nomad 8│ └── vault 9└── group_vars 10 ├── consul 11 └── nomad 12 └── vault the ansible.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

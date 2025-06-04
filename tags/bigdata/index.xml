@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>bigdata on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/bigdata/</link>
+    <description>Recent content in bigdata on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 11 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/bigdata/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>trino&#43;hive metastore&#43;k8s&#43;minio environment prepared</title>
+      <link>https://blog.wisekee.com/post/bigdata-trino-hive-minio-getting-started/</link>
+      <pubDate>Sun, 11 Feb 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/bigdata-trino-hive-minio-getting-started/</guid>
+      <description>
+        
+          
+            Make the Hive images 1FROM openjdk:8u302 2 3WORKDIR /opt/hive 4ENV HADOOP_HOME=/opt/hadoop-3.2.3 5 6ADD ./hadoop-3.2.3 /opt/hadoop-3.2.3 7ADD ./apache-hive-3.1.3-bin /opt/hive 8ADD ./hadoop-3.2.3/share/hadoop/common/lib/guava-27.0-jre.jar /opt/hive/lib/ 9ADD ./hadoop-3.2.3/share/hadoop/tools/lib/hadoop-aws-3.2.3.jar /opt/hive/lib/ 10ADD ./hadoop-3.2.3/share/hadoop/tools/lib/aws-java-sdk-bundle-1.11.901.jar /opt/hive/lib/ 11 12RUN echo &amp;#39;export HIVE_HOME=/opt/hive \n export HIVE_CONF_DIR=/opt/hive/conf \n export PATH=$PATH:$HIVE_HOME/bin&amp;#39; &amp;gt;&amp;gt; ~/.bashrc 13# RUN curl https://jdbc.postgresql.org/download/postgresql-42.7.1.jar --output /opt/hive/lib/postgresql-42.7.1.jar 14RUN rm -rf /opt/hive/lib/guava-19.0.jar Define the docker-compose.yaml 1version: &amp;#39;3.7&amp;#39; 2services: 3 minio: 4 image: &amp;#39;minio/minio:latest&amp;#39; 5 hostname: minio 6 container_name: minio 7 ports: 8 - &amp;#39;9000:9000&amp;#39; 9 - &amp;#39;9001:9001&amp;#39; 10 volumes: 11 - .
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Awesome open resoure new generational data laek house tools and project</title>
+      <link>https://blog.wisekee.com/post/bigdata-open-source/</link>
+      <pubDate>Wed, 05 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/bigdata-open-source/</guid>
+      <description>
+        
+          
+            There are often some excellent blogs and open source website learning resources that need to be recorded Also for better sharing and dissemination, so the total continues below.
+Dataflow next gen data engineering tools A modular implementation of timely dataflow in Rust
+Apache DataFusion SQL Query Engine
+Apache Arrow is a multi-language toolbox for accelerated data interchange and in-memory processing
+Distributed stream processing engine in Rust
+https://github.com/volcano-sh/volcano(About A Cloud Native Batch System (Project under CNCF))
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

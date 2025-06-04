@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ansible on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/ansible/</link>
+    <description>Recent content in Ansible on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Wed, 20 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/ansible/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Launch Consul&#43;Nomad&#43;Vault through Ansible Role</title>
+      <link>https://blog.wisekee.com/post/launch-hashistack-through-ansible/</link>
+      <pubDate>Wed, 20 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/launch-hashistack-through-ansible/</guid>
+      <description>
+        
+          
+            Sometimes we need to manage distributed task scheduling and secure clandestine transport, so introducing HashiStack is a good choice
+Prepare Ansible script and playbook I choice the following playbook roles for stacks,But I changed things to suit my own needs
+Consul: github url Nomad: github url Vault use both repo community-ansibleand MiteshSharma/AnsiblevaultRole 1# The playbook folder level 2├── site.yml 3├── nomad-dev.local 4├── ansible.cfg 5├── roles 6│ ├── consul 7│ └── nomad 8│ └── vault 9└── group_vars 10 ├── consul 11 └── nomad 12 └── vault the ansible.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Use Ansible docker container in daily development</title>
+      <link>https://blog.wisekee.com/post/make-ansible-docker-image/</link>
+      <pubDate>Mon, 20 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/make-ansible-docker-image/</guid>
+      <description>
+        
+          
+            Make Ansible docker image for CI/CD workfolws Sometimes need connect to the remote host use publickey and jump server,copy the ssh key to docker image is necessary
+The Dockerfile 1FROM centos:7 2 3ARG SSH_PRIVATE_KEY 4ARG SSH_HOST_CONFIG 5 6RUN curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo &amp;amp;&amp;amp; \ 7 yum clean all &amp;amp;&amp;amp; yum makecache fast &amp;amp;&amp;amp; \ 8 yum install -y epel-release gcc libffi-devel openssh-clients git wget &amp;amp;&amp;amp; \ 9 yum install -y python python2-pip ansible 10 11RUN python -m pip install &amp;#34;pysocks&amp;#34; &amp;#34;pyspnego==0.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Ansible encrypt and decrypt the secure fields</title>
+      <link>https://blog.wisekee.com/post/ansible-encrypt-secure/</link>
+      <pubDate>Sun, 18 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/ansible-encrypt-secure/</guid>
+      <description>
+        
+          
+            Wrap the ansible vault scripts 1#!/usr/bin/env bash 2 3[ &amp;#34;$#&amp;#34; -gt 2 ] || { 4 echo &amp;#34;Usage $0 encrypt|decrypt option...&amp;#34; 5 echo &amp;#34;Must be least three argumeents required&amp;#34; 6 exit 1 7} 8 9#the decrypt key file path, also can put the aws ssm 10vault_id=&amp;#39;/opt/ansible_pass&amp;#39; 11 12 13function encrypt() { 14 ansible-vault encrypt_string --vault-password-file $1 $2 --name $3 15} 16 17function decrypt() { 18 ansible -i $1 $2 -m ansible.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

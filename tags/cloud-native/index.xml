@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cloud Native on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/cloud-native/</link>
+    <description>Recent content in Cloud Native on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sat, 18 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/cloud-native/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Launch OpenTelemetry in eks and collect the metric, trace, logs</title>
+      <link>https://blog.wisekee.com/post/up_and_running_opentelmetry/</link>
+      <pubDate>Sat, 18 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/up_and_running_opentelmetry/</guid>
+      <description>
+        
+          
+            Use Helm+Terraform to installing and initialization the OpenTelmetry and Enable auto instrumentation the workloads
+Dowload the OpenTelmetry Operator Helm package to local 1# add OpenTelemetry chat repo 2helm repo add open-telemetry https://open-telemetry.github.io/opentelemetry-helm-charts 3# pull the chat package 4helm pull open-telemetry/opentelemetry-operator 5# https://github.com/open-telemetry/opentelemetry-demo 6# Or download the opentelmetry-demo chat 7helm pull open-telemetry/opentelemetry-demo 8tar -xzvf opentelemetry-operator-0.24.1.tgz 9tar -xzvf opentelemetry-demo-0.19.1.tgz Create OpenTelmetry resources in Terraform code The namesapce resource named to opentelemetry 1resource &amp;#34;kubernetes_namespace&amp;#34; &amp;#34;opentelemetry&amp;#34; { 2 metadata { 3 annotations = { 4 name = &amp;#34;opentelemetry&amp;#34; 5 } 6 labels = { 7 &amp;#34;kubesphere.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>To defence the internal web or resources use Oauth2 proxy</title>
+      <link>https://blog.wisekee.com/post/use-oauth2-proxy/</link>
+      <pubDate>Sat, 18 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/use-oauth2-proxy/</guid>
+      <description>
+        
+          
+            To protect the some internal web resources we can use Oauth2 proxy to integration many identity tools for example: gitlab, github, Open ID, OpenLDAP and so on
+Get the Oauth2-proxy helm chat package 1# add the oauth2-pxory helm repo url 2helm repo add oauth2-proxy https://oauth2-proxy.github.io/manifests 3# decompression the tar package 4tar -xzvf oauth2-proxy-6.10.1.tgz 5# move to chats sub directory 6mv oauth2-proxy /terraform/iac/charts The oauth2-proxy config 1resource &amp;#34;helm_release&amp;#34; &amp;#34;oauth2-proxy&amp;#34; { 2 name = &amp;#34;oauth2-proxy&amp;#34; 3 chart = &amp;#34;.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Istio intercept particular traffic</title>
+      <link>https://blog.wisekee.com/post/istio-intecept-particular-traffic/</link>
+      <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/istio-intecept-particular-traffic/</guid>
+      <description>
+        
+          
+            Sometimes intercept external access traffic in mesh to internal service is needed
+Http to Internal service when access external domain in mesh network when access http://edition.cnn.com in mesh network then should redirect to hello.test-ns.svc.cluster.local internal service.
+Create a ServiceEntry resource to defination the external domain entry 1apiVersion: networking.istio.io/v1alpha3 2kind: ServiceEntry 3metadata: 4 name: redirect-cnn-to-internal 5 namespace: test-ns 6spec: 7 hosts: 8 - edition.cnn.com 9 ports: 10 - number: 80 11 name: http 12 protocol: HTTP 13 - number: 443 14 name: https 15 protocol: HTTPS 16 resolution: NONE Create a VirtualService to serve target traffic 1apiVersion: networking.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Installation and configuration istio use helm chat and terraform</title>
+      <link>https://blog.wisekee.com/post/install_istio_helm_chat/</link>
+      <pubDate>Sat, 18 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/install_istio_helm_chat/</guid>
+      <description>
+        
+          
+            Installation and Configuration istio use terraform
+Pull helm chats to local 1# add istio helm chat repo url 2helm repo add istio https://istio-release.storage.googleapis.com/charts 3# download latest helm chat packages 4helm pull istio/base 5helm pull istio/istiod 6helm pull istio/gateway 7 8# uncompress to relative directory 9tar -xzvf base-1.17.1.tgz 10tar -xzvf istiod-1.17.1.tgz 11tar -xzvf gateway-1.17.1.tgz 12 13# move the istio components to prefer directory 14mv base ~/code/chats/istio-base 15mv istiod ~/code/chats/istiod 16mv gateway ~/code/chats/istio-gateway Create the istio namespace and initialization the base resources 1resource &amp;#34;kubernetes_namespace&amp;#34; &amp;#34;istio_system&amp;#34; { 2 metadata { 3 annotations = { 4 name = &amp;#34;istio-system&amp;#34; 5 } 6 labels = { 7 &amp;#34;kubesphere.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

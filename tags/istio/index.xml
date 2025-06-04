@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Istio on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/istio/</link>
+    <description>Recent content in Istio on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Wed, 20 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/istio/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Istio ingress gateway enalbe proxy protocol v2 in AWS network loadbalance</title>
+      <link>https://blog.wisekee.com/post/istio-nlb-proxy-protocolv2/</link>
+      <pubDate>Wed, 20 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/istio-nlb-proxy-protocolv2/</guid>
+      <description>
+        
+          
+            Create the Network Loadbalance and specific the annotations 1name: &amp;#34;istio-ingressgateway&amp;#34; 2 service: 3 # type: ClusterIP 4 annotations: 5 service.beta.kubernetes.io/aws-load-balancer-name: &amp;#34;istio-ingress-gateway&amp;#34; 6 service.beta.kubernetes.io/aws-load-balancer-ssl-cert: &amp;gt;- 7 arn:aws:acm:us-east-1:xxxxxxxxxx:certificate/xxxxxxxxx 8 service.beta.kubernetes.io/aws-load-balancer-scheme: &amp;#34;internal&amp;#34; 9 # service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy: ELBSecurityPolicy-TLS-1-2-2017-01 10 service.beta.kubernetes.io/aws-load-balancer-type: &amp;#34;external&amp;#34; 11 service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: &amp;#34;ip&amp;#34; 12 service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp 13 service.beta.kubernetes.io/aws-load-balancer-ssl-ports: &amp;#34;https&amp;#34; 14 service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: &amp;#34;3600&amp;#34; 15 service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: &amp;#34;*&amp;#34; 16 service.beta.kubernetes.io/aws-load-balancer-target-group-attributes: &amp;#34;preserve_client_ip.enabled=true&amp;#34; 17 service.beta.kubernetes.io/aws-load-balancer-attributes: &amp;#34;deletion_protection.enabled=true, load_balancing.cross_zone.enabled=true&amp;#34; 18 ports: 19 - name: http2 20 port: 80 21 protocol: TCP 22 targetPort: 80 23 - name: https 24 port: 443 25 protocol: TCP 26 targetPort: 443 27 - name: tcp-kafka 28 port: 9095 29 protocol: TCP 30 targetPort: 9095 31 imagePullPolicy: &amp;#34;IfNotPresent&amp;#34; Create the EnvoyFilter to support x-forward-for header and propagation 1apiVersion: networking.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Istio verify and parse jwt header</title>
+      <link>https://blog.wisekee.com/post/istio-parse-jwt/</link>
+      <pubDate>Tue, 15 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/istio-parse-jwt/</guid>
+      <description>
+        
+          
+            Create RequestAuthentication and AuthorizationPolicy resources 1apiVersion: security.istio.io/v1beta1 2kind: RequestAuthentication 3metadata: 4 name: &amp;#34;request-authentication-sso&amp;#34; 5 namespace: istio-system 6spec: 7 jwtRules: 8 - issuer: &amp;#34;https://issue.example.com/sso&amp;#34; 9 jwksUri: &amp;#34;https://issue.example.com/.well-known/openid-configuration/jwks&amp;#34; 10 outputClaimToHeaders: 11 - header: &amp;#34;x-jwt-claim-email&amp;#34; 12 claim: &amp;#34;email&amp;#34; 13 14--- 15apiVersion: security.istio.io/v1beta1 16kind: AuthorizationPolicy 17metadata: 18 name: ingress-gateway-authorization 19 namespace: istio-system 20spec: 21 selector: 22 matchLabels: 23 app: istio-ingressgateway 24 action: ALLOW 25 rules: 26 - from: 27 - source: 28 requestPrincipals: [&amp;#34;*&amp;#34;] 29 - to: 30 - operation: 31 paths: [ 32 &amp;#34;/productpage*&amp;#34;, 33 &amp;#34;/login*&amp;#34;, 34 &amp;#34;/logout*&amp;#34;, 35 &amp;#34;/static*&amp;#34; 36 ] May be need complex authorization 1--- 2# apiVersion: security.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Generate the self sign certificate for istio ingress gateway</title>
+      <link>https://blog.wisekee.com/post/self-sign-certificate-for-istio-ingressgateway/</link>
+      <pubDate>Thu, 03 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/self-sign-certificate-for-istio-ingressgateway/</guid>
+      <description>
+        
+          
+            Simple diagram for istio ingress gateway to access argo ui
+argo.dev.local &amp;mdash;-&amp;gt; istio-ingressgateway &amp;mdash;-&amp;gt; argo server virtual service &amp;mdash;-&amp;gt; argo distination rule &amp;mdash;-&amp;gt; argo kubernetes service
+Use the shell script generate the CA root certificate and csr for sub domain add the certificate and private key to kubernetes secrets store
+1#!/usr/bin/env bash 2 3DOMAIN_NAME=&amp;#34;dev.local&amp;#34; 4 5# create root CA certificate 6openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -subj &amp;#34;/O=$DOMAIN_NAME Inc.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Istio intercept particular traffic</title>
+      <link>https://blog.wisekee.com/post/istio-intecept-particular-traffic/</link>
+      <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/istio-intecept-particular-traffic/</guid>
+      <description>
+        
+          
+            Sometimes intercept external access traffic in mesh to internal service is needed
+Http to Internal service when access external domain in mesh network when access http://edition.cnn.com in mesh network then should redirect to hello.test-ns.svc.cluster.local internal service.
+Create a ServiceEntry resource to defination the external domain entry 1apiVersion: networking.istio.io/v1alpha3 2kind: ServiceEntry 3metadata: 4 name: redirect-cnn-to-internal 5 namespace: test-ns 6spec: 7 hosts: 8 - edition.cnn.com 9 ports: 10 - number: 80 11 name: http 12 protocol: HTTP 13 - number: 443 14 name: https 15 protocol: HTTPS 16 resolution: NONE Create a VirtualService to serve target traffic 1apiVersion: networking.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Installation and configuration istio use helm chat and terraform</title>
+      <link>https://blog.wisekee.com/post/install_istio_helm_chat/</link>
+      <pubDate>Sat, 18 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/install_istio_helm_chat/</guid>
+      <description>
+        
+          
+            Installation and Configuration istio use terraform
+Pull helm chats to local 1# add istio helm chat repo url 2helm repo add istio https://istio-release.storage.googleapis.com/charts 3# download latest helm chat packages 4helm pull istio/base 5helm pull istio/istiod 6helm pull istio/gateway 7 8# uncompress to relative directory 9tar -xzvf base-1.17.1.tgz 10tar -xzvf istiod-1.17.1.tgz 11tar -xzvf gateway-1.17.1.tgz 12 13# move the istio components to prefer directory 14mv base ~/code/chats/istio-base 15mv istiod ~/code/chats/istiod 16mv gateway ~/code/chats/istio-gateway Create the istio namespace and initialization the base resources 1resource &amp;#34;kubernetes_namespace&amp;#34; &amp;#34;istio_system&amp;#34; { 2 metadata { 3 annotations = { 4 name = &amp;#34;istio-system&amp;#34; 5 } 6 labels = { 7 &amp;#34;kubesphere.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>istio getting started</title>
+      <link>https://blog.wisekee.com/post/istio-getting-started/</link>
+      <pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/istio-getting-started/</guid>
+      <description>
+        
+          
+            installing the istio 1# downloading the istio compress archive and the script will auto uncompress 2curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.16.1 sh - 3# for easier usage 4export PATH=$PWD/bin:$PATH 5# check the version 6./bin/istioctl version 7# check the requirments 8./bin/istioctl x precheck 9# installing components to local k8s cluster 10./bin/istioctl install --set profile=demo -y 11# enable injection in the default namespace 12kubectl label namespace default istio-injection=enabled 13# verify the install result 14istioctl verify-install Generally commands 1k get MutatingWebhookConfiguration 2k get validatingWebhookConfiguration 3kubectl describe configmap istio-sidecar-injector -n istio-system 4istioctl proxy-config secret istio-ingressgateway-xxxxxxx.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

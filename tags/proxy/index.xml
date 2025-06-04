@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>proxy on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/proxy/</link>
+    <description>Recent content in proxy on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sat, 10 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/proxy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Local fast proxy chain access tool</title>
+      <link>https://blog.wisekee.com/post/local-proxychain-tools/</link>
+      <pubDate>Sat, 10 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/local-proxychain-tools/</guid>
+      <description>
+        
+          
+            proxychains ng (new generation) - a preloader which hooks calls to sockets in dynamically linked programs and redirects it through one or more socks/http proxies. continuation of the unmaintained proxychains project https://github.com/rofl0r/proxychains-ng
+Install 1# On macos 2 HOMEBREW_NO_UPDATE=1 brew install proxychains-ng 3# On linux 4# needs a working C compiler, preferably gcc 5 ./configure --prefix=/usr --sysconfdir=/etc 6 make 7 sudo make install 8 sudo make install-config (installs proxychains.conf) Configuration Create and config file path ~/.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

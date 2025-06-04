@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>logs on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/logs/</link>
+    <description>Recent content in logs on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sat, 10 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/logs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AWS vpc flow logs insight</title>
+      <link>https://blog.wisekee.com/post/aws-logs-insight/</link>
+      <pubDate>Sat, 10 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-logs-insight/</guid>
+      <description>
+        
+          
+            Define pattern for log groups in cloudwatch Create filter pattern filter pattern: [action, azid, bytes, dstaddr,dstport,instanceid,protocol,srcaddr,srcport,subnetid] Metric namespaces Name for metric namespace Metric name: bytes Metric value: $bytes Unit: Bytes Dimensions: Dimension Name: dst-addr, Dimension Value: $dstaddr Determine NAT gateway logs 1# if network interface format is: 2# ${version} ${account-id} ${interface-id} ${srcaddr} ${dstaddr} ${srcport} ${dstport} ${protocol} ${packets} ${bytes} ${start} ${end} ${action} ${log-status} 3fields @timestamp 4| parse @message &amp;#34;* * * * * * * * * *&amp;#34; as action, azid, bytes, dstaddr,dstport,instanceid,protocol,srcaddr,srcport,subnetid 5| stats sum(bytes) as bytesTransferred by srcaddr, dstaddr 6| sort bytesTransferred desc VPC transit gateway flow logs Create filter pattern [version, resource_type, account_id,tgw_id, tgw_attachment_id, tgw_src_vpc_account_id, tgw_dst_vpc_account_id, tgw_src_vpc_id, tgw_dst_vpc_id, tgw_src_subnet_id, tgw_dst_subnet_id, tgw_src_eni, tgw_dst_eni, tgw_src_az_id, tgw_dst_az_id, tgw_pair_attachment_id, srcaddr, dstaddr, srcport, dstport, protocol, packets, bytes,start,end, log_status, type,packets_lost_no_route, packets_lost_blackhole, packets_lost_mtu_exceeded, packets_lost_ttl_expired, tcp_flags,region, flow_direction, pkt_src_aws_service, pkt_dst_aws_service] Metric namespaces Name for metric namespace Metric name: bytes Metric value: $bytes Unit: Bytes Dimensions: Dimension Name: account_id, Dimension Value: $account_id Determine VPC transit gateway logs 1fields @timestamp 2 | parse @message &amp;#34;* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *&amp;#34; as version, resource_type, account_id,tgw_id, tgw_attachment_id, tgw_src_vpc_account_id, tgw_dst_vpc_account_id, tgw_src_vpc_id, tgw_dst_vpc_id, tgw_src_subnet_id, tgw_dst_subnet_id, tgw_src_eni, tgw_dst_eni, tgw_src_az_id, tgw_dst_az_id, tgw_pair_attachment_id, srcaddr, dstaddr, srcport, dstport, protocol, packets, bytes,start,end, log_status, type,packets_lost_no_route, packets_lost_blackhole, packets_lost_mtu_exceeded, packets_lost_ttl_expired, tcp_flags,region, flow_direction, pkt_src_aws_service, pkt_dst_aws_service 3| sort bytes desc 
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch monitoring and  alert base on ElastAlert</title>
+      <link>https://blog.wisekee.com/post/elastalert-usage/</link>
+      <pubDate>Tue, 02 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/elastalert-usage/</guid>
+      <description>
+        
+          
+            Dynamically generate alarm rules and send email to relative people.based on a given parameter or configuration Elastalert
+The directory construct look following 1├── elastalert 2├── generate_rule.py 3├── param.json 4├── rules 5└── template You can also through pip install elastalert installing elastalert package. I&amp;rsquo;m going to use it directly here The templatedirectory store tpl file, use this template generate some rules file to rules directory. and used elastalert
+Configuration file param.json 1{ 2 &amp;#34;dev&amp;#34;: { 3 &amp;#34;public_config&amp;#34;: { 4 &amp;#34;run_every&amp;#34;: 5, 5 &amp;#34;buffer_time&amp;#34;: 15, 6 &amp;#34;es_host&amp;#34;: &amp;#34;dev.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

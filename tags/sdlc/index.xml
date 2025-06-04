@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>sdlc on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/sdlc/</link>
+    <description>Recent content in sdlc on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Mon, 10 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/sdlc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Software development security lifecycle terminology</title>
+      <link>https://blog.wisekee.com/post/software-deployment-security-terminology/</link>
+      <pubDate>Mon, 10 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/software-deployment-security-terminology/</guid>
+      <description>
+        
+          
+            General terminology of Software development Software Composition Analysis(SCA) Static Application Security Testing (SAST) Dynamic Application Security Testing (DAST) Runtime Application Self-Protection (RASP) information security (InfoSec) Integrated Development Environment (IDE) Common Vulnerabilities and Exposures (CVE) Version Control System (VCS) AWS Security Finding Format (ASFF) Proof of Concept (POC) IT Service Management (ITSM) distributed denial of service (DDoS) Other terminology of SDLC Test-driven development (TDD) Scaled Agile Framework (SAFe) Large-Scale Scrum (LeSS) Some usefuly tools and site url (malicious)[https://zeltser.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

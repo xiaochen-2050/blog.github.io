@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vue on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/vue/</link>
+    <description>Recent content in Vue on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 10 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/vue/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vue custom component getting started</title>
+      <link>https://blog.wisekee.com/post/vue-custom-components/</link>
+      <pubDate>Sun, 10 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/vue-custom-components/</guid>
+      <description>
+        
+          
+            Define the custom component MessageBox in vue file this file named MessageBox.vue
+1&amp;lt;template&amp;gt; 2 &amp;lt;transition name=&amp;#34;fade-in&amp;#34; mode=&amp;#34;out-in&amp;#34;&amp;gt; 3 &amp;lt;div 4 v-if=&amp;#34;show&amp;#34; 5 :class=&amp;#34;[&amp;#39;alert&amp;#39;, &amp;#39;notification&amp;#39;, &amp;#39;is-&amp;#39; + type]&amp;#34; 6 :style=&amp;#34;{ transform: &amp;#39;translate(-50%,&amp;#39; + offset + &amp;#39;px)&amp;#39; }&amp;#34; 7 &amp;gt; 8 &amp;lt;button 9 @click=&amp;#34;() =&amp;gt; (this.show = !this.show)&amp;#34; 10 v-show=&amp;#34;this.showBtn&amp;#34; 11 class=&amp;#34;delete&amp;#34; 12 &amp;gt;&amp;lt;/button&amp;gt; 13 &amp;lt;p v-html=&amp;#34;message&amp;#34;&amp;gt;&amp;lt;/p&amp;gt; 14 &amp;lt;/div&amp;gt; 15 &amp;lt;/transition&amp;gt; 16&amp;lt;/template&amp;gt; 17 18&amp;lt;script&amp;gt; 19export default { 20 name: &amp;#34;MessageBox&amp;#34;, 21 props: { 22 message: { 23 thype: String, 24 required: true, 25 }, 26 type: { 27 type: String, 28 default: &amp;#34;default&amp;#34;, 29 }, 30 offset: { 31 type: Number, 32 default: 20, 33 }, 34 showBtn: { 35 type: Boolean, 36 default: true, 37 }, 38 }, 39 data() { 40 return { 41 show: true, 42 }; 43 }, 44 methods: { 45 isShow(status) { 46 this.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>How to create sample frontend in vue use cli and vite</title>
+      <link>https://blog.wisekee.com/post/vue-app-getting-started/</link>
+      <pubDate>Sat, 18 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/vue-app-getting-started/</guid>
+      <description>
+        
+          
+            The vue cli 1 2npm i -g @vue/cli 3vue --version 4vue create vue-starter-project 5 6# create local development configuration file 7touch .env.development Use NODE_ENV to switch build or compiler and coding 1# can define the different environment file 2touch .env.development.local # to local testing for development don&amp;#39;t commit the git 3touch .env.staging # to staging environment to configuration 4 5# The env file content may be 6echo &amp;#39;NODE_ENV=&amp;#34;staging&amp;#34;&amp;#39; 7 8# integration the env file to launch 9# { 10# .
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

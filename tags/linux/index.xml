@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linux on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/linux/</link>
+    <description>Recent content in linux on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Thu, 11 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to rescue ec2 linux when upgrade the kernel failed</title>
+      <link>https://blog.wisekee.com/post/ec2-linux-kernel-rescue/</link>
+      <pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/ec2-linux-kernel-rescue/</guid>
+      <description>
+        
+          
+            rescue steps Force stop the failed ec2 instance Detach the root ebs volume Launch new ec2 instance need support Nitro System the instance type and attach the previous EBS volume Add new user in new ec2 instance and get the /etc/shadows encrypt password copy to old device same file administrator user overide the line Detach the ebs volume from new instance and stop it Retach the ebs volume to first ec2 and start it use serial console connect to it and use overide the user credetials to fix some issue Or immediately fix some problem in new ec2 useful command or script 1# list the installed kernel 2dpkg --list | grep linux-image 3apt list --installed | egrep &amp;#39;^linux&amp;#39; | grep $(uname -r) 4# view some logs 5grep $(uname -r) /var/log/dpkg.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

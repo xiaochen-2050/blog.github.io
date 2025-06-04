@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Reverse on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/reverse/</link>
+    <description>Recent content in Reverse on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Fri, 20 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/reverse/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Reverse enginerring getting started</title>
+      <link>https://blog.wisekee.com/post/reverse-enginerring-getting-started/</link>
+      <pubDate>Fri, 20 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/reverse-enginerring-getting-started/</guid>
+      <description>
+        
+          
+            Reverse engineering can be used for different goals, such as finding malware, discovering vulnerabilities, fixing software bugs, testing compatibility, and protecting intellectual property.
+Abstractor Application Binary Interface (ABI) Reverse tools Ghidra: free and open-source software reverse engineering suite made by the NSA and released to the public in 2019 github IDA Pro: commercial interactive disassembler and debugger made by Hex-Rays and widely used by security experts and professionals. How to check the binary format inform 1# you can view the program format and linked information 2file xxxxx 3# view the detail elf 4readelf -a xxxxx 5# to detect the dynamic libraries be used 6ldd xxxxx 7# view the header details 8hexdump -C -n 64 xxxxx 9 10# view the binary file objects 11objdump -t hello 12 13objdump -h hello 14 15objdump -f hello Some command to view headers dumpelf elfls -p /bin/ps eu-readelf –section-headers /bin/ps readelf -S /bin/ps objdump -h /bin/ps Posts series about knowledge ELF Format and Runtime Internals
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

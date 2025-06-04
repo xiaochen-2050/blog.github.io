@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ECR on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/ecr/</link>
+    <description>Recent content in ECR on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Mon, 20 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/ecr/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Dynamic create docker registry pull image credentials in eks cluster for particular  imagePullSecret</title>
+      <link>https://blog.wisekee.com/post/aws-ecr-register-helper/</link>
+      <pubDate>Mon, 20 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-ecr-register-helper/</guid>
+      <description>
+        
+          
+            When use imagePullSecret to pull image from ecr in eks cluster for particular task etc. Istio WSAM plugin from ecr registry, need specific imagePullSecret
+Basic workflow create cronjob in eks cluster schedule login to ecr and obtain credentials create a secrets in some Namespaces named aws-registry save the docker pull credentals use this secrets in Namespace pull image specific imagePullSecret parameter for example: 1 spec: 2 imagePullPolicy: Always 3 imagePullSecret: aws-registry The Dockerfile to construct cronjob docker image 1FROM python:alpine 2MAINTAINER Mike Petersen &amp;lt;mike@odania-it.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

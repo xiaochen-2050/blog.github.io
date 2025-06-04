@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Traffic on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/traffic/</link>
+    <description>Recent content in Traffic on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Wed, 18 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/traffic/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AWS traffic security analysis and mirror</title>
+      <link>https://blog.wisekee.com/post/aws-traffic-analysis/</link>
+      <pubDate>Wed, 18 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-traffic-analysis/</guid>
+      <description>
+        
+          
+            install Suricata in ubuntu instance 1sudo add-apt-repository ppa:oisf/suricata-stable 2sudo apt install suricata 3sudo systemctl enable suricata.service 4sudo systemctl stop suricata.service Config Suricata edit file sudo nano /etc/suricata/suricata.yaml
+1# enable/disable the community id feature. 2community-id: true 3# Linux high speed capture support 4af-packet: 5 - interface: eth0 6 # Number of receive threads. &amp;#34;auto&amp;#34; uses the number of cores 7 #threads: auto 8 # Default clusterid. AF_PACKET will load balance packets based on flow.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Forward the traffic to internal server through iptables rule use bastion server</title>
+      <link>https://blog.wisekee.com/post/iptables-forward-traffic/</link>
+      <pubDate>Mon, 18 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/iptables-forward-traffic/</guid>
+      <description>
+        
+          
+            Sometimes we have access internal service or server in local network,needs through external bastion server bridge to.
+1# The traffic forward to internal environment through bastion iptables rule diagram 2 3# local or office ------&amp;gt; bastion machine ----------&amp;gt; internal server 4# local access bastion-public-ip:8888 -----&amp;gt; bastion iptables rules ----&amp;gt; internal server:80 5 6# display iptalbes nat rules 7iptables -t nat -L 8 9# add prepostrouting rule to chain 10iptables -t nat -A PREROUTING -p tcp -m tcp --dport 8899 -j DNAT --to-destination 192.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>EKS on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/eks/</link>
+    <description>Recent content in EKS on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Thu, 20 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/eks/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AWS EKS pod attach the SecurityGroup through SecurityGroupPolicy CRD</title>
+      <link>https://blog.wisekee.com/post/aws-eks-pod-sg/</link>
+      <pubDate>Thu, 20 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-eks-pod-sg/</guid>
+      <description>
+        
+          
+            The EKS deployment should use ServiceAccount for pods
+Create the CR to eks cluster Control the access to Istio ingress gateway through bind the securitygroup to pod network interface.
+1apiVersion: vpcresources.k8s.aws/v1beta1 2kind: SecurityGroupPolicy 3metadata: 4 name: istio-internal-ingressgateway-sg 5 namespace: istio-system 6spec: 7 serviceAccountSelector: 8 matchLabels: 9 app: istio-internal-ingressgateway 10 securityGroups: 11 groupIds: 12 - sg-xxxxxxx 13 - sg-xxxxxxx 14 - sg-xxxxxxx 15 - sg-xxxxxxx 16 - sg-xxxxxxx Reference Security groups for Pods 
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>AWS EKS use farget nodes as pod runtime environments</title>
+      <link>https://blog.wisekee.com/post/aws-eks-farget-nodes/</link>
+      <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-eks-farget-nodes/</guid>
+      <description>
+        
+          
+            For greater isolation and convenience, we can use farget as the run time environment for eks.
+Create eks farget execute role named: AmazonEKSFargatePodExecutionRole the TrustPolicy statements like following 1# trust policy 2{ 3 &amp;#34;Version&amp;#34;: &amp;#34;2012-10-17&amp;#34;, 4 &amp;#34;Statement&amp;#34;: [ 5 { 6 &amp;#34;Effect&amp;#34;: &amp;#34;Allow&amp;#34;, 7 &amp;#34;Principal&amp;#34;: { 8 &amp;#34;Service&amp;#34;: [ 9 &amp;#34;ssm.amazonaws.com&amp;#34;, 10 &amp;#34;eks-fargate-pods.amazonaws.com&amp;#34; 11 ] 12 }, 13 &amp;#34;Action&amp;#34;: &amp;#34;sts:AssumeRole&amp;#34;, 14 &amp;#34;Condition&amp;#34;: { 15 &amp;#34;ArnLike&amp;#34;: { 16 &amp;#34;aws:SourceArn&amp;#34;: &amp;#34;arn:aws:eks:us-east-1:{accountId}:fargateprofile/{clusterName}/*&amp;#34; 17 } 18 } 19 } 20 ] 21} attach the AWS managed policy to farget execution Role AmazonEKSClusterPolicy AmazonEKSFargatePodExecutionRolePolicy Create EKS farget profile in eks console select eks cluster and navigate the compute tab.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>EKS nodes speed workloads launch time use placeholde free one node</title>
+      <link>https://blog.wisekee.com/post/aws-eks-placeholde-nodes/</link>
+      <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-eks-placeholde-nodes/</guid>
+      <description>
+        
+          
+            Create eks node group label and taint 1labels = { 2 &amp;#34;node-group&amp;#34; : &amp;#34;spotInstances&amp;#34; 3} 4taints = [ 5 { 6 effect = &amp;#34;NO_SCHEDULE&amp;#34; 7 key = &amp;#34;devops&amp;#34; 8 value = &amp;#34;forceSchedule&amp;#34; 9 } 10] Create priorityClass one to placeholder other one to nornal schedule 1apiVersion: scheduling.k8s.io/v1 2kind: PriorityClass 3metadata: 4 name: placeholder 5value: 0 6preemptionPolicy: Never 7globalDefault: false 8description: &amp;#39;placeholder&amp;#39; 9--- 10apiVersion: scheduling.k8s.io/v1 11kind: PriorityClass 12metadata: 13 name: normal 14value: 1 15preemptionPolicy: Never 16globalDefault: true # default 17description: &amp;#39;normal&amp;#39; Use placeholde deployment 1apiVersion: apps/v1 2kind: Deployment 3metadata: 4 name: placeholder 5spec: 6 replicas: 1 # how many placeholder node should launch 7 selector: 8 matchLabels: 9 app: placeholder 10 template: 11 metadata: 12 labels: 13 app: placeholder 14 spec: 15 terminationGracePeriodSeconds: 0 # important 16 priorityClassName: placeholder # important 17 containers: 18 - image: nginx:1.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

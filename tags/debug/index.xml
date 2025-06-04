@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Debug on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/debug/</link>
+    <description>Recent content in Debug on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sat, 09 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/debug/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to config debug the go project in vscode</title>
+      <link>https://blog.wisekee.com/post/go-vscode-debug-config/</link>
+      <pubDate>Sat, 09 Mar 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/go-vscode-debug-config/</guid>
+      <description>
+        
+          
+            To debug the go project has many method to achieve it
+The config file specific the program arguments 1{ 2 // Use IntelliSense to learn about possible attributes. 3 // Hover to view descriptions of existing attributes. 4 // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387 5 &amp;#34;version&amp;#34;: &amp;#34;0.2.0&amp;#34;, 6 &amp;#34;configurations&amp;#34;: [ 7 { 8 &amp;#34;name&amp;#34;: &amp;#34;cmd-name&amp;#34;, 9 &amp;#34;type&amp;#34;: &amp;#34;go&amp;#34;, 10 &amp;#34;request&amp;#34;: &amp;#34;launch&amp;#34;, 11 &amp;#34;mode&amp;#34;: &amp;#34;auto&amp;#34;, 12 &amp;#34;program&amp;#34;: &amp;#34;src/cmd/main.go&amp;#34;, 13 &amp;#34;args&amp;#34;: [&amp;#34;aws&amp;#34;, &amp;#34;ecr&amp;#34;, &amp;#34;create-repository&amp;#34;, &amp;#34;--repository-name&amp;#34;, &amp;#34;test/repository&amp;#34;] 14 } 15 ] 16} Set the environment variables 1{ 2 // Use IntelliSense to learn about possible attributes.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

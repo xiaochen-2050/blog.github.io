@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>grafana on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/grafana/</link>
+    <description>Recent content in grafana on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sat, 25 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/grafana/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Deploymnet Prometheus&#43;Grafana in single machine use docker-compose service</title>
+      <link>https://blog.wisekee.com/post/deployment-promethues-grafana/</link>
+      <pubDate>Sat, 25 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/deployment-promethues-grafana/</guid>
+      <description>
+        
+          
+            Deploymnet Prometheus+Grafana in single machine use docker-compose service Collect and report node status in grafana dashboard, through node-exporter and process-exporter to promethues tsdb
+Setup and install relative components 1#update the system and install docker component 2yum update -y 3yum install -y yum-utils 4yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo 5yum install -y docker-ce docker-ce-cli containerd.io 6systemctl enable docker 7systemctl start docker 8mkdir -p /data/monitor/{alertmanager,prometheus/{config,data},consul/data,grafana/data} 9chmown -R 1000:1000 /data/monitor 10chmod -R 777 /data/monitor/grafana Download the monitoring relative docker images 1docker pull prom/prometheus:latest 2docker pull grafana/grafana:latest 3docker pull prom/alertmanager:latest 4docker pull prom/pushgateway:latest 5docker pull consul:latest Prepare docker-compose.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

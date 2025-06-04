@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>envoyproxy on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/envoyproxy/</link>
+    <description>Recent content in envoyproxy on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Mon, 10 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/envoyproxy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Envoyproxy getting started</title>
+      <link>https://blog.wisekee.com/post/envoyproxy-getting-started/</link>
+      <pubDate>Mon, 10 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/envoyproxy-getting-started/</guid>
+      <description>
+        
+          
+            Can view the envoryproxy default config in docker container 1# Launch the envoryproxy container 2# The 9901 port is envoryproxy admin and metrics, the 10000 port is listner 3# Then you can open http://127.0.0.1:9901 and http://127.0.0.1:10000 to view details 4docker run -it --rm -p 9901:9901 -p 10000:10000 --name envoy envoyproxy/envoy:v1.27-latest 5# Can attach and exec to container to view default config 6docker exec -it envoy cat /etc/envoy/envoy.yaml 7 8# admin: 9# address: 10# socket_address: 11# protocol: TCP 12# address: 0.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://blog.wisekee.com/post/envoy-ratelimit/</link>
+      <pubDate>Sun, 02 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/envoy-ratelimit/</guid>
+      <description>
+        
+          
+            Use external rate limit service deployment the Envoyproxy ratelimit service to kubernetes deployment the redis to serve envoy proxy ratelimit use Envoyproxy ratelimit serivce in envoy filter chains through grpc service for every workloads create Envoyfilter rule Deployment the envoy ratelimit service the deployment.yaml to reference 1apiVersion: apps/v1 2kind: Deployment 3metadata: 4 name: envoy-ratelimt 5 namespace: istio-system 6 labels: 7 app: envoy-ratelimt 8spec: 9 replicas: 2 10 selector: 11 matchLabels: 12 app: envoy-ratelimt 13 template: 14 metadata: 15 creationTimestamp: null 16 labels: 17 app: envoy-ratelimt 18 spec: 19 volumes: 20 - name: config 21 configMap: 22 name: ratelimit-config 23 defaultMode: 420 24 optional: false 25 containers: 26 - name: ratelimit 27 image: &amp;gt;- 28 envoyproxy/ratelimit:9d8d70a8 29 command: 30 - /bin/ratelimit 31 env: 32 - name: REDIS_SOCKET_TYPE 33 value: tcp 34 - name: REDIS_URL 35 value: redis-master:6379 36 - name: RUNTIME_ROOT 37 value: /data 38 - name: RUNTIME_SUBDIRECTORY 39 value: ratelimit 40 - name: RUNTIME_IGNOREDOTFILES 41 value: &amp;#39;true&amp;#39; 42 - name: RUNTIME_WATCH_ROOT 43 value: &amp;#39;false&amp;#39; 44 - name: USE_STATSD 45 value: &amp;#39;false&amp;#39; 46 - name: LOG_LEVEL 47 value: info 48 resources: 49 limits: 50 cpu: 1024m 51 memory: 1Gi 52 requests: 53 cpu: 256m 54 memory: 256Mi 55 volumeMounts: 56 - name: config 57 mountPath: /data/ratelimit/config 58 mountPropagation: None 59 terminationMessagePath: /dev/termination-log 60 terminationMessagePolicy: File 61 imagePullPolicy: IfNotPresent 62 restartPolicy: Always 63 strategy: 64 type: RollingUpdate 65 rollingUpdate: 66 maxUnavailable: 25% 67 maxSurge: 25% 68 revisionHistoryLimit: 10 69 progressDeadlineSeconds: 600 the ratelimit-config configmap 1apiVersion: v1 2kind: ConfigMap 3metadata: 4 name: ratelimit-config 5 namespace: istio-system 6data: 7 config.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

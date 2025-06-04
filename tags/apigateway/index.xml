@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>apigateway on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/apigateway/</link>
+    <description>Recent content in apigateway on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Thu, 05 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/apigateway/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Use terraform or ACK apigatewayv2 EKS operator to set up apigateway in AWS</title>
+      <link>https://blog.wisekee.com/post/aws-apigateway-practice/</link>
+      <pubDate>Thu, 05 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-apigateway-practice/</guid>
+      <description>
+        
+          
+            The daigram 1 2mock-restapi.example.dev(route53) -----&amp;gt; apigateway -----&amp;gt; vpclink -------&amp;gt; private aws nlb (eks ingress) ---&amp;gt; app servcie Use Terraform to create apigateway restapi resource to apply the resources and mapping the apigateway domain name to route53 to access the eks services
+create the route53 and domain name and vpc link to access eks services 1resource &amp;#34;aws_api_gateway_vpc_link&amp;#34; &amp;#34;to-private-nlb&amp;#34; { 2 name = &amp;#34;to-private-nlb&amp;#34; 3 description = &amp;#34;rest api to private nlb&amp;#34; 4 target_arns = [&amp;#34;arn:aws:elasticloadbalancing:xxxxx:xxxxx:loadbalancer/net/xxxxxx/xxxxxx&amp;#34;] 5} 6 7data &amp;#34;aws_route53_zone&amp;#34; &amp;#34;example_dev&amp;#34; { 8 name = &amp;#34;example.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

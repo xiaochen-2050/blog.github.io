@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLM on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/llm/</link>
+    <description>Recent content in LLM on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 10 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/llm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to setup the TTS LLM model GPT-SoVITS</title>
+      <link>https://blog.wisekee.com/post/setup-gpt-sovits/</link>
+      <pubDate>Sun, 10 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/setup-gpt-sovits/</guid>
+      <description>
+        
+          
+            Features: (GPT-SoVITS)[https://github.com/RVC-Boss/GPT-SoVITS]
+Zero-shot TTS: Input a 5-second vocal sample and experience instant text-to-speech conversion. Few-shot TTS: Fine-tune the model with just 1 minute of training data for improved voice similarity and realism. Cross-lingual Support: Inference in languages different from the training dataset, currently supporting English, Japanese, Korean, Cantonese and Chinese. WebUI Tools: Integrated tools include voice accompaniment separation, automatic training set segmentation, Chinese ASR, and text labeling, assisting beginners in creating training datasets and GPT/SoVITS models.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Open source text to image and image LLM</title>
+      <link>https://blog.wisekee.com/post/text_to_image_llm/</link>
+      <pubDate>Thu, 10 Oct 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/text_to_image_llm/</guid>
+      <description>
+        
+          
+            Large models related to image processing OmniGen: Unified Image Generation. FLUX.1 minimal inference code to run image generation Llama OCRAbout Document to Markdown OCR library with Llama 3.2 vision deepfaceAbout A Lightweight Face Recognition and Facial Attribute Analysis (Age, Gender, Emotion and Race) Library for Python PIXART-αFast Training of Diffusion Transformer for Photorealistic Text-to-Image Synthesis LTX-VideoDiT-based video generation model Hugging face playground: play ground 
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Awesome AI&#39;s resoures</title>
+      <link>https://blog.wisekee.com/post/awesome-ai/</link>
+      <pubDate>Wed, 10 Jul 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/awesome-ai/</guid>
+      <description>
+        
+          
+            Basic knowledges MLflow: A Tool for Managing the Machine Learning Lifecycle Docs and getting started Introduction to Generative AI Machine Learning Ops Tools and Efficiency Discover, download, and run local LLMs Go ahead and axolotl questions A template for Metaflow cards Machine Learning Toolkit for Kubernetes LightGBM is a gradient boosting framework XGBoost is an optimized distributed gradient boosting library 1 min voice data can also be used to train a good TTS model Kokoro is a frontier TTS model for its size.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Getting started LLM for workshop</title>
+      <link>https://blog.wisekee.com/post/llm-getting-started/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/llm-getting-started/</guid>
+      <description>
+        
+          
+            How to use the LLMs Prompt Engineering Retrieval Augmented Generation (RAG) Fine-tuning Training your own Foundation Model(FM) from scratch Vector databases Milvus Database for AI. Store Vectors, Images, Texts, Videos, etc. Use with LLMs/LangChain deeplake Knowledge Referred to as &amp;ldquo;prompts&amp;rdquo;. Designing a prompt is essentially how you “program” a large language model model Plugins can be “eyes and ears” for language models Using commands to instruct the model what you want to achieve, such as &amp;ldquo;Write&amp;rdquo;, &amp;ldquo;Classify&amp;rdquo;, &amp;ldquo;Summarize&amp;rdquo;, &amp;ldquo;Translate&amp;rdquo;, &amp;ldquo;Order&amp;rdquo; Foundation model (FM) – An AI model with a large number of parameters and trained on a massive amount of diverse data.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>es on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/es/</link>
+    <description>Recent content in es on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright><atom:link href="https://blog.wisekee.com/tags/es/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sonarqube recovery from failed</title>
+      <link>https://blog.wisekee.com/post/sonarquebe-recovery/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/sonarquebe-recovery/</guid>
+      <description>
+        
+          
+            The volumen prefere to EBS can speed up the scanning.
+Adjust the resources request and limit 1resources: 2 limits: 3 cpu: &amp;#39;1&amp;#39; 4 memory: 8Gi 5 requests: 6 cpu: 400m 7 memory: 4Gi Change the securityContext to debug the pod and install some tools to check 1securityContext: 2 runAsUser: 0 3 runAsGroup: 0 Mount the sonar.properties to specific the java launch parameters the mount and volumes 1volumes: 2 - name: sonarqube-config 3 configMap: 4 name: sonarqube-sonarqube-config 5 defaultMode: 420 6volumeMounts: 7- name: sonarqube-config 8 mountPath: /opt/sonarqube/conf the configmap 1apiVersion: v1 2kind: ConfigMap 3metadata: 4 name: sonarqube-sonarqube-config 5 namespace: sonarqube 6data: 7 sonar.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

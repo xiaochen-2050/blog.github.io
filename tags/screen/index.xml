@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Screen on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/screen/</link>
+    <description>Recent content in Screen on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sat, 02 Mar 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/screen/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tmux common commands</title>
+      <link>https://blog.wisekee.com/post/tmux-getting-started/</link>
+      <pubDate>Sat, 02 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/tmux-getting-started/</guid>
+      <description>
+        
+          
+            tmux kill-session # kill all sessions tmux ls # list all sessions To enable Iterm2 to access the clipboard General -&amp;gt; Selection -&amp;gt; Applications in terminal may access clipboard The common commands 11. Create a new session: tmux new-session or tmux new -s &amp;lt;session-name&amp;gt; 22. Detach from a session: Ctrl + b followed by d 33. Attach to a session: tmux attach-session or tmux attach -t &amp;lt;session-name&amp;gt; 44. Switch between sessions: Ctrl + b followed by ( 55.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

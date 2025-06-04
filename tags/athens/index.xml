@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>athens on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/athens/</link>
+    <description>Recent content in athens on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Thu, 09 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/athens/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go language private registry glance</title>
+      <link>https://blog.wisekee.com/post/go-private-package-registry-athens/</link>
+      <pubDate>Thu, 09 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/go-private-package-registry-athens/</guid>
+      <description>
+        
+          
+            Setup GO private package repositry ATHENS for project development Use Nexus proxy access public go package and private repository repo
+1#The access workflow 2 3 |------&amp;gt; proxy-public internal 4internal.pack.com/goproxy---&amp;gt;nexus 5 |------&amp;gt;athens---&amp;gt;nginx---&amp;gt; private gitlab The pull package workflow - set the environment variable `export GOPROXY=internal.pack.com/goproxy`- setup nexus proxy the internal athens and public go proxy repo- the athens access internal gitlab code repo needs nginx rewrite the some paths- because athens needs https access the code repoGenerate the private certificate 1openssl req -x509 -nodes -days 876000 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

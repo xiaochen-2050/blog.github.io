@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kind on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/kind/</link>
+    <description>Recent content in kind on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sat, 25 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/kind/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>launch testing kubernetes cluster in local use Kind</title>
+      <link>https://blog.wisekee.com/post/k8s-local-cluster-kind/</link>
+      <pubDate>Sat, 25 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-local-cluster-kind/</guid>
+      <description>
+        
+          
+            The config for kind cluster settings the expose port didn&amp;rsquo;t change when cluster launched, need prepared
+1kind: Cluster 2apiVersion: kind.x-k8s.io/v1alpha4 3networking: 4 # WARNING: It is _strongly_ recommended that you keep this the default 5 # (127.0.0.1) for security reasons. However it is possible to change this. 6 apiServerAddress: &amp;#34;127.0.0.1&amp;#34; 7 # This can connect to k8s from external when install kind in virtual host or cloud platform(ec2 of aws) 8 # By default the API server listens on a random open port.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

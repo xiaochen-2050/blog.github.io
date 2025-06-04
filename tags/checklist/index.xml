@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>checklist on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/checklist/</link>
+    <description>Recent content in checklist on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Wed, 06 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/checklist/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kubernetes and Cloud native security checklist</title>
+      <link>https://blog.wisekee.com/post/kubernetes-security-checklist/</link>
+      <pubDate>Wed, 06 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/kubernetes-security-checklist/</guid>
+      <description>
+        
+          
+            Cloud native workflow security checklist
+Development security Integrate Code Scanning at the CI/CD Process
+SAST (Static Application Security Testing) tools sonarqube, gosec various language lint itegration the IDE plugins Enabled the gitlab ci security or github action scan Reduce external vulnerabilities via dependency scanning
+various language dependency check(npm, maven, go.mod, reqirements.txt) dependency-check plugin Use image scanning to analyze container images
+Avoid unnecessary privileges
+Rootless containers Make sure the user specified in the USER instruction exists inside the container.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

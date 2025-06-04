@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AGI on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/agi/</link>
+    <description>Recent content in AGI on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Wed, 10 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/agi/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Awesome AI&#39;s resoures</title>
+      <link>https://blog.wisekee.com/post/awesome-ai/</link>
+      <pubDate>Wed, 10 Jul 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/awesome-ai/</guid>
+      <description>
+        
+          
+            Basic knowledges MLflow: A Tool for Managing the Machine Learning Lifecycle Docs and getting started Introduction to Generative AI Machine Learning Ops Tools and Efficiency Discover, download, and run local LLMs Go ahead and axolotl questions A template for Metaflow cards Machine Learning Toolkit for Kubernetes LightGBM is a gradient boosting framework XGBoost is an optimized distributed gradient boosting library 1 min voice data can also be used to train a good TTS model Kokoro is a frontier TTS model for its size.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

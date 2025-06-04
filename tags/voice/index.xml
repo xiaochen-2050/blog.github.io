@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>VOICE on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/voice/</link>
+    <description>Recent content in VOICE on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 10 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/voice/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to setup the TTS LLM model GPT-SoVITS</title>
+      <link>https://blog.wisekee.com/post/setup-gpt-sovits/</link>
+      <pubDate>Sun, 10 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/setup-gpt-sovits/</guid>
+      <description>
+        
+          
+            Features: (GPT-SoVITS)[https://github.com/RVC-Boss/GPT-SoVITS]
+Zero-shot TTS: Input a 5-second vocal sample and experience instant text-to-speech conversion. Few-shot TTS: Fine-tune the model with just 1 minute of training data for improved voice similarity and realism. Cross-lingual Support: Inference in languages different from the training dataset, currently supporting English, Japanese, Korean, Cantonese and Chinese. WebUI Tools: Integrated tools include voice accompaniment separation, automatic training set segmentation, Chinese ASR, and text labeling, assisting beginners in creating training datasets and GPT/SoVITS models.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>docker-compose on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/docker-compose/</link>
+    <description>Recent content in docker-compose on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Fri, 10 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/docker-compose/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Launch and setup the ELK stack use docker compose service</title>
+      <link>https://blog.wisekee.com/post/docker-compose-elk/</link>
+      <pubDate>Fri, 10 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/docker-compose-elk/</guid>
+      <description>
+        
+          
+            install ELK stack use docker-compose Install and setup ELK stack in single machine use docker compose service. and uesfilebeat ship the logs
+settings the centos system 1sudo yum install -y yum-utils 2sudo yum-config-manager \ 3 --add-repo \ 4 https://download.docker.com/linux/centos/docker-ce.repo 5sudo yum install docker-ce docker-ce-cli containerd.io 6systemctl enable docker 7systemctl start docker 8# install the docker-compose 9sudo curl -L &amp;#34;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&amp;#34; -o /usr/local/bin/docker-compose 10chmod +x /usr/local/bin/docker-compose 11 12# adjust the system parmeters 13echo &amp;#34;vm.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

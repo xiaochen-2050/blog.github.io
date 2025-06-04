@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kubernetes on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/kubernetes/</link>
+    <description>Recent content in kubernetes on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 11 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Grpc example and getting started</title>
+      <link>https://blog.wisekee.com/post/grpc-getting-started/</link>
+      <pubDate>Sun, 11 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/grpc-getting-started/</guid>
+      <description>
+        
+          
+            Create the structure 1mkdir myapp 2cd myapp &amp;amp;&amp;amp; go mod init myapp 3go mod tidy The steps Create the proto file descript the message 1syntax = &amp;#34;proto3&amp;#34;; 2package proto; 3 4option go_package = &amp;#34;./proto&amp;#34;; 5 6//A sample service which contains all our rpc. 7service MyService{ 8 //The definition of rpc. 9 rpc MyFunc(Request) returns (StringMessage) {} 10} 11 12//Empty Request. 13message Request { 14} 15 16//The message to Return when rpc is invoked.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>How to call to kubernets grpc services in local</title>
+      <link>https://blog.wisekee.com/post/grpc-awesome/</link>
+      <pubDate>Thu, 11 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/grpc-awesome/</guid>
+      <description>
+        
+          
+            Usually for serivce better performance. we can use GRPC and multiple instance deployment for app, then the GRPC load balancing is challenges
+Create Grpc headless service for Grpc app when multiple instance is enable for GRPC service in order to load balacing the GRPC service, needs create headless service let client load balancing
+1apiVersion: v1 2kind: Service 3metadata: 4 name: grpc-demo-headless 5 namespace: apps 6spec: 7 ports: 8 - name: tcp-30555 9 protocol: TCP 10 port: 30555 11 targetPort: 30555 12 selector: 13 app: grpc-demo-app 14 clusterIP: None 15 type: ClusterIP Use Envoy proxy the headless service implementation load balancing deploy the envoy proxy 1apiVersion: apps/v1 2kind: Deployment 3metadata: 4 name: envoy-proxy-grpc-demo 5 namespace: apps 6 labels: 7 app: envoy-proxy-grpc-demo 8spec: 9 replicas: 1 10 selector: 11 matchLabels: 12 app: envoy-proxy-grpc-demo 13 template: 14 metadata: 15 labels: 16 app: envoy-proxy-grpc-demo 17 sidecar.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>EKS nodes speed workloads launch time use placeholde free one node</title>
+      <link>https://blog.wisekee.com/post/aws-eks-placeholde-nodes/</link>
+      <pubDate>Mon, 20 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-eks-placeholde-nodes/</guid>
+      <description>
+        
+          
+            Create eks node group label and taint 1labels = { 2 &amp;#34;node-group&amp;#34; : &amp;#34;spotInstances&amp;#34; 3} 4taints = [ 5 { 6 effect = &amp;#34;NO_SCHEDULE&amp;#34; 7 key = &amp;#34;devops&amp;#34; 8 value = &amp;#34;forceSchedule&amp;#34; 9 } 10] Create priorityClass one to placeholder other one to nornal schedule 1apiVersion: scheduling.k8s.io/v1 2kind: PriorityClass 3metadata: 4 name: placeholder 5value: 0 6preemptionPolicy: Never 7globalDefault: false 8description: &amp;#39;placeholder&amp;#39; 9--- 10apiVersion: scheduling.k8s.io/v1 11kind: PriorityClass 12metadata: 13 name: normal 14value: 1 15preemptionPolicy: Never 16globalDefault: true # default 17description: &amp;#39;normal&amp;#39; Use placeholde deployment 1apiVersion: apps/v1 2kind: Deployment 3metadata: 4 name: placeholder 5spec: 6 replicas: 1 # how many placeholder node should launch 7 selector: 8 matchLabels: 9 app: placeholder 10 template: 11 metadata: 12 labels: 13 app: placeholder 14 spec: 15 terminationGracePeriodSeconds: 0 # important 16 priorityClassName: placeholder # important 17 containers: 18 - image: nginx:1.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Debug the docker container network use nsenter command</title>
+      <link>https://blog.wisekee.com/post/docker-nsenter-container-network/</link>
+      <pubDate>Tue, 10 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/docker-nsenter-container-network/</guid>
+      <description>
+        
+          
+            View all listener 1lsof -i Login in kubernetes node use ssh Find out the container 1#find process id in specific container 2docker top `docker ps|grep &amp;#34;istio-proxy_productpage&amp;#34;|cut -d &amp;#34; &amp;#34; -f1` 3# find the pid and use nsenter to container network namespace 4nsenter -n --target PID 5# View the details of the rule configuration in the NAT table. 6iptables -t nat -L -v Debug the container use nicolaka/netshoot A Docker + Kubernetes network trouble-shooting swiss-army container netshoot 1docker run -it --net container:&amp;lt;container_name&amp;gt; nicolaka/netshoot 
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>istio getting started</title>
+      <link>https://blog.wisekee.com/post/istio-getting-started/</link>
+      <pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/istio-getting-started/</guid>
+      <description>
+        
+          
+            installing the istio 1# downloading the istio compress archive and the script will auto uncompress 2curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.16.1 sh - 3# for easier usage 4export PATH=$PWD/bin:$PATH 5# check the version 6./bin/istioctl version 7# check the requirments 8./bin/istioctl x precheck 9# installing components to local k8s cluster 10./bin/istioctl install --set profile=demo -y 11# enable injection in the default namespace 12kubectl label namespace default istio-injection=enabled 13# verify the install result 14istioctl verify-install Generally commands 1k get MutatingWebhookConfiguration 2k get validatingWebhookConfiguration 3kubectl describe configmap istio-sidecar-injector -n istio-system 4istioctl proxy-config secret istio-ingressgateway-xxxxxxx.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Setup the jenkins agent in kubernetes cluster use pods</title>
+      <link>https://blog.wisekee.com/post/jenkins-eks-agent/</link>
+      <pubDate>Sat, 15 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/jenkins-eks-agent/</guid>
+      <description>
+        
+          
+            Supplement When you upgrade the jenkins.war in docker container, commit to another tag the Entrypoint and CMD is lost So can commit specific the Entrypoint and CMD 1docker commit --change=&amp;#39;ENTRYPOINT [/usr/bin/tini&amp;#34;, &amp;#34;--&amp;#34;, &amp;#34;/usr/local/bin/jenkins.sh&amp;#34;]&amp;#39; --change=&amp;#39;CMD [/usr/local/bin/jenkins.sh&amp;#34;]&amp;#39; &amp;lt;container_id&amp;gt; new_image_name Basic settings Add Global credentials the Secret is kubernetes login token Add new cloud configure in Manage Jenkins &amp;ndash;&amp;gt; Clouds Config the Kubernetes Clouds websocket connection, use internal jenkins URL, specific the Pod Labels, Pod Retention: On Failure, Max connections, Seconds to wait for pod Add Pod template settings Specific Namespace, Usage: Only build jobs with label expressions matching this node Container Template: jnlp: jenkins/inbound-agent:latest, Working directory: /home/jenkins/agent Command to run: /usr/local/bin/jenkins-agent You can specific Volumes to mount cache etc.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>launch testing kubernetes cluster in local use Kind</title>
+      <link>https://blog.wisekee.com/post/k8s-local-cluster-kind/</link>
+      <pubDate>Sat, 25 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-local-cluster-kind/</guid>
+      <description>
+        
+          
+            The config for kind cluster settings the expose port didn&amp;rsquo;t change when cluster launched, need prepared
+1kind: Cluster 2apiVersion: kind.x-k8s.io/v1alpha4 3networking: 4 # WARNING: It is _strongly_ recommended that you keep this the default 5 # (127.0.0.1) for security reasons. However it is possible to change this. 6 apiServerAddress: &amp;#34;127.0.0.1&amp;#34; 7 # This can connect to k8s from external when install kind in virtual host or cloud platform(ec2 of aws) 8 # By default the API server listens on a random open port.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Offline install and setup kubernetes cluster in internal network</title>
+      <link>https://blog.wisekee.com/post/k8s-cluster-offline-setup/</link>
+      <pubDate>Mon, 15 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-cluster-offline-setup/</guid>
+      <description>
+        
+          
+            Sometimes enterprise is ineternal network not has internet network in production The offline installing and setup k8s environment and resources is necessery Prepare the terraform environment Download the Terraform binary terraform You can also download the HELM binary to operate the k8s cluster. 1wget https://releases.hashicorp.com/terraform/0.15.4/terraform_0.15.4_linux_amd64.zip 2unzip terraform_0.15.4_linux_amd64.zip 3mv terraform /usr/local/bin/ 4chmod +x /usr/local/bin/terraform 5terraform version Prepare the Terraform syntax tips plugins in idea IDE https://plugins.jetbrains.com/plugin/7808-hashicorp-terraform--hcl-language-support
+Because the Terraform plugins and providers Offline to local directory and push to CVS repo so needs to install git lfs plugins
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Installing eclipse-che in native kubernetes platform</title>
+      <link>https://blog.wisekee.com/post/installing-eclipse-che-in-kubernetes/</link>
+      <pubDate>Fri, 15 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/installing-eclipse-che-in-kubernetes/</guid>
+      <description>
+        
+          
+            At first installing OLM Requirement: kubectl configred and connect to Kubernetes cluster correct.
+1curl -L https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.17.0/install.sh -o install.sh 2chmod +x install.sh 3./install.sh v0.17.0 Installing Eclipse-Che Operator According to: eclipse-che operator
+1kubectl create -f https://operatorhub.io/install/eclipse-che.yaml 2# view the Operator resources 3kubectl get pods --all-namespaces | grep olm 4# and the CluseterServiceVersion 5kubectl get csv -n my-eclipse-che Install Eclipse-che instance use CheCluster resource 1#The partial configure need to change 2 k8s: 3 ingressClass: &amp;#39;nginx&amp;#39; 4 ingressDomain: &amp;#39;che.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Getting started Serverless framework Nuclio</title>
+      <link>https://blog.wisekee.com/post/getting-stared-nucalio/</link>
+      <pubDate>Sun, 15 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/getting-stared-nucalio/</guid>
+      <description>
+        
+          
+            use Helm charts: Github 1	helm repo add nuclio https://nuclio.github.io/nuclio/charts 2	kubectl create namespace nuclio copy registry to nuclio namespace from existing namespace 1kubectl get secret repo-registry -n dev-ns -o yaml \ 2| sed s/&amp;#34;namespace: dev-ns&amp;#34;/&amp;#34;namespace: nuclio&amp;#34;/ \ 3| kubectl apply -f - install nuclio 1	helm install nuclio \ 2 --set registry.secretName=repo-registry \ 3 --set registry.pushPullUrl=localhost/nucalio \ 4 nuclio/nuclio -n nuclio visit dashboard 1	kubectl -n nuclio port-forward $(kubectl get pods -n nuclio -l nuclio.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Scheduler clean up kubernetes unuseful resources</title>
+      <link>https://blog.wisekee.com/post/schedule-cleanup-k8s-resources/</link>
+      <pubDate>Mon, 02 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/schedule-cleanup-k8s-resources/</guid>
+      <description>
+        
+          
+            Prepare Golang program code use clean up unused pods and replicaset resources in kubernetes we can clean up not running status pods and deactive replicasets
+initialization Go lanugage project evnironment 1	mkdir k8s_res_cleanup &amp;amp;&amp;amp; cd k8s_res_cleanup 2	go mod init example.com/cleanup/resources 3	go get -v -u k8s.io/client-go@v0.18.2 # install packages 4	go get -v -u github.com/prometheus/common@v0.1.0 create sub packageconfig/k8s.go indicate how can connect to kubernetes cluster 1package config 2 3import ( 4	&amp;#34;flag&amp;#34; 5	logs &amp;#34;github.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Solve the problem of Metrics - Server</title>
+      <link>https://blog.wisekee.com/post/k8s-metrics-server/</link>
+      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-metrics-server/</guid>
+      <description>
+        
+          
+            When we repeatedly install the Metrics-Server, because we use helm to install it, deleting one of them will cause the following error when executing the command related to kubectl top nodes: Error from server (NotFound): the server could not find the requested resource (get services http:heapster:)
+A large part of this is due to the removal of the Apiservice Resources from Metics, when you execute the following command to ensure that the Apiservice exists kubectl get apiservice | grep metrics v1beta1.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Notes for using Kubernetes Ingress Controller</title>
+      <link>https://blog.wisekee.com/post/kubernetes-ingress-guides/</link>
+      <pubDate>Thu, 15 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/kubernetes-ingress-guides/</guid>
+      <description>
+        
+          
+            Append the nginx ingress http redirect to https Add extra port to nginx deployment for example: 8080, look like following 1ports: 2 - name: http 3 containerPort: 80 4 protocol: TCP 5 - name: https 6 containerPort: 443 7 protocol: TCP 8 - name: webhook 9 containerPort: 8443 10 protocol: TCP 11 - name: http-redirect 12 containerPort: 8080 Add section http-snippet to ConfigMap ingress-nginx-controller 1data: 2 allow-snippet-annotations: &amp;#39;true&amp;#39; 3 compute-full-forwarded-for: &amp;#39;true&amp;#39; 4 use-forwarded-headers: &amp;#39;true&amp;#39; 5 server-tokens: &amp;#39;false&amp;#39; 6 http-snippet: | 7 server { 8 listen 8080; 9 return 308 https://$host$request_uri; 10 } Modify the ingress service loadbalance configure, let http-80 forward to http-redirect-8080 1- name: http 2 protocol: TCP 3 appProtocol: http 4 port: 80 5 targetPort: http-redirect 6 nodePort: 32009 Using Nginx-Ingress Controller in AWS Eks environment Need manually enable the Proxy protocol V2 in NLB target group just only TCP https 443 listener Rather than TCP http 80 listener Multiple SSL certificate need manually add to NLB The http redirect to https, need to change some paramets 1	# use http-snippet and open proxy protocol 2 use-proxy-protocol: &amp;#39;true&amp;#39; 3 use-forwarded-headers: &amp;#39;true&amp;#39; 4 server-tokens: &amp;#39;false&amp;#39; 5 http-snippet: | 6 server { 7 listen 8000; 8 return 308 https://$host$request_uri; 9 } 10 proxy-real-ip-cidr: ${join(&amp;#34;,&amp;#34;, var.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Backup and Restore kubernetes cluster using Velero</title>
+      <link>https://blog.wisekee.com/post/k8s-backup-restore-using-velero/</link>
+      <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-backup-restore-using-velero/</guid>
+      <description>
+        
+          
+            Installing or Upgrade Velero client on Mac OS:
+1	brew install velero 2	HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade velero #upgrade to the latest version if maybe The Velero should use object store save the snapshot. so we use Minio as kubernetes object store.Minio launched as part of docker-compose.yaml
+1	minio: 2 container_name: &amp;#34;minio&amp;#34; 3 image: minio/minio 4 command: &amp;#34;server /data&amp;#34; 5 ports: 6 - &amp;#34;9000:9000&amp;#34; 7 environment: 8 MINIO_ACCESS_KEY: “xxxxxxx” 9 MINIO_SECRET_KEY: “xxxxxxx” 10 volumes: 11 - &amp;#34;.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Custom private domain name in kubernetes cluster</title>
+      <link>https://blog.wisekee.com/post/custom-domain-name-in-k8s/</link>
+      <pubDate>Thu, 03 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/custom-domain-name-in-k8s/</guid>
+      <description>
+        
+          
+            We use default service domain name ${servicename}.${namespace}.svc.cluster.localin kubernetes cluster, however the custom private domain name in private k8s networks frequently used. we can use coredns component reparse the private domain name to default CNAME.
+change coredns configmap add custom domain name config to yaml kubectl edit cm coredns -n kube-system
+1data: 2 Corefile: | 3 .:53 { 4 errors 5 health { 6 lameduck 5s 7 } 8 ready 9 kubernetes cluster.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>kubernetes operations command summary</title>
+      <link>https://blog.wisekee.com/post/k8s-common-command-conclusion/</link>
+      <pubDate>Tue, 25 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-common-command-conclusion/</guid>
+      <description>
+        
+          
+            When we use the Kubernetes platform,has many commands is important:
+The k command is alias to kubectl
+label for nodes kubectl label nodes host02 disktype=ssd
+view local config for kubernetes context k config get-contexts
+switch context&amp;rsquo;s namespaces kubectl config set-context my-vsphere-cluster --namespace=helm-test
+force delete pod, sometimes the pod still terminating.
+k delete pods &amp;lt;pod&amp;gt; -n &amp;lt;namespace&amp;gt; --grace-period=0 --force
+get all resource in current kubernetes cluster
+k get all --all-namespaces
+view job logs
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Automatic generate kubernetes custom resources api go language code</title>
+      <link>https://blog.wisekee.com/post/generate-crds-api-k8s/</link>
+      <pubDate>Sat, 22 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/generate-crds-api-k8s/</guid>
+      <description>
+        
+          
+            Why does this article exist because when we use Kubesphere. the go client code need to use the client objects of K8s but dosen&amp;rsquo;t provider the s2ibinary object client code. https://github.com/kubesphere/s2ioperator/tree/master/pkg/client/clientset/versioned/typed/devops/v1alpha1
+Prepare directory structure and resource defination files The doc.go include content: 1// +k8s:deepcopy-gen=package,register 2// +k8s:defaulter-gen=TypeMeta 3// +groupName=devops.kubesphere.io 4package v1alpha1 The register.go main defination custom resources GroupName and GroupVersion 1package v1alpha1 2 3import ( 4 &amp;#34;k8s.io/apimachinery/pkg/runtime/schema&amp;#34; 5 &amp;#34;sigs.k8s.io/controller-runtime/pkg/scheme&amp;#34; 6) 7 8type CodeFramework string 9 10const ( 11 Ruby CodeFramework = &amp;#34;ruby&amp;#34; 12 Go CodeFramework = &amp;#34;go&amp;#34; 13 Java CodeFramework = &amp;#34;Java&amp;#34; 14 JavaTomcat CodeFramework = &amp;#34;JavaTomcat&amp;#34; 15 Nodejs CodeFramework = &amp;#34;Nodejs&amp;#34; 16 Python CodeFramework = &amp;#34;python&amp;#34; 17 GroupName string = &amp;#34;devops.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Install and setup cloud foundry in kubernetes cluster</title>
+      <link>https://blog.wisekee.com/post/setup-cloudfoundry-in-k8s/</link>
+      <pubDate>Thu, 20 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/setup-cloudfoundry-in-k8s/</guid>
+      <description>
+        
+          
+            First prepare the tools installation in host: Kind: https://kind.sigs.k8s.io/docs/user/quick-start/ Cf command: https://docs.cloudfoundry.org/cf-cli/install-go-cli.html HOMEBREW_NO_AUTO_UPDATE=1 brew install cloudfoundry/tap/cf-cli@6 or HOMEBREW_NO_AUTO_UPDATE=1 brew install cloudfoundry/tap/cf-cli@7 Kubectl command: https://kubernetes.io/docs/tasks/tools/install-kubectl/ Helm: https://helm.sh/docs/intro/install/ The Kind must definiation config.yml, refer to expose http(80) and https(443) ports to host machine, because the k8s cluster node ip is internal-ip created by Kind such as: 172.18.0.2
+1kind: Cluster 2apiVersion: kind.x-k8s.io/v1alpha4 3networking: 4 # WARNING: It is _strongly_ recommended that you keep this the default 5 # (127.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Kubernetes maintenance mode in nodes</title>
+      <link>https://blog.wisekee.com/post/k8s-taint-evict-cordon/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-taint-evict-cordon/</guid>
+      <description>
+        
+          
+            The steps Taint the node Cordon the node Evict pods Verify pod migration Drain the node Uncordon the node Traint the specific node 1# prevent new pods to schedule 2kubectl taint nodes node1 node.kubernetes.io/unreachable=&amp;#34;&amp;#34;:NoSchedule 3kubectl cordon node1 4# execute the upgrade or other maintenance 5# evict pods 6kubectl drain node1 --ignore-daemonsets --delete-emptydir-data --force 7# 8kubectl uncordon node1 9 10# verify the pods can schedule 11kubectl get pods -o wide --field-selector spec.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

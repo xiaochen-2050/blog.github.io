@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ingest on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/ingest/</link>
+    <description>Recent content in ingest on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 18 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/ingest/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Elastic cloud ingest pipeline template</title>
+      <link>https://blog.wisekee.com/post/elastic-cloud-ingest-pipeline/</link>
+      <pubDate>Sun, 18 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/elastic-cloud-ingest-pipeline/</guid>
+      <description>
+        
+          
+            The syntax ingest pipeline template convenient for search
+1[ 2 { 3 &amp;#34;grok&amp;#34;: { 4 &amp;#34;field&amp;#34;: &amp;#34;message&amp;#34;, 5 &amp;#34;patterns&amp;#34;: [ 6 &amp;#34;%{IPORHOST:remote_addr} - %{USERNAME:remote_user} \\[%{HTTPDATE:time_local}\\] \\\&amp;#34;%{DATA:request}\\\&amp;#34; %{INT:status} %{NUMBER:bytes_sent} \\\&amp;#34;%{DATA:http_referer}\\\&amp;#34; \\\&amp;#34;%{DATA:http_user_agent}\\\&amp;#34; \\\&amp;#34;%{DATA:http_x_forwarded_for}\\\&amp;#34; rt=\\\&amp;#34;(?:%{NUMBER:request_time}|-)\\\&amp;#34; uct=\\\&amp;#34;(?:%{NUMBER:upstream_connect_time}|-)\\\&amp;#34; uht=\\\&amp;#34;(?:%{NUMBER:upstream_header_time}|-)\\\&amp;#34; urt=\\\&amp;#34;(?:%{NUMBER:upstream_response_time}|-)\\\&amp;#34;&amp;#34; 7 ], 8 &amp;#34;ignore_missing&amp;#34;: true, 9 &amp;#34;if&amp;#34;: &amp;#34;ctx.source.toLowerCase().contains(&amp;#39;nginx&amp;#39;)&amp;#34;, 10 &amp;#34;ignore_failure&amp;#34;: true, 11 &amp;#34;description&amp;#34;: &amp;#34;nginx&amp;#34; 12 } 13 }, 14 { 15 &amp;#34;grok&amp;#34;: { 16 &amp;#34;field&amp;#34;: &amp;#34;source&amp;#34;, 17 &amp;#34;patterns&amp;#34;: [ 18 &amp;#34;^/var/www/webapp/logs/(?&amp;lt;app_id&amp;gt;[^/]+)&amp;#34; 19 ], 20 &amp;#34;ignore_missing&amp;#34;: true, 21 &amp;#34;if&amp;#34;: &amp;#34;ctx.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

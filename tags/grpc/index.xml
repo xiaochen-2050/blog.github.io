@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Grpc on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/grpc/</link>
+    <description>Recent content in Grpc on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 11 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/grpc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Grpc example and getting started</title>
+      <link>https://blog.wisekee.com/post/grpc-getting-started/</link>
+      <pubDate>Sun, 11 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/grpc-getting-started/</guid>
+      <description>
+        
+          
+            Create the structure 1mkdir myapp 2cd myapp &amp;amp;&amp;amp; go mod init myapp 3go mod tidy The steps Create the proto file descript the message 1syntax = &amp;#34;proto3&amp;#34;; 2package proto; 3 4option go_package = &amp;#34;./proto&amp;#34;; 5 6//A sample service which contains all our rpc. 7service MyService{ 8 //The definition of rpc. 9 rpc MyFunc(Request) returns (StringMessage) {} 10} 11 12//Empty Request. 13message Request { 14} 15 16//The message to Return when rpc is invoked.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>How to call to kubernets grpc services in local</title>
+      <link>https://blog.wisekee.com/post/grpc-awesome/</link>
+      <pubDate>Thu, 11 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/grpc-awesome/</guid>
+      <description>
+        
+          
+            Usually for serivce better performance. we can use GRPC and multiple instance deployment for app, then the GRPC load balancing is challenges
+Create Grpc headless service for Grpc app when multiple instance is enable for GRPC service in order to load balacing the GRPC service, needs create headless service let client load balancing
+1apiVersion: v1 2kind: Service 3metadata: 4 name: grpc-demo-headless 5 namespace: apps 6spec: 7 ports: 8 - name: tcp-30555 9 protocol: TCP 10 port: 30555 11 targetPort: 30555 12 selector: 13 app: grpc-demo-app 14 clusterIP: None 15 type: ClusterIP Use Envoy proxy the headless service implementation load balancing deploy the envoy proxy 1apiVersion: apps/v1 2kind: Deployment 3metadata: 4 name: envoy-proxy-grpc-demo 5 namespace: apps 6 labels: 7 app: envoy-proxy-grpc-demo 8spec: 9 replicas: 1 10 selector: 11 matchLabels: 12 app: envoy-proxy-grpc-demo 13 template: 14 metadata: 15 labels: 16 app: envoy-proxy-grpc-demo 17 sidecar.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

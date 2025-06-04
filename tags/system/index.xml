@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>System on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/system/</link>
+    <description>Recent content in System on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 18 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/system/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to update the out of date debian docker image</title>
+      <link>https://blog.wisekee.com/post/update-the-old-debian-repo/</link>
+      <pubDate>Sun, 18 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/update-the-old-debian-repo/</guid>
+      <description>
+        
+          
+            How to upgrade the some packages 1dpkg -L libssh2-1 # view the package use which files 2dpkg -s libssh2-1 # view the package infos 3# install the checkinstall 4echo &amp;#34;deb http://ftp.de.debian.org/debian bullseye main&amp;#34; &amp;gt;&amp;gt; /etc/apt/sources.list 5apt update 6apt install checkinstall 7tar -zxvf source-app.tar.gz 8cd source 9./configure 10make 11checkinstall --install=no Upgrade the single package in debian 1apt-cache madison systemd 2apt-get install libglib2.0-0=2.66.8-1+deb11u3 relative the docs about debian repo debian releases support versions for stretch old debian 1# pls reference: https://www.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

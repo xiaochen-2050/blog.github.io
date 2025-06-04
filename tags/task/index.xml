@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>task on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/task/</link>
+    <description>Recent content in task on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Thu, 20 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/task/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Auto tools makefile getting started</title>
+      <link>https://blog.wisekee.com/post/makefile-getting-started/</link>
+      <pubDate>Thu, 20 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/makefile-getting-started/</guid>
+      <description>
+        
+          
+            Basic the Makefile format First make sure ~/.vimrc settings for tab spaces 1# define the .vimrc file to following contents 2cat ~/.vimrc 3set noexpandtab 4set autoindent Small snippet Makefile contents 1.DEFAULT_GOAL:=build 2 3fmt: 4	echo &amp;#34;this is fmt....&amp;#34; 5 6.PHONY:vet 7vet:fmt 8	echo &amp;#34;this is vet...&amp;#34; 9 10 11build:vet 12	echo &amp;#34;this is build...&amp;#34; In the directory execute make should display the result. 1echo &amp;#34;this is fmt....&amp;#34; 2this is fmt.... 3echo &amp;#34;this is vet.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

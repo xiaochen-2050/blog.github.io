@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>React on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/react/</link>
+    <description>Recent content in React on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Thu, 18 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/react/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>To use the vite management the react project</title>
+      <link>https://blog.wisekee.com/post/vite-react-getting-started/</link>
+      <pubDate>Thu, 18 Apr 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/vite-react-getting-started/</guid>
+      <description>
+        
+          
+            Install the bun 1HOMEBREW_NO_AUTO_UPDATE=1 brew install oven-sh/bun/bun Initialization the project use bun 1bun create vite@latest part1 --template react 2cd part1 3bun install 4bun run dev Or use the pnpm 1pnpm create vite@latest part1 --template react 
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

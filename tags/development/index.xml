@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Development on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/development/</link>
+    <description>Recent content in Development on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright><atom:link href="https://blog.wisekee.com/tags/development/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Getting started rust development</title>
+      <link>https://blog.wisekee.com/post/gettting-started-rust/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/gettting-started-rust/</guid>
+      <description>
+        
+          
+            The sample is: rustup doc in local
+Environment setup 1curl --proto &amp;#39;=https&amp;#39; --tlsv1.3 -sSf https://sh.rustup.rs | sh 2rustup component add rust-src rust-analyzer rust-analysis 3# update the rust binary 4rustup update 5# uninstall the rust and rustup self 6rustup self uninstall 7 8rustc -V 9cargo -V Basic commands 1rustc --version 2cargo --version 3 4# crate the cargo project 5cargo new exercise 6cd exercise 7cargo run 8 9# to fast check 10cargo check 11# build 12cargo build --release 13# to debug 14cargo run 15# to debug build 16cargo build 17# to fromat the code 18rustfmt .
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

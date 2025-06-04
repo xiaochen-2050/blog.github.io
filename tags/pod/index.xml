@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>pod on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/pod/</link>
+    <description>Recent content in pod on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Thu, 10 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/pod/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>K8S app source code and runtime separate in pod</title>
+      <link>https://blog.wisekee.com/post/k8s-app-runtime-sparate/</link>
+      <pubDate>Thu, 10 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/k8s-app-runtime-sparate/</guid>
+      <description>
+        
+          
+            In a k8s environment, it is a good choice to have the application runtime and source code build packages separated in separate containers
+Smallest source code build image use a smallest base image to build docker image store source code build result package
+1FROM alpine:latest 2WORKDIR /var/www 3COPY app /var/www/app Use different images of the runtime environment according to different programming languages 1FROM python:3.6.15-slim 2 3RUN pip install boto3 Build app image and runtime image 1# build the app image 2docker build .
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

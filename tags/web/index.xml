@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>web on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/web/</link>
+    <description>Recent content in web on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Wed, 08 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/web/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Use golang serve the static file embedded to binary file</title>
+      <link>https://blog.wisekee.com/post/golang-web-static-fileserver/</link>
+      <pubDate>Wed, 08 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/golang-web-static-fileserver/</guid>
+      <description>
+        
+          
+            The golang code to embed file to compile file use the annotatioins to embed folder, this should embed current public folder to binary file
+1 2import ( 3	&amp;#34;embed&amp;#34; 4 &amp;#34;fmt&amp;#34; 5 &amp;#34;os&amp;#34; 6 &amp;#34;io/fs&amp;#34; 7	&amp;#34;net/http&amp;#34; 8 &amp;#34;os/signal&amp;#34; 9	&amp;#34;runtime&amp;#34; 10	&amp;#34;strings&amp;#34; 11	&amp;#34;syscall&amp;#34; 12) 13 14 15//go:embed public 16var staticFiles embed.FS 17 18 19func main() { 20 public, _ := fs.Sub(staticFiles, &amp;#34;public&amp;#34;) 21	// handle static files include HTML, CSS and JavaScripts.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>STREAM on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/stream/</link>
+    <description>Recent content in STREAM on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Tue, 10 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/stream/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The SSE(server sent event) example</title>
+      <link>https://blog.wisekee.com/post/the-server-sent-events/</link>
+      <pubDate>Tue, 10 Dec 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/the-server-sent-events/</guid>
+      <description>
+        
+          
+            SSE establishes a one-way communication channel from server to client over HTTP. Unlike WebSockets&amp;rsquo; bidirectional connection, SSE maintains an open HTTP connection for server-to-client updates. Think of it as a radio broadcast: the server (station) transmits, and clients (receivers) listen. The LLM completion API is most use SSE event to interactive with human in chat web ui
+The directory level look like following this 1├── bin 2│ ├── Activate.ps1 3│ ├── activate 4│ ├── activate.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

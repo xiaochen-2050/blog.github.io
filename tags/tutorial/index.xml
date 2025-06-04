@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tutorial on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/tutorial/</link>
+    <description>Recent content in Tutorial on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Mon, 20 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/tutorial/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Some online interactive tutorial for programming</title>
+      <link>https://blog.wisekee.com/post/online-interactive-tutorial/</link>
+      <pubDate>Mon, 20 Jan 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/online-interactive-tutorial/</guid>
+      <description>
+        
+          
+            Step by Step to study programming or learning one tools or technology
+Some playgrounds website Play with Docker Classroom killercoda: Interactive environments For tech you study, teach or present ximiuz labs oreilly learning platform play-with-kubernetes Build real projects 
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

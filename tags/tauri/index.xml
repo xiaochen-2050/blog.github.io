@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tauri on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/tauri/</link>
+    <description>Recent content in Tauri on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Mon, 20 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/tauri/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to use Tauri development the GUI app</title>
+      <link>https://blog.wisekee.com/post/how_to_use_tauri/</link>
+      <pubDate>Mon, 20 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/how_to_use_tauri/</guid>
+      <description>
+        
+          
+            The prerequisites Install rust Reference offical site Install the Create-tauri-app Follow the tutorial step by step to create new Tauri project 1cargo install create-tauri-app --locked 2cargo create-tauri-app Select the Frontend language: TypeScript / JavaScript 1 2# Project name · tauri-app 3# ✔ Identifier · com.tauri-app.app 4# ✔ Choose which language to use for your frontend · TypeScript / JavaScript - (pnpm, yarn, npm, deno, bun) 5# ✔ Choose your package manager · pnpm 6# ✔ Choose your UI template · Vue - (https://vuejs.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

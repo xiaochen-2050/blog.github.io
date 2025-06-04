@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Psql on Xiao.chen</title>
+    <link>https://blog.wisekee.com/tags/psql/</link>
+    <description>Recent content in Psql on Xiao.chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
+    <lastBuildDate>Wed, 02 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/tags/psql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Postgresql common commands operations</title>
+      <link>https://blog.wisekee.com/post/postgresql-commands/</link>
+      <pubDate>Wed, 02 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/postgresql-commands/</guid>
+      <description>
+        
+          
+            Data export and import 1# install postgresql in macos 2brew install postgresql@15 3# settings to the path variable 4echo &amp;#39;export PATH=&amp;#34;/opt/homebrew/opt/postgresql@15/bin:$PATH&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.zshrc 5 6# dump database to sql file 7pg_dump --host xxxxx.eu-west-1.compute.amazonaws.com --port 5432 --user username database &amp;gt; backup.sql 8 9# change username password 10ALTER USER user_name WITH PASSWORD &amp;#39;new_password&amp;#39;; 11# import the data to postgresql 12psql --host x.x.x.x --user dba --db postgres &amp;lt; dump-xxx-xxxx.sql Reference Importing and exporting data in PostgreSQL 
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>
