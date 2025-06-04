@@ -9,7 +9,7 @@
   
   >
   <head>
-<title>Use c language and GTK4,Msys2 to development lightweight Windows GUI app | Xiao.chen</title>
+<title>Use C language and GTK4 Msys2 to development lightweight Windows GUI app | Xiao.chen</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,10 +30,10 @@
 <meta name="description" content="How to development windows gui app use lightweight framework." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="">
-<meta name="twitter:title" content="Use c language and GTK4,Msys2 to development lightweight Windows GUI app" />
+<meta name="twitter:title" content="Use C language and GTK4 Msys2 to development lightweight Windows GUI app" />
 <meta name="twitter:image" content="https://blog.wisekee.com/images/thumbnail.png"/>
 <meta property="og:url" content="https://blog.wisekee.com/post/use-gtk-wingw64/" />
-<meta property="og:title" content="Use c language and GTK4,Msys2 to development lightweight Windows GUI app" />
+<meta property="og:title" content="Use C language and GTK4 Msys2 to development lightweight Windows GUI app" />
 <meta property="og:description" content="How to development windows gui app use lightweight framework." />
 <meta property="og:image" content="https://blog.wisekee.com/images/thumbnail.png" />
 
@@ -129,7 +129,7 @@
   
 <div class="grid-inverse wrap content">
   <article class="post_content">
-    <h1 class="post_title">Use c language and GTK4,Msys2 to development lightweight Windows GUI app</h1>
+    <h1 class="post_title">Use C language and GTK4 Msys2 to development lightweight Windows GUI app</h1>
   <div class="post_meta">
     <span><svg class="icon">
   <title>calendar</title>
@@ -146,14 +146,14 @@
     <span class="page_only">&nbsp;·
   <div class="post_share">
     :
-    <a href="https://twitter.com/intent/tweet?text=Use%20c%20language%20and%20GTK4%2cMsys2%20to%20development%20lightweight%20Windows%20GUI%20app&url=https%3a%2f%2fblog.wisekee.com%2fpost%2fuse-gtk-wingw64%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
+    <a href="https://twitter.com/intent/tweet?text=Use%20C%20language%20and%20GTK4%20Msys2%20to%20development%20lightweight%20Windows%20GUI%20app&url=https%3a%2f%2fblog.wisekee.com%2fpost%2fuse-gtk-wingw64%2f&tw_p=tweetbutton" class="twitter" title=" Twitter" target="_blank" rel="nofollow">
       <svg class="icon">
   <title>twitter</title>
   <use xlink:href="#twitter"></use>
 </svg>
 
     </a>
-    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2fuse-gtk-wingw64%2f&t=Use%20c%20language%20and%20GTK4%2cMsys2%20to%20development%20lightweight%20Windows%20GUI%20app" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
+    <a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.wisekee.com%2fpost%2fuse-gtk-wingw64%2f&t=Use%20C%20language%20and%20GTK4%20Msys2%20to%20development%20lightweight%20Windows%20GUI%20app" class="facebook" title=" Facebook" target="_blank" rel="nofollow">
       <svg class="icon">
   <title>facebook</title>
   <use xlink:href="#facebook"></use>
@@ -183,22 +183,19 @@
 <li>Download and installation the <a href="https://www.msys2.org/">Msys2</a>
 <ul>
 <li>After install the wsys2 open and create shortcut <code>ucrt64.exe</code> to desktop</li>
-<li>In <code>ucrt64.exe</code> console shell use <code>pacman</code> to install packages
+<li>In <code>ucrt64.exe</code> console shell use <code>pacman</code> to install packages</li>
+</ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">
 </span></span><span class="line"><span class="ln">2</span><span class="cl">pacman -Syu   
 </span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1">#Repeat this step until all packages are up to date.</span>
 </span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="c1">#Follow any given instructions</span>
 </span></span></code></pre></div></li>
-</ul>
-</li>
-<li>Installation the essential packages</li>
-</ul>
+<li>Installation the essential packages
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">
 </span></span><span class="line"><span class="ln">2</span><span class="cl">        pacman -S mingw-w64-x86_64-gtk4
 </span></span><span class="line"><span class="ln">3</span><span class="cl">        pacman -S mingw-w64-x86_64-toolchain base-devel
-</span></span></code></pre></div><ul>
-<li>Test and verify the packages</li>
-</ul>
+</span></span></code></pre></div></li>
+<li>Test and verify the packages
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">    gcc --version
 </span></span><span class="line"><span class="ln">2</span><span class="cl">    <span class="c1">#Discovers the directories where the GTK include files are stored.</span>
 </span></span><span class="line"><span class="ln">3</span><span class="cl">    pkg-config gtk4 --cflags 
@@ -206,7 +203,9 @@
 </span></span><span class="line"><span class="ln">5</span><span class="cl">    pkg-config gtk4 --libs   
 </span></span><span class="line"><span class="ln">6</span><span class="cl">    <span class="c1">#Of course we can combine both commands to receive a bundled output</span>
 </span></span><span class="line"><span class="ln">7</span><span class="cl">    pkg-config gtk4 --cflags --libs
-</span></span></code></pre></div><h3 id="set-system-environment-variable">Set system environment variable</h3>
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="set-system-environment-variable">Set system environment variable</h3>
 <ul>
 <li>Open the <code>sysdm.cpl</code> in search bar or press WIN+R key</li>
 <li>TO Advanced &gt; Environment Variables</li>
@@ -301,7 +300,7 @@
       alt="setup the compiler and liner"
       
         class="image_figure image_internal image_unprocessed"
-        src="devcpp_gtk_project_options.png"
+        src="/images/devcpp_gtk_project_options.png"
       
       
     />
@@ -309,8 +308,7 @@
     </picture>
 </figure>
 </li>
-<li>Create a new Compiler use <code>ucrt64</code> environments refere to <code>Tools</code> -&gt; <code>Compiler options</code>
-<code>From folder to create compiler settings</code> button
+<li>Create a new Compiler use <code>ucrt64</code> environments refere to <code>Tools</code> -&gt; <code>Compiler options</code>-&gt;<code>From folder to create compiler settings</code> button
 <figure>
   <picture>
 
@@ -386,7 +384,7 @@
     <h2 class="mt-4"></h2>
     <ul class="flex-column">
       <li>
-        <a href="https://blog.wisekee.com/post/use-gtk-wingw64/" class="nav-link" title="Use c language and GTK4,Msys2 to development lightweight Windows GUI app">Use c language and GTK4,Msys2 to development lightweight Windows GUI app</a>
+        <a href="https://blog.wisekee.com/post/use-gtk-wingw64/" class="nav-link" title="Use C language and GTK4 Msys2 to development lightweight Windows GUI app">Use C language and GTK4 Msys2 to development lightweight Windows GUI app</a>
       </li>
       <li>
         <a href="https://blog.wisekee.com/post/online-interactive-tutorial/" class="nav-link" title="Some online interactive tutorial for programming">Some online interactive tutorial for programming</a>
