@@ -6,7 +6,24 @@
     <description>Recent content on Xiao.chen</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2020, Xiao.chen; all rights reserved.</copyright>
-    <lastBuildDate>Tue, 18 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 18 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wisekee.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Virtual Desktop Infrastructure solutions</title>
+      <link>https://blog.wisekee.com/post/virtual-desktop-infrastructure/</link>
+      <pubDate>Tue, 18 Mar 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wisekee.com/post/virtual-desktop-infrastructure/</guid>
+      <description>
+        
+          
+            The several common VDI solutions
+IsardVDI linux-remote-desktop Apache Guacamole flexvdi PVE-VDIClient Powerful system container and virtual machine manager Reference Fast Remote Desktop on a Raspberry Pi, with Glamor and an iGPU 
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Use C language and GTK4 Msys2 to development lightweight Windows GUI app</title>
       <link>https://blog.wisekee.com/post/use-gtk-wingw64/</link>
@@ -1855,7 +1872,7 @@ One to storage Hugo sourcecode and markdown files And other one use release fina
         
           
             The sample is: rustup doc in local
-Environment setup 1curl --proto &amp;#39;=https&amp;#39; --tlsv1.3 -sSf https://sh.rustup.rs | sh 2rustup component add rust-src rust-analyzer rust-analysis 3# update the rust binary 4rustup update 5# uninstall the rust and rustup self 6rustup self uninstall 7 8rustc -V 9cargo -V Basic commands 1rustc --version 2cargo --version 3 4# crate the cargo project 5cargo new exercise 6cd exercise 7cargo run 8 9# to fast check 10cargo check 11# build 12cargo build --release 13# to debug 14cargo run 15# to debug build 16cargo build 17# to fromat the code 18rustfmt .
+Environment setup Setup in *nix and macos 1curl --proto &amp;#39;=https&amp;#39; --tlsv1.3 -sSf https://sh.rustup.rs | sh 2rustup component add rust-src rust-analyzer rust-analysis 3# update the rust binary 4rustup update 5# uninstall the rust and rustup self 6rustup self uninstall 7 8rustc -V 9cargo -V Setup the rustup environment in windows use Mingw64-Ucrt64 Install the Msys2 environment Msys2 Open the Ucrt64 console in windows and enable the Ucrt staging Enable staging Install the rustup use pacman -Ss mingw-w64-ucrt-x86_64-rustup Select and install the compile tools and environment for the gnu tools rustup toolchain install stable-x86_64-pc-windows-gnu for the native windows rustup toolchain install stable-x86_64-pc-windows-msvc Set the default toolchain rustup default stable-x86_64-pc-windows-gnu Debug in VSCode ide use mingw-w64-ucrt environment Installation the extension rust-analyzer and CodeLLDB CodeLLDB (vadimcn.
           
           
         
@@ -1887,8 +1904,8 @@ Environment setup 1curl --proto &amp;#39;=https&amp;#39; --tlsv1.3 -sSf https://
       <description>
         
           
-            Can use the prompt in ChatAI how to launch ubuntu linux x86_64 in mac os apple silicon use : qemu-system-x86_64
-QEMU in macos Basic QEMU 1 2# create the virtual disk image 3qemu-img create -f qcow2 ubuntu-x86.qcow2 20G 4 5# install the ubuntu os to virtual disk 6qemu-system-x86_64 \ 7-m 4G \ 8-smp 4 \ 9-machine q35,accel=tcg\ 10-cpu Broadwell \ 11-drive file=ubuntu-x86.qcow2,format=qcow2 \ 12-cdrom path/to/ubuntu-iso.iso \ 13-boot d \ 14-vga virtio \ 15-display default,show-cursor=on 16 17# launch the ubuntu linux from virtual disk 18qemu-system-x86_64 \ 19-m 4G \ 20-smp 4 \ 21-machine q35,accel=tcg \ 22-cpu Broadwell \ 23-drive file=ubuntu-x86.
+            The difference between qemu-system-x86_64 and qemu-system-aarch64 comes down to the CPU architecture they emulate and the type of guest OS they can run
+The qemu-system-x86_64 command for Emulates: An x86_64 (Intel/AMD 64-bit) CPU. 1qemu-system-x86_64 \ 2 -machine q35,accel=hvf \ 3 -cpu host \ 4 -m 4G \ 5 -hda ubuntu-x86_64.img The qemu-system-aarch64 command for Emulates: An ARM64 (AArch64) CPU (e.g., Apple M1/M2, Raspberry Pi, AWS Graviton) 1qemu-system-aarch64 \ 2 -machine virt,accel=hvf \ 3 -cpu host \ 4 -m 4G \ 5 -hda ubuntu-arm64.
           
           
         

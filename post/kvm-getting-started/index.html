@@ -27,16 +27,16 @@
 <meta property="og:locale" content="en" />
 
 <meta property="og:type" content="article">
-<meta name="description" content="Can use the prompt in ChatAI how to launch ubuntu linux x86_64 in mac os apple silicon use : qemu-system-x86_64
-QEMU in macos Basic QEMU 1 2# create the virtual …" />
+<meta name="description" content="The difference between qemu-system-x86_64 and qemu-system-aarch64 comes down to the CPU architecture they emulate and the type of guest OS they can run
+The …" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="">
 <meta name="twitter:title" content="KVM getting started" />
 <meta name="twitter:image" content="https://blog.wisekee.com/images/thumbnail.png"/>
 <meta property="og:url" content="https://blog.wisekee.com/post/kvm-getting-started/" />
 <meta property="og:title" content="KVM getting started" />
-<meta property="og:description" content="Can use the prompt in ChatAI how to launch ubuntu linux x86_64 in mac os apple silicon use : qemu-system-x86_64
-QEMU in macos Basic QEMU 1 2# create the virtual …" />
+<meta property="og:description" content="The difference between qemu-system-x86_64 and qemu-system-aarch64 comes down to the CPU architecture they emulate and the type of guest OS they can run
+The …" />
 <meta property="og:image" content="https://blog.wisekee.com/images/thumbnail.png" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="https://blog.wisekee.com/icons/apple-touch-icon.png">
@@ -180,13 +180,66 @@ QEMU in macos Basic QEMU 1 2# create the virtual …" />
   </span>
   </div>
 
-    <div class="post_body"><h3 id="can-use-the-prompt-in-chatai">Can use the prompt in ChatAI</h3>
+    <div class="post_body"><p>The difference between <code>qemu-system-x86_64</code> and <code>qemu-system-aarch64</code> comes down to the CPU architecture they emulate and the type of guest OS they can run</p>
+<ul>
+<li>The <code>qemu-system-x86_64</code> command for Emulates: An x86_64 (Intel/AMD 64-bit) CPU.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">qemu-system-x86_64 <span class="se">\
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="se"></span>    -machine q35,accel<span class="o">=</span>hvf <span class="se">\
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="se"></span>    -cpu host <span class="se">\
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="se"></span>    -m 4G <span class="se">\
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="se"></span>    -hda ubuntu-x86_64.img
+</span></span></code></pre></div><ul>
+<li>The <code>qemu-system-aarch64</code> command for Emulates: An ARM64 (AArch64) CPU (e.g., Apple M1/M2, Raspberry Pi, AWS Graviton)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">qemu-system-aarch64 <span class="se">\
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="se"></span>    -machine virt,accel<span class="o">=</span>hvf <span class="se">\
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="se"></span>    -cpu host <span class="se">\
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="se"></span>    -m 4G <span class="se">\
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="se"></span>    -hda ubuntu-arm64.img
+</span></span></code></pre></div><h3 id="use-the-cloud-image-to-test-the-cloud-init">Use the cloud-image to test the cloud-init</h3>
+<ul>
+<li>Download the cloud-images for ubuntu:<a href="https://cloud-images.ubuntu.com/noble/current/">cloud image</a></li>
+<li>Create three cloud-init file <code>user-data</code>, <code>meta-data</code>, <code>vendor-data</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">  <span class="c1"># Create the user-data </span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  cat <span class="s">&lt;&lt; EOF &gt; user-data
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="s">  #cloud-config
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="s">  password: password
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="s">  chpasswd:
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="s">  expire: False
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="s">  EOF</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="c1"># Create the meta-data</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">  cat <span class="s">&lt;&lt; EOF &gt; meta-data
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="s">  instance-id: someid/somehostname
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="s">  EOF</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">
+</span></span><span class="line"><span class="ln">16</span><span class="cl">  <span class="c1"># Create a empty vendor-data</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">  touch vendor-data
+</span></span></code></pre></div></li>
+<li>Launch the IMDS server in current directory
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">    python3 -m http.server --directory .
+</span></span></code></pre></div></li>
+<li>Create a virtual machine instance
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">qemu-system-x86_64                                            
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    -net nic                                                    
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    -net user                                                   
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    -machine <span class="nv">accel</span><span class="o">=</span>kvm:tcg                                      
+</span></span><span class="line"><span class="ln">5</span><span class="cl">    -m <span class="m">512</span>                                                      
+</span></span><span class="line"><span class="ln">6</span><span class="cl">    -nographic                                                  
+</span></span><span class="line"><span class="ln">7</span><span class="cl">    -hda noble-server-cloudimg-amd64.img                        
+</span></span><span class="line"><span class="ln">8</span><span class="cl">    -smbios <span class="nv">type</span><span class="o">=</span>1,serial<span class="o">=</span><span class="nv">ds</span><span class="o">=</span><span class="s1">&#39;nocloud;s=http://10.0.2.2:8000/&#39;</span>
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="can-use-the-prompt-in-chatai">Can use the prompt in ChatAI</h3>
 <blockquote>
 <p>how to launch ubuntu linux x86_64 in mac os apple silicon use : <code>qemu-system-x86_64</code></p>
 </blockquote>
 <h3 id="qemu-in-macos">QEMU in macos</h3>
 <ul>
-<li>Basic QEMU</li>
+<li>Basic QEMU to crate the x86_64 guest system</li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">
 </span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"># create the virtual disk image</span>
@@ -213,29 +266,28 @@ QEMU in macos Basic QEMU 1 2# create the virtual …" />
 </span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="se"></span>-drive <span class="nv">file</span><span class="o">=</span>ubuntu-x86.qcow2,format<span class="o">=</span>qcow2 <span class="se">\
 </span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="se"></span>-vga virtio <span class="se">\
 </span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="se"></span>-display default,show-cursor<span class="o">=</span>on
-</span></span><span class="line"><span class="ln">26</span><span class="cl">
-</span></span><span class="line"><span class="ln">27</span><span class="cl">
-</span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="c1">#</span>
-</span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="c1"># -machine virt specifies a type of a machine - we have no interest in emulating a specific hardware so we just use the special type virt</span>
-</span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="c1"># the accel=hvf part is the important one: it enables hardware acceleration using macOS Hypervisor Framework</span>
-</span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="c1"># -cpu host specifies that the guest machine will see exactly the same CPU model as the host machine (required for acceleration)</span>
-</span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="c1">#</span>
-</span></span><span class="line"><span class="ln">33</span><span class="cl">qemu-system-aarch64 <span class="se">\
-</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="se"></span>    -machine virt,accel<span class="o">=</span>hvf <span class="se">\
-</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="se"></span>    -cpu host
 </span></span></code></pre></div><ul>
 <li>Shortcut
 Try hitting Ctrl+Opt+2 or Ctrl+Opt+3 and you should see the output of serial and parallel ports. This is where we&rsquo;re going to see our operating system running. You can always go back to the monitor console with Ctrl+Opt+1</li>
 <li>Use the UEFI to launch</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">qemu-system-aarch64 <span class="se">\
-</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="se"></span>    -nodefaults <span class="se">\
-</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="se"></span>    -machine virt,accel<span class="o">=</span>hvf <span class="se">\
-</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="se"></span>    -cpu host <span class="se">\
-</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="se"></span>    -chardev vc,id<span class="o">=</span>monitor <span class="se">\
-</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="se"></span>    -mon monitor <span class="se">\
-</span></span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="se"></span>    -serial vc <span class="se">\
-</span></span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="se"></span>    -bios /opt/homebrew/share/qemu/edk2-aarch64-code.fd
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">qemu-system-aarch64 <span class="se">\
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="se"></span>    -nodefaults <span class="se">\
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="se"></span>    -machine virt,accel<span class="o">=</span>hvf <span class="se">\
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="se"></span>    -cpu host <span class="se">\
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="se"></span>    -chardev vc,id<span class="o">=</span>monitor <span class="se">\
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="se"></span>    -mon monitor <span class="se">\
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="se"></span>    -serial vc <span class="se">\
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="se"></span>    -bios /opt/homebrew/share/qemu/edk2-aarch64-code.fd
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="c1"># -machine virt specifies a type of a machine - we have no interest in emulating a specific hardware so we just use the special type virt</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="c1"># the accel=hvf part is the important one: it enables hardware acceleration using macOS Hypervisor Framework</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="c1"># -cpu host specifies that the guest machine will see exactly the same CPU model as the host machine (required for acceleration)</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">qemu-system-aarch64 <span class="se">\
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="se"></span>    -machine virt,accel<span class="o">=</span>hvf <span class="se">\
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="se"></span>    -cpu host
 </span></span></code></pre></div><h3 id="install-require-packages">Install require packages</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1"># check the BIOS is enabled virtualization</span>
 </span></span><span class="line"><span class="ln"> 2</span><span class="cl">egrep --color <span class="s1">&#39;vmx|svm&#39;</span> /proc/cpuinfo
@@ -299,6 +351,9 @@ Try hitting Ctrl+Opt+2 or Ctrl+Opt+3 and you should see the output of serial and
     <h2 class="mt-4"></h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.wisekee.com/post/virtual-desktop-infrastructure/" class="nav-link" title="The Virtual Desktop Infrastructure solutions">The Virtual Desktop Infrastructure solutions</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/use-gtk-wingw64/" class="nav-link" title="Use C language and GTK4 Msys2 to development lightweight Windows GUI app">Use C language and GTK4 Msys2 to development lightweight Windows GUI app</a>
       </li>
       <li>
@@ -319,10 +374,14 @@ Try hitting Ctrl+Opt+2 or Ctrl+Opt+3 and you should see the output of serial and
       <li>
         <a href="https://blog.wisekee.com/post/django-getting-stared/" class="nav-link" title="Django getting started">Django getting started</a>
       </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/text_to_image_llm/" class="nav-link" title="Open source text to image and image LLM">Open source text to image and image LLM</a>
-      </li>
     </ul>
+
+    <div class="flex-column">
+      <a href="https://amzn.to/4lwOqK7">
+        <img src="https://blog.wisekee.com/images/amazon-gift.png" alt="Coupons in Amazon" class="amz_affiliate_icon">
+        <span>Coupons in Amazon</span>
+      </a>
+    </div>
     <div>
       <h2 class="mt-4 taxonomy" id="tags-section"></h2>
       <nav class="tags_nav">
@@ -810,7 +869,7 @@ Try hitting Ctrl+Opt+2 or Ctrl+Opt+3 and you should see the output of serial and
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/kvm/' class=" post_tag button button_translucent" data-position=1 title="kvm">KVM<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/kvm/' class=" post_tag button button_translucent" data-position=2 title="kvm">KVM<span class="button_tally">2</span>
             </a>
             
             
@@ -1122,7 +1181,15 @@ Try hitting Ctrl+Opt+2 or Ctrl+Opt+3 and you should see the output of serial and
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/vdi/' class=" post_tag button button_translucent" data-position=1 title="vdi">VDI<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/velero/' class=" post_tag button button_translucent" data-position=1 title="velero">VELERO<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/virtual-desktop/' class=" post_tag button button_translucent" data-position=1 title="virtual-desktop">VIRTUAL-DESKTOP<span class="button_tally">1</span>
             </a>
             
             

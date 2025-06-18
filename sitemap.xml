@@ -3,7 +3,25 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.wisekee.com/</loc>
-    <lastmod>2025-02-18T00:00:00+00:00</lastmod>
+    <lastmod>2025-03-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/kvm/</loc>
+    <lastmod>2025-03-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/</loc>
+    <lastmod>2025-03-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/</loc>
+    <lastmod>2025-03-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/post/virtual-desktop-infrastructure/</loc>
+    <lastmod>2025-03-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/vdi/</loc>
+    <lastmod>2025-03-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wisekee.com/tags/virtual-desktop/</loc>
+    <lastmod>2025-03-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/c/</loc>
     <lastmod>2025-02-18T00:00:00+00:00</lastmod>
@@ -12,12 +30,6 @@
     <lastmod>2025-02-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/tags/gui/</loc>
-    <lastmod>2025-02-18T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/post/</loc>
-    <lastmod>2025-02-18T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/</loc>
     <lastmod>2025-02-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wisekee.com/post/use-gtk-wingw64/</loc>
@@ -896,8 +908,6 @@
     <loc>https://blog.wisekee.com/tags/index/</loc>
   </url><url>
     <loc>https://blog.wisekee.com/post/k8s-taint-evict-cordon/</loc>
-  </url><url>
-    <loc>https://blog.wisekee.com/tags/kvm/</loc>
   </url><url>
     <loc>https://blog.wisekee.com/post/kvm-getting-started/</loc>
   </url><url>

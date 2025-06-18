@@ -15,8 +15,8 @@
       <description>
         
           
-            Can use the prompt in ChatAI how to launch ubuntu linux x86_64 in mac os apple silicon use : qemu-system-x86_64
-QEMU in macos Basic QEMU 1 2# create the virtual disk image 3qemu-img create -f qcow2 ubuntu-x86.qcow2 20G 4 5# install the ubuntu os to virtual disk 6qemu-system-x86_64 \ 7-m 4G \ 8-smp 4 \ 9-machine q35,accel=tcg\ 10-cpu Broadwell \ 11-drive file=ubuntu-x86.qcow2,format=qcow2 \ 12-cdrom path/to/ubuntu-iso.iso \ 13-boot d \ 14-vga virtio \ 15-display default,show-cursor=on 16 17# launch the ubuntu linux from virtual disk 18qemu-system-x86_64 \ 19-m 4G \ 20-smp 4 \ 21-machine q35,accel=tcg \ 22-cpu Broadwell \ 23-drive file=ubuntu-x86.
+            The difference between qemu-system-x86_64 and qemu-system-aarch64 comes down to the CPU architecture they emulate and the type of guest OS they can run
+The qemu-system-x86_64 command for Emulates: An x86_64 (Intel/AMD 64-bit) CPU. 1qemu-system-x86_64 \ 2 -machine q35,accel=hvf \ 3 -cpu host \ 4 -m 4G \ 5 -hda ubuntu-x86_64.img The qemu-system-aarch64 command for Emulates: An ARM64 (AArch64) CPU (e.g., Apple M1/M2, Raspberry Pi, AWS Graviton) 1qemu-system-aarch64 \ 2 -machine virt,accel=hvf \ 3 -cpu host \ 4 -m 4G \ 5 -hda ubuntu-arm64.
           
           
         

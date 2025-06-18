@@ -16,7 +16,7 @@
         
           
             The sample is: rustup doc in local
-Environment setup 1curl --proto &amp;#39;=https&amp;#39; --tlsv1.3 -sSf https://sh.rustup.rs | sh 2rustup component add rust-src rust-analyzer rust-analysis 3# update the rust binary 4rustup update 5# uninstall the rust and rustup self 6rustup self uninstall 7 8rustc -V 9cargo -V Basic commands 1rustc --version 2cargo --version 3 4# crate the cargo project 5cargo new exercise 6cd exercise 7cargo run 8 9# to fast check 10cargo check 11# build 12cargo build --release 13# to debug 14cargo run 15# to debug build 16cargo build 17# to fromat the code 18rustfmt .
+Environment setup Setup in *nix and macos 1curl --proto &amp;#39;=https&amp;#39; --tlsv1.3 -sSf https://sh.rustup.rs | sh 2rustup component add rust-src rust-analyzer rust-analysis 3# update the rust binary 4rustup update 5# uninstall the rust and rustup self 6rustup self uninstall 7 8rustc -V 9cargo -V Setup the rustup environment in windows use Mingw64-Ucrt64 Install the Msys2 environment Msys2 Open the Ucrt64 console in windows and enable the Ucrt staging Enable staging Install the rustup use pacman -Ss mingw-w64-ucrt-x86_64-rustup Select and install the compile tools and environment for the gnu tools rustup toolchain install stable-x86_64-pc-windows-gnu for the native windows rustup toolchain install stable-x86_64-pc-windows-msvc Set the default toolchain rustup default stable-x86_64-pc-windows-gnu Debug in VSCode ide use mingw-w64-ucrt environment Installation the extension rust-analyzer and CodeLLDB CodeLLDB (vadimcn.
           
           
         

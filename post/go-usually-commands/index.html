@@ -244,6 +244,21 @@ or <code>go get k8s.io/client-go@v0.18.2</code></li>
 </span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"># https://github.com/FiloSottile/homebrew-musl-cross</span>
 </span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="c1"># brew install FiloSottile/musl-cross/musl-cross</span>
 </span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="nv">CC</span><span class="o">=</span>x86_64-linux-musl-gcc <span class="nv">CXX</span><span class="o">=</span>x86_64-linux-musl-g++ <span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">1</span> <span class="nv">GOOS</span><span class="o">=</span>linux <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build -trimpath  -ldflags<span class="o">=</span><span class="s2">&#34;-s -w -linkmode external -extldflags -static&#34;</span>  -o main .
+</span></span></code></pre></div><h4 id="golang-in-windows">Golang in windows</h4>
+<ul>
+<li>Install Msys2 and relative packages</li>
+<li>Set system environment</li>
+<li>Update windows GOROOT environment: C:\msys64\ucrt64\lib\go</li>
+<li>Update windows GOPATH environment: %USERPROFILE%\go</li>
+<li>Append windows PATH environment: %USERPROFILE%\go\bin</li>
+<li>reference the details <a href="https://firodj.wordpress.com/2023/12/02/windows-vscode-with-golang-msys-ucrt64/">windows-vscode-with-golang-msys-ucrt64</a></li>
+<li>May be set the <code>GOPROXY</code> in vscode or system environment
+in VSCode <code>File</code> -&gt; <code>Preference</code> -&gt; <code>Go tools env</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="ln">1</span><span class="cl"><span class="s2">&#34;go.toolsEnvVars&#34;</span><span class="err">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    <span class="nt">&#34;GOPROXY&#34;</span><span class="p">:</span> <span class="s2">&#34;https://goproxy.cn,direct&#34;</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><h4 id="useful-tools-or-frameworks">Useful tools or frameworks</h4>
 <ul>
 <li><a href="https://github.com/githubnemo/CompileDaemon">Watches your .go files in a directory and invokes go build</a></li>
@@ -289,6 +304,9 @@ or <code>go get k8s.io/client-go@v0.18.2</code></li>
     <h2 class="mt-4"></h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.wisekee.com/post/virtual-desktop-infrastructure/" class="nav-link" title="The Virtual Desktop Infrastructure solutions">The Virtual Desktop Infrastructure solutions</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/use-gtk-wingw64/" class="nav-link" title="Use C language and GTK4 Msys2 to development lightweight Windows GUI app">Use C language and GTK4 Msys2 to development lightweight Windows GUI app</a>
       </li>
       <li>
@@ -309,10 +327,14 @@ or <code>go get k8s.io/client-go@v0.18.2</code></li>
       <li>
         <a href="https://blog.wisekee.com/post/django-getting-stared/" class="nav-link" title="Django getting started">Django getting started</a>
       </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/text_to_image_llm/" class="nav-link" title="Open source text to image and image LLM">Open source text to image and image LLM</a>
-      </li>
     </ul>
+
+    <div class="flex-column">
+      <a href="https://amzn.to/4lwOqK7">
+        <img src="https://blog.wisekee.com/images/amazon-gift.png" alt="Coupons in Amazon" class="amz_affiliate_icon">
+        <span>Coupons in Amazon</span>
+      </a>
+    </div>
     <div>
       <h2 class="mt-4 taxonomy" id="tags-section"></h2>
       <nav class="tags_nav">
@@ -800,7 +822,7 @@ or <code>go get k8s.io/client-go@v0.18.2</code></li>
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/kvm/' class=" post_tag button button_translucent" data-position=1 title="kvm">KVM<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/kvm/' class=" post_tag button button_translucent" data-position=2 title="kvm">KVM<span class="button_tally">2</span>
             </a>
             
             
@@ -1112,7 +1134,15 @@ or <code>go get k8s.io/client-go@v0.18.2</code></li>
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/vdi/' class=" post_tag button button_translucent" data-position=1 title="vdi">VDI<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/velero/' class=" post_tag button button_translucent" data-position=1 title="velero">VELERO<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/virtual-desktop/' class=" post_tag button button_translucent" data-position=1 title="virtual-desktop">VIRTUAL-DESKTOP<span class="button_tally">1</span>
             </a>
             
             

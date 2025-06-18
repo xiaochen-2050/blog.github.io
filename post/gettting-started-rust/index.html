@@ -179,6 +179,9 @@
 
     <div class="post_body"><p>The sample is: <code>rustup doc</code> in local</p>
 <h4 id="environment-setup">Environment setup</h4>
+<ul>
+<li>Setup in *nix and macos</li>
+</ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">curl --proto <span class="s1">&#39;=https&#39;</span> --tlsv1.3 -sSf https://sh.rustup.rs <span class="p">|</span> sh
 </span></span><span class="line"><span class="ln">2</span><span class="cl">rustup component add rust-src rust-analyzer rust-analysis
 </span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"># update the rust binary</span>
@@ -188,7 +191,40 @@
 </span></span><span class="line"><span class="ln">7</span><span class="cl">
 </span></span><span class="line"><span class="ln">8</span><span class="cl">rustc -V
 </span></span><span class="line"><span class="ln">9</span><span class="cl">cargo -V
-</span></span></code></pre></div><h4 id="basic-commands">Basic commands</h4>
+</span></span></code></pre></div><ul>
+<li>Setup the <code>rustup</code> environment in windows use Mingw64-Ucrt64
+<ul>
+<li>Install the <code>Msys2</code> environment <a href="https://www.msys2.org/">Msys2</a></li>
+<li>Open the <code>Ucrt64</code> console in windows and enable the Ucrt staging <a href="/post/use-gtk-wingw64/">Enable staging</a></li>
+<li>Install the <code>rustup</code> use <code>pacman -Ss  mingw-w64-ucrt-x86_64-rustup</code></li>
+</ul>
+</li>
+<li>Select and install the compile tools and environment
+<ul>
+<li>for the gnu tools <code>rustup toolchain install stable-x86_64-pc-windows-gnu</code></li>
+<li>for the native windows <code>rustup toolchain install stable-x86_64-pc-windows-msvc</code></li>
+</ul>
+</li>
+<li>Set the default toolchain <code>rustup default stable-x86_64-pc-windows-gnu</code></li>
+</ul>
+<h3 id="debug-in-vscode-ide-use-mingw-w64-ucrt-environment">Debug in VSCode ide use mingw-w64-ucrt environment</h3>
+<ul>
+<li>Installation the extension <code>rust-analyzer</code> and <code>CodeLLDB</code>
+<ul>
+<li>CodeLLDB (vadimcn.vscode-lldb) – on macOS/Linux this include the Mingw64 or Ucrt64 environment</li>
+<li>Microsoft C++ (ms-vscode.cpptools) – on Windows</li>
+</ul>
+</li>
+<li>Create or change the <code>Cargo</code> config file in <code>C:\Users\you\.cargo\config.toml</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">[target.x86_64-pc-windows-gnu]</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="na">linker</span> <span class="o">=</span> <span class="s">&#34;D:\\msys64\\ucrt64\\bin\\gcc.exe&#34;</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="na">ar</span> <span class="o">=</span> <span class="s">&#34;D:\\msys64\\ucrt64\\bin\\ar.exe&#34;</span>
+</span></span></code></pre></div><ul>
+<li>If the <code>rust-analyzer</code> can&rsquo;t launch the <code>lldb.dll</code>, may be can disalbe the <code>CodeLLDB</code> extesion and redebug the rust program
+the <code>CodeLLDB</code> extension can&rsquo;t not working if use UCRT64 environment in windows</li>
+</ul>
+<h4 id="basic-commands">Basic commands</h4>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">rustc --version
 </span></span><span class="line"><span class="ln"> 2</span><span class="cl">cargo --version
 </span></span><span class="line"><span class="ln"> 3</span><span class="cl">
@@ -264,6 +300,8 @@
 </ul>
 <h4 id="references">References</h4>
 <ul>
+<li><a href="https://stackoverflow.com/questions/47379214/step-by-step-instruction-to-install-rust-and-cargo-for-mingw-with-msys2">setup the rustup env in windows Mingw64 or Ucrt64 environment</a></li>
+<li><a href="https://stackoverflow.com/questions/21196525/rust-installation-on-windows/68835925#68835925">rust installation on windows</a></li>
 <li><a href="https://github.com/rust-lang/rustlings">rustlings</a></li>
 <li><a href="https://google.github.io/comprehensive-rust">comprehensive-rust</a></li>
 <li><a href="https://yarr.fyi/">Yet Another Rust Resource</a></li>
@@ -316,6 +354,9 @@
     <h2 class="mt-4"></h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.wisekee.com/post/virtual-desktop-infrastructure/" class="nav-link" title="The Virtual Desktop Infrastructure solutions">The Virtual Desktop Infrastructure solutions</a>
+      </li>
+      <li>
         <a href="https://blog.wisekee.com/post/use-gtk-wingw64/" class="nav-link" title="Use C language and GTK4 Msys2 to development lightweight Windows GUI app">Use C language and GTK4 Msys2 to development lightweight Windows GUI app</a>
       </li>
       <li>
@@ -336,10 +377,14 @@
       <li>
         <a href="https://blog.wisekee.com/post/django-getting-stared/" class="nav-link" title="Django getting started">Django getting started</a>
       </li>
-      <li>
-        <a href="https://blog.wisekee.com/post/text_to_image_llm/" class="nav-link" title="Open source text to image and image LLM">Open source text to image and image LLM</a>
-      </li>
     </ul>
+
+    <div class="flex-column">
+      <a href="https://amzn.to/4lwOqK7">
+        <img src="https://blog.wisekee.com/images/amazon-gift.png" alt="Coupons in Amazon" class="amz_affiliate_icon">
+        <span>Coupons in Amazon</span>
+      </a>
+    </div>
     <div>
       <h2 class="mt-4 taxonomy" id="tags-section"></h2>
       <nav class="tags_nav">
@@ -827,7 +872,7 @@
             </a>
             
             
-            <a href='https://blog.wisekee.com/tags/kvm/' class=" post_tag button button_translucent" data-position=1 title="kvm">KVM<span class="button_tally">1</span>
+            <a href='https://blog.wisekee.com/tags/kvm/' class=" post_tag button button_translucent" data-position=2 title="kvm">KVM<span class="button_tally">2</span>
             </a>
             
             
@@ -1139,7 +1184,15 @@
             </a>
             
             
+            <a href='https://blog.wisekee.com/tags/vdi/' class=" post_tag button button_translucent" data-position=1 title="vdi">VDI<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.wisekee.com/tags/velero/' class=" post_tag button button_translucent" data-position=1 title="velero">VELERO<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.wisekee.com/tags/virtual-desktop/' class=" post_tag button button_translucent" data-position=1 title="virtual-desktop">VIRTUAL-DESKTOP<span class="button_tally">1</span>
             </a>
             
             
